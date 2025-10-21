@@ -1665,7 +1665,7 @@ This definition captures the standard way of consuming a list by repeatedly appl
 
 ### Mutual recursion
 
-Even though the `fold` expression syntax is applicable to a wide range of algorithms, there are cases where it falls short. Let’s take another look at the JSON data type concocted earlier:
+Even though the `fold` expression syntax is applicable to a wide range of algorithms, there are cases where it falls short. Let’s take another look at the JSON data type devised earlier:
 
 ```
   type JsonValue
