@@ -26,10 +26,18 @@ $$
 F(X) = 1 + (t \times X)
 $$
 
-In this equation:
+In code, this can be expressed as:
 
-- $1$ corresponds to `Nil`,
-- $(t × X)$ corresponds to `Cons(t, X)`.
+```
+type ListF<t, a> 
+  = NilF
+  | ConsF(t, a)
+```
+
+In the above equation:
+
+- $1$ corresponds to `NilF`,
+- $(t × X)$ corresponds to `ConsF(t, a)`.
 
 The actual recursive type is the [fixed point](https://en.wikipedia.org/wiki/Fixed_point_(mathematics)) of this functor:
 
@@ -49,7 +57,7 @@ In other words, a disjoint union is the categorical dual of a product.
 
 ## Algebras and folds
 
-An *algebra* for a functor $F$ is a type $A$ (the *carrier*) together with a function $F(A) \rightarrow A$. This function, called the *structure map*, is what the pattern matching clauses (along with the `@`-pattern syntax) in `fold` expressions describe:
+An *algebra* for a functor $F$ is a type $A$ (the *carrier*) together with a function $F(A) \rightarrow A$. This function is called the *structure map* and it is precisely what the pattern matching clauses (along with the `@`-pattern syntax) in `fold` expressions describe:
 
 ```
 fold(xs) {
