@@ -10,6 +10,7 @@ nav:
   - Home: index.md
   - Getting started: getting-started.md
   - Language manual: language-manual.md
+  - Data and codata: data-and-codata.md
 markdown_extensions:
   - admonition
   - pymdownx.details
