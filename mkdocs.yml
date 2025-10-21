@@ -4,7 +4,13 @@ theme:
   name: material
   palette:
     primary: black
+  custom_dir: overrides
+  logo: assets/logo.svg
 nav:
   - Home: index.md
   - Getting started: getting-started.md
   - Language manual: language-manual.md
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences

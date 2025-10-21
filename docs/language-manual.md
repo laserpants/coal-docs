@@ -1185,9 +1185,7 @@ let language = { name = "Java", paradigm = "OOP" }
 
 #### Extending records
 
-Records in Coal are *extensible*, meaning that new fields can be added to a record at run time.
-
-For example:
+Records in Coal are *extensible*, meaning that new fields can be added to a record at run time. For example:
 
 ```
 fun tagged(rec, t : string) = { tag = t | rec }  
