@@ -8,6 +8,8 @@ Coal is a declarative, statically typed, purely functional programming language 
 
 Coal’s type system, like Haskell’s and ML’s, supports type inference and parametric polymorphism, drawing on the System-F lambda calculus. The Coal compiler is implemented in Haskell and targets LLVM for code generation.
 
+This project is licensed under the terms of the MIT license. The source code is hosted at [codeberg.org/laserpants/coal](https://codeberg.org/laserpants/coal).
+
 ## Rethinking recursion
 
 As a [total](https://en.wikipedia.org/wiki/Total_functional_programming) language, Coal takes a different approach to recursion, following the motto that "[recursion is the `goto` of functional programming](https://www.semanticscholar.org/paper/Functional-Programming-with-Bananas%2C-Lenses%2C-and-Meijer-Fokkinga/5db3c6793c07285bf0f5e95fe5a25f53e7488051)." To guarantee that programs are provably terminating, recursion is only available in a restricted form, known as *structural recursion*. Under this regime, each recursive call operates on a strictly smaller part of some finite data structure, progressing toward a base case. 
