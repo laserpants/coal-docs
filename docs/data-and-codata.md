@@ -23,7 +23,7 @@ type List<t>
 The *pattern functor* for a data type abstracts recursion by isolating one layer of the data structure, leaving the recursive portion as a parameter. For `List`, the corresponding pattern functor $F$ is:
 
 $$
-F(X) = 1 + (t \times X)
+F(X) = \mathsf{1} + (t \times X)
 $$
 
 In code, this can be expressed as:
@@ -36,7 +36,7 @@ type ListF<t, a>
 
 In the above equation:
 
-- $1$ corresponds to `NilF`,
+- $\mathsf{1}$ corresponds to `NilF`,
 - $(t × X)$ corresponds to `ConsF(t, a)`.
 
 The actual recursive type is the [fixed point](https://en.wikipedia.org/wiki/Fixed_point_(mathematics)) of this functor:
