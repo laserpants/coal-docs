@@ -516,7 +516,7 @@ Just like with let-bindings, the arguments in a lambda-function are patterns:
 |               | Description            | Arity      | Type                   |                                                                         
 | ------------- | ---------------------- | ---------- | ---------------------- |                                                                        
 | `&&`          | AND                    | 2          | `bool -> bool -> bool` |                                                                        
-| `\|\|`        | OR                     | 2          | `bool -> bool -> bool` |                                                                        
+| `||`          | OR                     | 2          | `bool -> bool -> bool` |                                                                        
 | `!`           | NOT                    | 1          | `bool -> bool`         |                                                                        
 
 #### Data
@@ -582,7 +582,7 @@ There are two types of comments:
 
 ### Natural numbers
 
-Recursion in Coal is closely tied to pattern matching: we peel off layers of a recursive data structure step by step, until reaching its base case. This works naturally with lists, trees, and other algebraic data types. Ordinary machine integers (`int32`, `int64`), however, cannot be pattern matched on in such a manner. Nevertheless, we often want to use numbers in recursive computations &mdash; for example, when repeating an action, or simulating the behavior of loops in imperative languages. To describe numbers in a way compatible with recursion, we find some inspiration from the standard axiomatization of the natural numbers:
+Recursion in Coal is closely tied to pattern matching: we peel off layers of a recursively defined data structure step by step, until reaching its base case. This works naturally with lists, trees, and other algebraic data types. Ordinary machine integers (`int32`, `int64`), however, cannot be pattern matched on in such a manner. Nevertheless, we often want to use numbers in recursive computations &mdash; for example, when repeating an action, or simulating the behavior of loops in imperative languages. To describe numbers in a way compatible with recursion, we find some inspiration from the standard axiomatization of the natural numbers:
 
 > Every natural number is either zero or the successor of another natural number.
 
