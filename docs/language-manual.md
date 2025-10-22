@@ -400,24 +400,26 @@ let (x, y) = (1, 2) in x + y
 let { tidbits = { f = a | _ } } = compute(4)
 ```
 
-> ### A note about let-generalization
->
-> In some sense, a let-binding is interchangeable with a lambda function. For example, writing `let x = 1 in increment(x)` yields the same result as `(fn(x) => increment(x))(1)`.
-> But besides being more readable, the let-binding also serves another purpose; in [Hindley-Milner](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system) languages, it is let-bindings that introduce polymorphism. Consider the following expression, which doesn’t type check:
-> 
-> ```
->   (fn(f) => (f(3 : int32), f("three")))(fn(x) => x)
-> ```
-> 
-> In this example, the type of `f` is monomorphic. The type inference algorithm will try to determine its type but fail to unify `int32 -> int32` with `string -> string`.
-> If we instead bind the anonymous function to a new identifier, then its type is *generalized* and obtains the quantified type `∀a : a -> a` (known as a *type scheme*).
-> We can now apply this function to both elements of the tuple, even though they have different types:
-> 
-> ```
->   let id = fn(x) => x 
->     in 
->       (id(3 : int32), id("three"))
-> ```
+!!! note
+
+    ### A note about let-generalization
+
+    In some sense, a let-binding is interchangeable with a lambda function. For example, writing `let x = 1 in increment(x)` yields the same result as `(fn(x) => increment(x))(1)`.
+    But besides being more readable, the let-binding also serves another purpose; in [Hindley-Milner](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system) languages, it is let-bindings that introduce polymorphism. Consider the following expression, which doesn’t type check:
+
+    ```
+      (fn(f) => (f(3 : int32), f("three")))(fn(x) => x)
+    ```
+
+    In this example, the type of `f` is monomorphic. The type inference algorithm will try to determine its type but fail to unify `int32 -> int32` with `string -> string`.
+    If we instead bind the anonymous function to a new identifier, then its type is *generalized* and obtains the quantified type `∀a : a -> a` (known as a *type scheme*).
+    We can now apply this function to both elements of the tuple, even though they have different types:
+
+    ```
+      let id = fn(x) => x 
+        in 
+          (id(3 : int32), id("three"))
+    ```
 
 #### Name binding semantics
 
@@ -748,35 +750,37 @@ tail : List<a> -> Option<List<a>>
 uncons : List<a> -> Option<(a, List<a>)>
 ```
 
-> ### Function pipelining
-> 
-> The operator `|.` is used in the following examples. It is an infix operator that performs function application, but with the arguments reversed. So, for example, the expression 
-> ```
->   xs |.map(f)
-> ```
-> is really syntactic sugar for `map(f, xs)`. This operator is very convenient when chaining together multiple function calls. Suppose we have the following basic drawing API:
->
-> ```
-> circle       : Config -> Shape
-> fill         : string -> Shape -> Shape
-> set_position : float -> float -> Shape -> Shape
-> draw_shape   : Shape -> Canvas -> Canvas
-> ```
-> 
-> To describe a sequence of steps that creates a circle, sets properties such as its color and position, and finally places it on the canvas, we would normally write:
->
-> ```
-> draw_shape(set_position(10, 5, fill("blue", circle({ radius = 5.0 }))), canvas)
-> ```
->
-> Using the reverse function application operator (and the associated `$.`-operator), we could instead write the above in a more readable *pipeline*-style:
->
-> ```
-> circle({ radius = 5.0 })
->   |.fill("blue")
->   |.set_position(10.0, 5.0)
->   $.draw_shape(canvas)
-> ```
+!!! note
+
+    ### Function pipelining
+
+    The operator `|.` is used in the following examples. It is an infix operator that performs function application, but with the arguments reversed. So, for example, the expression 
+    ```
+      xs |.map(f)
+    ```
+    is really syntactic sugar for `map(f, xs)`. This operator is very convenient when chaining together multiple function calls. Suppose we have the following basic drawing API:
+
+    ```
+    circle       : Config -> Shape
+    fill         : string -> Shape -> Shape
+    set_position : float -> float -> Shape -> Shape
+    draw_shape   : Shape -> Canvas -> Canvas
+    ```
+
+    To describe a sequence of steps that creates a circle, sets properties such as its color and position, and finally places it on the canvas, we would normally write:
+
+    ```
+    draw_shape(set_position(10, 5, fill("blue", circle({ radius = 5.0 }))), canvas)
+    ```
+
+    Using the reverse function application operator (and the associated `$.`-operator), we could instead write the above in a more readable *pipeline*-style:
+
+    ```
+    circle({ radius = 5.0 })
+      |.fill("blue")
+      |.set_position(10.0, 5.0)
+      $.draw_shape(canvas)
+    ```
 
 ##### Take, drop and slice
 
@@ -866,44 +870,46 @@ The type of `map` is:
 map : (a -> b) -> List<a> -> List<b>
 ```
 
-> ### Mapping and `Functor`s
->
-> The actual type of `map` is more general than the specialized `List` version above. In fact, any value of type `f<a>` can be mapped over, as long as `f` implements the `Functor` [trait](#traits):
->
-> ```
-> map : (a -> b) -> f<a> -> f<b> with Functor<f>
-> ```
->
-> We can think of this more abstractly as **"transforming values inside a fixed context**." In mathematical terms, this corresponds to a structure-preserving map, also known as a *homomorphism*. 
-> Homomorphisms are the topic of study in category theory. It is also in category theory that we find the origin of functors. A functor, in this context, is a mapping between categories &mdash; one that sends objects and morphisms from one category to another (subject to certain laws). 
-> 
-> There are two ways to interpret `map`; we can think of it as a function that applies the function argument to a value of type `a`, in the `f`-context, which could be a list of values, or an optional. The other is that `map` takes some function `a -> b` and *lifts* it into one that acts on `f`-values &mdash; that is, one of type `f<a> -> f<b>`. This second interpretation is more in line with the definition of a functor in category theory. In programming languages, objects correspond to types, and morphisms are simply functions. We then have:
->
-> ```
-> a           ==>  f<a>                         // The functor transforms objects
-> z : a -> b  ==>  map(z) : f<a> -> f<b>        // and functions
-> ```
-> 
-> Functors are expected to obey the following two laws:
->
-> #### 1. Identity law
->
-> ```
-> map(id) == id
-> ```
->
-> This says that mapping the identity function over a functor doesn’t change the structure or its contents. 
->
-> #### 2. Composition law
->
-> ```
-> map(f << g) == map(f) << map(g)     // The operator `<<` denotes function composition, so `f << g = f(g(x)))`.
-> ```
->
-> This law ensures that mapping the composition of two functions is the same as first mapping one function and then the other. In other words, functors preserve function composition. 
->
-> Together, these laws guarantee that mapping behaves consistently: the shape of the container is unchanged, and each element inside the context is transformed individually, and in the same way as if the function were applied directly to that element. These laws aren’t enforced by the compiler, but following them is always a good idea. 
-> 
+!!! note
+
+    ### Mapping and `Functor`s
+
+    The actual type of `map` is more general than the specialized `List` version above. In fact, any value of type `f<a>` can be mapped over, as long as `f` implements the `Functor` [trait](#traits):
+
+    ```
+    map : (a -> b) -> f<a> -> f<b> with Functor<f>
+    ```
+
+    We can think of this more abstractly as **"transforming values inside a fixed context**." In mathematical terms, this corresponds to a structure-preserving map, also known as a *homomorphism*. 
+    Homomorphisms are the topic of study in category theory. It is also in category theory that we find the origin of functors. A functor, in this context, is a mapping between categories &mdash; one that sends objects and morphisms from one category to another (subject to certain laws). 
+
+    There are two ways to interpret `map`; we can think of it as a function that applies the function argument to a value of type `a`, in the `f`-context, which could be a list of values, or an optional. The other is that `map` takes some function `a -> b` and *lifts* it into one that acts on `f`-values &mdash; that is, one of type `f<a> -> f<b>`. This second interpretation is more in line with the definition of a functor in category theory. In programming languages, objects correspond to types, and morphisms are simply functions. We then have:
+
+    ```
+    a           ==>  f<a>                         // The functor transforms objects
+    z : a -> b  ==>  map(z) : f<a> -> f<b>        // and functions
+    ```
+
+    Functors are expected to obey the following two laws:
+
+    #### 1. Identity law
+
+    ```
+    map(id) == id
+    ```
+
+    This says that mapping the identity function over a functor doesn’t change the structure or its contents. 
+
+    #### 2. Composition law
+
+    ```
+    map(f << g) == map(f) << map(g)     // The operator `<<` denotes function composition, so `f << g = f(g(x)))`.
+    ```
+
+    This law ensures that mapping the composition of two functions is the same as first mapping one function and then the other. In other words, functors preserve function composition. 
+
+    Together, these laws guarantee that mapping behaves consistently: the shape of the container is unchanged, and each element inside the context is transformed individually, and in the same way as if the function were applied directly to that element. These laws aren’t enforced by the compiler, but following them is always a good idea. 
+
 
 <!--
 > #### List
@@ -1663,13 +1669,15 @@ Folds can express a wide range of recursive computations over algebraic data typ
 
 This definition captures the standard way of consuming a list by repeatedly applying a function (`f`) to its elements and an accumulator. The recursive descent through the list happens implicitly — the programmer specifies only what to do at each layer.
 
-> Instead of dealing with recursive computations directly, it is often easier and safer to build on existing combinators and higher-order functions. For example, we can express the factorial function in the following way:
-> 
-> ```
-> let factorial = product << enum_to  // product of numbers 1, 2, ..., n
-> ```
-> 
-> Here, `enum_to` generates the list `[1, 2, ..., n]`, and `product` multiplies its elements.
+!!! note
+
+    Instead of dealing with recursive computations directly, it is often easier and safer to build on existing combinators and higher-order functions. For example, we can express the factorial function in the following way:
+
+    ```
+    let factorial = product << enum_to  // product of numbers 1, 2, ..., n
+    ```
+
+    Here, `enum_to` generates the list `[1, 2, ..., n]`, and `product` multiplies its elements.
 
 ### Mutual recursion
 
