@@ -2414,7 +2414,8 @@ let (x, y) = (1, 2) in x + y
 -- Matching nested records
 let { tidbits = { f = a | _ } } = compute(4)
 </code></pre></div>
-<blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <h3 id="a-note-about-let-generalization">A note about let-generalization</h3>
 <p>In some sense, a let-binding is interchangeable with a lambda function. For example, writing <code>let x = 1 in increment(x)</code> yields the same result as <code>(fn(x) =&gt; increment(x))(1)</code>.
 But besides being more readable, the let-binding also serves another purpose; in <a href="https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system">Hindley-Milner</a> languages, it is let-bindings that introduce polymorphism. Consider the following expression, which doesn’t type check:</p>
@@ -2427,7 +2428,7 @@ We can now apply this function to both elements of the tuple, even though they h
     in 
       (id(3 : int32), id(&quot;three&quot;))
 </code></pre></div>
-</blockquote>
+</div>
 <h4 id="name-binding-semantics">Name binding semantics</h4>
 <p>A subtle but important detail that makes let-bindings in Coal different from those in most other languages is that the identifier introduced by a <code>let</code> is <strong>not in scope within the definition itself</strong>. In other words, <code>let x = e1 in e2</code> makes <code>x</code> available in <code>e2</code>, but not in <code>e1</code>. In the ML-family of languages (e.g. OCaml), this is also the case for the standard <code>let</code> keyword. However, in these languages, a special <code>let rec</code> syntax makes it possible to evade this restriction. Coal doesn’t have an equivalent to <code>let rec</code>.
 This prevents non-well-founded expressions, such as <code>let f = f in f</code>, but more generally, makes it impossible for any function to refer to itself. 
@@ -2828,7 +2829,8 @@ unpack : nat -&gt; int32
 tail : List&lt;a&gt; -&gt; Option&lt;List&lt;a&gt;&gt;
 uncons : List&lt;a&gt; -&gt; Option&lt;(a, List&lt;a&gt;)&gt;
 </code></pre></div>
-<blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <h3 id="function-pipelining">Function pipelining</h3>
 <p>The operator <code>|.</code> is used in the following examples. It is an infix operator that performs function application, but with the arguments reversed. So, for example, the expression 
 <div class="highlight"><pre><span></span><code>  xs |.map(f)
@@ -2848,7 +2850,7 @@ draw_shape   : Shape -&gt; Canvas -&gt; Canvas
   |.set_position(10.0, 5.0)
   $.draw_shape(canvas)
 </code></pre></div>
-</blockquote>
+</div>
 <h5 id="take-drop-and-slice">Take, drop and slice</h5>
 <p>Use <code>take</code> to get another list with the first <em>n</em> elements from a given list:</p>
 <div class="highlight"><pre><span></span><code>take : nat -&gt; List&lt;a&gt; -&gt; List&lt;a&gt;
@@ -2899,7 +2901,8 @@ TODO
 <p>The type of <code>map</code> is:</p>
 <div class="highlight"><pre><span></span><code>map : (a -&gt; b) -&gt; List&lt;a&gt; -&gt; List&lt;b&gt;
 </code></pre></div>
-<blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <h3 id="mapping-and-functors">Mapping and <code>Functor</code>s</h3>
 <p>The actual type of <code>map</code> is more general than the specialized <code>List</code> version above. In fact, any value of type <code>f&lt;a&gt;</code> can be mapped over, as long as <code>f</code> implements the <code>Functor</code> <a href="#traits">trait</a>:</p>
 <div class="highlight"><pre><span></span><code>map : (a -&gt; b) -&gt; f&lt;a&gt; -&gt; f&lt;b&gt; with Functor&lt;f&gt;
@@ -2919,9 +2922,8 @@ z : a -&gt; b  ==&gt;  map(z) : f&lt;a&gt; -&gt; f&lt;b&gt;        // and functi
 <div class="highlight"><pre><span></span><code>map(f &lt;&lt; g) == map(f) &lt;&lt; map(g)     // The operator `&lt;&lt;` denotes function composition, so `f &lt;&lt; g = f(g(x)))`.
 </code></pre></div>
 <p>This law ensures that mapping the composition of two functions is the same as first mapping one function and then the other. In other words, functors preserve function composition. </p>
-<p>Together, these laws guarantee that mapping behaves consistently: the shape of the container is unchanged, and each element inside the context is transformed individually, and in the same way as if the function were applied directly to that element. These laws aren’t enforced by the compiler, but following them is always a good idea. 
-</p>
-</blockquote>
+<p>Together, these laws guarantee that mapping behaves consistently: the shape of the container is unchanged, and each element inside the context is transformed individually, and in the same way as if the function were applied directly to that element. These laws aren’t enforced by the compiler, but following them is always a good idea. </p>
+</div>
 <!--
 > #### List
 >
@@ -3473,12 +3475,13 @@ Name not in scope: factorial
     }
 </code></pre></div>
 <p>This definition captures the standard way of consuming a list by repeatedly applying a function (<code>f</code>) to its elements and an accumulator. The recursive descent through the list happens implicitly — the programmer specifies only what to do at each layer.</p>
-<blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Instead of dealing with recursive computations directly, it is often easier and safer to build on existing combinators and higher-order functions. For example, we can express the factorial function in the following way:</p>
 <div class="highlight"><pre><span></span><code>let factorial = product &lt;&lt; enum_to  // product of numbers 1, 2, ..., n
 </code></pre></div>
 <p>Here, <code>enum_to</code> generates the list <code>[1, 2, ..., n]</code>, and <code>product</code> multiplies its elements.</p>
-</blockquote>
+</div>
 <h3 id="mutual-recursion">Mutual recursion</h3>
 <p>Even though the <code>fold</code> expression syntax is applicable to a wide range of algorithms, there are cases where it falls short. Let’s take another look at the JSON data type devised earlier:</p>
 <div class="highlight"><pre><span></span><code>  type JsonValue
