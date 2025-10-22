@@ -1,0 +1,3727 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mydomain.org/mysite/language-manual/">
+      
+      
+        <link rel="prev" href="../getting-started/">
+      
+      
+        <link rel="next" href="../data-and-codata/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Language manual - Coal</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#language-manual" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Coal" class="md-header__button md-logo" aria-label="Coal" data-md-component="logo">
+      
+  <img src="../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Coal
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Language manual
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Coal" class="md-nav__button md-logo" aria-label="Coal" data-md-component="logo">
+      
+  <img src="../assets/logo.svg" alt="logo">
+
+    </a>
+    Coal
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Language manual
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Language manual
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exports
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#top-level-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Top-level definitions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Top-level definitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#let-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let-expressions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-language-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Built-in language primitives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expression-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expression syntax
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Expression syntax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#naming-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Naming rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reserved-keywords" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reserved keywords
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shadowing-considered-harmful" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shadowing considered harmful
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literal-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Literal expressions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Literal expressions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integral-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integral types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-then-else" class="md-nav__link">
+    <span class="md-ellipsis">
+      If-then-else
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#let-bindings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let-bindings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-note-about-let-generalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      A note about let-generalization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A note about let-generalization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name-binding-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Name binding semantics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lambda-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lambda expressions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operators
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arithmetic-and-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arithmetic and comparison
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logical" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logical
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-composition-and-pipelining" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function composition and pipelining
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      List operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string-manipulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      String manipulation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#natural-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Natural numbers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unit
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-pairs-of-parentheses-for-the-price-of-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two pairs of parentheses for the price of one
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    <span class="md-ellipsis">
+      List
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-list-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common list operations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common list operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#head-tail-and-uncons" class="md-nav__link">
+    <span class="md-ellipsis">
+      Head, tail, and uncons
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-pipelining" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function pipelining
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Function pipelining">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#take-drop-and-slice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Take, drop and slice
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-concatenation" class="md-nav__link">
+    <span class="md-ellipsis">
+      List concatenation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-higher-order-list-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful higher-order list functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Useful higher-order list functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mapping-over-a-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping over a list
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-and-functors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping and Functors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mapping and Functors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-identity-law" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Identity law
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-composition-law" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Composition law
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Composition law">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filtering-a-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filtering a list
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reducing-a-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reducing a list
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples-of-using-reduce" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples of using reduce
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-predicates" class="md-nav__link">
+    <span class="md-ellipsis">
+      List predicates
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="List predicates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#is_empty" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_empty
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_nonempty" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_nonempty
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_singleton" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_singleton
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tuples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tuples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tuples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tuples-and-currying" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tuples and currying
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Records
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Records">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#field-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      Field access
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extending-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extending records
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-and-closed-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open and closed records
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-matching-over-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern matching over records
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deconstructing-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deconstructing records
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-a-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating a field
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pattern-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern matching
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pattern matching">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#totality-requirement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Totality requirement
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wildcard-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wildcard patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lambda-match" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lambda match
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Traits
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Traits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#higher-kinded-traits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Higher-kinded traits
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trait-inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trait inheritance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursion-corecursion-and-codata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recursion, corecursion, and codata
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recursion, corecursion, and codata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fold-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fold syntax
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fold syntax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#well-foundedness" class="md-nav__link">
+    <span class="md-ellipsis">
+      Well-foundedness
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beyond-the-factorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beyond the factorial
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutual-recursion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutual recursion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mutual recursion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-level-folds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Top-level folds
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#codata-and-unfold" class="md-nav__link">
+    <span class="md-ellipsis">
+      Codata and unfold
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Codata and unfold">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-on-demand" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data on demand
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-basic-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      A basic counter
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-and-codata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data and codata
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exports
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#top-level-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Top-level definitions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Top-level definitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#main" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#let-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let-expressions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-language-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Built-in language primitives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expression-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expression syntax
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Expression syntax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#naming-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Naming rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reserved-keywords" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reserved keywords
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shadowing-considered-harmful" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shadowing considered harmful
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literal-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Literal expressions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Literal expressions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integral-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integral types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-then-else" class="md-nav__link">
+    <span class="md-ellipsis">
+      If-then-else
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#let-bindings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let-bindings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-note-about-let-generalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      A note about let-generalization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A note about let-generalization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name-binding-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Name binding semantics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lambda-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lambda expressions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operators
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arithmetic-and-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arithmetic and comparison
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logical" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logical
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-composition-and-pipelining" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function composition and pipelining
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      List operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string-manipulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      String manipulation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#natural-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Natural numbers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unit
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-pairs-of-parentheses-for-the-price-of-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two pairs of parentheses for the price of one
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    <span class="md-ellipsis">
+      List
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-list-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common list operations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common list operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#head-tail-and-uncons" class="md-nav__link">
+    <span class="md-ellipsis">
+      Head, tail, and uncons
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-pipelining" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function pipelining
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Function pipelining">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#take-drop-and-slice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Take, drop and slice
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-concatenation" class="md-nav__link">
+    <span class="md-ellipsis">
+      List concatenation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-higher-order-list-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful higher-order list functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Useful higher-order list functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mapping-over-a-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping over a list
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-and-functors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapping and Functors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mapping and Functors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-identity-law" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Identity law
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-composition-law" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Composition law
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Composition law">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filtering-a-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filtering a list
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reducing-a-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reducing a list
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples-of-using-reduce" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples of using reduce
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-predicates" class="md-nav__link">
+    <span class="md-ellipsis">
+      List predicates
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="List predicates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#is_empty" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_empty
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_nonempty" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_nonempty
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_singleton" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_singleton
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tuples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tuples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tuples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tuples-and-currying" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tuples and currying
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Records
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Records">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#field-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      Field access
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extending-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extending records
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-and-closed-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open and closed records
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-matching-over-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern matching over records
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deconstructing-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deconstructing records
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-a-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating a field
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pattern-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern matching
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pattern matching">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#totality-requirement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Totality requirement
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wildcard-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wildcard patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lambda-match" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lambda match
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Traits
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Traits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#higher-kinded-traits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Higher-kinded traits
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trait-inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trait inheritance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursion-corecursion-and-codata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recursion, corecursion, and codata
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recursion, corecursion, and codata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fold-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fold syntax
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fold syntax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#well-foundedness" class="md-nav__link">
+    <span class="md-ellipsis">
+      Well-foundedness
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beyond-the-factorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beyond the factorial
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutual-recursion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutual recursion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mutual recursion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-level-folds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Top-level folds
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#codata-and-unfold" class="md-nav__link">
+    <span class="md-ellipsis">
+      Codata and unfold
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Codata and unfold">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-on-demand" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data on demand
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-basic-counter" class="md-nav__link">
+    <span class="md-ellipsis">
+      A basic counter
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="language-manual">Language manual</h1>
+<h2 id="modules">Modules</h2>
+<p>Projects in Coal are organized as collections of <em>modules</em>. Modules provide a way to group related functionality into distinct <a href="https://en.wikipedia.org/wiki/Namespace">namespaces</a>. A module can contain functions, type definitions, traits, and other language constructs, typically focused on a specific purpose within a library or application.</p>
+<div class="highlight"><pre><span></span><code>module &lt;path&gt;(&lt;export_list&gt;) {
+  &lt;definition&gt;
+  &lt;definition&gt;
+  ...
+}
+</code></pre></div>
+<p>Every module is uniquely identified by its <em>path</em>. </p>
+<ul>
+<li>A module’s path mirrors the directory structure of the source file in which it is defined. </li>
+<li>Path segments begin with an uppercase letter and are separated by a dot (<code>.</code>). </li>
+<li>Files have a <code>.coal</code> extension. </li>
+</ul>
+<p>A module <code>Utils.Math.Trigonometry</code>, for instance, is defined in a file named <code>Trigonometry.coal</code>, located under <code>Utils/Math/</code> relative to your project’s root directory:</p>
+<div class="highlight"><pre><span></span><code>src
+└── Utils
+    └── Math
+        └── Trigonometry.coal
+</code></pre></div>
+<h3 id="imports">Imports</h3>
+<p>An <code>import</code> statement is used to bring in functions and other definitions from other modules. These must appear at the beginning of a module, preceding any other code.</p>
+<div class="highlight"><pre><span></span><code>import List(concat, head, tail)
+</code></pre></div>
+<p>The special <code>namespace</code> keyword allows you to import and access all functions, types, and other definitions from a module via their <em>qualified</em> names. A qualified name is formed by prefixing the name with the path of the module:</p>
+<div class="highlight"><pre><span></span><code>// Import the List module under its namespace
+import namespace List
+
+  // And use it like this:
+  let zs = List.concat(xs, ys)
+</code></pre></div>
+<h3 id="exports">Exports</h3>
+<p>In a module declaration, the path identifier is followed by an optional list of exported names enclosed in parentheses. Only exported names are visible outside the module (or <em>public</em> in OOP terminology).</p>
+<div class="highlight"><pre><span></span><code>module Utils.Math.Trigonometry(sin, cos, tan) {
+  // ...
+</code></pre></div>
+<p>If this list is left out, everything in the module is exported.</p>
+<h2 id="top-level-definitions">Top-level definitions</h2>
+<p>Definitions that occupy the outermost scope of a module are functions, top-level let-expressions, data and codata type definitions, traits, trait instances, folds, and unfolds.</p>
+<h3 id="functions">Functions</h3>
+<p>A function is defined with the <code>fun</code> keyword, followed by the function’s name and a list of comma-separated arguments enclosed in parentheses. The function body is simply an expression, which comes after the arguments and is preceded by an equals sign:</p>
+<div class="highlight"><pre><span></span><code>  fun &lt;name&gt;(&lt;arg_1&gt;, &lt;arg_2&gt;, ..., &lt;arg_n&gt;) =
+    &lt;expr&gt;
+</code></pre></div>
+<p>Function parameters are <em>patterns</em>, allowing functions to directly deconstruct their arguments. In addition to basic variables, records, tuples, and other data constructors, patterns can also include wildcards, literals, and nested structures. See <strong><a href="#pattern-matching">Pattern matching</a></strong> for a list of available patterns.</p>
+<div class="highlight"><pre><span></span><code>  fun grok({ n : int32 }, (fst, snd), _) =
+    ...
+</code></pre></div>
+<p>A type annotion can be given to indicate a function’s return type, as in the following example:</p>
+<div class="highlight"><pre><span></span><code>  fun is_even(n : int32) : bool =
+    n % 2 == 0
+</code></pre></div>
+<h4 id="main">Main</h4>
+<p>Just like in many other programming languages, the <code>main</code> function serves as the entry point of a program:</p>
+<div class="highlight"><pre><span></span><code>module Main {
+
+  fun main() =
+    ...
+</code></pre></div>
+<h3 id="let-expressions">Let-expressions</h3>
+<p>The <code>let</code> keyword introduces a new name bound to the result of an expression. Inside functions, a <code>let</code> is often used to give names to intermediate values:</p>
+<div class="highlight"><pre><span></span><code>  fun hypotenuse(a, b) =
+    let sqr_a = a * a;
+        sqr_b = b * b
+    in 
+      sqrt(sqr_a + sqr_b)
+</code></pre></div>
+<p>Here, <code>sqr_a</code> and <code>sqr_b</code> are local bindings, only visible in the body that follows the <code>in</code>.</p>
+<p>At the top level of a module, a <code>let</code> works in the same way, except there is no enclosing body — the binding simply introduces a global name that can be referenced elsewhere in the module (or from other modules):</p>
+<div class="highlight"><pre><span></span><code>  let days = 
+    [ &quot;Monday&quot;
+    , &quot;Tuesday&quot;
+    , &quot;Wednesday&quot;
+    , &quot;Thursday&quot;
+    , &quot;Friday&quot;
+    , &quot;Saturday&quot;
+    , &quot;Sunday&quot; 
+    ]
+</code></pre></div>
+<p>Type annotations for let-bindings look similar to those for functions:</p>
+<div class="highlight"><pre><span></span><code>  let days : List&lt;string&gt; =
+    [ &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;, &quot;Sunday&quot; ]
+</code></pre></div>
+<p>Since a <code>let</code> can hold any expression, top-level functions can also be defined this way:</p>
+<div class="highlight"><pre><span></span><code>  let add = fn(x, y) =&gt; x + y
+  // Equivalent to:
+  // fun add(x, y) = x + y
+</code></pre></div>
+<h3 id="data-types">Data types</h3>
+<p>User-defined data types in Coal are introduced using the <code>type</code> keyword. They are of the product-sum variety.</p>
+<p>A <em>product</em> type combines multiple fields into one single value: All of the components appear together in the constructed data. An RGB color triplet that contains individual red, green, and blue values can be described with a type:</p>
+<div class="highlight"><pre><span></span><code>type Color = Rgb(int8, int8, int8)
+</code></pre></div>
+<p>A <em>sum</em> type is a choice between alternatives: A value belongs to exactly one of the specified variants. A type that represents a shape that can be either a <code>Circle</code> or a <code>Rectangle</code> can be defined as:</p>
+<div class="highlight"><pre><span></span><code>type Shape = Circle | Rectangle
+</code></pre></div>
+<p>More complex types can be built by combining product and sum constructors. The following is a type that defines a binary tree, parameterized by the type (<code>a</code>) of its nodes:</p>
+<div class="highlight"><pre><span></span><code>type Tree&lt;a&gt; 
+  = Leaf
+  | Node(a, Tree&lt;a&gt;, Tree&lt;a&gt;)
+</code></pre></div>
+<p>This definition says that a <code>Tree&lt;a&gt;</code> is either:</p>
+<ul>
+<li>a <code>Leaf</code> (the empty tree), or</li>
+<li>a <code>Node</code> containing a value of type <code>a</code> along with two sub-trees (the left and right branches).</li>
+</ul>
+<p>Using this type, we can represent any finite binary tree. For example, here is a tree of integers:</p>
+<div class="highlight"><pre><span></span><code>//          (4)
+//          / \
+//       ---------
+//       /       \
+//     (2)       (6)
+//    -----     -----
+//    /   \     /   \ 
+//  (1)   (3) (5)   (7)  
+
+let tree_of_gondor = 
+  Node 
+    ( 4
+    , Node
+        ( 2
+        , Node(1, Leaf, Leaf)
+        , Node(3, Leaf, Leaf)
+        )
+    , Node
+        ( 6
+        , Node(5, Leaf, Leaf)
+        , Node(7, Leaf, Leaf)
+        )
+    )
+</code></pre></div>
+<p>The structure of the tree is entirely determined by its constructors (<code>Leaf</code> and <code>Node</code>), which makes recursion natural. </p>
+<p>Algebraic data types are especially useful for describing language grammars and other hierarchical structures. Consider this JSON representation:</p>
+<div class="highlight"><pre><span></span><code>  type JsonValue
+    = Null
+    | Bool(bool)
+    | Number(double)
+    | String(string)
+    | Array(List&lt;JsonValue&gt;)
+    | Object(List&lt;(string, JsonValue)&gt;)
+</code></pre></div>
+<h2 id="built-in-language-primitives">Built-in language primitives</h2>
+<p>Coal provides the following built-in types:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bool</code></td>
+<td>Booleans</td>
+<td><code>true</code>, <code>false</code></td>
+</tr>
+<tr>
+<td><code>char</code></td>
+<td>A single Unicode character</td>
+<td><code>'a'</code>, <code>'b'</code>, <code>'🤖'</code>, ...</td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td>Single precision floating point numbers</td>
+<td><code>3.1519f</code></td>
+</tr>
+<tr>
+<td><code>double</code></td>
+<td>Double precision floating point numbers</td>
+<td><code>3.141592653589793</code></td>
+</tr>
+<tr>
+<td><code>int32</code></td>
+<td>32-bit integers</td>
+<td><code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, ...</td>
+</tr>
+<tr>
+<td><code>int64</code></td>
+<td>64-bit integers</td>
+<td><code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, ...</td>
+</tr>
+<tr>
+<td><code>bignum</code></td>
+<td>Arbitrary precision integers</td>
+<td><code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, ...</td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td>UTF-8 text</td>
+<td><code>"Hello, ✨ world!"</code></td>
+</tr>
+<tr>
+<td><code>unit</code></td>
+<td>Singleton type</td>
+<td><code>()</code></td>
+</tr>
+<tr>
+<td><code>void</code></td>
+<td>The uninhabited type</td>
+<td></td>
+</tr>
+<tr>
+<td><code>nat</code></td>
+<td>Natural numbers (Peano arithmetic)</td>
+<td><code>Zero</code>, <code>Succ(Zero)</code>, ...</td>
+</tr>
+</tbody>
+</table>
+<!--
+
+TODO
+
+### Booleans
+
+### Char
+
+### Float
+
+### Natural numbers
+
+-->
+
+<h2 id="expression-syntax">Expression syntax</h2>
+<p>Expressions are the core building blocks of programs. They include variables, literals, let-bindings, operators, and control structures like <code>if-then-else</code>. An expression can often be composed of other, smaller expressions. For example, a binary operator consists of two sub-expressions: its left-hand side and right-hand side operands:</p>
+<div class="highlight"><pre><span></span><code>  (+)     
+  / \     x and y are sub-expressions of the expression x + y
+ x   y
+</code></pre></div>
+<h3 id="variables">Variables</h3>
+<p>A <em>variable</em> in Coal is simply a name bound to a value. Unlike in imperative languages, it is not very meaningful to think of a variable as a “box” that represents some data store in memory. In functional programming, expressions behave more like mathematical expressions: once a variable is defined, its value never changes.</p>
+<h4 id="naming-rules">Naming rules</h4>
+<p>Variable names are subject to the following rules:</p>
+<ul>
+<li>A name can consist of letters (<code>A-Z</code>, <code>a-z</code>), digits (<code>0-9</code>), and the underscore character (<code>_</code>).</li>
+<li>The first character of a variable name must be a lowercase letter or an underscore.</li>
+<li>Variable names are case-sensitive, meaning that <code>my_VAR</code> and <code>my_var</code> refer to different variables.</li>
+<li>Variable names cannot contain spaces.</li>
+<li>Special characters other than underscores (e.g., <code>!</code>, <code>#</code>, <code>%</code>, <code>@</code>) are not permitted in variable names.</li>
+</ul>
+<h4 id="reserved-keywords">Reserved keywords</h4>
+<p>Reserved language keywords cannot be used as variable names. They are:</p>
+<div class="highlight"><pre><span></span><code>alias           float           int64           true
+as              fn              let             type
+bignum          fold            match           unfold
+bool            fun             module          unit
+char            if              nat             when
+cotype          import          or              where
+double          in              string          with
+else            instance        then
+false           int32           trait
+</code></pre></div>
+<h4 id="shadowing-considered-harmful">Shadowing considered harmful</h4>
+<p><em>Shadowing</em> occurs when a variable declared in an inner scope has the same name as a variable from an outer scope. </p>
+<div class="highlight"><pre><span></span><code>fun go(x) =
+  let x = 3 in x + 3
+</code></pre></div>
+<p>In this example, the inner <code>let</code> attempts to declare a new variable that has the same name as the function parameter, namely <code>x</code>.</p>
+<p>Because shadowing is often a source of subtle bugs, the Coal compiler treats it as an error.</p>
+<h3 id="literal-expressions">Literal expressions</h3>
+<p>A <em>literal</em> is an expression that directly represents a fixed value of one of the <a href="#built-in-language-primitives">built-in primitive types</a>, such as integers, booleans, or strings.</p>
+<h4 id="integral-types">Integral types</h4>
+<p>Integer literals introduced in code without an explicit type annotation, such as</p>
+<div class="highlight"><pre><span></span><code>let answer = 42
+</code></pre></div>
+<p>are polymorphic. The inferred type of this expression is <code>n with Numeric(n)</code>, which isn’t an ordinary type. It means that <code>n</code> can be <em>any</em> type, as long as it implements the <code>Numeric</code> trait (see <strong><a href="#traits">Traits</a></strong>). This includes the built-in <code>int32</code>, <code>int64</code>, <code>bignum</code>, and <code>nat</code> types. All <code>Numeric</code> types support the basic arithmetic operations of addition, subtraction, and multiplication.</p>
+<div class="highlight"><pre><span></span><code>fun sum_of(x, y, z) = 
+  x + y + z 
+
+let n : int32 = sum(1, 2, 3)
+let d : double = sum(0.5, 1.0, 1.5)
+</code></pre></div>
+<!--
+<div class="highlight"><pre><span></span><code>  // 
+
+  type Complex = Complex(double, double)
+
+  instance Numeric(Complex) {
+    // ...
+  }
+</code></pre></div>
+-->
+
+<h3 id="function-application">Function application</h3>
+<p>Unlike Haskell, ML, and OCaml, Coal uses parentheses and commas to separate arguments in function applications — a syntax more similar to languages like C, Java, or Python. For example:</p>
+<div class="highlight"><pre><span></span><code>concat(&quot;one&quot;, &quot;two&quot;)
+</code></pre></div>
+<p>This applies the function <code>concat</code> to the arguments <code>"one"</code> and <code>"two"</code>.</p>
+<p>By default, functions are <em>curried</em>. There is a difference between a function that takes multiple arguments, and one that takes a single tuple as its argument. Consider the following two type signatures:</p>
+<div class="highlight"><pre><span></span><code>f : a -&gt; b -&gt; c
+g : (a, b) -&gt; c
+</code></pre></div>
+<p>The first of these is in curried form, which is usually more convenient to work with. Curried functions can be partially applied. This is useful, for example, when working with higher-order functions. Suppose we define an addition function:</p>
+<div class="highlight"><pre><span></span><code>fun add(x, y) = x + y
+</code></pre></div>
+<p>Using partial application, we can create a new function <code>increment</code> by supplying just one argument to <code>add</code>:</p>
+<div class="highlight"><pre><span></span><code>let increment = add(1)
+</code></pre></div>
+<p>Partially applied functions can also be passed directly to a higher-order function like <code>map</code>:</p>
+<div class="highlight"><pre><span></span><code>map(add(1), [1, 2, 3, 4])   // which yields the same result as map(increment, [1, 2, 3, 4])
+</code></pre></div>
+<h3 id="if-then-else">If-then-else</h3>
+<p>If-expressions in Coal are similar to those found in many programming languages, especially other functional languages. Both the <code>then</code> and <code>else</code> clauses must be present, and they must produce values of the same type:</p>
+<div class="highlight"><pre><span></span><code>  if (&lt;e_1 : bool&gt;) then &lt;e_2 : t&gt; else &lt;e_3 : t&gt;
+</code></pre></div>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>  if (temperature &gt; 20) then wear(&quot;shorts&quot;) else go_home()
+</code></pre></div>
+<h3 id="let-bindings">Let-bindings</h3>
+<p>A let-binding introduces a new scope by matching a pattern against the result of an expression. The variables bound by the pattern become available within the expression following the <code>in</code> keyword:</p>
+<div class="highlight"><pre><span></span><code>let &lt;pattern&gt; = &lt;e_1&gt; in &lt;e_2&gt;
+</code></pre></div>
+<p>Variables form the simplest form of pattern, namely one that matches any value and binds it to a name:</p>
+<div class="highlight"><pre><span></span><code>let name = &quot;Zlatan&quot; 
+</code></pre></div>
+<p>The pattern used on the left-hand side must be such that it is guaranteed to match the result of the expression <code>&lt;e_1&gt;</code>. For example:</p>
+<div class="highlight"><pre><span></span><code>-- Destructuring with a tuple
+let (x, y) = (1, 2) in x + y
+
+-- Matching nested records
+let { tidbits = { f = a | _ } } = compute(4)
+</code></pre></div>
+<blockquote>
+<h3 id="a-note-about-let-generalization">A note about let-generalization</h3>
+<p>In some sense, a let-binding is interchangeable with a lambda function. For example, writing <code>let x = 1 in increment(x)</code> yields the same result as <code>(fn(x) =&gt; increment(x))(1)</code>.
+But besides being more readable, the let-binding also serves another purpose; in <a href="https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system">Hindley-Milner</a> languages, it is let-bindings that introduce polymorphism. Consider the following expression, which doesn’t type check:</p>
+<div class="highlight"><pre><span></span><code>  (fn(f) =&gt; (f(3 : int32), f(&quot;three&quot;)))(fn(x) =&gt; x)
+</code></pre></div>
+<p>In this example, the type of <code>f</code> is monomorphic. The type inference algorithm will try to determine its type but fail to unify <code>int32 -&gt; int32</code> with <code>string -&gt; string</code>.
+If we instead bind the anonymous function to a new identifier, then its type is <em>generalized</em> and obtains the quantified type <code>∀a : a -&gt; a</code> (known as a <em>type scheme</em>).
+We can now apply this function to both elements of the tuple, even though they have different types:</p>
+<div class="highlight"><pre><span></span><code>  let id = fn(x) =&gt; x 
+    in 
+      (id(3 : int32), id(&quot;three&quot;))
+</code></pre></div>
+</blockquote>
+<h4 id="name-binding-semantics">Name binding semantics</h4>
+<p>A subtle but important detail that makes let-bindings in Coal different from those in most other languages is that the identifier introduced by a <code>let</code> is <strong>not in scope within the definition itself</strong>. In other words, <code>let x = e1 in e2</code> makes <code>x</code> available in <code>e2</code>, but not in <code>e1</code>. In the ML-family of languages (e.g. OCaml), this is also the case for the standard <code>let</code> keyword. However, in these languages, a special <code>let rec</code> syntax makes it possible to evade this restriction. Coal doesn’t have an equivalent to <code>let rec</code>.
+This prevents non-well-founded expressions, such as <code>let f = f in f</code>, but more generally, makes it impossible for any function to refer to itself. 
+The restriction also applies to top-level definitions. For example, as far as the compiler is concerned, the function</p>
+<div class="highlight"><pre><span></span><code>fun fib(n) = if (n == 0 || n == 1) then n else fib(n - 1) + fib(n - 2)
+</code></pre></div>
+<p>translates into:</p>
+<div class="highlight"><pre><span></span><code>let fib = fn(n) =&gt; if (n == 0 || n == 1) then n else fib(n - 1) + fib(n - 2)
+                                                     ^^^
+Error: Name &quot;fib&quot; not in scope
+</code></pre></div>
+<p>In fact, one can think of a module as one big let-binding, only laid out in a more readable way:</p>
+<div class="highlight"><pre><span></span><code>  let
+    some_function = fn(...) =&gt; ...
+      in
+        let
+          some_other_function = fn(...) =&gt; ...
+            in
+              let 
+                main = fn() =&gt; 
+                  ...
+</code></pre></div>
+<p>This is why functions such as the fibonacci function above are straight out rejected by the compiler. </p>
+<h3 id="lambda-expressions">Lambda expressions</h3>
+<p>An anonymous (lambda) function is declared with the <code>fn</code> keyword and the “fat” arrow (<code>=&gt;</code>) symbol:</p>
+<div class="highlight"><pre><span></span><code>  fn(&lt;arg_1&gt;, &lt;arg_2&gt;, ..., &lt;arg_n&gt;) =&gt; &lt;expr&gt;
+</code></pre></div>
+<p>Function expressions are first-class objects; they can be passed as arguments to other functions, assigned and stored inside data structures, etc.</p>
+<div class="highlight"><pre><span></span><code>  fun apply_fst(xs, x : int32) =
+     match(xs) {
+       | f :: _ =&gt; f(x)
+       | [] =&gt; 0
+     }
+
+  fun main() =
+    let fns = 
+      [ fn(x) =&gt; x + 1
+      , fn(x) =&gt; x + 2
+      , fn(x) =&gt; x + 3
+      ]
+    in
+      trace_int32(apply_fst(fns, 3))
+</code></pre></div>
+<p>Just like with let-bindings, the arguments in a lambda-function are patterns:</p>
+<div class="highlight"><pre><span></span><code>  fn((lhs, rhs)) =&gt; lhs
+</code></pre></div>
+<h3 id="operators">Operators</h3>
+<h4 id="arithmetic-and-comparison">Arithmetic and comparison</h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>Addition</td>
+<td><code>∀n : n -&gt; n -&gt; n with Numeric(n)</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>Subtraction</td>
+<td><code>∀n : n -&gt; n -&gt; n with Numeric(n)</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Multiplication</td>
+<td><code>∀n : n -&gt; n -&gt; n with Numeric(n)</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>Division</td>
+<td></td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>Exponentiation</td>
+<td><code>∀n : n -&gt; nat -&gt; n with Numeric(n)</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td>Equality</td>
+<td><code>∀n : n -&gt; n -&gt; bool with Equal(n)</code></td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>Inequality</td>
+<td><code>∀n : n -&gt; n -&gt; bool with Equal(n)</code></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>Less than</td>
+<td><code>∀n : n -&gt; n -&gt; bool with Ordered(n)</code></td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>Greater than</td>
+<td><code>∀n : n -&gt; n -&gt; bool with Ordered(n)</code></td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>Less than or equal</td>
+<td><code>∀n : n -&gt; n -&gt; bool with Ordered(n)</code></td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>Greater than or equal</td>
+<td><code>∀n : n -&gt; n -&gt; bool with Ordered(n)</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>%</code></td>
+<td>Modulus</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="logical">Logical</h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Description</th>
+<th>Arity</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td>AND</td>
+<td>2</td>
+<td><code>bool -&gt; bool -&gt; bool</code></td>
+</tr>
+<tr>
+<td><code>||</code></td>
+<td>OR</td>
+<td>2</td>
+<td><code>bool -&gt; bool -&gt; bool</code></td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>NOT</td>
+<td>1</td>
+<td><code>bool -&gt; bool</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="data">Data</h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Description</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.</code></td>
+<td>Record field access</td>
+<td>See <strong><a href="#field-access">Field access</a></strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="function-composition-and-pipelining">Function composition and pipelining</h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&gt;&gt;</code></td>
+<td>Forward composition</td>
+<td><code>(a -&gt; b) -&gt; (b -&gt; c) -&gt; a -&gt; c</code></td>
+</tr>
+<tr>
+<td><code>&lt;&lt;</code></td>
+<td>Reverse composition</td>
+<td><code>(b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c</code></td>
+</tr>
+<tr>
+<td><code>\|.</code></td>
+<td>Reverse application</td>
+<td><code>a -&gt; (a -&gt; b) -&gt; b</code></td>
+</tr>
+<tr>
+<td><code>.\|</code></td>
+<td>Forward application</td>
+<td><code>(a -&gt; b) -&gt; a -&gt; b</code></td>
+</tr>
+<tr>
+<td><code>$.</code></td>
+<td>Flipped reverse application</td>
+<td>TODO</td>
+</tr>
+<tr>
+<td><code>.$</code></td>
+<td>Flipped forward application</td>
+<td>TODO</td>
+</tr>
+</tbody>
+</table>
+<h4 id="list-operations">List operations</h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>++</code></td>
+<td>List concatenation</td>
+<td><code>∀a : List&lt;a&gt; -&gt; List&lt;a&gt; -&gt; List&lt;a&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="string-manipulation">String manipulation</h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+++</code></td>
+<td>String concatenation</td>
+<td><code>string -&gt; string -&gt; string</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="comments">Comments</h3>
+<p>There are two types of comments:</p>
+<ul>
+<li>Single-line comments begin with a double forward slash (<code>//</code>) and extend to the end of the line. Any text following <code>//</code> is considered a comment.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>  foo(1)  // Leave any comments about this comment in the comment field below.
+</code></pre></div>
+<ul>
+<li>Multi-line comments (also called <em>block comments</em>) start with <code>/*</code> and end with <code>*/</code>. All text between these delimiters is treated as a comment.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>  /* This is a long comment. It can extend over multiple 
+     lines. It may or may not contain ASCII art depicting,
+     for example, a giraffe. 
+
+         (\-/)
+        (:O O:)
+         \   /o\
+          | |\o \  
+          (:) \ o\  
+               \o \--_ 
+               ( o O
+               (  O
+  */
+  fun sqrt(d : double) =
+    ...
+</code></pre></div>
+<h2 id="types">Types</h2>
+<h3 id="natural-numbers">Natural numbers</h3>
+<p>Recursion in Coal is closely tied to pattern matching: we peel off layers of a recursively defined data structure step by step, until reaching its base case. This works naturally with lists, trees, and other algebraic data types. Ordinary machine integers (<code>int32</code>, <code>int64</code>), however, cannot be pattern matched on in such a manner. Nevertheless, we often want to use numbers in recursive computations &mdash; for example, when repeating an action, or simulating the behavior of loops in imperative languages. To describe numbers in a way compatible with recursion, we find some inspiration from the standard axiomatization of the natural numbers:</p>
+<blockquote>
+<p>Every natural number is either zero or the successor of another natural number.</p>
+</blockquote>
+<p>This is known as the <em>Peano construction</em> of the natural numbers, named after the Italian mathematician <a href="https://en.wikipedia.org/wiki/Giuseppe_Peano">Giuseppe Peano</a>. In code, the Peano numbers are expressed as the built-in type <code>nat</code>:</p>
+<div class="highlight"><pre><span></span><code>type nat
+ = Zero
+ | Succ(nat)
+</code></pre></div>
+<p>The number five, for example, can then be written:</p>
+<div class="highlight"><pre><span></span><code>Succ(Succ(Succ(Succ(Succ(Zero)))))
+</code></pre></div>
+<p>This representation makes it possible to use numbers directly in patterns, just like with other algebraic data types:</p>
+<div class="highlight"><pre><span></span><code>  match(n : nat) {
+    | Zero    =&gt; &quot;yay&quot;
+    | Succ(_) =&gt; &quot;nay&quot;
+  }
+</code></pre></div>
+<p>Writing numbers in this style quickly becomes impractical, however. To make working with naturals convenient (and efficient), the compiler internally represents values of type <code>nat</code> as ordinary integers. Converting between the two views is called <em>packing</em> and <em>unpacking</em>. These are constant time (O(1)) operations:</p>
+<div class="highlight"><pre><span></span><code>pack   : int32 -&gt; nat
+unpack : nat -&gt; int32
+</code></pre></div>
+<h3 id="unit">Unit</h3>
+<p>The <code>unit</code> type has only a single value, written as an empty pair of parentheses: <code>()</code>. At first glance this type may appear to serve no purpose, but it has several practical uses. For example, it is often useful to indicate that a function doesn't take any meaningful input. In C, we might write the following function:</p>
+<div class="highlight"><pre><span></span><code>int five() {
+  /* ... */
+
+  return 5;
+}
+</code></pre></div>
+<p>This is where the <code>unit</code> type comes in handy:</p>
+<div class="highlight"><pre><span></span><code>fun five(() : unit) : int32 = 5
+</code></pre></div>
+<h4 id="two-pairs-of-parentheses-for-the-price-of-one">Two pairs of parentheses for the price of one</h4>
+<p>Removing the type annotation, the above becomes <code>fun five(()) = 5</code>, which is perfectly valid. But since an expression like <code>five()</code> doesn’t have any other meaningful interpretation, the compiler accepts this as a shorthand for the slightly awkward-looking double parentheses:</p>
+<div class="highlight"><pre><span></span><code>fun five() = 5   // i.e., fun five(() : unit) = 5
+</code></pre></div>
+<p>Similarly, when calling a function that only takes a unit value as argument, the extra parentheses can be omitted:</p>
+<div class="highlight"><pre><span></span><code>let 
+  x = 
+    five()   // we could have written five(()) here, but less is more
+  in
+    x + 5
+</code></pre></div>
+<p>Keep in mind that this only works with <code>unit</code>. For non-empty tuples, you still need the extra parentheses:</p>
+<div class="highlight"><pre><span></span><code>fun fst4((fst, _, _, _)) = fst
+</code></pre></div>
+<h3 id="list">List</h3>
+<p>A <em>list</em> is an ordered collection in which all elements share the same type. Lists are one of the most fundamental data structures in functional programming. They are commonly used to store and manipulate collections of data, and serve as a building block for many higher-level abstractions.</p>
+<p>In Coal, list literals are written as a sequence of comma-separated expressions enclosed in square brackets:</p>
+<div class="highlight"><pre><span></span><code>[&lt;expr_1 : t&gt;, &lt;expr_2 : t&gt;, ..., &lt;expr_n : t&gt;] : List&lt;t&gt;
+</code></pre></div>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>[1, 1, 2, 5, 14, 42, 132, 429] : List&lt;int32&gt;
+</code></pre></div>
+<p>Lists are defined inductively and implemented internally as a <a href="https://en.wikipedia.org/wiki/Linked_list">singly linked list</a>. This means that a list of type <code>List&lt;a&gt;</code> is either:</p>
+<ol>
+<li>the empty list <code>[]</code>; or</li>
+<li>a value of type <code>a</code> (the <em>head</em>) followed by another list of type <code>List&lt;a&gt;</code> (the <em>tail</em>).</li>
+</ol>
+<p>In pseudo-code:</p>
+<div class="highlight"><pre><span></span><code>type List&lt;a&gt;
+  = []
+  | a :: List&lt;a&gt;
+</code></pre></div>
+<p>Here <code>::</code> denotes the <em>cons</em>-operator, which constructs a new list by prepending an element to an existing list.</p>
+<p>Lists are deconstructed using pattern matching. For example, the following function removes the first element from a list if it happens to be a zero:</p>
+<div class="highlight"><pre><span></span><code>  fun remove_head_if_zero(list) = 
+    match(list) {
+      | [] =&gt; []
+      | head :: tail =&gt;
+          if (head == 0)
+            then tail     // remove the first element, if it is zero
+            else list     // otherwise return the original list
+    }
+</code></pre></div>
+<p>This style of unpacking data is common with all algebraic data types (see <strong><a href="#pattern-matching">Pattern matching</a></strong>).</p>
+<p>You can also match lists using literal patterns. The following example matches a list of exactly three elements and checks if they form a <a href="https://en.wikipedia.org/wiki/Pythagorean_triple">Pythagorean triple</a>:</p>
+<div class="highlight"><pre><span></span><code>  fun is_pythagorean(numbers) =
+    match(numbers) {
+      | [a, b, c] =&gt;
+          a^2 + b^2 == c^2 || 
+          a^2 + c^2 == b^2 || 
+          b^2 + c^2 == a^2
+      | _ =&gt;
+          false
+    }
+</code></pre></div>
+<h4 id="common-list-operations">Common list operations</h4>
+<p>The function <code>length</code> returns the number of elements in a list:</p>
+<div class="highlight"><pre><span></span><code>length([0, 1, 2, 3, 4])   // returns 5
+</code></pre></div>
+<p>Its type is:</p>
+<div class="highlight"><pre><span></span><code>length : List&lt;a&gt; -&gt; nat
+</code></pre></div>
+<p>Since lists are laid out in memory as linked nodes connected by pointers, the time complexity of many list operations, including <code>length</code>, is O(n).</p>
+<h5 id="head-tail-and-uncons">Head, tail, and uncons</h5>
+<ul>
+<li><code>head</code> returns the first element of a list, wrapped in an <code>Option</code> (described below) to account for the empty list.</li>
+<li><code>tail</code> returns all elements except the first, also as an <code>Option</code>.</li>
+<li><code>uncons</code> combines the two: it returns both the head and tail as a tuple, or <code>None</code> if the list is empty. In a sense, it undoes what the cons (<code>::</code>) constructor does.</li>
+</ul>
+<p>These functions take constant (O(1)) time.</p>
+<div class="highlight"><pre><span></span><code>head : List&lt;a&gt; -&gt; Option&lt;a&gt;
+tail : List&lt;a&gt; -&gt; Option&lt;List&lt;a&gt;&gt;
+uncons : List&lt;a&gt; -&gt; Option&lt;(a, List&lt;a&gt;)&gt;
+</code></pre></div>
+<blockquote>
+<h3 id="function-pipelining">Function pipelining</h3>
+<p>The operator <code>|.</code> is used in the following examples. It is an infix operator that performs function application, but with the arguments reversed. So, for example, the expression 
+<div class="highlight"><pre><span></span><code>  xs |.map(f)
+</code></pre></div>
+is really syntactic sugar for <code>map(f, xs)</code>. This operator is very convenient when chaining together multiple function calls. Suppose we have the following basic drawing API:</p>
+<div class="highlight"><pre><span></span><code>circle       : Config -&gt; Shape
+fill         : string -&gt; Shape -&gt; Shape
+set_position : float -&gt; float -&gt; Shape -&gt; Shape
+draw_shape   : Shape -&gt; Canvas -&gt; Canvas
+</code></pre></div>
+<p>To describe a sequence of steps that creates a circle, sets properties such as its color and position, and finally places it on the canvas, we would normally write:</p>
+<div class="highlight"><pre><span></span><code>draw_shape(set_position(10, 5, fill(&quot;blue&quot;, circle({ radius = 5.0 }))), canvas)
+</code></pre></div>
+<p>Using the reverse function application operator (and the associated <code>$.</code>-operator), we could instead write the above in a more readable <em>pipeline</em>-style:</p>
+<div class="highlight"><pre><span></span><code>circle({ radius = 5.0 })
+  |.fill(&quot;blue&quot;)
+  |.set_position(10.0, 5.0)
+  $.draw_shape(canvas)
+</code></pre></div>
+</blockquote>
+<h5 id="take-drop-and-slice">Take, drop and slice</h5>
+<p>Use <code>take</code> to get another list with the first <em>n</em> elements from a given list:</p>
+<div class="highlight"><pre><span></span><code>take : nat -&gt; List&lt;a&gt; -&gt; List&lt;a&gt;
+</code></pre></div>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>[1, 2, 3, 4, 5, 6, 7] |.take(3)     // [1, 2, 3]
+</code></pre></div>
+<p>Note that, if the list’s length is less than the requested number of elements, then <code>take</code> returns the entire list. So, for example, <code>take(5, [1, 2, 3])</code> returns <code>[1, 2, 3]</code>. As expected, <code>take(0)</code> always returns an empty list.</p>
+<p>The function <code>drop</code> removes the first <em>n</em> elements from a list.</p>
+<div class="highlight"><pre><span></span><code>drop : nat -&gt; List&lt;a&gt; -&gt; List&lt;a&gt;
+</code></pre></div>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>[1, 2, 3, 4, 5, 6, 7] |.drop(3)     // [4, 5, 6, 7]
+</code></pre></div>
+<p>If you attempt to drop a greater number of elements than what the list contains, <code>drop</code> returns an empty list.</p>
+<p>Combining <code>drop</code> and <code>take</code> allows you to obtain a range of elements from within a list:</p>
+<div class="highlight"><pre><span></span><code>[1, 2, 3, 4, 5, 6, 7] 
+  |.drop(2)
+  |.take(3)
+
+// == [3, 4, 5]
+</code></pre></div>
+<p>The function <code>slice</code> does exactly this, in a way that allows you to specify the range of elements to extract from the input list:</p>
+<div class="highlight"><pre><span></span><code>slice : nat -&gt; nat -&gt; List&lt;a&gt; -&gt; List&lt;a&gt;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[1, 2, 3, 4, 5, 6, 7] |.slice(2, 5)
+// == [1, 2, 3, 4, 5, 6, 7] |.drop(2) |.take(5 - 2)
+// == [3, 4, 5]
+</code></pre></div>
+<h5 id="list-concatenation">List concatenation</h5>
+<p>The list concatenation operator (<code>++</code>) appends one list to the end of another, resulting in a new list.</p>
+<div class="highlight"><pre><span></span><code>  let s = [&quot;Khufu&quot;, &quot;Hatshepsut&quot;, &quot;Akhenaten&quot;] ++ [&quot;Tutankhamun&quot;]
+</code></pre></div>
+<p><strong>Note:</strong> The time complecity of <code>++</code> is linear (O(n)) in the length of the first list.</p>
+<!--
+##### Sorting
+
+TODO
+-->
+
+<h4 id="useful-higher-order-list-functions">Useful higher-order list functions</h4>
+<p>These are functions that take some other function as input and modify the list in some way based on the behavior of the given function.</p>
+<h5 id="mapping-over-a-list">Mapping over a list</h5>
+<p>The function <code>map</code> applies a function to each element of a list.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>[0, 1, 2, 3, 4] |.map(fn(x) =&gt; 2 ^ x)       // [1, 2, 4, 8, 16]
+</code></pre></div>
+<p>The type of <code>map</code> is:</p>
+<div class="highlight"><pre><span></span><code>map : (a -&gt; b) -&gt; List&lt;a&gt; -&gt; List&lt;b&gt;
+</code></pre></div>
+<blockquote>
+<h3 id="mapping-and-functors">Mapping and <code>Functor</code>s</h3>
+<p>The actual type of <code>map</code> is more general than the specialized <code>List</code> version above. In fact, any value of type <code>f&lt;a&gt;</code> can be mapped over, as long as <code>f</code> implements the <code>Functor</code> <a href="#traits">trait</a>:</p>
+<div class="highlight"><pre><span></span><code>map : (a -&gt; b) -&gt; f&lt;a&gt; -&gt; f&lt;b&gt; with Functor&lt;f&gt;
+</code></pre></div>
+<p>We can think of this more abstractly as <strong>"transforming values inside a fixed context</strong>." In mathematical terms, this corresponds to a structure-preserving map, also known as a <em>homomorphism</em>. 
+Homomorphisms are the topic of study in category theory. It is also in category theory that we find the origin of functors. A functor, in this context, is a mapping between categories &mdash; one that sends objects and morphisms from one category to another (subject to certain laws). </p>
+<p>There are two ways to interpret <code>map</code>; we can think of it as a function that applies the function argument to a value of type <code>a</code>, in the <code>f</code>-context, which could be a list of values, or an optional. The other is that <code>map</code> takes some function <code>a -&gt; b</code> and <em>lifts</em> it into one that acts on <code>f</code>-values &mdash; that is, one of type <code>f&lt;a&gt; -&gt; f&lt;b&gt;</code>. This second interpretation is more in line with the definition of a functor in category theory. In programming languages, objects correspond to types, and morphisms are simply functions. We then have:</p>
+<div class="highlight"><pre><span></span><code>a           ==&gt;  f&lt;a&gt;                         // The functor transforms objects
+z : a -&gt; b  ==&gt;  map(z) : f&lt;a&gt; -&gt; f&lt;b&gt;        // and functions
+</code></pre></div>
+<p>Functors are expected to obey the following two laws:</p>
+<h4 id="1-identity-law">1. Identity law</h4>
+<div class="highlight"><pre><span></span><code>map(id) == id
+</code></pre></div>
+<p>This says that mapping the identity function over a functor doesn’t change the structure or its contents. </p>
+<h4 id="2-composition-law">2. Composition law</h4>
+<div class="highlight"><pre><span></span><code>map(f &lt;&lt; g) == map(f) &lt;&lt; map(g)     // The operator `&lt;&lt;` denotes function composition, so `f &lt;&lt; g = f(g(x)))`.
+</code></pre></div>
+<p>This law ensures that mapping the composition of two functions is the same as first mapping one function and then the other. In other words, functors preserve function composition. </p>
+<p>Together, these laws guarantee that mapping behaves consistently: the shape of the container is unchanged, and each element inside the context is transformed individually, and in the same way as if the function were applied directly to that element. These laws aren’t enforced by the compiler, but following them is always a good idea. 
+</p>
+</blockquote>
+<!--
+> #### List
+>
+> <div class="highlight"><pre><span></span><code>instance Functor&lt;List&gt; {
+  fun map(f, xs) =
+    fold(xs) {
+      | [] =&gt; []                // (1)
+      | x :: @xs = f(x) :: xs   // (2)
+    }
+}
+</code></pre></div>
+>
+> ##### Identity law:
+> 
+> For the `List` instance to satisfy this law, we must have that:
+> 
+> <div class="highlight"><pre><span></span><code>map(id, xs) === id(xs)
+</code></pre></div>
+>
+> For an empty list, ..
+>
+> <div class="highlight"><pre><span></span><code>map(id, []) == []      // Follows from (1)
+            == id([])  // By the definition of id
+</code></pre></div>
+>
+> ##### The other law (?):
+>
+> The claim here is that, for any list `xs`:
+>
+> <div class="highlight"><pre><span></span><code>map(f &lt;&lt; g, xs) == (map(f) &lt;&lt; map(g))(xs)
+</code></pre></div>
+>
+> Inductive hypothesis:
+> 
+> Base case:
+> Inductive step:
+> 
+-->
+
+<h5 id="filtering-a-list">Filtering a list</h5>
+<p>Filtering is a technique for removing all elements of a list, except those that meet a given condition.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>[0, 1, 2, 3, 4] |.filter(fn(x) =&gt; x &gt; 2)    // [3, 4] 
+</code></pre></div>
+<p>The type of <code>filter</code> is:</p>
+<div class="highlight"><pre><span></span><code>filter : (a -&gt; bool) -&gt; List&lt;a&gt; -&gt; List&lt;a&gt;
+</code></pre></div>
+<p>That is, <code>filter</code> takes a <a href="#list-predicates">predicate</a> and a list as input, and returns a new list with only the elements that return <code>true</code> for the predicate.</p>
+<h5 id="reducing-a-list">Reducing a list</h5>
+<p>The higher-order function <code>reduce</code> takes a list and combines its elements into a single result. A common example is reducing a list of numbers to a single value by repeatedly applying an operation, such as summing each element with a running total:</p>
+<div class="highlight"><pre><span></span><code>let sum = reduce(fn(n, a) =&gt; n + a, 0, [1, 2, 3])
+</code></pre></div>
+<blockquote>
+<p>The operation described here is also commonly referred to as a <em>fold</em>. That name is not used, however, since it is a reserved language keyword in Coal. Along with the special <code>@</code>-pattern syntax, it provides the foundation for implementing recursive functions, including <code>reduce</code>. This is explored in detail in <strong><a href="#recursion-corecursion-and-codata">Recursion, corecursion, and codata</a></strong>.</p>
+</blockquote>
+<p>The type of <code>reduce</code> is:</p>
+<div class="highlight"><pre><span></span><code>reduce : (e -&gt; a -&gt; a) -&gt; a -&gt; List&lt;e&gt; -&gt; a
+</code></pre></div>
+<ul>
+<li>The first argument is a function that combines an element of type <code>e</code> with an <em>accumulator</em> of type <code>a</code> to produce a new accumulator.</li>
+<li>The second argument is the initial value of the accumulator.</li>
+<li>The third argument is the list to reduce.</li>
+</ul>
+<h5 id="examples-of-using-reduce">Examples of using <code>reduce</code></h5>
+<p>Concatenating strings:</p>
+<div class="highlight"><pre><span></span><code>let words = [&quot;Hello&quot;, &quot; &quot;, &quot;world&quot;, &quot;!&quot;]
+let sentence = reduce(fn(w, a) =&gt; w +++ a, &quot;&quot;, words)
+// sentence = &quot;Hello world!&quot;
+</code></pre></div>
+<p>Finding the maximum element:</p>
+<div class="highlight"><pre><span></span><code>let max_val = reduce(fn(n, a) =&gt; if n &gt; a then n else a, 0, [3, 7, 2, 9])
+// max_val = 9
+</code></pre></div>
+<p>Counting elements satisfying a condition:</p>
+<div class="highlight"><pre><span></span><code>let numbers = [1, 2, 3, 4, 5]
+let number_of_evens = reduce(fn(n, a) =&gt; if n % 2 == 0 then a + 1 else a, 0, numbers)
+// number_of_evens = 2
+</code></pre></div>
+<!--
+##### Left vs. right folds
+
+TODO
+-->
+
+<h4 id="list-predicates">List predicates</h4>
+<p>A <em>predicate</em> is a function that tests for some condition with respect to its argument and returns <code>true</code> or <code>false</code>. By convention, functions that serve this purpose are often prefixed with <code>is_</code>. The below predicates are available in the standard <code>List</code> package:</p>
+<div class="highlight"><pre><span></span><code>is_empty     : List&lt;a&gt; -&gt; bool
+is_nonempty  : List&lt;a&gt; -&gt; bool
+is_singleton : List&lt;a&gt; -&gt; bool
+</code></pre></div>
+<h5 id="is_empty"><code>is_empty</code></h5>
+<p>A common operation on lists is to check if a list is empty or not. This is what the function <code>is_empty</code> does. </p>
+<div class="highlight"><pre><span></span><code>is_empty([])                                   // true
+is_empty([&quot;wheat&quot;, &quot;oats&quot;, &quot;rye&quot;, &quot;barley&quot;])   // false
+</code></pre></div>
+<h5 id="is_nonempty"><code>is_nonempty</code></h5>
+<p>This function is the opposite of <code>is_empty</code>. That is: </p>
+<div class="highlight"><pre><span></span><code>is_nonempty(xs) &lt;==&gt; ! is_empty(xs)
+</code></pre></div>
+<h5 id="is_singleton"><code>is_singleton</code></h5>
+<p>This function returns <code>true</code> when the input list has precisely <strong>one</strong> element. </p>
+<div class="highlight"><pre><span></span><code>is_singleton([&quot;oats&quot;])                             // true  
+is_singleton([])                                   // false
+is_singleton([&quot;wheat&quot;, &quot;oats&quot;, &quot;rye&quot;, &quot;barley&quot;])   // false
+</code></pre></div>
+<h3 id="option">Option</h3>
+<p>The <code>Option</code> type is a built-in algebraic data type that represents <em>optional</em> values &mdash; values that may or may not be present. This type is called <code>Maybe</code> in Haskell and is similar to <code>Option</code> in languages like Rust or Scala. </p>
+<div class="highlight"><pre><span></span><code>type Option&lt;a&gt;
+  = Some(a)
+  | None
+</code></pre></div>
+<p>Since <code>match</code> statements in Coal need to be exhaustive, <code>Option</code> is useful to express the fact that a value cannot be produced in certain cases. For example, let’s say that we are trying to define a function <code>head</code>, returning the first element of a list:</p>
+<div class="highlight"><pre><span></span><code>  fun head(list : List&lt;a&gt;) : a =
+    match(list) {
+      | head :: _ =&gt; head
+      | [] =&gt; // 💥 What should I return here?
+    }
+</code></pre></div>
+<p>The type of this function would be:</p>
+<div class="highlight"><pre><span></span><code>head : List&lt;a&gt; -&gt; a
+</code></pre></div>
+<p>We can read this type as: Given any type <code>a</code> and a list of elements of this type, return an <code>a</code> value. That is to say; we know nothing about <code>a</code>, except that the list’s elements has this type. 
+Therefore, if the input list is empty, then we have nothing to look at. <code>Option</code> solves this problem. The <code>head</code> function provided by the standard <code>List</code> package is defined in the following way: </p>
+<div class="highlight"><pre><span></span><code>  fun head(list : List&lt;a&gt;) : Option&lt;a&gt; =
+    match(list) {
+      | head :: _ =&gt; Some(head)
+      | [] =&gt; None
+    }
+</code></pre></div>
+<h3 id="tuples">Tuples</h3>
+<p>Just like lists, tuples are ordered sequences of values. Unlike lists, however, a tuple’s length is fixed (i.e. determined at compile-time), and its elements can have different types. In code, a tuple is written as a comma-separated sequence of expressions enclosed in parentheses:</p>
+<div class="highlight"><pre><span></span><code>(&lt;expr_1 : t_1&gt;, &lt;expr_2 : t_2&gt;, ..., &lt;expr_n : t_n&gt;) : (t_1, t_2, ..., t_n)
+</code></pre></div>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>(10, &quot;covfefe&quot;, false)  // The type of this tuple is: (int32, string, bool)
+</code></pre></div>
+<p>Tuples of length two and three are often called <em>pairs</em> and <em>triples</em>, respectively. There is no singleton tuple type &mdash; a single value in parentheses is just the value itself:</p>
+<div class="highlight"><pre><span></span><code>(42)  // Not a tuple -- just the integer 42
+</code></pre></div>
+<p>The empty tuple <em>does</em> exist, and has special meaning. It is written <code>()</code> and is known as the unit value. The type of <code>()</code> is <code>unit</code>. (See <strong><a href="#built-in-language-primitives">Built-in language primitives</a></strong> for more details.)</p>
+<div class="highlight"><pre><span></span><code>()            : unit                           // unit value
+(1, 2)        : (int32, int32)                 // 2-tuple
+(1, 2, 3)     : (int32, int32, int32)          // 3-tuple
+(1, 2, 3, 4)  : (int32, int32, int32, int32)   // 4-tuple
+// ...
+</code></pre></div>
+<p>As with other data types, tuples can be deconstructed through pattern matching:</p>
+<div class="highlight"><pre><span></span><code>  fun fst3((fst, _, _) : (a, b, c)) : a = fst
+  fun snd3((_, snd, _) : (a, b, c)) : b = snd
+  fun thd3((_, _, thd) : (a, b, c)) : c = thd 
+</code></pre></div>
+<h4 id="tuples-and-currying">Tuples and currying</h4>
+<p>To specify a tuple as the only argument to a function, you need to use an extra pair of parentheses:</p>
+<div class="highlight"><pre><span></span><code>fun add((a, b)) = a + b
+
+let five = add((1, 4))
+</code></pre></div>
+<p>The <code>curry</code> and <code>uncurry</code> combinators convert an uncurried function into a curried one, and vice versa.</p>
+<div class="highlight"><pre><span></span><code>curry   : ((a, b) -&gt; c) -&gt; a -&gt; b -&gt; c
+uncurry : (a -&gt; b -&gt; c) -&gt; (a, b) -&gt; c
+</code></pre></div>
+<p>Here is how <code>curry</code> is used with the uncurried version of <code>add</code>, to change it into curried form.</p>
+<div class="highlight"><pre><span></span><code>let five = curry(add, 1, 4)         // or (curry(add))(1, 4)
+</code></pre></div>
+<h3 id="records">Records</h3>
+<p>Records are unordered collections of name–value pairs, where the values can be of any type, including other records. In Coal, records are first-class values. They are suitable for representing structured data with multiple properties, or nested objects. A record expression is written as a sequence of comma-separated <em>fields</em> enclosed in curly braces. Each field consists of a name, called the <em>label</em>, paired with a value. The two are separated by an equals sign (<code>=</code>):</p>
+<div class="highlight"><pre><span></span><code>{ 
+  name = &quot;Robert Sixkiller&quot;, 
+  shoe_size = 43.0f, 
+  privileges = [&quot;read&quot;, &quot;edit&quot;, &quot;karaoke&quot;]
+}
+</code></pre></div>
+<p>The corresponding type for the above record is:</p>
+<div class="highlight"><pre><span></span><code>{ name : string, shoe_size : float, privileges : List&lt;string&gt; }
+</code></pre></div>
+<p>The type of a record resembles the expression itself, except that each field is written as a label followed by its type. Instead of an equals sign, a colon (<code>:</code>) separates the label and the type.</p>
+<p>Since the order of fields is irrelevant, the following two records are considered identical:</p>
+<div class="highlight"><pre><span></span><code>{ x = 1, y = 2 }
+{ y = 2, x = 1 }
+</code></pre></div>
+<p>The naming rules for labels are the same as for variables: labels must consist of alphanumeric characters or underscores (<code>_</code>), and the first character cannot be a digit.</p>
+<h4 id="field-access">Field access</h4>
+<p>The contents of a record field can be obtained using the field-access operator, which is simply a dot (<code>.</code>) followed by the field’s label:</p>
+<div class="highlight"><pre><span></span><code>let language = { name = &quot;Java&quot;, paradigm = &quot;OOP&quot; }
+  in language.name
+</code></pre></div>
+<h4 id="extending-records">Extending records</h4>
+<p>Records in Coal are <em>extensible</em>, meaning that new fields can be added to a record at run time. For example:</p>
+<div class="highlight"><pre><span></span><code>fun tagged(rec, t : string) = { tag = t | rec }  
+</code></pre></div>
+<p>This function accepts two arguments: an existing record <code>rec</code> and a string <code>t</code>. It returns a copy of <code>rec</code> augmented with a new field <code>tag</code> which assumes the value of <code>t</code>. The pipe symbol (<code>|</code>) is an infix operator that takes the record on the right-hand side and extends it with the fields on the left.</p>
+<p>For example, if we define a record <code>r = { day = "monday", humidity = 73.5 }</code> and apply <code>tagged(r, "wet")</code>, we obtain a new record:</p>
+<div class="highlight"><pre><span></span><code>{ day = &quot;monday&quot;, humidity = 73.5, tag = &quot;wet&quot; }
+</code></pre></div>
+<p>What makes this especially useful is that the type of the original record does not matter; its labels and field types need not be known at compile time.</p>
+<p>The left-hand side of the pipe is itself a list of fields, so any number of fields can be added at once:</p>
+<div class="highlight"><pre><span></span><code>{ a = 1, b = 2 | { c = 3 } } 
+  == { a = 1 | { b = 2 | { c = 3 } } } 
+  == { a = 1 | { b = 2, c = 3 } }
+  =&gt; { a = 1, b = 2, c = 3 }  
+</code></pre></div>
+<h4 id="open-and-closed-records">Open and closed records</h4>
+<p>Here is the function signature for <code>tagged</code> again, this time with added type annotations:</p>
+<div class="highlight"><pre><span></span><code>tagged(rec : { | r }, t : string) : { tag : string | r } = 
+  { tag = t | rec }
+</code></pre></div>
+<p>These types look a bit different from earlier examples. Here, the pipe (<code>|</code>) also appears at the type level. It serves a similar purpose: combining fields with an existing record type. The type variable <code>r</code> represents a <em>row</em>, which can be thought of as a type-level list of fields. A record type of this form is called <em>open</em>. By contrast, a <em>closed</em> record type explicitly lists all its fields. The following example illustrates the difference. Suppose we want to represent GPS coordinates with two fields, <code>lat</code> and <code>lng</code>:</p>
+<div class="highlight"><pre><span></span><code>fn(p : { lat : float, lng : float }) =&gt; p.lat
+</code></pre></div>
+<p>In this example, the function requires its argument <code>p</code> (a record) to have exactly two fields: <code>lat</code> and <code>lng</code>, both of type <code>float</code>. This type is closed.</p>
+<div class="highlight"><pre><span></span><code>fn(p : { lat : float, lng : float | q }) =&gt; p.lat
+</code></pre></div>
+<p>This function, on the other hand, is polymorphic in the row variable <code>q</code>. It accepts any record that includes <code>lat</code> and <code>lng</code> (both floats), regardless of any additional fields.
+For instance, all of the following are valid:</p>
+<ul>
+<li><code>{ lat =-3.067425, lng = 37.355625, alt = 5895 }</code> , </li>
+<li><code>{ location = "Great Pyramid", time = "2024-09-15T10:57:19Z", lat = 29.9792, lng = 31.1342 }</code>, and </li>
+<li><code>{ lat = 0.0, lng = 1.0 }</code>,</li>
+</ul>
+<p>This type is open. The general format of an open record type is </p>
+<div class="highlight"><pre><span></span><code>{ &lt;label_1&gt; : &lt;t_1&gt;, &lt;label_2&gt; : &lt;t_2&gt;, ..., &lt;label_n&gt; : &lt;t_n&gt; | &lt;r&gt; },
+</code></pre></div>
+<p>for some <em>n</em> ≥ 0. Recall the earlier <code>tagged</code> example and the type of the argument <code>rec</code> in that function:</p>
+<div class="highlight"><pre><span></span><code>rec : { | r }
+</code></pre></div>
+<p>In this type, the variable <code>r</code> captures all fields of the input record, so <em>n</em> is zero. This explains the somewhat unusual-looking type <code>{ | r }</code>.</p>
+<h4 id="pattern-matching-over-records">Pattern matching over records</h4>
+<p>As with other data types, it is possible to pattern match on records. In this context, the right-hand side of a field acts as the binding pattern used to match the sub-expression. The simplest case is to bind a field directly to a variable:</p>
+<div class="highlight"><pre><span></span><code>  fun full_name({ first_name = fn, last_name = ln }) = fn +++ &quot; &quot; +++ ln 
+</code></pre></div>
+<h4 id="deconstructing-records">Deconstructing records</h4>
+<p>The pipe (<code>|</code>) operator allows you to deconstruct records by matching against a subset of their fields:</p>
+<div class="highlight"><pre><span></span><code>  fun get_name({ name = n | _ }) = n
+</code></pre></div>
+<p>The right-hand side pattern must be either a variable or a wildcard (<code>_</code>). If you use a variable here, it will capture the remainder of the record (all fields not explicitly matched). A common use case is to remove one or more fields from a record. For example:</p>
+<div class="highlight"><pre><span></span><code>  fun drop_name({ name = _ | fields } : { name : string | q }) : { | q } = fields
+</code></pre></div>
+<p>Here, the name field is removed and a record with all remaining fields are returned.</p>
+<p>If you only need to retrieve a single field, the dot syntax (<code>record.field</code>) is simpler and more concise. <a href="#pattern-matching">Pattern matching</a> becomes necessary when you want to extract multiple fields at once, remove fields, or work with the remainder of a record.</p>
+<h4 id="updating-a-field">Updating a field</h4>
+<p>By combining field extension with pattern matching, you can replace an existing field in a record. For instance, here is a function that updates the <code>tag</code> field:</p>
+<div class="highlight"><pre><span></span><code>  fun set_tag({ tag = _ | fields }, new_tag : string) =
+    { tag = new_tag | fields }    
+</code></pre></div>
+<p>This proceeds in two steps: first remove the old field using pattern matching, then reinsert it with the new value. With type annotations:</p>
+<div class="highlight"><pre><span></span><code>  fun set_tag(
+    { tag = _ | fields } : { tag : string | r }, 
+    new_tag : string
+  ) : { tag : string | r } = 
+    { tag = new_tag | fields }
+</code></pre></div>
+<p>This function requires not only that the <code>tag</code> field is present, but also that it has the expected type. For example, <code>{ tag = false }</code> would be rejected, since <code>tag</code> is required to have type <code>string</code>.</p>
+<h2 id="pattern-matching">Pattern matching</h2>
+<p>The <code>match</code> expression in Coal is used to deconstruct data based on its shape, effectively reversing what the data constructors of algebraic data types do. It allows you to branch on the structure of a value and directly bind its components to variables. For example:</p>
+<div class="highlight"><pre><span></span><code>  type Shape = Rectangle(float, float) | Circle(float)
+
+  fun area(shape) : float =
+    match(shape) {
+      | Rectangle(w, h) =&gt; w * h
+      | Circle(r)       =&gt; pi * r^2
+    }
+</code></pre></div>
+<p>A case in a match expression is called a <em>clause</em> and consists of a pattern on the left and an expression on the right. Pattern matching proceeds by checking each clause in order until it finds one whose pattern matches the value. The corresponding right-hand side expression is then evaluated, with any variables in the pattern bound to the matched sub-components.</p>
+<div class="highlight"><pre><span></span><code>  match(list : List&lt;int32&gt;) {
+    | [a]       =&gt; a
+    | [a, _]    =&gt; a
+    | [a, _, _] =&gt; a
+    | _         =&gt; 0
+  }
+</code></pre></div>
+<p>Variables introduced by a pattern are only in scope in the corresponding right-hand side expression:</p>
+<div class="highlight"><pre><span></span><code>  match(opt) {
+    | Some(x) =&gt; x + 1  // x is bound here
+    | None    =&gt; 0      // x is not in scope here
+  }
+</code></pre></div>
+<p>Patterns can take several forms, including data constructors, literals, tuples, records, variables, wildcards, or combinations of these: </p>
+<div class="highlight"><pre><span></span><code>  match(shape) {
+    | Rectangle(0.0, _) =&gt; &quot;flat rectangle&quot;
+    | Rectangle(w, h)   =&gt; &quot;rectangle with width &quot; +++ show(w)
+  }
+</code></pre></div>
+<p>See <a href="#supported-patterns">below</a> for a complete list of available patterns. </p>
+<h3 id="totality-requirement">Totality requirement</h3>
+<p>For a function to be <em>total</em>, it must be defined for all inputs of its corresponding type. A consequence of this in the context of <code>match</code> expressions is that all possible cases for a type need to be covered by the patterns. In other words, the patterns must be <em>exhaustive</em>. If a case is missing, the compiler will reject the program. </p>
+<p>For example, the following function</p>
+<div class="highlight"><pre><span></span><code>  fun head(input) =
+    match(input) {
+      | x :: xs =&gt; x
+    }
+</code></pre></div>
+<p>will produce an error:</p>
+<div class="highlight"><pre><span></span><code>4:5:
+  |
+  |     match(input) {
+  |     ^^^^^^^^^^^^^^
+  |       | x :: xs =&gt; x
+  | ^^^^^^^^^^^^^^^^^^^^
+  |     }
+
+Non-exhaustive patterns
+</code></pre></div>
+<h3 id="wildcard-patterns">Wildcard patterns</h3>
+<p>A <em>wildcard</em> pattern is a pattern that matches any value without binding it to a name and is written as an underscore (<code>_</code>). These are often useful to guarantee exhaustiveness in <code>match</code> expressions. For instance, we can use literal patterns along with a wildcard when matching on integers:</p>
+<div class="highlight"><pre><span></span><code>  fun describe_int(n : int32) : string =
+    match(n) {
+      | 0 =&gt; &quot;zero&quot;
+      | 1 =&gt; &quot;one&quot;
+      | _ =&gt; &quot;something else&quot;
+    }
+</code></pre></div>
+<h3 id="lambda-match">Lambda match</h3>
+<p>A lambda match is a special syntax that lets you get rid of the variable in a <code>match</code> expression. For example, this expression:</p>
+<div class="highlight"><pre><span></span><code>  match {
+    | [] =&gt; true
+    | _ =&gt; false 
+  }
+</code></pre></div>
+<p>is a shorthand version of this:</p>
+<div class="highlight"><pre><span></span><code>  fn(val) =&gt;
+    match(val) {
+      | [] =&gt; true
+      | _ =&gt; false
+    }
+</code></pre></div>
+<h3 id="supported-patterns">Supported patterns</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Constructor</td>
+<td><code>Color(r, g, b)</code></td>
+<td>Matches a value built with a specific data constructor, binding sub-components to variables.</td>
+</tr>
+<tr>
+<td>Variable</td>
+<td><code>x</code></td>
+<td>Matches any value and binds it to the variable.</td>
+</tr>
+<tr>
+<td>Wildcard</td>
+<td><code>_</code></td>
+<td>Ignores the matched value (see above).</td>
+</tr>
+<tr>
+<td>Literal</td>
+<td><code>"Hello"</code>, <code>0</code>, <code>()</code></td>
+<td>Matches values that are exactly equal to the given literal.</td>
+</tr>
+<tr>
+<td>List constructor</td>
+<td><code>x :: xs</code></td>
+<td>Matches a list by separating it into head and tail.</td>
+</tr>
+<tr>
+<td>List literal</td>
+<td><code>[f, s, t]</code></td>
+<td>Matches a list of fixed length with elements matching the given sub-patterns.</td>
+</tr>
+<tr>
+<td>Tuple</td>
+<td><code>(lhs, rhs)</code></td>
+<td>Matches a tuple by decomposing it into its components.</td>
+</tr>
+<tr>
+<td>Record</td>
+<td><code>{ name = n \| _ }</code></td>
+<td>Matches a record by specifying patterns for one or more fields. See <strong><a href="#pattern-matching-over-records">Pattern matching over records</a></strong> for details.</td>
+</tr>
+<tr>
+<td>As</td>
+<td><code>(lhs, _) as pair</code></td>
+<td>Matches the inner pattern, while also binding the entire value to a variable.</td>
+</tr>
+<tr>
+<td>@</td>
+<td><code>Succ(@n)</code></td>
+<td>Fold recursion. See <strong><a href="#recursion-corecursion-and-codata">Recursion, corecursion, and codata</a></strong>.</td>
+</tr>
+<tr>
+<td>Or</td>
+<td><code>1 or 2</code></td>
+<td>Matches if the value satisfies at least one of the given alternative patterns.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="traits">Traits</h2>
+<p>A <em>trait</em> describes a collection of functions that must be defined for a given type.</p>
+<div class="highlight"><pre><span></span><code>trait &lt;name&gt;(&lt;type_parameter&gt;) {
+  &lt;definition_1&gt;: &lt;type_1&gt; 
+  &lt;definition_2&gt;: &lt;type_2&gt; 
+  ...
+  &lt;definition_n&gt;: &lt;type_n&gt; 
+}
+</code></pre></div>
+<p>By defining a set of behaviors as a trait, you can reuse the same functionality across all types that support it. This reduces duplication and encourages reusable code. Traits are conceptually similar to type classes in Haskell and a common analogy is to think of them as interfaces in object-oriented programming.</p>
+<p>The following example defines a trait with a single function, <code>compare</code>. This function takes two inputs <em>a</em> and <em>b</em> of the same type and returns a value to indicate if <em>a</em> is less than <em>b</em> (<code>Lt</code>), greater than (<code>Gt</code>), or if the two values are equal (<code>Eq</code>). In other words, this trait captures the notion of a <a href="https://en.wikipedia.org/wiki/Total_order">total order</a> on the type <code>t</code> (similar to Haskell’s <code>Ord</code> type class).</p>
+<div class="highlight"><pre><span></span><code>trait Ordered&lt;t&gt; {
+  fun compare : t -&gt; t -&gt; Order   // where type Order = Lt | Gt | Eq
+}
+</code></pre></div>
+<p>Making a type support a trait comes down to defining an <em>instance</em> of the trait. An instance provides concrete implementations of all functions declared in the trait, specialized for the chosen type. For example, by instantiating the <code>Ordered</code> trait for <code>bool</code>, we define an ordering on the booleans:</p>
+<div class="highlight"><pre><span></span><code>instance Ordered&lt;bool&gt; {
+  fun compare(a, b) =
+    match((a, b)) {
+      (false, true) =&gt; Lt
+      (true, false) =&gt; Gt
+      (_, _) =&gt; Eq
+    }
+}
+</code></pre></div>
+<p>Code that uses <code>compare</code> now works uniformly for all types that have an <code>Ordered</code> instance:</p>
+<div class="highlight"><pre><span></span><code>fun is_less_than(x : t, y : t) : bool with Ordered&lt;t&gt; =
+  compare(x, y) == Lt
+
+// is_less_than(3, 5)
+// is_less_than(false, true)
+</code></pre></div>
+<p>Type parameters, like <code>t</code> in the type of <code>is_less_than</code> are <a href="https://en.wikipedia.org/wiki/Universal_quantification">universally quantified</a>. The <code>with</code> keyword introduces one or more constraints on type variables appearing in a type. In this case it demands that an instance of <code>Ordered</code> exists for the type substituted for <code>t</code>.
+We write the full type of <code>is_less_than</code> as: <code>t -&gt; t -&gt; bool with Ordered&lt;t&gt;</code>.</p>
+<h3 id="higher-kinded-traits">Higher-kinded traits</h3>
+<p>So far, the traits we’ve looked at have all been of the form <code>T&lt;t&gt;</code>, where <code>t</code> is a placeholder for an ordinary type. Unlike these, a <em>type constructor</em> is a type-level function which takes one or more types as arguments and returns a type. That is, a type constructor on its own isn’t really a type, until it is provided with all necessary type arguments. For example, in the type <code>Option&lt;int32&gt;</code>, <code>Option</code> is a type constructor with <a href="https://en.wikipedia.org/wiki/Kind_(type_theory)">kind</a></p>
+<div class="highlight"><pre><span></span><code>* -&gt; *
+</code></pre></div>
+<p>where <code>*</code> denotes a <em>proper</em> type (i.e., a fully applied type with no parameters). We can read <code>Option : * -&gt; *</code> as:</p>
+<blockquote>
+<p>Option is a type constructor that takes a type as input and produces a type.</p>
+</blockquote>
+<p>This generalizes to constructors of higher kinds. For example, <code>Result&lt;e, a&gt;</code> has kind <code>* -&gt; * -&gt; *</code>.</p>
+<p>Traits can be parameterized by type constructors. Instead of <code>T&lt;t : *&gt;</code>, we then get a trait of the form <code>T&lt;f : * -&gt; ... -&gt; *&gt;</code>. A common example is the <code>Functor</code> trait, which abstracts the idea of <a href="#mapping-over-a-list">mapping a function</a> over some container-like structure:</p>
+<div class="highlight"><pre><span></span><code>trait Functor&lt;f : * -&gt; *&gt; {
+  map : (a -&gt; b) -&gt; f&lt;a&gt; -&gt; f&lt;b&gt;;
+}
+</code></pre></div>
+<p>The <code>Option</code> type forms a <code>Functor</code> in the following way:</p>
+<div class="highlight"><pre><span></span><code>// Make Option an instance of the Functor trait
+instance Functor&lt;Option&gt; {
+  fun map(f, opt) =
+    match(opt) {
+      | Some(a) =&gt; Some(f(a))
+      | None =&gt; None
+    }
+}
+</code></pre></div>
+<p>This instance ensures that <code>map</code> can be used on <code>Option</code> values, just like on lists:</p>
+<div class="highlight"><pre><span></span><code>let times100 = fn(x) =&gt; x * 100
+
+map(times100, Some(1))    // ==&gt; Some(100)
+map(times100, [1, 2, 3])  // ==&gt; [100, 200, 300]
+</code></pre></div>
+<h3 id="trait-inheritance">Trait inheritance</h3>
+<p>A trait can declare that it depends on another trait by <em>inheriting</em> from it. The inheriting trait is then able to access to the methods of the parent trait, and build its own functionality on top of them. For example, the following instance defines how to display an <code>Option&lt;a&gt;</code> value, provided that there is already a way to display values of type <code>a</code>:</p>
+<div class="highlight"><pre><span></span><code>  trait Show&lt;Option&lt;a&gt;&gt; with Show&lt;a&gt; {
+    fun show(opt) =
+      match(opt) {
+        | Some(v) =&gt; &quot;Some(&quot; +++ show(v) +++ &quot;)&quot;
+        | None =&gt; &quot;None&quot;
+      }
+  } 
+</code></pre></div>
+<p>Here, the <code>Show&lt;Option&lt;a&gt;&gt;</code> instance inherits from <code>Show&lt;a&gt;</code>. The compiler will only accept this instance assuming a <code>Show</code> implementation for <code>a</code> is available. Inside the trait body, we can call <code>show(v)</code> on the inner value <code>v : a</code>. The parent trait <code>Show&lt;a&gt;</code> guarantees that <code>show</code> is defined for this type. In other words, the ability to show an <code>Option&lt;a&gt;</code> depends directly on the ability to show its element type <code>a</code>.</p>
+<h2 id="recursion-corecursion-and-codata">Recursion, corecursion, and codata</h2>
+<p>In most programming languages, a typical implementation of the factorial function looks something like this:</p>
+<div class="highlight"><pre><span></span><code>fun factorial(n : int32) =
+  if (n == 0)
+    then 1
+    else n * factorial(n - 1)
+</code></pre></div>
+<p>If we pass this function to the Coal compiler, it is rejected with the following error:</p>
+<div class="highlight"><pre><span></span><code>  |       else n * factorial(n - 1);
+  |                ^^^^^^^^^
+
+Name not in scope: factorial
+</code></pre></div>
+<p>To call a function from itself in this way is not possible. Instead, recursion must be accomplished through a pattern know as a <em>fold</em>. A fold (or <em>catamorphism</em>) is a way to deconstruct data, layer by layer. It abstracts the notion of a structurally recursive computation over some algebraic data type. </p>
+<h3 id="fold-syntax">Fold syntax</h3>
+<p>In Coal, <code>fold</code> is a language keyword, not an ordinary function. Syntactically, it is similar to a <code>match</code> expression (explained <a href="#pattern-matching">here</a>), but with one crucial difference: a <code>fold</code> carries built-in support for recursion. </p>
+<p>To implement the factorial function using a fold, we are going to use the <code>nat</code> data type, which <a href="#natural-numbers">defines the natural numbers</a> recursively:</p>
+<div class="highlight"><pre><span></span><code>Zero, Succ(Zero), Succ(Succ(Zero)), ...
+</code></pre></div>
+<p>It is defined as:</p>
+<div class="highlight"><pre><span></span><code>type nat 
+  = Zero 
+  | Succ(nat)
+</code></pre></div>
+<p>This type is recursive because <code>nat</code> appears inside one of its own constructors. We mark this recursive position with the special symbol <code>@</code>:</p>
+<div class="highlight"><pre><span></span><code>type nat 
+  = Zero 
+  | Succ(@)
+</code></pre></div>
+<p>This location is significant since it is precisely where the <code>fold</code> mechanism will recurse. Using the special <code>@</code>-pattern syntax only available in <code>fold</code> expressions, we can now express the factorial function as:</p>
+<div class="highlight"><pre><span></span><code>  fun factorial(n : nat) =
+    fold(n) {
+      | Zero =&gt;
+          1
+      | Succ(@p) as m =&gt;
+          m * p
+    }
+</code></pre></div>
+<p>Here is how to unpack the meaning of this:</p>
+<ul>
+<li>In the base case <code>Zero</code>, the result is simply <code>1</code>.</li>
+<li>In the recursive case <code>Succ(@p) as m</code>:</li>
+<li><code>m</code> is bound to the current value being matched (e.g., <code>Succ(Succ(Zero))</code>),</li>
+<li><code>p</code> is bound to the result of recursively folding over the inner value — the one inside the constructor (<code>Succ</code>).</li>
+</ul>
+<p>So intuitively, <code>@p</code> behaves like “the result of recursively applying this same fold to the inner structure.” In other words, the compiler performs the recursion for you.</p>
+<p>This produces the same behavior as if you could have written an explicitly recursive definition such as:</p>
+<div class="highlight"><pre><span></span><code>      | Succ(r) =&gt; Succ(r) * fold(r)
+</code></pre></div>
+<p>but without referring to the function by name.</p>
+<p>The fibonacci function can be implemented in the following way:</p>
+<div class="highlight"><pre><span></span><code>  fun fib(p : nat) =
+    let (res, _) =
+      fold(p - 1) {
+        | Zero =&gt; 
+            (1 : nat, 1)
+        | Succ(@q) =&gt; 
+            let 
+              (m, n) = q
+            in 
+              (n, m + n)
+      }
+    in
+      res
+</code></pre></div>
+<h4 id="well-foundedness">Well-foundedness</h4>
+<p>To ensure that recursion is well-founded (guaranteed to terminate), the use of <code>@</code>-patterns is restricted. Most importantly, they can only appear inside constructors. The reason for this is that a constructor’s fields are always <em>structurally smaller</em> than the value being folded. Progress toward the base case is thereby guaranteed in each step.</p>
+<p>The following, for example, is invalid:</p>
+<div class="highlight"><pre><span></span><code>    fold(n) {
+      | @p =&gt; p
+    }
+</code></pre></div>
+<p>Here, <code>@p</code> appears at the top level, and not inside a constructor. This means that the fold would have no smaller sub-structure to recurse into.</p>
+<h4 id="beyond-the-factorial">Beyond the factorial</h4>
+<p>Folds can express a wide range of recursive computations over algebraic data types. For example, here is the implementation of <code>reduce</code> for lists:</p>
+<div class="highlight"><pre><span></span><code>  fun reduce(f, acc, list) =
+    fold(list, acc) {
+      x :: @rec =&gt;
+        fn(a) =&gt; rec(f(x, a))
+      [] =&gt;
+        fn(a) =&gt; a
+    }
+</code></pre></div>
+<p>This definition captures the standard way of consuming a list by repeatedly applying a function (<code>f</code>) to its elements and an accumulator. The recursive descent through the list happens implicitly — the programmer specifies only what to do at each layer.</p>
+<blockquote>
+<p>Instead of dealing with recursive computations directly, it is often easier and safer to build on existing combinators and higher-order functions. For example, we can express the factorial function in the following way:</p>
+<div class="highlight"><pre><span></span><code>let factorial = product &lt;&lt; enum_to  // product of numbers 1, 2, ..., n
+</code></pre></div>
+<p>Here, <code>enum_to</code> generates the list <code>[1, 2, ..., n]</code>, and <code>product</code> multiplies its elements.</p>
+</blockquote>
+<h3 id="mutual-recursion">Mutual recursion</h3>
+<p>Even though the <code>fold</code> expression syntax is applicable to a wide range of algorithms, there are cases where it falls short. Let’s take another look at the JSON data type devised earlier:</p>
+<div class="highlight"><pre><span></span><code>  type JsonValue
+    = Null
+    | Bool(bool)
+    | Number(double)
+    | String(string)
+    | Array(List&lt;JsonValue&gt;)
+    | Object(List&lt;(string, JsonValue)&gt;)
+</code></pre></div>
+<p>This type is recursive, but it differs from a simple type like <code>nat</code> in an important way: <code>JsonValue</code> does not appear immediately under a constructor. Instead, it is wrapped inside other data structures (e.g., <code>List</code> in the <code>Array</code> constructor, or <code>List&lt;(string, JsonValue)&gt;</code> in the <code>Object</code> constructor).</p>
+<p>Suppose we want to implement a function that encodes JSON values as strings &mdash; that is, a recursive function of type <code>JsonValue -&gt; string</code>:</p>
+<div class="highlight"><pre><span></span><code>  fun json_encode(json_value) : string =
+    fold(json_value) {
+      // ... other constructors are straightforward
+      | Array(json_values) =&gt; ?
+      | Object(key_value_pairs&gt;) =&gt; ?
+    }
+</code></pre></div>
+<p>We might try to handle the <code>Array</code> case by matching on the list constructor:</p>
+<div class="highlight"><pre><span></span><code>      | Array(@head :: tail) =&gt; ?
+</code></pre></div>
+<p>The <code>@head</code> pattern works as expected: it binds head to the result of recursively folding over that element. However, the rest of the list (<code>tail</code>) cannot be processed using an <code>@</code>-pattern in the same way. Its type is <code>List&lt;JsonValue&gt;</code>, not <code>JsonValue</code>. Fold-patterns expect a value of the same type as the one being folded over.</p>
+<h4 id="top-level-folds">Top-level folds</h4>
+<p>A top-level <code>fold</code>, unlike the expression-level syntax, has a name, which makes it callable from other folds, and from ordinary functions. This allows us to define separate folds for the three different cases: </p>
+<div class="highlight"><pre><span></span><code>  fold encode_json_value : JsonValue -&gt; string 
+  fold encode_json_array : List&lt;JsonValue&gt; -&gt; List&lt;string&gt; 
+  fold encode_json_object : List&lt;(string, JsonValue)&gt; -&gt; List&lt;string&gt; 
+</code></pre></div>
+<p>From one fold, we can invoke another. But folding is only possible from within a pattern, using the following syntax:</p>
+<div class="highlight"><pre><span></span><code>    | JsonArray(encode_json_array(@values)) =&gt; ...
+</code></pre></div>
+<p>The <code>@</code>-pattern works in the same way here as in expression-level folds, binding values to the result of recursively folding over the list.</p>
+<p>The following is a complete implementation the JSON encoder using this approach:</p>
+<div class="highlight"><pre><span></span><code>module Json {
+
+  import String(intercalate)
+
+  type JsonValue
+    = JsonNull
+    | JsonBool(bool)
+    | JsonNumber(double)
+    | JsonString(string)
+    | JsonArray(List&lt;JsonValue&gt;)
+    | JsonObject(List&lt;(string, JsonValue)&gt;)
+
+  fold encode_json_value : JsonValue -&gt; string {
+    | JsonNull =&gt; &quot;null&quot;
+    | JsonBool(false) =&gt; &quot;false&quot;
+    | JsonBool(true) =&gt; &quot;true&quot;
+    | JsonNumber(d) =&gt; double_to_string(d)
+    | JsonString(str) =&gt; &quot;\&quot;&quot; +++ str +++ &quot;\&quot;&quot;
+    | JsonArray(encode_json_array(@values)) =&gt; &quot;[&quot; +++ intercalate(&quot;,&quot;, values) +++ &quot;]&quot;
+    | JsonObject(encode_json_object(@key_value_pairs)) =&gt; &quot;{&quot; +++ intercalate(&quot;,&quot;, key_value_pairs) +++ &quot;}&quot;
+  }
+
+  fold encode_json_array : List&lt;JsonValue&gt; -&gt; List&lt;string&gt; {
+    | [] =&gt; []
+    | encode_json_value(@value) :: encode_json_array(@values) =&gt; value :: values
+  }
+
+  fold encode_json_object : List&lt;(string, JsonValue)&gt; -&gt; List&lt;string&gt; {
+    | [] =&gt; []
+    | (key, encode_json_value(@value)) :: encode_json_object(@pairs) =&gt; 
+        let label = &quot;\&quot;&quot; +++ key +++ &quot;\&quot;&quot; 
+        in 
+        (label +++ &quot;:&quot; +++ value) :: pairs
+  } 
+
+  fun encode_json(value : JsonValue) = encode_json_value(value)
+
+}
+</code></pre></div>
+<h3 id="codata-and-unfold">Codata and unfold</h3>
+<p>Recursion over ordinary data in Coal (or any language with well-founded recursion) is always guaranteed to terminate. This implies that all data is finite as well. In many cases, this is desirable &mdash; it makes reasoning about programs predictable and safe. However, there are situations where we want potentially infinite structures or non-terminating behavior. For example:</p>
+<ul>
+<li>Infinite sequences of numbers, like the natural numbers, are easy to define in Haskell using laziness:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>nats = [0..]
+</code></pre></div>
+<ul>
+<li>Programs that continuously run in the background, such as web servers or event loops, inherently involve non-terminating processes.</li>
+</ul>
+<p>In Coal, ordinary data cannot be infinite: a <code>List</code>, <code>Tree</code>, or any recursive data type must eventually reach a base case. To express potentially infinite or ongoing computations, Coal provides a separate mechanism called <em>codata</em>.</p>
+<h4 id="data-on-demand">Data on demand</h4>
+<p>The key difference between data and codata lies in how values are produced and consumed. Whereas data is finite and <em>constructed</em>, codata is potentially infinite and <em>observed</em>: you unfold it step by step. The following table gives a comparison between the two:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Access pattern</th>
+<th>Structure</th>
+<th>Evaluation strategy</th>
+<th>Invariant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Data</strong></td>
+<td>Recursion (<code>fold</code>)</td>
+<td>Always finite</td>
+<td>Eager (strict)</td>
+<td>Progress</td>
+</tr>
+<tr>
+<td><strong>Codata</strong></td>
+<td>Corecursion (<code>unfold</code>)</td>
+<td>Potentially infinite</td>
+<td>Lazy (non-strict)</td>
+<td>Productivity</td>
+</tr>
+</tbody>
+</table>
+<p>Codata is ideal for representing streams, event sequences, or any ongoing process, where you only need to observe a finite part at a time. </p>
+<p>A codata type is introduced using the <code>cotype</code> keyword and (like a record type) is defined by a set of comma-separated fields enclosed in curly braces:</p>
+<div class="highlight"><pre><span></span><code>cotype &lt;Name&gt; = { &lt;Field_1&gt; : &lt;t_1&gt;, ..., &lt;Field_n&gt; : &lt;t_n&gt; }
+</code></pre></div>
+<p>Unlike records, the codata field labels start with an <strong>uppercase</strong> letter.</p>
+<h4 id="a-basic-counter">A basic counter</h4>
+<p>A simple codata type is a counter, which represents an infinite sequence of integers:</p>
+<div class="highlight"><pre><span></span><code>cotype Counter = { Current : int32, Next : Counter }
+</code></pre></div>
+<p>This definition involves two codata fields: <code>Current</code> gives access to the current value, and <code>Next</code> produces the next rendition of the counter. The corecursive counterpart of <code>fold</code> is <code>unfold</code>. To define a counter based on the <code>Counter</code> codata type, we can write:</p>
+<div class="highlight"><pre><span></span><code>  unfold count_from(n : int32) : Counter {
+    , Current = n
+    , @Next = n + 1
+  }
+</code></pre></div>
+<p>Here, the <code>@</code> symbol resurfaces, but this time in the name of the field. In this context, <code>@Next</code> means that the value for <code>Next</code> is obtained corecursively, by invoking <code>count_from</code> again with the field value (in this case, <code>n + 1</code>). Conceptually, the result is equivalent to writing the following, if explicit recursion were possible:</p>
+<div class="highlight"><pre><span></span><code>  unfold count_from(n : int32) : Counter {
+    , Current = n
+    , Next = count_from(n + 1)
+  }
+</code></pre></div>
+<p>We can now observe the counter, by accessing its fields:</p>
+<div class="highlight"><pre><span></span><code>let counter = count_from(10)
+
+counter.Current             // =&gt; 10
+counter.Next.Current        // =&gt; 11
+counter.Next.Next.Current   // =&gt; 12
+</code></pre></div>
+<p>Each observation reveals one additional layer of the codata structure, producing a value that can itself be further observed. Unlike ordinary data, this can continue indefinitely &mdash; you can keep asking for <code>Next</code> without ever reaching a base case.</p>
+<p>It is also possible to define operations that transform counters while preserving their infinite, coinductive structure:</p>
+<div class="highlight"><pre><span></span><code>  unfold transform_counter(f : int32 -&gt; int32, c : Counter) : Counter {
+    , Current = f(c.Current)
+    , @Next = (f, c.Next)
+  }
+</code></pre></div>
+<!--
+
+Aside: Why can't we simply write `counter(n + 1)` then? The reason is similar to that of folds. But instead of being concerned with progress in each step, here we are worried about *productivity*. 
+Consider what would happen if we could write, for example:
+
+<div class="highlight"><pre><span></span><code>  unfold counter(n : int32) : Counter {
+    , Current = n
+    , Next = counter(n + 1).Current
+  }
+</code></pre></div>
+
+Example: pseudo-randomness
+
+--
+
+<div class="highlight"><pre><span></span><code>  fun increment(counter : Counter) =
+    counter.Next
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>  fun main() {
+    trace_int32(counter(1).Current)
+  }
+</code></pre></div>
+
+#### Does codata need to be infinite?
+
+TODO
+
+<div class="highlight"><pre><span></span><code>cotype FiniteCounter = { Current : int32, Next : Option&lt;FiniteCounter&gt; }
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>  unfold count_from(n : int32) : Option&lt;FiniteCounter&gt; {
+    , Current = n
+    , @Next = if (n &gt;= 10) then @Some(n + 1) else @None
+  }
+</code></pre></div>
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
