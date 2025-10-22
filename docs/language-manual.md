@@ -848,7 +848,7 @@ TODO
 
 #### Useful higher-order list functions
 
-These are functions that take some other function as input, and modify the given list in some way based on the behavior of this function.
+These are functions that take some other function as input and modify the list in some way based on the behavior of the given function.
 
 ##### Mapping over a list
 
