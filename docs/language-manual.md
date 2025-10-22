@@ -526,6 +526,7 @@ Just like with let-bindings, the arguments in a lambda-function are patterns:
 |               | Description            |                                       |                                                          
 | ------------- | ---------------------- | ------------------------------------- |                                                                      
 | `.`           | Record field access    | See **[Field access](#field-access)** |                                                               
+| `<>`          | Semigroup operator     |                                       |
 
 #### Function composition and pipelining
 
