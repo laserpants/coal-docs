@@ -269,7 +269,15 @@ Variable names are subject to the following rules:
 Reserved language keywords cannot be used as variable names. They are:
 
 ```
-alias, as, bignum, bool, char, cotype, double, else, false, float, fn, fold, fun, if, import, in, instance, int32, int64, let, match, module, nat, or, string, then, trait, true, type, unfold, unit, when, where, with
+alias           float           int64           true
+as              fn              let             type
+bignum          fold            match           unfold
+bool            fun             module          unit
+char            if              nat             when
+cotype          import          or              where
+double          in              string          with
+else            instance        then
+false           int32           trait
 ```
 
 #### Shadowing considered harmful
