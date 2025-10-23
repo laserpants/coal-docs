@@ -497,16 +497,7 @@
     </span>
   </a>
   
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#a-note-about-let-generalization" class="md-nav__link">
-    <span class="md-ellipsis">
-      A note about let-generalization
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="A note about let-generalization">
+    <nav class="md-nav" aria-label="Let-bindings">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -687,26 +678,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#function-pipelining" class="md-nav__link">
-    <span class="md-ellipsis">
-      Function pipelining
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Function pipelining">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
   <a href="#take-drop-and-slice" class="md-nav__link">
     <span class="md-ellipsis">
@@ -722,6 +693,11 @@
       List concatenation
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -743,45 +719,6 @@
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mapping-and-functors" class="md-nav__link">
-    <span class="md-ellipsis">
-      Mapping and Functors
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Mapping and Functors">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-identity-law" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Identity law
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-composition-law" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Composition law
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Composition law">
-      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#filtering-a-list" class="md-nav__link">
@@ -1414,16 +1351,7 @@
     </span>
   </a>
   
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#a-note-about-let-generalization" class="md-nav__link">
-    <span class="md-ellipsis">
-      A note about let-generalization
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="A note about let-generalization">
+    <nav class="md-nav" aria-label="Let-bindings">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1604,26 +1532,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#function-pipelining" class="md-nav__link">
-    <span class="md-ellipsis">
-      Function pipelining
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Function pipelining">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
   <a href="#take-drop-and-slice" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1639,6 +1547,11 @@
       List concatenation
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1660,45 +1573,6 @@
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mapping-and-functors" class="md-nav__link">
-    <span class="md-ellipsis">
-      Mapping and Functors
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Mapping and Functors">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-identity-law" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Identity law
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-composition-law" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Composition law
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Composition law">
-      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#filtering-a-list" class="md-nav__link">
@@ -2415,8 +2289,7 @@ let (x, y) = (1, 2) in x + y
 let { tidbits = { f = a | _ } } = compute(4)
 </code></pre></div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<h3 id="a-note-about-let-generalization">A note about let-generalization</h3>
+<p class="admonition-title">A note about let-generalization</p>
 <p>In some sense, a let-binding is interchangeable with a lambda function. For example, writing <code>let x = 1 in increment(x)</code> yields the same result as <code>(fn(x) =&gt; increment(x))(1)</code>.
 But besides being more readable, the let-binding also serves another purpose; in <a href="https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system">Hindley-Milner</a> languages, it is let-bindings that introduce polymorphism. Consider the following expression, which doesn’t type check:</p>
 <div class="highlight"><pre><span></span><code>  (fn(f) =&gt; (f(3 : int32), f(&quot;three&quot;)))(fn(x) =&gt; x)
@@ -2835,8 +2708,7 @@ tail : List&lt;a&gt; -&gt; Option&lt;List&lt;a&gt;&gt;
 uncons : List&lt;a&gt; -&gt; Option&lt;(a, List&lt;a&gt;)&gt;
 </code></pre></div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<h3 id="function-pipelining">Function pipelining</h3>
+<p class="admonition-title">Function pipelining</p>
 <p>The operator <code>|.</code> is used in the following examples. It is an infix operator that performs function application, but with the arguments reversed. So, for example, the expression 
 <div class="highlight"><pre><span></span><code>  xs |.map(f)
 </code></pre></div>
@@ -2907,8 +2779,7 @@ TODO
 <div class="highlight"><pre><span></span><code>map : (a -&gt; b) -&gt; List&lt;a&gt; -&gt; List&lt;b&gt;
 </code></pre></div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<h3 id="mapping-and-functors">Mapping and <code>Functor</code>s</h3>
+<p class="admonition-title">Mapping and the <code>Functor</code> trait</p>
 <p>The actual type of <code>map</code> is more general than the specialized <code>List</code> version above. In fact, any value of type <code>f&lt;a&gt;</code> can be mapped over, as long as <code>f</code> implements the <code>Functor</code> <a href="#traits">trait</a>:</p>
 <div class="highlight"><pre><span></span><code>map : (a -&gt; b) -&gt; f&lt;a&gt; -&gt; f&lt;b&gt; with Functor&lt;f&gt;
 </code></pre></div>
@@ -2919,11 +2790,11 @@ Homomorphisms are the topic of study in category theory. It is also in category 
 z : a -&gt; b  ==&gt;  map(z) : f&lt;a&gt; -&gt; f&lt;b&gt;        // and functions
 </code></pre></div>
 <p>Functors are expected to obey the following two laws:</p>
-<h4 id="1-identity-law">1. Identity law</h4>
+<p><h4>1. Identity law</h4></p>
 <div class="highlight"><pre><span></span><code>map(id) == id
 </code></pre></div>
 <p>This says that mapping the identity function over a functor doesn’t change the structure or its contents. </p>
-<h4 id="2-composition-law">2. Composition law</h4>
+<p><h4>2. Composition law</h4></p>
 <div class="highlight"><pre><span></span><code>map(f &lt;&lt; g) == map(f) &lt;&lt; map(g)     // The operator `&lt;&lt;` denotes function composition, so `f &lt;&lt; g = f(g(x)))`.
 </code></pre></div>
 <p>This law ensures that mapping the composition of two functions is the same as first mapping one function and then the other. In other words, functors preserve function composition. </p>
