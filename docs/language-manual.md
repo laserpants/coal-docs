@@ -400,9 +400,7 @@ let (x, y) = (1, 2) in x + y
 let { tidbits = { f = a | _ } } = compute(4)
 ```
 
-!!! note
-
-    ### A note about let-generalization
+!!! note "A note about let-generalization"
 
     In some sense, a let-binding is interchangeable with a lambda function. For example, writing `let x = 1 in increment(x)` yields the same result as `(fn(x) => increment(x))(1)`.
     But besides being more readable, the let-binding also serves another purpose; in [Hindley-Milner](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system) languages, it is let-bindings that introduce polymorphism. Consider the following expression, which doesn’t type check:
@@ -751,9 +749,7 @@ tail : List<a> -> Option<List<a>>
 uncons : List<a> -> Option<(a, List<a>)>
 ```
 
-!!! note
-
-    ### Function pipelining
+!!! note "Function pipelining"
 
     The operator `|.` is used in the following examples. It is an infix operator that performs function application, but with the arguments reversed. So, for example, the expression 
     ```
@@ -871,9 +867,7 @@ The type of `map` is:
 map : (a -> b) -> List<a> -> List<b>
 ```
 
-!!! note
-
-    ### Mapping and `Functor`s
+!!! note "Mapping and the `Functor` trait"
 
     The actual type of `map` is more general than the specialized `List` version above. In fact, any value of type `f<a>` can be mapped over, as long as `f` implements the `Functor` [trait](#traits):
 
@@ -893,7 +887,7 @@ map : (a -> b) -> List<a> -> List<b>
 
     Functors are expected to obey the following two laws:
 
-    #### 1. Identity law
+    <h4>1. Identity law</h4>
 
     ```
     map(id) == id
@@ -901,7 +895,7 @@ map : (a -> b) -> List<a> -> List<b>
 
     This says that mapping the identity function over a functor doesn’t change the structure or its contents. 
 
-    #### 2. Composition law
+    <h4>2. Composition law</h4>
 
     ```
     map(f << g) == map(f) << map(g)     // The operator `<<` denotes function composition, so `f << g = f(g(x)))`.
