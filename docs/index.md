@@ -1,5 +1,7 @@
 # Coal
 
+<img alt="Coal" src="assets/mine.jpg" />
+
 This is the official documentation for the Coal programming language. 
 
 ## About
