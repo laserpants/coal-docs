@@ -453,16 +453,16 @@
   = Nil
   | Cons(t, List&lt;t&gt;)
 </code></pre></div>
-<p>The <em>pattern functor</em> for a data type abstracts recursion by isolating one layer of the data structure, leaving the recursive portion as a parameter. For <code>List</code>, the corresponding pattern functor <span class="arithmatex">\(F\)</span> is:</p>
-<div class="arithmatex">\[
-F(X) = \mathsf{1} + (t \times X)
-\]</div>
-<p>In code, this can be expressed as:</p>
+<p>The <em>pattern functor</em> for a data type abstracts recursion by isolating one layer of the data structure, leaving the recursive portion as a parameter. For <code>List</code>, the corresponding pattern functor is:</p>
 <div class="highlight"><pre><span></span><code>type ListF&lt;t, a&gt; 
   = NilF
   | ConsF(t, a)
 </code></pre></div>
-<p>In the above equation:</p>
+<p>In mathematical terms, this can be expressed by the equation:</p>
+<div class="arithmatex">\[
+F(X) = \mathsf{1} + (t \times X)
+\]</div>
+<p>where</p>
 <ul>
 <li><span class="arithmatex">\(\mathsf{1}\)</span> corresponds to <code>NilF</code>,</li>
 <li><span class="arithmatex">\((t × X)\)</span> corresponds to <code>ConsF(t, a)</code>.</li>
