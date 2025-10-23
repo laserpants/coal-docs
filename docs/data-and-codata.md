@@ -20,13 +20,7 @@ type List<t>
   | Cons(t, List<t>)
 ```
 
-The *pattern functor* for a data type abstracts recursion by isolating one layer of the data structure, leaving the recursive portion as a parameter. For `List`, the corresponding pattern functor $F$ is:
-
-$$
-F(X) = \mathsf{1} + (t \times X)
-$$
-
-In code, this can be expressed as:
+The *pattern functor* for a data type abstracts recursion by isolating one layer of the data structure, leaving the recursive portion as a parameter. For `List`, the corresponding pattern functor is:
 
 ```
 type ListF<t, a> 
@@ -34,7 +28,13 @@ type ListF<t, a>
   | ConsF(t, a)
 ```
 
-In the above equation:
+In mathematical terms, this can be expressed by the equation:
+
+$$
+F(X) = \mathsf{1} + (t \times X)
+$$
+
+where
 
 - $\mathsf{1}$ corresponds to `NilF`,
 - $(t × X)$ corresponds to `ConsF(t, a)`.
