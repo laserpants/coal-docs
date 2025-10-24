@@ -495,13 +495,13 @@ Just like with let-bindings, the arguments in a lambda-function are patterns:
 | `+`           | Addition               | `∀n : n -> n -> n with Numeric(n)`   |                                                                        
 | `-`           | Subtraction            | `∀n : n -> n -> n with Numeric(n)`   |                                                                        
 | `*`           | Multiplication         | `∀n : n -> n -> n with Numeric(n)`   |                                           
-| `/`           | Division               |                                      |                                                                        
+| `/`           | Division               | `∀q : q -> q -> q with Divisible(q)` |                                                                        
 | `^`           | Exponentiation         | `∀n : n -> nat -> n with Numeric(n)` |                                                                        
 
 |               | Description            | Type                                  |                                                                        
 | ------------- | ---------------------- | ------------------------------------- |                                                                        
-| `==`          | Equality               | `∀n : n -> n -> bool with Equal(n)`   |                                                                        
-| `!=`          | Inequality             | `∀n : n -> n -> bool with Equal(n)`   |                                                                        
+| `==`          | Equality               | `∀n : n -> n -> bool with Comparable(n)` |                                                                        
+| `!=`          | Inequality             | `∀n : n -> n -> bool with Comparable(n)` |                                                                        
 | `<`           | Less than              | `∀n : n -> n -> bool with Ordered(n)` |                                           
 | `>`           | Greater than           | `∀n : n -> n -> bool with Ordered(n)` |                                                                        
 | `<=`          | Less than or equal     | `∀n : n -> n -> bool with Ordered(n)` |                                           
