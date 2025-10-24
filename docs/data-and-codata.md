@@ -28,7 +28,7 @@ type ListF<t, a>
   | ConsF(t, a)
 ```
 
-In mathematical terms, this can be expressed by the equation:
+Notice that, unlike `List`, the type `ListF` is not recursive. In mathematical terms, this functor can be expressed by the equation:
 
 $$
 F(X) = \mathsf{1} + (t \times X)
@@ -39,7 +39,7 @@ where
 - $\mathsf{1}$ corresponds to `NilF`,
 - $(t × X)$ corresponds to `ConsF(t, a)`.
 
-The actual recursive type is the [fixed point](https://en.wikipedia.org/wiki/Fixed_point_(mathematics)) of this functor:
+The actual recursive type is the [fixed point](https://en.wikipedia.org/wiki/Fixed_point_(mathematics)) of $F$:
 
 $$
 \texttt{List<t>} \cong \mu F \cong F(\mu F)
