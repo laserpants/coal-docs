@@ -507,9 +507,9 @@ Just like with let-bindings, the arguments in a lambda-function are patterns:
 | `<=`          | Less than or equal     | `∀n : n -> n -> bool with Ordered(n)` |                                           
 | `>=`          | Greater than or equal  | `∀n : n -> n -> bool with Ordered(n)` |                                                                        
 
-|               | Description            | Type                          |                                                                        
-| ------------- | ---------------------- | ----------------------------- |                                                                        
-| `%`           | Modulus                |                               |                                                                        
+|               | Description            | Type                               |                                                                        
+| ------------- | ---------------------- | ---------------------------------- |                                                                        
+| `%`           | Modulus                | `∀m : m -> m -> m with Mod(m)`     |                                                                        
 
 #### Logical
 
