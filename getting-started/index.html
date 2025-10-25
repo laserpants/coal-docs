@@ -380,6 +380,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#building-the-compiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building the compiler
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building the compiler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hello-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hello, world!
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -563,6 +587,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#building-the-compiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building the compiler
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building the compiler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hello-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hello, world!
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -640,6 +688,30 @@ sudo apt install libgc-dev libgmp-dev build-essential
 <h5 id="mac-os_1">Mac OS</h5>
 <div class="highlight"><pre><span></span><code>brew install bdw-gc gmp
 </code></pre></div>
+<h2 id="building-the-compiler">Building the compiler</h2>
+<p>Clone the repository:</p>
+<div class="highlight"><pre><span></span><code>git clone ssh://git@codeberg.org/laserpants/coal.git
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>cd coal &amp;&amp; stack install
+</code></pre></div>
+<p>Restart or refresh your shell, using e.g., <code>exec $SHELL -l</code>. To verify that the executable is installed, run:</p>
+<div class="highlight"><pre><span></span><code>coal --help
+</code></pre></div>
+<h3 id="hello-world">Hello, world!</h3>
+<div class="highlight"><pre><span></span><code>module Main {
+
+  fun main() = trace_string(&quot;Hello, world!&quot;)
+
+}
+</code></pre></div>
+<p>Save this program as "Main.coal".</p>
+<div class="highlight"><pre><span></span><code>coal Main.coal -o dist
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>./.build/build.sh &amp;&amp; ./.build/dist
+</code></pre></div>
+<blockquote>
+<p>The <code>build.sh</code> script is a temporary solution. </p>
+</blockquote>
 
 
 
