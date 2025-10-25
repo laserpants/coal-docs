@@ -539,8 +539,6 @@ Just like with let-bindings, the arguments in a lambda-function are patterns:
 | `<<`          | Reverse composition         | `(b -> c) -> (a -> b) -> a -> c` |                                                                        
 | `|.`          | Reverse application         | `a -> (a -> b) -> b`             |                                                                        
 | `.|`          | Forward application         | `(a -> b) -> a -> b`             |                                                                        
-| `$.`          | Flipped reverse application | TODO                             |                                                                        
-| `.$`          | Flipped forward application | TODO                             |                                                                        
 
 #### List operations
 
@@ -772,16 +770,16 @@ uncons : List<a> -> Option<(a, List<a>)>
     To describe a sequence of steps that creates a circle, sets properties such as its color and position, and finally places it on the canvas, we would normally write:
 
     ```
-    draw_shape(set_position(10, 5, fill("blue", circle({ radius = 5.0 }))), canvas)
+    draw_shape(set_position(10.0f, 5.0f, fill("blue", circle({ radius = 5.0f }))), canvas)
     ```
 
-    Using the reverse function application operator (and the associated `$.`-operator), we could instead write the above in a more readable *pipeline*-style:
+    Using the reverse function application operator, we could instead write the above in a more readable *pipeline*-style:
 
     ```
-    circle({ radius = 5.0 })
+    circle({ radius = 5.0f })
       |.fill("blue")
-      |.set_position(10.0, 5.0)
-      $.draw_shape(canvas)
+      |.set_position(10.0f, 5.0f)
+      |.flipped(draw_shape, canvas)
     ```
 
 ##### Take, drop and slice
