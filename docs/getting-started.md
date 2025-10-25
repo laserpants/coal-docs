@@ -83,4 +83,42 @@ brew install llvm
 brew install bdw-gc gmp
 ```
 
+## Building the compiler
 
+Clone the repository:
+
+```
+git clone ssh://git@codeberg.org/laserpants/coal.git
+```
+
+```
+cd coal && stack install
+```
+
+Restart or refresh your shell, using e.g., `exec $SHELL -l`. To verify that the executable is installed, run:
+
+```
+coal --help
+```
+
+### Hello, world!
+
+```
+module Main {
+
+  fun main() = trace_string("Hello, world!")
+
+}
+```
+
+Save this program as "Main.coal".
+
+```
+coal Main.coal -o dist
+```
+
+```
+./.build/build.sh && ./.build/dist
+```
+
+> The `build.sh` script is a temporary solution. 
