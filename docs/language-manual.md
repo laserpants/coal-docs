@@ -537,8 +537,8 @@ Just like with let-bindings, the arguments in a lambda-function are patterns:
 | ------------- | --------------------------- | -------------------------------- |                                                                        
 | `>>`          | Forward composition         | `(a -> b) -> (b -> c) -> a -> c` |                                                                        
 | `<<`          | Reverse composition         | `(b -> c) -> (a -> b) -> a -> c` |                                                                        
-| `\|.`         | Reverse application         | `a -> (a -> b) -> b`             |                                                                        
-| `.\|`         | Forward application         | `(a -> b) -> a -> b`             |                                                                        
+| `|.`          | Reverse application         | `a -> (a -> b) -> b`             |                                                                        
+| `.|`          | Forward application         | `(a -> b) -> a -> b`             |                                                                        
 | `$.`          | Flipped reverse application | TODO                             |                                                                        
 | `.$`          | Flipped forward application | TODO                             |                                                                        
 
