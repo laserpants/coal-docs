@@ -2556,16 +2556,6 @@ Error: Name &quot;fib&quot; not in scope
 <td>Forward application</td>
 <td><code>(a -&gt; b) -&gt; a -&gt; b</code></td>
 </tr>
-<tr>
-<td><code>$.</code></td>
-<td>Flipped reverse application</td>
-<td>TODO</td>
-</tr>
-<tr>
-<td><code>.$</code></td>
-<td>Flipped forward application</td>
-<td>TODO</td>
-</tr>
 </tbody>
 </table>
 <h4 id="list-operations">List operations</h4>
@@ -2749,13 +2739,13 @@ set_position : float -&gt; float -&gt; Shape -&gt; Shape
 draw_shape   : Shape -&gt; Canvas -&gt; Canvas
 </code></pre></div>
 <p>To describe a sequence of steps that creates a circle, sets properties such as its color and position, and finally places it on the canvas, we would normally write:</p>
-<div class="highlight"><pre><span></span><code>draw_shape(set_position(10, 5, fill(&quot;blue&quot;, circle({ radius = 5.0 }))), canvas)
+<div class="highlight"><pre><span></span><code>draw_shape(set_position(10.0f, 5.0f, fill(&quot;blue&quot;, circle({ radius = 5.0f }))), canvas)
 </code></pre></div>
-<p>Using the reverse function application operator (and the associated <code>$.</code>-operator), we could instead write the above in a more readable <em>pipeline</em>-style:</p>
-<div class="highlight"><pre><span></span><code>circle({ radius = 5.0 })
+<p>Using the reverse function application operator, we could instead write the above in a more readable <em>pipeline</em>-style:</p>
+<div class="highlight"><pre><span></span><code>circle({ radius = 5.0f })
   |.fill(&quot;blue&quot;)
-  |.set_position(10.0, 5.0)
-  $.draw_shape(canvas)
+  |.set_position(10.0f, 5.0f)
+  |.flipped(draw_shape, canvas)
 </code></pre></div>
 </div>
 <h5 id="take-drop-and-slice">Take, drop and slice</h5>
