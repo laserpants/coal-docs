@@ -111,14 +111,8 @@ module Main {
 }
 ```
 
-Save this program as "Main.coal".
+Save this program as "Main.coal". Compile the program with the command:
 
 ```
 coal Main.coal -o dist
 ```
-
-```
-./.build/build.sh && ./.build/dist
-```
-
-> The `build.sh` script is a temporary solution. 
