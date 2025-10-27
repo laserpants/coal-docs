@@ -3447,26 +3447,33 @@ Name not in scope: factorial
     | JsonObject(List&lt;(string, JsonValue)&gt;)
 
   fold encode_json_value : JsonValue -&gt; string {
-    | JsonNull =&gt; &quot;null&quot;
-    | JsonBool(false) =&gt; &quot;false&quot;
-    | JsonBool(true) =&gt; &quot;true&quot;
-    | JsonNumber(d) =&gt; double_to_string(d)
-    | JsonString(str) =&gt; &quot;\&quot;&quot; +++ str +++ &quot;\&quot;&quot;
-    | JsonArray(encode_json_array(@values)) =&gt; &quot;[&quot; +++ intercalate(&quot;,&quot;, values) +++ &quot;]&quot;
-    | JsonObject(encode_json_object(@key_value_pairs)) =&gt; &quot;{&quot; +++ intercalate(&quot;,&quot;, key_value_pairs) +++ &quot;}&quot;
+    | JsonNull =&gt; 
+        &quot;null&quot;
+    | JsonBool(false) =&gt; 
+        &quot;false&quot;
+    | JsonBool(true) =&gt; 
+        &quot;true&quot;
+    | JsonNumber(d) =&gt; 
+        double_to_string(d)
+    | JsonString(str) =&gt; 
+        &quot;\&quot;&quot; +++ str +++ &quot;\&quot;&quot;
+    | JsonArray(encode_json_array(@values)) =&gt; 
+        &quot;[&quot; +++ intercalate(&quot;,&quot;, values) +++ &quot;]&quot;
+    | JsonObject(encode_json_object(@key_value_pairs)) =&gt; 
+        &quot;{&quot; +++ intercalate(&quot;,&quot;, key_value_pairs) +++ &quot;}&quot;
   }
 
   fold encode_json_array : List&lt;JsonValue&gt; -&gt; List&lt;string&gt; {
     | [] =&gt; []
-    | encode_json_value(@value) :: encode_json_array(@values) =&gt; value :: values
+    | encode_json_value(@value) :: encode_json_array(@values) =&gt; 
+        value :: values
   }
 
   fold encode_json_object : List&lt;(string, JsonValue)&gt; -&gt; List&lt;string&gt; {
     | [] =&gt; []
     | (key, encode_json_value(@value)) :: encode_json_object(@pairs) =&gt; 
         let label = &quot;\&quot;&quot; +++ key +++ &quot;\&quot;&quot; 
-        in 
-        (label +++ &quot;:&quot; +++ value) :: pairs
+        in (label +++ &quot;:&quot; +++ value) :: pairs
   } 
 
   fun encode_json(value : JsonValue) = encode_json_value(value)
