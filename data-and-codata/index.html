@@ -320,6 +320,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#duality" class="md-nav__link">
+    <span class="md-ellipsis">
+      Duality
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#initial-algebras" class="md-nav__link">
     <span class="md-ellipsis">
       Initial algebras
@@ -332,15 +341,6 @@
   <a href="#pattern-functors-and-fixed-points" class="md-nav__link">
     <span class="md-ellipsis">
       Pattern functors and fixed points
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#duality" class="md-nav__link">
-    <span class="md-ellipsis">
-      Duality
     </span>
   </a>
   
@@ -412,6 +412,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#duality" class="md-nav__link">
+    <span class="md-ellipsis">
+      Duality
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#initial-algebras" class="md-nav__link">
     <span class="md-ellipsis">
       Initial algebras
@@ -424,15 +433,6 @@
   <a href="#pattern-functors-and-fixed-points" class="md-nav__link">
     <span class="md-ellipsis">
       Pattern functors and fixed points
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#duality" class="md-nav__link">
-    <span class="md-ellipsis">
-      Duality
     </span>
   </a>
   
@@ -464,8 +464,15 @@
 
 
 <h1 id="data-and-codata">Data and codata</h1>
-<h2 id="initial-algebras">Initial algebras</h2>
 <p>Data and codata are really "two sides of the same coin." This correspondence can be traced back to category theory, where precise formal meaning is given to these concepts. </p>
+<h2 id="duality">Duality</h2>
+<p>Reversing the arrows is a recurring theme in category theory. Products and sum types describe ways of combining values: a product collects multiple values into one, while a sum, or <em>disjoint union</em>, represents a choice between alternatives. A disjoint union is sometimes also referred to as a <em>coproduct</em>. The reason is that a product is defined by a universal property that allows you to extract its components, whereas a coproduct is defined dually: it allows you to inject a value from one of the alternatives and to handle each case uniquely. </p>
+<p align="center">
+  <img alt="Product and coproduct" src="../assets/tex/png/product_coproduct.png" />
+</p>
+
+<p>In other words, a disjoint union is the categorical dual of a product.</p>
+<h2 id="initial-algebras">Initial algebras</h2>
 <p>An algebraic data type can be understood as the <a href="https://en.wikipedia.org/wiki/Initial_algebra">initial algebra</a> of a functor. Intuitively, this means that it provides the smallest, well-founded solution to a type equation &mdash; one that can be consumed by a fold (a catamorphism). </p>
 <p align="center">
   <img alt="Fold" src="../assets/tex/png/fold.png" />
@@ -495,13 +502,6 @@ F(X) = \mathsf{1} + (t \times X)
 <div class="arithmatex">\[
 \texttt{List&lt;t&gt;} \cong \mu F \cong F(\mu F)
 \]</div>
-<h2 id="duality">Duality</h2>
-<p>Reversing the arrows is a recurring theme in category theory. Products and sum types describe ways of combining values: a product collects multiple values into one, while a sum, or <em>disjoint union</em>, represents a choice between alternatives. A disjoint union is sometimes also referred to as a <em>coproduct</em>. The reason is that a product is defined by a universal property that allows you to extract its components, whereas a coproduct is defined dually: it allows you to inject a value from one of the alternatives and to handle each case uniquely. </p>
-<p align="center">
-  <img alt="Product and coproduct" src="../assets/tex/png/product_coproduct.png" />
-</p>
-
-<p>In other words, a disjoint union is the categorical dual of a product.</p>
 <h2 id="algebras-and-folds">Algebras and folds</h2>
 <p>An <em>algebra</em> for a functor <span class="arithmatex">\(F\)</span> is a type <span class="arithmatex">\(A\)</span> (the <em>carrier</em>) together with a function <span class="arithmatex">\(F(A) \rightarrow A\)</span>. This function is called the <em>structure map</em> and it is precisely what the pattern matching clauses (along with the <code>@</code>-pattern syntax) in <code>fold</code> expressions describe:</p>
 <div class="highlight"><pre><span></span><code>fold(xs) {
