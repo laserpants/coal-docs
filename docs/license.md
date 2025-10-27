@@ -5,7 +5,7 @@ This project is licensed under the terms of the MIT license.
 ```
 MIT License
 
-Copyright (c) 2025 Heikki Johannes Hildén
+Copyright (c) 2020–present Heikki Johannes Hildén
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
