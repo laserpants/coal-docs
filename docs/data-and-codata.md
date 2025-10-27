@@ -1,8 +1,18 @@
 # Data and codata
 
-## Initial algebras
-
 Data and codata are really "two sides of the same coin." This correspondence can be traced back to category theory, where precise formal meaning is given to these concepts. 
+
+## Duality
+
+Reversing the arrows is a recurring theme in category theory. Products and sum types describe ways of combining values: a product collects multiple values into one, while a sum, or *disjoint union*, represents a choice between alternatives. A disjoint union is sometimes also referred to as a *coproduct*. The reason is that a product is defined by a universal property that allows you to extract its components, whereas a coproduct is defined dually: it allows you to inject a value from one of the alternatives and to handle each case uniquely. 
+
+<p align="center">
+  <img alt="Product and coproduct" src="../assets/tex/png/product_coproduct.png" />
+</p>
+
+In other words, a disjoint union is the categorical dual of a product.
+
+## Initial algebras
 
 An algebraic data type can be understood as the [initial algebra](https://en.wikipedia.org/wiki/Initial_algebra) of a functor. Intuitively, this means that it provides the smallest, well-founded solution to a type equation &mdash; one that can be consumed by a fold (a catamorphism). 
 
@@ -44,16 +54,6 @@ The actual recursive type is the [fixed point](https://en.wikipedia.org/wiki/Fix
 $$
 \texttt{List<t>} \cong \mu F \cong F(\mu F)
 $$
-
-## Duality
-
-Reversing the arrows is a recurring theme in category theory. Products and sum types describe ways of combining values: a product collects multiple values into one, while a sum, or *disjoint union*, represents a choice between alternatives. A disjoint union is sometimes also referred to as a *coproduct*. The reason is that a product is defined by a universal property that allows you to extract its components, whereas a coproduct is defined dually: it allows you to inject a value from one of the alternatives and to handle each case uniquely. 
-
-<p align="center">
-  <img alt="Product and coproduct" src="../assets/tex/png/product_coproduct.png" />
-</p>
-
-In other words, a disjoint union is the categorical dual of a product.
 
 ## Algebras and folds
 
