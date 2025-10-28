@@ -83,6 +83,20 @@ A type annotion can be given to indicate a function’s return type, as in the f
     n % 2 == 0
 ```
 
+### Pattern matching in function definitions
+
+Top-level functions can also be defined by a list of pattern–expression pairs separated by a `|`-symbol. For example:
+
+```
+  fun unpack
+    | ([a], true)    = a
+    | ([a, _], true) = a
+    | ([a, _, _], _) = a
+    | (_, _)         = 0
+```
+
+This style of top-level function is equivalent to defining the function with an explicit match expression inside its body. See **[Pattern matching](#pattern-matching)** for a more detailed discussion.
+
 #### Main
 
 Just like in many other programming languages, the `main` function serves as the entry point of a program:
