@@ -477,7 +477,7 @@ Just like with let-bindings, the arguments in a lambda-function are patterns:
 
 |               | Description            | Type                               |                                                                        
 | ------------- | ---------------------- | ---------------------------------- |                                                                        
-| `%`           | Modulus                | `∀m : m -> m -> m with Mod(m)`     |                                                                        
+| `%`           | Modulus                | `∀m : m -> m -> m with Modulo(m)`  |                                                                        
 
 #### Logical
 
