@@ -1168,14 +1168,22 @@ import namespace List
 <div class="highlight"><pre><span></span><code>  fun &lt;name&gt;(&lt;arg_1&gt;, &lt;arg_2&gt;, ..., &lt;arg_n&gt;) =
     &lt;expr&gt;
 </code></pre></div>
-<p>Function parameters are <em>patterns</em>, allowing functions to directly deconstruct their arguments. In addition to basic variables, records, tuples, and other data constructors, patterns can also include wildcards, literals, and nested structures. See <strong><a href="#pattern-matching">Pattern matching</a></strong> for a list of available patterns.</p>
-<div class="highlight"><pre><span></span><code>  fun grok({ n : int32 }, (fst, snd), _) =
-    ...
-</code></pre></div>
 <p>A type annotion can be given to indicate a function’s return type, as in the following example:</p>
 <div class="highlight"><pre><span></span><code>  fun is_even(n : int32) : bool =
     n % 2 == 0
 </code></pre></div>
+<p>Function parameters are <em>patterns</em>, allowing functions to directly deconstruct their arguments. In addition to basic variables, records, tuples, and other data constructors, patterns can also include wildcards, literals, and nested structures. </p>
+<div class="highlight"><pre><span></span><code>  fun grok({ n : int32 }, (fst, snd), _) =
+    ...
+</code></pre></div>
+<p>Top-level functions can also be defined in the form of a list of pattern–expression pairs, separated by a <code>|</code>-symbol. For example:</p>
+<div class="highlight"><pre><span></span><code>  fun unpack
+    | ([a], true)    = a
+    | ([a, _], true) = a
+    | ([a, _, _], _) = a
+    | (_, _)         = 0
+</code></pre></div>
+<p>This style of top-level function is equivalent to defining the function with an explicit <code>match</code> expression inside its body. See <strong><a href="#pattern-matching">Pattern matching</a></strong> for a more detailed discussion of patterns and the <code>match</code> syntax.</p>
 <h4 id="main">Main</h4>
 <p>Just like in many other programming languages, the <code>main</code> function serves as the entry point of a program:</p>
 <div class="highlight"><pre><span></span><code>module Main {
