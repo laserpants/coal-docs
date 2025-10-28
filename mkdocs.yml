@@ -10,6 +10,8 @@ nav:
   - Home: index.md
   - Getting started: getting-started.md
   - Language manual: language-manual.md
+  # - Examples: 
+  # - FFI: 
   - Data and codata: data-and-codata.md
   - License: license.md
 markdown_extensions:
