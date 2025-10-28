@@ -69,13 +69,6 @@ A function is defined with the `fun` keyword, followed by the function’s name 
     <expr>
 ```
 
-Function parameters are *patterns*, allowing functions to directly deconstruct their arguments. In addition to basic variables, records, tuples, and other data constructors, patterns can also include wildcards, literals, and nested structures. See **[Pattern matching](#pattern-matching)** for a list of available patterns.
-
-```
-  fun grok({ n : int32 }, (fst, snd), _) =
-    ...
-```
-
 A type annotion can be given to indicate a function’s return type, as in the following example:
 
 ```
@@ -83,9 +76,14 @@ A type annotion can be given to indicate a function’s return type, as in the f
     n % 2 == 0
 ```
 
-### Pattern matching in function definitions
+Function parameters are *patterns*, allowing functions to directly deconstruct their arguments. In addition to basic variables, records, tuples, and other data constructors, patterns can also include wildcards, literals, and nested structures. 
 
-Top-level functions can also be defined by a list of pattern–expression pairs separated by a `|`-symbol. For example:
+```
+  fun grok({ n : int32 }, (fst, snd), _) =
+    ...
+```
+
+Top-level functions can also be defined in the form of a list of pattern–expression pairs, separated by a `|`-symbol. For example:
 
 ```
   fun unpack
@@ -95,7 +93,7 @@ Top-level functions can also be defined by a list of pattern–expression pairs 
     | (_, _)         = 0
 ```
 
-This style of top-level function is equivalent to defining the function with an explicit match expression inside its body. See **[Pattern matching](#pattern-matching)** for a more detailed discussion.
+This style of top-level function is equivalent to defining the function with an explicit `match` expression inside its body. See **[Pattern matching](#pattern-matching)** for a more detailed discussion of patterns and the `match` syntax.
 
 #### Main
 
