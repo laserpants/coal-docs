@@ -12,7 +12,7 @@ Reversing the arrows is a recurring theme in category theory. Products and sum t
 
 In other words, a disjoint union is the categorical dual of a product.
 
-## Initial algebras
+### Initial algebras
 
 An algebraic data type can be understood as the [initial algebra](https://en.wikipedia.org/wiki/Initial_algebra) of a functor. Intuitively, this means that it provides the smallest, well-founded solution to a type equation &mdash; one that can be consumed by a fold (a catamorphism). 
 
@@ -20,7 +20,7 @@ An algebraic data type can be understood as the [initial algebra](https://en.wik
   <img alt="Fold" src="../assets/tex/png/fold.png" />
 </p>
 
-## Pattern functors and fixed points
+### Pattern functors and fixed points
 
 Data types are built from constructors. Consider the `List` type, for example:
 

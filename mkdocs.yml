@@ -18,6 +18,8 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.arithmatex:
       generic: true
+  - toc:
+      toc_depth: 3
 extra_css:
   - stylesheets/extra.css
 extra_javascript:
