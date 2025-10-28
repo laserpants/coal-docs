@@ -373,15 +373,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#built-in-language-primitives" class="md-nav__link">
-    <span class="md-ellipsis">
-      Built-in language primitives
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#expression-syntax" class="md-nav__link">
     <span class="md-ellipsis">
       Expression syntax
@@ -477,6 +468,15 @@
   
     <nav class="md-nav" aria-label="Types">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#built-in-language-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Built-in language primitives
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#natural-numbers" class="md-nav__link">
@@ -817,15 +817,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#built-in-language-primitives" class="md-nav__link">
-    <span class="md-ellipsis">
-      Built-in language primitives
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#expression-syntax" class="md-nav__link">
     <span class="md-ellipsis">
       Expression syntax
@@ -921,6 +912,15 @@
   
     <nav class="md-nav" aria-label="Types">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#built-in-language-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Built-in language primitives
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#natural-numbers" class="md-nav__link">
@@ -1265,88 +1265,6 @@ let tree_of_gondor =
     | Array(List&lt;JsonValue&gt;)
     | Object(List&lt;(string, JsonValue)&gt;)
 </code></pre></div>
-<h2 id="built-in-language-primitives">Built-in language primitives</h2>
-<p>Coal provides the following built-in types:</p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-<th>Example values</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>bool</code></td>
-<td>Booleans</td>
-<td><code>true</code>, <code>false</code></td>
-</tr>
-<tr>
-<td><code>char</code></td>
-<td>A single Unicode character</td>
-<td><code>'a'</code>, <code>'b'</code>, <code>'🤖'</code>, ...</td>
-</tr>
-<tr>
-<td><code>float</code></td>
-<td>Single precision floating point numbers</td>
-<td><code>3.1519f</code></td>
-</tr>
-<tr>
-<td><code>double</code></td>
-<td>Double precision floating point numbers</td>
-<td><code>3.141592653589793</code></td>
-</tr>
-<tr>
-<td><code>int32</code></td>
-<td>32-bit integers</td>
-<td><code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, ...</td>
-</tr>
-<tr>
-<td><code>int64</code></td>
-<td>64-bit integers</td>
-<td><code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, ...</td>
-</tr>
-<tr>
-<td><code>bignum</code></td>
-<td>Arbitrary precision integers</td>
-<td><code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, ...</td>
-</tr>
-<tr>
-<td><code>string</code></td>
-<td>UTF-8 text</td>
-<td><code>"Hello, ✨ world!"</code></td>
-</tr>
-<tr>
-<td><code>unit</code></td>
-<td>Singleton type</td>
-<td><code>()</code></td>
-</tr>
-<tr>
-<td><code>void</code></td>
-<td>The uninhabited type</td>
-<td></td>
-</tr>
-<tr>
-<td><code>nat</code></td>
-<td>Natural numbers (Peano arithmetic)</td>
-<td><code>Zero</code>, <code>Succ(Zero)</code>, ...</td>
-</tr>
-</tbody>
-</table>
-<!--
-
-TODO
-
-### Booleans
-
-### Char
-
-### Float
-
-### Natural numbers
-
--->
-
 <h2 id="expression-syntax">Expression syntax</h2>
 <p>Expressions are the core building blocks of programs. They include variables, literals, let-bindings, operators, and control structures like <code>if-then-else</code>. An expression can often be composed of other, smaller expressions. For example, a binary operator consists of two sub-expressions: its left-hand side and right-hand side operands:</p>
 <div class="highlight"><pre><span></span><code>  (+)     
@@ -1597,7 +1515,7 @@ Error: Name &quot;fib&quot; not in scope
 <tr>
 <td><code>%</code></td>
 <td>Modulus</td>
-<td><code>∀m : m -&gt; m -&gt; m with Mod(m)</code></td>
+<td><code>∀m : m -&gt; m -&gt; m with Modulo(m)</code></td>
 </tr>
 </tbody>
 </table>
@@ -1759,6 +1677,88 @@ Error: Name &quot;fib&quot; not in scope
     ...
 </code></pre></div>
 <h2 id="types">Types</h2>
+<h3 id="built-in-language-primitives">Built-in language primitives</h3>
+<p>Coal provides the following built-in types:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bool</code></td>
+<td>Booleans</td>
+<td><code>true</code>, <code>false</code></td>
+</tr>
+<tr>
+<td><code>char</code></td>
+<td>A single Unicode character</td>
+<td><code>'a'</code>, <code>'b'</code>, <code>'🤖'</code>, ...</td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td>Single precision floating point numbers</td>
+<td><code>3.1519f</code></td>
+</tr>
+<tr>
+<td><code>double</code></td>
+<td>Double precision floating point numbers</td>
+<td><code>3.141592653589793</code></td>
+</tr>
+<tr>
+<td><code>int32</code></td>
+<td>32-bit integers</td>
+<td><code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, ...</td>
+</tr>
+<tr>
+<td><code>int64</code></td>
+<td>64-bit integers</td>
+<td><code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, ...</td>
+</tr>
+<tr>
+<td><code>bignum</code></td>
+<td>Arbitrary precision integers</td>
+<td><code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, ...</td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td>UTF-8 text</td>
+<td><code>"Hello, ✨ world!"</code></td>
+</tr>
+<tr>
+<td><code>unit</code></td>
+<td>Singleton type</td>
+<td><code>()</code></td>
+</tr>
+<tr>
+<td><code>void</code></td>
+<td>The uninhabited type</td>
+<td></td>
+</tr>
+<tr>
+<td><code>nat</code></td>
+<td>Natural numbers (Peano arithmetic)</td>
+<td><code>Zero</code>, <code>Succ(Zero)</code>, ...</td>
+</tr>
+</tbody>
+</table>
+<!--
+
+TODO
+
+#### Booleans
+
+#### Char
+
+#### Float
+
+#### Natural numbers
+
+-->
+
 <h3 id="natural-numbers">Natural numbers</h3>
 <p>Recursion in Coal is closely tied to pattern matching: we peel off layers of a recursively defined data structure step by step, until reaching its base case. This works naturally with lists, trees, and other algebraic data types. Ordinary machine integers (<code>int32</code>, <code>int64</code>), however, cannot be pattern matched on in such a manner. Nevertheless, we often want to use numbers in recursive computations &mdash; for example, when repeating an action, or simulating the behavior of loops in imperative languages. To describe numbers in a way compatible with recursion, we find some inspiration from the standard axiomatization of the natural numbers:</p>
 <blockquote>
