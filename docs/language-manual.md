@@ -208,38 +208,6 @@ Algebraic data types are especially useful for describing language grammars and 
     | Object(List<(string, JsonValue)>)
 ```
 
-## Built-in language primitives
-
-Coal provides the following built-in types:
-
-| Type               | Description                             | Example values            |                       
-| ------------------ | --------------------------------------- | ------------------------- |                       
-| `bool`             | Booleans                                | `true`, `false`           |                       
-| `char`             | A single Unicode character              | `'a'`, `'b'`, `'🤖'`, ... |                        
-| `float`            | Single precision floating point numbers | `3.1519f`                 |                        
-| `double`           | Double precision floating point numbers | `3.141592653589793`       |                        
-| `int32`            | 32-bit integers                         | `0`, `1`, `2`, `3`, ...   |                        
-| `int64`            | 64-bit integers                         | `0`, `1`, `2`, `3`, ...   |                        
-| `bignum`           | Arbitrary precision integers            | `0`, `1`, `2`, `3`, ...   |                        
-| `string`           | UTF-8 text                              |  `"Hello, ✨ world!"`     |                        
-| `unit`             | Singleton type                          | `()`                      |                        
-| `void`             | The uninhabited type                    |                           |                        
-| `nat`              | Natural numbers (Peano arithmetic)      | `Zero`, `Succ(Zero)`, ... |                        
-
-<!--
-
-TODO
-
-### Booleans
-
-### Char
-
-### Float
-
-### Natural numbers
-
--->
-
 ## Expression syntax
 
 Expressions are the core building blocks of programs. They include variables, literals, let-bindings, operators, and control structures like `if-then-else`. An expression can often be composed of other, smaller expressions. For example, a binary operator consists of two sub-expressions: its left-hand side and right-hand side operands:
@@ -583,6 +551,38 @@ There are two types of comments:
 ```
 
 ## Types
+
+### Built-in language primitives
+
+Coal provides the following built-in types:
+
+| Type               | Description                             | Example values            |                       
+| ------------------ | --------------------------------------- | ------------------------- |                       
+| `bool`             | Booleans                                | `true`, `false`           |                       
+| `char`             | A single Unicode character              | `'a'`, `'b'`, `'🤖'`, ... |                        
+| `float`            | Single precision floating point numbers | `3.1519f`                 |                        
+| `double`           | Double precision floating point numbers | `3.141592653589793`       |                        
+| `int32`            | 32-bit integers                         | `0`, `1`, `2`, `3`, ...   |                        
+| `int64`            | 64-bit integers                         | `0`, `1`, `2`, `3`, ...   |                        
+| `bignum`           | Arbitrary precision integers            | `0`, `1`, `2`, `3`, ...   |                        
+| `string`           | UTF-8 text                              |  `"Hello, ✨ world!"`     |                        
+| `unit`             | Singleton type                          | `()`                      |                        
+| `void`             | The uninhabited type                    |                           |                        
+| `nat`              | Natural numbers (Peano arithmetic)      | `Zero`, `Succ(Zero)`, ... |                        
+
+<!--
+
+TODO
+
+#### Booleans
+
+#### Char
+
+#### Float
+
+#### Natural numbers
+
+-->
 
 ### Natural numbers
 
