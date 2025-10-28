@@ -326,9 +326,10 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Duality">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#initial-algebras" class="md-nav__link">
     <span class="md-ellipsis">
       Initial algebras
@@ -336,13 +337,18 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#pattern-functors-and-fixed-points" class="md-nav__link">
     <span class="md-ellipsis">
       Pattern functors and fixed points
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -418,9 +424,10 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Duality">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#initial-algebras" class="md-nav__link">
     <span class="md-ellipsis">
       Initial algebras
@@ -428,13 +435,18 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#pattern-functors-and-fixed-points" class="md-nav__link">
     <span class="md-ellipsis">
       Pattern functors and fixed points
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -472,13 +484,13 @@
 </p>
 
 <p>In other words, a disjoint union is the categorical dual of a product.</p>
-<h2 id="initial-algebras">Initial algebras</h2>
+<h3 id="initial-algebras">Initial algebras</h3>
 <p>An algebraic data type can be understood as the <a href="https://en.wikipedia.org/wiki/Initial_algebra">initial algebra</a> of a functor. Intuitively, this means that it provides the smallest, well-founded solution to a type equation &mdash; one that can be consumed by a fold (a catamorphism). </p>
 <p align="center">
   <img alt="Fold" src="../assets/tex/png/fold.png" />
 </p>
 
-<h2 id="pattern-functors-and-fixed-points">Pattern functors and fixed points</h2>
+<h3 id="pattern-functors-and-fixed-points">Pattern functors and fixed points</h3>
 <p>Data types are built from constructors. Consider the <code>List</code> type, for example:</p>
 <div class="highlight"><pre><span></span><code>type List&lt;t&gt; 
   = Nil
