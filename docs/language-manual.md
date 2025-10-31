@@ -1474,9 +1474,9 @@ Making a type support a trait comes down to defining an *instance* of the trait.
 instance Ordered<bool> {
   fun compare(a, b) =
     match((a, b)) {
-      (false, true) => Lt
-      (true, false) => Gt
-      (_, _) => Eq
+      | (false, true) => Lt
+      | (true, false) => Gt
+      | (_, _) => Eq
     }
 }
 ```
