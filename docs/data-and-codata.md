@@ -57,7 +57,7 @@ $$
 
 ## Algebras and folds
 
-An *algebra* for a functor $F$ is a type $A$ (the *carrier*) together with a function $F(A) \rightarrow A$. This function is called the *structure map* and it is precisely what the pattern matching clauses (along with the `@`-pattern syntax) in `fold` expressions describe:
+An *algebra* for a functor $F$ is a type $A$ (the *carrier*) together with an arrow $F(A) \rightarrow A$. This function (or *morphism* to be more accurate) is called the *structure map* and it is precisely what the pattern matching clauses (along with the `@`-pattern syntax) in `fold` expressions describe:
 
 ```
 fold(xs) {
