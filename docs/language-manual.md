@@ -93,7 +93,19 @@ Top-level functions can also be defined in the form of a list of pattern–expre
     | (_, _)         = 0
 ```
 
-This style of top-level function is equivalent to defining the function with an explicit `match` expression inside its body. See **[Pattern matching](#pattern-matching)** for a more detailed discussion of patterns and the `match` syntax.
+This style of top-level function is equivalent to defining the function with an explicit `match` expression inside its body: 
+
+```
+  fun unpack(a1, a2) =
+    match(a1, a2) {
+      | ([a], true)    = a
+      | ([a, _], true) = a
+      | ([a, _, _], _) = a
+      | (_, _)         = 0
+    }
+```
+
+See **[Pattern matching](#pattern-matching)** for a more detailed discussion of patterns and the `match` syntax.
 
 #### Main
 
