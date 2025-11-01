@@ -1186,10 +1186,10 @@ import namespace List
 <p>This style of top-level function is equivalent to defining the function with an explicit <code>match</code> expression inside its body: </p>
 <div class="highlight"><pre><span></span><code>  fun unpack(a1, a2) =
     match(a1, a2) {
-      | ([a], true)    = a
-      | ([a, _], true) = a
-      | ([a, _, _], _) = a
-      | (_, _)         = 0
+      | ([a], true)    =&gt; a
+      | ([a, _], true) =&gt; a
+      | ([a, _, _], _) =&gt; a
+      | (_, _)         =&gt; 0
     }
 </code></pre></div>
 <p>See <strong><a href="#pattern-matching">Pattern matching</a></strong> for a more detailed discussion of patterns and the <code>match</code> syntax.</p>
