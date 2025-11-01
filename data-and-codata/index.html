@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
     
     
       
@@ -515,7 +515,7 @@ F(X) = \mathsf{1} + (t \times X)
 \texttt{List&lt;t&gt;} \cong \mu F \cong F(\mu F)
 \]</div>
 <h2 id="algebras-and-folds">Algebras and folds</h2>
-<p>An <em>algebra</em> for a functor <span class="arithmatex">\(F\)</span> is a type <span class="arithmatex">\(A\)</span> (the <em>carrier</em>) together with a function <span class="arithmatex">\(F(A) \rightarrow A\)</span>. This function is called the <em>structure map</em> and it is precisely what the pattern matching clauses (along with the <code>@</code>-pattern syntax) in <code>fold</code> expressions describe:</p>
+<p>An <em>algebra</em> for a functor <span class="arithmatex">\(F\)</span> is a type <span class="arithmatex">\(A\)</span> (the <em>carrier</em>) together with an arrow <span class="arithmatex">\(F(A) \rightarrow A\)</span>. This function (or <em>morphism</em> to be more accurate) is called the <em>structure map</em> and it is precisely what the pattern matching clauses (along with the <code>@</code>-pattern syntax) in <code>fold</code> expressions describe:</p>
 <div class="highlight"><pre><span></span><code>fold(xs) {
   Nil           =&gt; 0
   Cons(x, @acc) =&gt; x + acc
