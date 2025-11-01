@@ -97,7 +97,7 @@ This style of top-level function is equivalent to defining the function with an 
 
 ```
   fun unpack(a1, a2) =
-    match(a1, a2) {
+    match((a1, a2)) {
       | ([a], true)    => a
       | ([a, _], true) => a
       | ([a, _, _], _) => a
