@@ -803,7 +803,7 @@ uncons : List<a> -> Option<(a, List<a>)>
     circle({ radius = 5.0f })
       |.fill("blue")
       |.set_position(10.0f, 5.0f)
-      |.flipped(draw_shape, canvas)
+      |.flip(draw_shape, canvas)
     ```
 
 ##### Take, drop and slice
@@ -1927,3 +1927,7 @@ cotype FiniteCounter = { Current : int32, Next : Option<FiniteCounter> }
 ```
 
 -->
+
+## IO
+
+Coal is a highly [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) language: a program is, at its core, just an expression that evaluates to a value. In this programming model, all data is immutable and there are no observable side-effects. These properties make programs more predictable, easier to reason about, highly testable, and allows for code to be verified using formal mathematics. On the other hand, practical applications need to have the ability to interact with the outside world. Side-effects are what make them useful. 

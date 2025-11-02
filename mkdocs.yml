@@ -10,8 +10,8 @@ nav:
   - Home: index.md
   - Getting started: getting-started.md
   - Language manual: language-manual.md
-  # - Examples: 
-  # - FFI: 
+  - Examples: examples.md
+  - C function interface: ffi.md
   - Data and codata: data-and-codata.md
   - License: license.md
 markdown_extensions:

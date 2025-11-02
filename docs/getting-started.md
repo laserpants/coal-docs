@@ -106,7 +106,10 @@ coal --help
 ```
 module Main {
 
-  fun main() = trace_string("Hello, world!")
+  import IO(println_string)
+
+  fun main() =
+    println_string("Hello, world!")
 
 }
 ```
@@ -114,5 +117,5 @@ module Main {
 Save this program as "Main.coal". Compile the program with the command:
 
 ```
-coal Main.coal -o dist
+coal Main.coal ./lang/IO.coal -o dist
 ```
