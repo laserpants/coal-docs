@@ -1823,7 +1823,7 @@ In Coal, ordinary data cannot be infinite: a `List`, `Tree`, or any recursive da
 The key difference between data and codata lies in how values are produced and consumed. Whereas data is finite and *constructed*, codata is potentially infinite and *observed*: you unfold it step by step. The following table gives a comparison between the two:
 
 |                    | Access pattern         | Structure             | Evaluation strategy  | Invariant               |
-| ------------------ | -----------------------| --------------------- | -------------------- | ----------------------- |
+| ------------------ | ---------------------- | --------------------- | -------------------- | ----------------------- |
 | **Data**           | Recursion (`fold`)     | Always finite         | Eager (strict)       | Progress                |
 | **Codata**         | Corecursion (`unfold`) | Potentially infinite  | Lazy (non-strict)    | Productivity            |
 
