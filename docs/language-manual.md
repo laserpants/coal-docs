@@ -1590,11 +1590,11 @@ If we pass this function to the Coal compiler, it is rejected with the following
 Name not in scope: factorial
 ```
 
-To call a function from itself in this way is not possible. Instead, recursion must be accomplished through a pattern know as a *fold*. A fold (or *catamorphism*) is a way to deconstruct data, layer by layer. It abstracts the notion of a structurally recursive computation over some algebraic data type. 
+To call a function from itself in this way is not possible. Instead, recursion must be accomplished through a pattern know as a *fold*. 
 
 ### Fold syntax
 
-In Coal, `fold` is a language keyword, not an ordinary function. Syntactically, it is similar to a `match` expression (explained [here](#pattern-matching)), but with one crucial difference: a `fold` carries built-in support for recursion. 
+A fold (or *catamorphism*) is a way to deconstruct data, layer by layer. It abstracts the notion of a structurally recursive computation over some algebraic data type. Note that `fold` is a language keyword in Coal, not an ordinary function. Syntactically, it is similar to a `match` expression (explained [here](#pattern-matching)), but with one crucial difference: a `fold` carries built-in support for recursion. 
 
 To implement the factorial function using a fold, we are going to use the `nat` data type, which [defines the natural numbers](#natural-numbers) recursively:
 
