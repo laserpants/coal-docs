@@ -13,15 +13,9 @@ This expression consists of three components. The first
 #{c_function_name : t}
 ```
 
-Function calls of this type are not inherently type-safe.
+Function calls of this type cannot be type-checked by the compiler.
 The programmer is responsible for 
 attention is needed to make sure that 
-
-The second part is a list of arguments to pass to the C function:
-
-```
-(<arg_0>, <arg_1>, ..., <arg_n>)
-```
 
 The compiler understands and automatically performs the following type conversions:
 
@@ -35,6 +29,13 @@ The compiler understands and automatically performs the following type conversio
 | `int64`            | `int64_t`               |                          |
 | `bignum`           | `mpz_t*`                |                          |
 | `string`           | `char*`                 | UTF-8 encoded            |
+
+The second part is a list of arguments to pass to the C function:
+
+```
+(<arg_0>, <arg_1>, ..., <arg_n>)
+```
+
 
 (<continuation>)
 
