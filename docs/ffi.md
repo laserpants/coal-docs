@@ -14,10 +14,10 @@ This expression consists of three components. The first
 ```
 
 Function calls of this type cannot be type-checked by the compiler.
-The programmer is responsible for 
+The programmer is responsible for making sure that the types
 attention is needed to make sure that 
 
-The compiler understands and automatically performs the following type conversions:
+The compiler automatically performs the following type conversions when moving between native code and C:
 
 | Coal primitive     | C type                  | Remarks                  |
 | ------------------ | ----------------------- | ------------------------ |
