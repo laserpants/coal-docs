@@ -6,11 +6,16 @@ Projects in Coal are organized as collections of *modules*. Modules provide a wa
 
 ```
 module <path>(<export_list>) {
+  <import_statement>
+  <import_statement>
+  ...
   <definition>
   <definition>
   ...
 }
 ```
+
+A definition can be a function, let-binding, data type definition, cotype definition, type alias, trait, or trait instance. These are explained in more detail under [Top-level definitions](#top-level-definitions) and [Traits](#traits).
 
 Every module is uniquely identified by its *path*. 
 
@@ -231,6 +236,10 @@ Algebraic data types are especially useful for describing language grammars and 
     | Array(List<JsonValue>)
     | Object(List<(string, JsonValue)>)
 ```
+
+### Type aliases
+
+TODO
 
 ## Expression syntax
 
