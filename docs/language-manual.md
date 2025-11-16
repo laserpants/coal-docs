@@ -1470,6 +1470,8 @@ is a shorthand version of this:
 | @                  | `Succ(@n)`           | Fold recursion. See **[Recursion, corecursion, and codata](#recursion-corecursion-and-codata)**. |                                                 
 | Or                 | `1 or 2`             | Matches if the value satisfies at least one of the given alternative patterns.                   |      
 
+<!-- TODO: Describe each -->
+
 ## Traits
 
 A *trait* describes a collection of functions that must be defined for a given type.
