@@ -404,7 +404,7 @@ let { tidbits = { f = a | _ } } = compute(4)
 !!! note "A note about let-generalization"
 
     In some sense, a let-binding is interchangeable with a lambda function. For example, writing `let x = 1 in increment(x)` yields the same result as `(fn(x) => increment(x))(1)`.
-    But besides being more readable, the let-binding also serves another purpose; in [Hindley-Milner](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system) languages, it is let-bindings that introduce polymorphism. Consider the following expression, which doesn’t type check:
+    But besides being more readable, the let-binding also serves another purpose; in [Hindley-Milner](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system) languages, it is `let` that introduce polymorphism. Consider the following expression, which doesn’t type check:
 
     ```
       (fn(f) => (f(3 : int32), f("three")))(fn(x) => x)
