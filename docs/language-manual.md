@@ -2,7 +2,7 @@
 
 ## Modules 
 
-Projects in Coal are organized as collections of *modules*. Modules provide a way to group related functionality into distinct [namespaces](https://en.wikipedia.org/wiki/Namespace). A module can contain functions, type definitions, traits, and other language constructs, typically focused on a specific purpose within a library or application.
+Projects in Coal are organized as collections of *modules*. Modules provide a way to group related functionality into distinct namespaces. A module can contain functions, type definitions, traits, and other language constructs, typically focused on a specific purpose within a library or application.
 
 ```
 module <path>(<export_list>) {
@@ -15,11 +15,11 @@ module <path>(<export_list>) {
 }
 ```
 
-A definition can be a function, let-binding, data type definition, cotype definition, type alias, trait, or trait instance. These are explained in more detail under [Top-level definitions](#top-level-definitions) and [Traits](#traits).
+A definition can be a function, let-binding, data or codata type definition, type alias, trait, or trait instance. Traits and instances are [introduced here](#traits). The rest of these are explained in more detail under [Top-level definitions](#top-level-definitions).
 
 Every module is uniquely identified by its *path*. 
 
-- A module’s path mirrors the directory structure of the source file in which it is defined. 
+- The path mirrors the directory structure of the source file in which the module is defined. 
 - Path segments begin with an uppercase letter and are separated by a dot (`.`). 
 - Files have a `.coal` extension. 
 
@@ -34,11 +34,68 @@ src
 
 ### Imports
 
-An `import` statement is used to bring in functions and other definitions from other modules. These must appear at the beginning of a module, preceding any other code.
+An `import` statement is used to bring in functions and other definitions from another module in your project. These must appear at the beginning of the code, before all definitions in a module. The following line of code makes three functions from the `List` module available to the current module:
 
 ```
 import List(concat, head, tail)
 ```
+
+#### Type and cotype imports
+
+To import a type, the name of the type must be preceded by the `type` keyword. Following the type name is an optional list of data constructors enclosed in parentheses. For example, let’s say our project includes a module `Utilities`, and that this module defines the following type:
+
+```
+  type Answer = Yes | No
+```
+
+To import this type and its constructors, we use the following statement:
+
+```
+import Utilities(type Answer(Yes, No))
+```
+
+If the list of constructors is omitted, all public data constructors of the type are imported:
+
+```
+import Utilities(type Answer)   // Brings in Answer and its constructors
+```
+
+Similarly, a codata type is imported using the `cotype` keyword:
+
+```
+import Utilities(cotype Counter(Current, Next))
+```
+
+In this case, the list specifies the field accessors to include. This list can be left out to import everything.
+
+!!! note "Built-in types are always in scope "
+
+    You may have noticed that some examples use the `List` type without an explicit import. `List` and other built-in types are available in every module by default. 
+    These types also include `Option`, `Ordering`, and the different primitive types, such as `int32`, `string`, and `bool`. 
+
+#### Trait imports
+
+Traits are imported using the `trait` keyword.
+
+```
+import Utilities(trait Countable)
+```
+
+Alternatively, you can import the individual methods of a trait directly. For example, if `Countable` is defined in the following way:
+
+```
+  trait Countable<a> {
+    count :: a -> nat
+  }
+```
+
+Then `count` can be imported like any regular function:
+
+```
+import Utilities(count)
+```
+
+#### Qualified imports
 
 The special `namespace` keyword allows you to import and access all functions, types, and other definitions from a module via their *qualified* names. A qualified name is formed by prefixing the name with the path of the module:
 
