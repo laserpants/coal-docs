@@ -1204,7 +1204,11 @@ Therefore, if the input list is empty, then we have nothing to look at. `Option`
 Just like lists, tuples are ordered sequences of values. Unlike lists, however, a tuple’s length is fixed (i.e. determined at compile-time), and its elements can have different types. In code, a tuple is written as a comma-separated sequence of expressions enclosed in parentheses:
 
 ```
-(%expr_1 : %t_1, %expr_2 : %t_2, ..., %expr_n : %t_n) 
+  ( %expr_1 : %t_1
+  , %expr_2 : %t_2
+  , ...
+  , %expr_n : %t_n
+  ) 
 ```
 
 For example:
@@ -2012,3 +2016,36 @@ cotype FiniteCounter = { Current : int32, Next : Option<FiniteCounter> }
 ## IO
 
 Coal is a highly [expression-oriented](https://en.wikipedia.org/wiki/Expression-oriented_programming_language) language: a program is, at its core, just an expression that evaluates to a value. In this programming model, all data is immutable and there are no observable side-effects. These properties make programs more predictable, easier to reason about, highly testable, and allows for code to be verified using formal mathematics. On the other hand, practical applications need to have the ability to interact with the outside world. Side-effects are what make them useful. 
+
+To support interactions with the outside world while preserving the language’s pure semantics, Coal provides an `IO` type, similar to Haskell’s. Values of this type describe effectful operations — such as reading input, writing output, or accessing the file system. These computations are constructed as pure values and executed only by the runtime, allowing the code to remain referentially transparent.
+
+The standard `IO` module provides common operations for effectful actions, including functions for printing to the console and interacting with the environment.
+
+```
+  println_string : string -> IO<unit>
+  print_string   : string -> IO<unit>
+
+  println_int32  : int32 -> IO<unit>
+  print_int32    : int32 -> IO<unit> 
+
+  println_int64  : int64 -> IO<unit>
+  print_int64    : int64 -> IO<unit>
+
+  println_bignum : bignum -> IO<unit>
+  print_bignum   : bignum -> IO<unit>
+
+  println_bool   : bool -> IO<unit>
+  print_bool     : bool -> IO<unit>
+
+  println_char   : char -> IO<unit>
+  print_char     : char -> IO<unit>
+
+  println_float  : float -> IO<unit>
+  print_float    : float -> IO<unit>
+
+  println_double : double -> IO<unit>
+  print_double   : double -> IO<unit>
+
+  read_file      : string -> IO<string>
+  write_file     : string -> string -> IO<unit>
+```
