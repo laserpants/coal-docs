@@ -8,13 +8,9 @@
       
       
       
-        <link rel="canonical" href="https://mydomain.org/mysite/data-and-codata/">
+        <link rel="canonical" href="https://mydomain.org/mysite/ffi/">
       
       
-        <link rel="prev" href="../language-manual/">
-      
-      
-        <link rel="next" href="../license/">
       
       
         
@@ -25,7 +21,7 @@
     
     
       
-        <title>Data and codata - Coal</title>
+        <title>C function interface - Coal</title>
       
     
     
@@ -76,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#data-and-codata" class="md-skip">
+        <a href="#c-function-interface" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Data and codata
+              C function interface
             
           </span>
         </div>
@@ -284,37 +280,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Data and codata
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../data-and-codata/" class="md-nav__link">
         
   
   
@@ -330,76 +299,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#duality" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Duality
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Duality">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#initial-algebras" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Initial algebras
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pattern-functors-and-fixed-points" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pattern functors and fixed points
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#algebras-and-folds" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algebras and folds
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -451,64 +350,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#duality" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Duality
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Duality">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#initial-algebras" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Initial algebras
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pattern-functors-and-fixed-points" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pattern functors and fixed points
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#algebras-and-folds" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Algebras and folds
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -524,57 +365,77 @@
 
 
 
-<h1 id="data-and-codata">Data and codata</h1>
-<p>Data and codata are really "two sides of the same coin." This correspondence can be traced back to category theory, where precise formal meaning is given to these concepts. </p>
-<h2 id="duality">Duality</h2>
-<p>Reversing the arrows is a recurring theme in category theory. Products and sum types describe ways of combining values: a product collects multiple values into one, while a sum, or <em>disjoint union</em>, represents a choice between alternatives. A disjoint union is sometimes also referred to as a <em>coproduct</em>. The reason is that a product is defined by a universal property that allows you to extract its components, whereas a coproduct is defined dually: it allows you to inject a value from one of the alternatives and to handle each case uniquely. </p>
-<p align="center">
-  <img alt="Product and coproduct" src="../assets/tex/png/product_coproduct.png" />
-</p>
-
-<p>In other words, a disjoint union is the categorical dual of a product.</p>
-<h3 id="initial-algebras">Initial algebras</h3>
-<p>An algebraic data type can be understood as the <a href="https://en.wikipedia.org/wiki/Initial_algebra">initial algebra</a> of a functor. Intuitively, this means that it provides the smallest, well-founded solution to a type equation &mdash; one that can be consumed by a fold (a catamorphism). </p>
-<p align="center">
-  <img alt="Fold" src="../assets/tex/png/fold.png" />
-</p>
-
-<h3 id="pattern-functors-and-fixed-points">Pattern functors and fixed points</h3>
-<p>Data types are built from constructors. Consider the <code>List</code> type, for example:</p>
-<div class="highlight"><pre><span></span><code>type List&lt;t&gt; 
-  = Nil
-  | Cons(t, List&lt;t&gt;)
+<h1 id="c-function-interface">C function interface</h1>
+<p>When developing applications or libraries that perform network access, disk I/O, or other tasks that interact with low-level system APIs, it is often necessary to interface with code written in C.
+This can be achieved in Coal through the C function interface:</p>
+<div class="highlight"><pre><span></span><code>  #{&lt;c_function_name : t&gt;}(&lt;arg_0&gt;, &lt;arg_1&gt;, ..., &lt;arg_n&gt;)(&lt;continuation&gt;)
 </code></pre></div>
-<p>The <em>pattern functor</em> for a data type abstracts recursion by isolating one layer of the data structure, leaving the recursive portion as a parameter. For <code>List</code>, the corresponding pattern functor is:</p>
-<div class="highlight"><pre><span></span><code>type ListF&lt;t, a&gt; 
-  = NilF
-  | ConsF(t, a)
+<p>This expression consists of three components. The first </p>
+<div class="highlight"><pre><span></span><code>#{c_function_name : t}
 </code></pre></div>
-<p>Notice that, unlike <code>List</code>, the type <code>ListF</code> is not recursive. In mathematical terms, this functor can be expressed by the equation:</p>
-<div class="arithmatex">\[
-F(X) = \mathsf{1} + (t \times X)
-\]</div>
-<p>where</p>
-<ul>
-<li><span class="arithmatex">\(\mathsf{1}\)</span> corresponds to <code>NilF</code>,</li>
-<li><span class="arithmatex">\((t × X)\)</span> corresponds to <code>ConsF(t, a)</code>.</li>
-</ul>
-<p>The actual recursive type is the <a href="https://en.wikipedia.org/wiki/Fixed_point_(mathematics)">fixed point</a> of <span class="arithmatex">\(F\)</span>:</p>
-<div class="arithmatex">\[
-\texttt{List&lt;t&gt;} \cong \mu F \cong F(\mu F)
-\]</div>
-<h2 id="algebras-and-folds">Algebras and folds</h2>
-<p>An <em>algebra</em> for a functor <span class="arithmatex">\(F\)</span> is a type <span class="arithmatex">\(A\)</span> (the <em>carrier</em>) together with an arrow <span class="arithmatex">\(F(A) \rightarrow A\)</span>. This function (or <em>morphism</em> to be more accurate) is called the <em>structure map</em> and it is precisely what the pattern matching clauses (along with the <code>@</code>-pattern syntax) in <code>fold</code> expressions describe:</p>
-<div class="highlight"><pre><span></span><code>fold(xs) {
-  Nil           =&gt; 0
-  Cons(x, @acc) =&gt; x + acc
-}
+<p>Function calls of this type cannot be type-checked by the compiler.
+The programmer is responsible for making sure that the types
+attention is needed to make sure that </p>
+<p>The compiler automatically performs the following type conversions when moving between native code and C:</p>
+<table>
+<thead>
+<tr>
+<th>Coal primitive</th>
+<th>C type</th>
+<th>Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bool</code></td>
+<td><code>bool</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>char</code></td>
+<td><code>int32_t</code></td>
+<td>A unicode code point</td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td><code>float</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>double</code></td>
+<td><code>double</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>int32</code></td>
+<td><code>int32_t</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>int64</code></td>
+<td><code>int64_t</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>bignum</code></td>
+<td><code>mpz_t*</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td><code>char*</code></td>
+<td>UTF-8 encoded</td>
+</tr>
+</tbody>
+</table>
+<p>The second part is a list of arguments to pass to the C function:</p>
+<div class="highlight"><pre><span></span><code>(&lt;arg_0&gt;, &lt;arg_1&gt;, ..., &lt;arg_n&gt;)
 </code></pre></div>
-<p>The <em>initial</em> algebra <span class="arithmatex">\((\mu F, \text{in})\)</span> is defined by the canonical map <span class="arithmatex">\(\text{in} : F(\mu F) \rightarrow \mu F\)</span>. The carrier of this algebra is the data type itself (i.e., <code>List&lt;t&gt;</code> in this example). The fact that this is an initial object means that, for evey other algebra <span class="arithmatex">\(A\)</span>, there is a unique function <span class="arithmatex">\(h : \mu F \rightarrow A\)</span> that makes the diagram commute. That unique morphism is precisely what the <code>fold</code> operator computes.</p>
-<p>In the other direction, a codata type corresponds to the <a href="https://en.wikipedia.org/wiki/Initial_algebra#Final_coalgebra">final coalgebra</a> of a functor: it is the largest (potentially infinite) solution that can be observed or generated by an unfold (anamorphism). In this description, algebras and coalgebras are each others’ duals. By simply reversing the direction of the arrows in their diagrams, an algebra turns into a coalgebra and vice versa.</p>
-<p align="center">
-  <img alt="Duality" src="../assets/tex/png/fold_unfold.png" />
-</p>
+<p>(<continuation>)</p>
+<p>The last </p>
+<p>When compiling your program, pass each C file as an <code>--extra-c</code> command line argument. For example:</p>
+<div class="highlight"><pre><span></span><code>coal Main.coal --extra-c my_c_lib.c -o dist
+</code></pre></div>
 
 
 

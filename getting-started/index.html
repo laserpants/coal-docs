@@ -17,8 +17,11 @@
         <link rel="next" href="../language-manual/">
       
       
+        
+      
+      
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
       
@@ -26,10 +29,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -54,7 +57,6 @@
     
       
 
-    
     
     
   </head>
@@ -209,9 +211,14 @@
   
   
   <span class="md-ellipsis">
+    
+  
     Home
+  
+
     
   </span>
+  
   
 
       </a>
@@ -240,9 +247,14 @@
   
   
   <span class="md-ellipsis">
+    
+  
     Getting started
+  
+
     
   </span>
+  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -253,9 +265,14 @@
   
   
   <span class="md-ellipsis">
+    
+  
     Getting started
+  
+
     
   </span>
+  
   
 
       </a>
@@ -278,7 +295,9 @@
         <li class="md-nav__item">
   <a href="#installation-and-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      Installation and setup
+      
+        Installation and setup
+      
     </span>
   </a>
   
@@ -288,7 +307,9 @@
           <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Prerequisites
+      
+        Prerequisites
+      
     </span>
   </a>
   
@@ -302,7 +323,9 @@
         <li class="md-nav__item">
   <a href="#building-the-compiler" class="md-nav__link">
     <span class="md-ellipsis">
-      Building the compiler
+      
+        Building the compiler
+      
     </span>
   </a>
   
@@ -312,7 +335,9 @@
           <li class="md-nav__item">
   <a href="#hello-world" class="md-nav__link">
     <span class="md-ellipsis">
-      Hello, world!
+      
+        Hello, world!
+      
     </span>
   </a>
   
@@ -343,9 +368,14 @@
   
   
   <span class="md-ellipsis">
+    
+  
     Language manual
+  
+
     
   </span>
+  
   
 
       </a>
@@ -365,9 +395,14 @@
   
   
   <span class="md-ellipsis">
+    
+  
     Data and codata
+  
+
     
   </span>
+  
   
 
       </a>
@@ -387,9 +422,14 @@
   
   
   <span class="md-ellipsis">
+    
+  
     License
+  
+
     
   </span>
+  
   
 
       </a>
@@ -426,7 +466,9 @@
         <li class="md-nav__item">
   <a href="#installation-and-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      Installation and setup
+      
+        Installation and setup
+      
     </span>
   </a>
   
@@ -436,7 +478,9 @@
           <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Prerequisites
+      
+        Prerequisites
+      
     </span>
   </a>
   
@@ -450,7 +494,9 @@
         <li class="md-nav__item">
   <a href="#building-the-compiler" class="md-nav__link">
     <span class="md-ellipsis">
-      Building the compiler
+      
+        Building the compiler
+      
     </span>
   </a>
   
@@ -460,7 +506,9 @@
           <li class="md-nav__item">
   <a href="#hello-world" class="md-nav__link">
     <span class="md-ellipsis">
-      Hello, world!
+      
+        Hello, world!
+      
     </span>
   </a>
   
@@ -481,6 +529,7 @@
           
           
             <div class="md-content" data-md-component="content">
+              
               <article class="md-content__inner md-typeset">
                 
                   
@@ -560,12 +609,15 @@ sudo apt install libgc-dev libgmp-dev build-essential
 <h3 id="hello-world">Hello, world!</h3>
 <div class="highlight"><pre><span></span><code>module Main {
 
-  fun main() = trace_string(&quot;Hello, world!&quot;)
+  import IO(println_string)
+
+  fun main() =
+    println_string(&quot;Hello, world!&quot;)
 
 }
 </code></pre></div>
 <p>Save this program as "Main.coal". Compile the program with the command:</p>
-<div class="highlight"><pre><span></span><code>coal Main.coal -o dist
+<div class="highlight"><pre><span></span><code>coal Main.coal ./lang/IO.coal -o dist
 </code></pre></div>
 
 
@@ -615,10 +667,11 @@ sudo apt install libgc-dev libgmp-dev build-essential
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       
