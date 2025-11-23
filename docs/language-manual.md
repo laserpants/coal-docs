@@ -2048,4 +2048,6 @@ The standard `IO` module provides common operations for effectful actions, inclu
 
   read_file      : string -> IO<string>
   write_file     : string -> string -> IO<unit>
+
+  readln         : unit -> IO<string>
 ```
