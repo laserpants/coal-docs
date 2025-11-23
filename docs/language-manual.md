@@ -5,12 +5,12 @@
 Projects in Coal are organized as collections of *modules*. Modules provide a way to group related functionality into distinct namespaces. A module can contain functions, type definitions, traits, and other language constructs, typically focused on a specific purpose within a library or application.
 
 ```
-module <path>(<export_list>) {
-  <import_statement>
-  <import_statement>
+module %path(%export_list) {
+  %import_statement
+  %import_statement
   ...
-  <definition>
-  <definition>
+  %definition
+  %definition
   ...
 }
 ```
@@ -71,7 +71,7 @@ In this case, the list specifies the field accessors to include. This list can b
 !!! note "Built-in types are always in scope "
 
     You may have noticed that some examples use the `List` type without an explicit import. `List` and other built-in types are available in every module by default. 
-    These types also include `Option`, `Ordering`, and the different primitive types, such as `int32`, `string`, and `bool`. 
+    These types include `Option`, `Ordering`, and the different primitive types, such as `int32`, `string`, and `bool`. 
 
 #### Trait imports
 
@@ -127,8 +127,7 @@ Definitions that occupy the outermost scope of a module are functions, top-level
 A function is defined with the `fun` keyword, followed by the function’s name and a list of comma-separated arguments enclosed in parentheses. The function body is simply an expression, which comes after the arguments and is preceded by an equals sign:
 
 ```
-  fun <name>(<arg_1>, <arg_2>, ..., <arg_n>) =
-    <expr>
+  fun %name(%arg_1, %arg_2, ..., %arg_n) = %expr
 ```
 
 A type annotion can be given to indicate a function’s return type, as in the following example:
@@ -296,7 +295,17 @@ Algebraic data types are especially useful for describing language grammars and 
 
 ### Type aliases
 
-TODO
+A type alias assigns a name to an existing type, making complex definitions easier to express and reuse. It can refer to primitive types, records, function types, or algebraic data types.
+
+```
+  alias %Name<%param_1, ..., %param_n> = %type
+```
+
+For example:
+
+```
+  alias User = { username : string, email : string, permissions: List<Permission> }
+```
 
 ## Expression syntax
 
@@ -425,7 +434,7 @@ map(add(1), [1, 2, 3, 4])   // which yields the same result as map(increment, [1
 If-expressions in Coal are similar to those found in many programming languages, especially other functional languages. Both the `then` and `else` clauses must be present, and they must produce values of the same type:
 
 ```
-  if (<e_1 : bool>) then <e_2 : t> else <e_3 : t>
+  if (%e_1 : bool) then %e_2 : %t else %e_3 : %t
 ```
 
 For example:
@@ -439,7 +448,7 @@ For example:
 A let-binding introduces a new scope by matching a pattern against the result of an expression. The variables bound by the pattern become available within the expression following the `in` keyword:
 
 ```
-let <pattern> = <e_1> in <e_2>
+let %pattern = %e_1 in %e_2
 ```
 
 Variables form the simplest form of pattern, namely one that matches any value and binds it to a name:
@@ -516,7 +525,7 @@ This is why functions such as the fibonacci function above are straight out reje
 An anonymous (lambda) function is declared with the `fn` keyword and the “fat” arrow (`=>`) symbol:
 
 ```
-  fn(<arg_1>, <arg_2>, ..., <arg_n>) => <expr>
+  fn(%arg_1, %arg_2, ..., %arg_n) => %expr
 ```
 
 Function expressions are first-class objects; they can be passed as arguments to other functions, assigned and stored inside data structures, etc.
@@ -676,7 +685,7 @@ TODO
 
 ### Function types
 
-TODO
+Function types are written using the arrow notation `->`, following the same convention as in Haskell. The type `a -> b` represents a function from `a` to `b`, and parentheses can be added to make grouping explicit, such as in `a -> (b -> c)`.
 
 ### Natural numbers
 
@@ -763,7 +772,7 @@ A *list* is an ordered collection in which all elements share the same type. Lis
 In Coal, list literals are written as a sequence of comma-separated expressions enclosed in square brackets:
 
 ```
-[<expr_1 : t>, <expr_2 : t>, ..., <expr_n : t>] : List<t>
+[%expr_1 : %t, %expr_2 : %t, ..., %expr_n : %t] 
 ```
 
 For example:
@@ -1195,7 +1204,7 @@ Therefore, if the input list is empty, then we have nothing to look at. `Option`
 Just like lists, tuples are ordered sequences of values. Unlike lists, however, a tuple’s length is fixed (i.e. determined at compile-time), and its elements can have different types. In code, a tuple is written as a comma-separated sequence of expressions enclosed in parentheses:
 
 ```
-(<expr_1 : t_1>, <expr_2 : t_2>, ..., <expr_n : t_n>) : (t_1, t_2, ..., t_n)
+(%expr_1 : %t_1, %expr_2 : %t_2, ..., %expr_n : %t_n) 
 ```
 
 For example:
@@ -1347,7 +1356,7 @@ For instance, all of the following are valid:
 This type is open. The general format of an open record type is 
 
 ```
-{ <label_1> : <t_1>, <label_2> : <t_2>, ..., <label_n> : <t_n> | <r> },
+{ %label_1 : %t_1, %label_2 : %t_2, ..., %label_n : %t_n | %r },
 ```
 
 for some *n* ≥ 0. Recall the earlier `tagged` example and the type of the argument `rec` in that function:
@@ -1407,7 +1416,7 @@ This function requires not only that the `tag` field is present, but also that i
 
 ## Pattern matching
 
-The `match` expression in Coal is used to deconstruct data based on its shape, effectively reversing what the data constructors of algebraic data types do. It allows you to branch on the structure of a value and directly bind its components to variables. For example:
+The `match` expression in Coal is used to deconstruct data based on its shape, effectively reversing what the data constructors of algebraic data types do. Pattern matching allows you to branch on the structure of a value and directly bind its components to variables. For example:
 
 ```
   type Shape = Rectangle(float, float) | Circle(float)
@@ -1534,11 +1543,11 @@ is a shorthand version of this:
 A *trait* describes a collection of functions that must be defined for a given type.
 
 ```
-trait <name>(<type_parameter>) {
-  <definition_1>: <type_1> 
-  <definition_2>: <type_2> 
+trait %Name(%type_parameter) {
+  %definition_1 : %type_1 
+  %definition_2 : %type_2 
   ...
-  <definition_n>: <type_n> 
+  %definition_n : %type_n 
 }
 ```
 
@@ -1904,7 +1913,7 @@ Codata is ideal for representing streams, event sequences, or any ongoing proces
 A codata type is introduced using the `cotype` keyword and (like a record type) is defined by a set of comma-separated fields enclosed in curly braces:
 
 ```
-cotype <Name> = { <Field_1> : <t_1>, ..., <Field_n> : <t_n> }
+cotype %Name = { %Field_1 : %t_1, ..., %Field_n : %t_n }
 ```
 
 Unlike records, the codata field labels start with an **uppercase** letter.
