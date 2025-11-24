@@ -2,7 +2,7 @@
 
 ## Modules 
 
-Projects in Coal are organized as collections of *modules*. Modules provide a way to group related functionality into distinct namespaces. A module can contain functions, type definitions, traits, and other language constructs, typically focused on a specific purpose within a library or application.
+Projects in Coal are organized as collections of *modules*. Modules provide a way to group related functionality into distinct namespaces. A module contains functions, type definitions and other language constructs, typically focused on a specific purpose within a library or application.
 
 ```
 module %path(%export_list) {
@@ -15,7 +15,7 @@ module %path(%export_list) {
 }
 ```
 
-A definition can be a function, let-binding, data or codata type definition, type alias, trait, or trait instance. Traits and instances are [introduced here](#traits). The rest of these are explained in more detail under [Top-level definitions](#top-level-definitions).
+A *definition* can be a function, let-binding, data or codata type definition, type alias, trait, or trait instance. Traits and instances are [introduced here](#traits). The rest of these are explained in more detail under [Top-level definitions](#top-level-definitions).
 
 Every module is uniquely identified by its *path*. 
 
