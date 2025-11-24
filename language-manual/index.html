@@ -1368,7 +1368,7 @@
 
 <h1 id="language-manual">Language manual</h1>
 <h2 id="modules">Modules</h2>
-<p>Projects in Coal are organized as collections of <em>modules</em>. Modules provide a way to group related functionality into distinct namespaces. A module can contain functions, type definitions, traits, and other language constructs, typically focused on a specific purpose within a library or application.</p>
+<p>Projects in Coal are organized as collections of <em>modules</em>. Modules provide a way to group related functionality into distinct namespaces. A module contains functions, type definitions and other language constructs, typically focused on a specific purpose within a library or application.</p>
 <div class="highlight"><pre><span></span><code>module %path(%export_list) {
   %import_statement
   %import_statement
@@ -1378,7 +1378,7 @@
   ...
 }
 </code></pre></div>
-<p>A definition can be a function, let-binding, data or codata type definition, type alias, trait, or trait instance. Traits and instances are <a href="#traits">introduced here</a>. The rest of these are explained in more detail under <a href="#top-level-definitions">Top-level definitions</a>.</p>
+<p>A <em>definition</em> can be a function, let-binding, data or codata type definition, type alias, trait, or trait instance. Traits and instances are <a href="#traits">introduced here</a>. The rest of these are explained in more detail under <a href="#top-level-definitions">Top-level definitions</a>.</p>
 <p>Every module is uniquely identified by its <em>path</em>. </p>
 <ul>
 <li>The path mirrors the directory structure of the source file in which the module is defined. </li>
