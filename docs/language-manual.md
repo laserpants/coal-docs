@@ -298,13 +298,13 @@ Algebraic data types are especially useful for describing language grammars and 
 A type alias assigns a name to an existing type, making complex definitions easier to express and reuse. It can refer to primitive types, records, function types, or algebraic data types.
 
 ```
-  alias %Name<%param_1, ..., %param_n> = %type
+  type alias %Name<%param_1, ..., %param_n> = %type
 ```
 
 For example:
 
 ```
-  alias User = { username : string, email : string, permissions: List<Permission> }
+  type alias User = { username : string, email : string, permissions: List<Permission> }
 ```
 
 ## Expression syntax
