@@ -1392,7 +1392,7 @@
         └── Trigonometry.coal
 </code></pre></div>
 <h3 id="imports">Imports</h3>
-<p>An <code>import</code> statement is used to bring in functions and other definitions from another module in your project. These must appear at the beginning of the code, before all definitions in a module. The following line of code makes three functions from the <code>List</code> module available to the current module:</p>
+<p>An <code>import</code> statement is used to bring in functions and other definitions from another module in your project. These must appear at the beginning of your code, before all definitions in a module. The following line makes three functions from the <code>List</code> module available to the current module:</p>
 <div class="highlight"><pre><span></span><code>import List(concat, head, tail)
 </code></pre></div>
 <h4 id="type-and-cotype-imports">Type and cotype imports</h4>
@@ -1562,10 +1562,10 @@ let tree_of_gondor =
 </code></pre></div>
 <h3 id="type-aliases">Type aliases</h3>
 <p>A type alias assigns a name to an existing type, making complex definitions easier to express and reuse. It can refer to primitive types, records, function types, or algebraic data types.</p>
-<div class="highlight"><pre><span></span><code>  alias %Name&lt;%param_1, ..., %param_n&gt; = %type
+<div class="highlight"><pre><span></span><code>  type alias %Name&lt;%param_1, ..., %param_n&gt; = %type
 </code></pre></div>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>  alias User = { username : string, email : string, permissions: List&lt;Permission&gt; }
+<div class="highlight"><pre><span></span><code>  type alias User = { username : string, email : string, permissions: List&lt;Permission&gt; }
 </code></pre></div>
 <h2 id="expression-syntax">Expression syntax</h2>
 <p>Expressions are the core building blocks of programs. They include variables, literals, let-bindings, operators, and control structures like <code>if-then-else</code>. An expression can often be composed of other, smaller expressions. For example, a binary operator consists of two sub-expressions: its left-hand side and right-hand side operands:</p>
