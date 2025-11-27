@@ -25,7 +25,7 @@ As a [total](https://en.wikipedia.org/wiki/Total_functional_programming) languag
     }
 ```
 
-The special `@`-pattern variable used here makes `tot` recieve the result from calling the fold again using the sub-list matched by the pattern. 
+The special `@`-variable pattern used here makes `tot` recieve the result from calling the fold again using the sub-list matched by the pattern. 
 
 A distinction is made between ordinary, finite data, which is produced and consumed in this way, and potentially infinite data &mdash; the kind that may result from processes that run indefinitely. The latter is known as *codata*. The codata equivalent of lists, for example, are *streams*.
 
