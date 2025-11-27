@@ -471,7 +471,7 @@
 <p>This is the official documentation for the Coal programming language. </p>
 <h2 id="about">About</h2>
 <p>Coal is a declarative, statically typed, purely functional programming language with simple and intuitive syntax. It provides algebraic data types and pattern matching, extensible records, structural recursion, codata, corecursion, and traits (type classes), among other features. </p>
-<p>Coal’s type system, like Haskell’s and ML’s, supports type inference and parametric polymorphism, drawing on the <a href="https://en.wikipedia.org/wiki/System_F">System-F</a> lambda calculus. The Coal compiler is implemented in Haskell and targets LLVM for code generation. The language is based on ideas where streams and other infinite data types are described as <a href="https://coal-lang.org/data-and-codata/">coalgebras</a> — hence the name <em>Coal</em>.</p>
+<p>Coal’s type system, like Haskell’s and ML’s, supports type inference and parametric polymorphism, drawing on the <a href="https://en.wikipedia.org/wiki/System_F">System-F</a> lambda calculus. The Coal compiler is implemented in Haskell and targets LLVM for code generation. The language is inspired by ideas from the field of Mathematics of Program Construction, where streams and other infinite data types are described as <a href="https://coal-lang.org/data-and-codata/">coalgebras</a> — hence the name <em>Coal</em>.</p>
 <p>This project is licensed under the terms of the MIT license. The source code is hosted at <a href="https://codeberg.org/laserpants/coal">codeberg.org/laserpants/coal</a>.</p>
 <h2 id="rethinking-recursion">Rethinking recursion</h2>
 <p>As a <a href="https://en.wikipedia.org/wiki/Total_functional_programming">total</a> language, Coal takes a different approach to recursion, following the motto that "<a href="https://www.semanticscholar.org/paper/Functional-Programming-with-Bananas%2C-Lenses%2C-and-Meijer-Fokkinga/5db3c6793c07285bf0f5e95fe5a25f53e7488051">recursion is the <code>goto</code> of functional programming</a>." To guarantee that programs are provably terminating, recursion is only available in a restricted form, known as <em>structural recursion</em>. Under this regime, each recursive call operates on a strictly smaller part of some finite data structure, progressing toward a base case. </p>
@@ -481,7 +481,7 @@
       | x :: @tot =&gt; x + tot
     }
 </code></pre></div>
-<p>The special <code>@</code>-pattern variable used here makes <code>tot</code> recieve the result from calling the fold again using the sub-list matched by the pattern. </p>
+<p>The special <code>@</code>-variable pattern used here makes <code>tot</code> recieve the result from calling the fold again using the sub-list matched by the pattern. </p>
 <p>A distinction is made between ordinary, finite data, which is produced and consumed in this way, and potentially infinite data &mdash; the kind that may result from processes that run indefinitely. The latter is known as <em>codata</em>. The codata equivalent of lists, for example, are <em>streams</em>.</p>
 <div class="highlight"><pre><span></span><code>  cotype Stream&lt;a&gt; = { Head : a, Tail : Stream&lt;a&gt; }
 
