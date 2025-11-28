@@ -457,7 +457,7 @@ Variables form the simplest form of pattern, namely one that matches any value a
 let name = "Zlatan" 
 ```
 
-The pattern used on the left-hand side must be such that it is guaranteed to match the result of the expression `<e_1>`. For example:
+The pattern used on the left-hand side must be such that it is guaranteed to match the result of the expression `%e_1`. For example:
 
 ```
 -- Destructuring with a tuple
@@ -551,6 +551,29 @@ Just like with let-bindings, the arguments in a lambda-function are patterns:
 
 ```
   fn((lhs, rhs)) => lhs
+```
+
+#### Function binding `let` syntax
+
+In addition to ordinary value bindings, let-expressions support a convenient function binding syntax. A definition of the form
+
+```
+  let
+    add(x, y) =
+      x + y
+    in 
+      ...
+```
+
+is syntactic sugar for binding `add` to a lambda expression:
+
+```
+  let
+    add =
+      fn(x, y) =>
+        x + y
+      in 
+        ...
 ```
 
 ### Operators
