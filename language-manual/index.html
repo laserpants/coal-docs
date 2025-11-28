@@ -1838,6 +1838,7 @@ Error: Name &quot;fib&quot; not in scope
 </tbody>
 </table>
 <h4 id="logical">Logical</h4>
+<p>Like most languages, Coal supports the standard logical operators for working with boolean values.</p>
 <table>
 <thead>
 <tr>
@@ -1845,6 +1846,7 @@ Error: Name &quot;fib&quot; not in scope
 <th>Description</th>
 <th>Arity</th>
 <th>Type</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
@@ -1853,18 +1855,21 @@ Error: Name &quot;fib&quot; not in scope
 <td>AND</td>
 <td>2</td>
 <td><code>bool -&gt; bool -&gt; bool</code></td>
+<td>Evaluates to <code>true</code> only if both of its operands are <code>true</code></td>
 </tr>
 <tr>
 <td><code>||</code></td>
 <td>OR</td>
 <td>2</td>
 <td><code>bool -&gt; bool -&gt; bool</code></td>
+<td>Evaluates to <code>true</code> if at least one of its operands is <code>true</code></td>
 </tr>
 <tr>
 <td><code>!</code></td>
 <td>NOT</td>
 <td>1</td>
 <td><code>bool -&gt; bool</code></td>
+<td>Inverts a boolean value, turning <code>true</code> into <code>false</code> and vice versa</td>
 </tr>
 </tbody>
 </table>
