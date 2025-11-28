@@ -1659,7 +1659,7 @@ g : (a, b) -&gt; c
 <p>Variables form the simplest form of pattern, namely one that matches any value and binds it to a name:</p>
 <div class="highlight"><pre><span></span><code>let name = &quot;Zlatan&quot; 
 </code></pre></div>
-<p>The pattern used on the left-hand side must be such that it is guaranteed to match the result of the expression <code>&lt;e_1&gt;</code>. For example:</p>
+<p>The pattern used on the left-hand side must be such that it is guaranteed to match the result of the expression <code>%e_1</code>. For example:</p>
 <div class="highlight"><pre><span></span><code>-- Destructuring with a tuple
 let (x, y) = (1, 2) in x + y
 
@@ -1725,6 +1725,22 @@ Error: Name &quot;fib&quot; not in scope
 </code></pre></div>
 <p>Just like with let-bindings, the arguments in a lambda-function are patterns:</p>
 <div class="highlight"><pre><span></span><code>  fn((lhs, rhs)) =&gt; lhs
+</code></pre></div>
+<h4 id="function-binding-let-syntax">Function binding <code>let</code> syntax</h4>
+<p>In addition to ordinary value bindings, let-expressions support a convenient function binding syntax. A definition of the form</p>
+<div class="highlight"><pre><span></span><code>  let
+    add(x, y) =
+      x + y
+    in 
+      ...
+</code></pre></div>
+<p>is syntactic sugar for binding <code>add</code> to a lambda expression:</p>
+<div class="highlight"><pre><span></span><code>  let
+    add =
+      fn(x, y) =&gt;
+        x + y
+      in 
+        ...
 </code></pre></div>
 <h3 id="operators">Operators</h3>
 <h4 id="arithmetic-and-comparison">Arithmetic and comparison</h4>
