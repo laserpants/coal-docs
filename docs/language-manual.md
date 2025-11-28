@@ -603,11 +603,13 @@ is syntactic sugar for binding `add` to a lambda expression:
 
 #### Logical
 
-|               | Description            | Arity      | Type                   |                                                                         
-| ------------- | ---------------------- | ---------- | ---------------------- |                                                                        
-| `&&`          | AND                    | 2          | `bool -> bool -> bool` |                                                                        
-| `||`          | OR                     | 2          | `bool -> bool -> bool` |                                                                        
-| `!`           | NOT                    | 1          | `bool -> bool`         |                                                                        
+Like most languages, Coal supports the standard logical operators for working with boolean values.
+
+|               | Description            | Arity      | Type                   |                                                               |         
+| ------------- | ---------------------- | ---------- | ---------------------- | ------------------------------------------------------------- |        
+| `&&`          | AND                    | 2          | `bool -> bool -> bool` | Evaluates to `true` only if both of its operands are `true`   |                                                               
+| `||`          | OR                     | 2          | `bool -> bool -> bool` | Evaluates to `true` if at least one of its operands is `true` |        
+| `!`           | NOT                    | 1          | `bool -> bool`         | Inverts a boolean value, turning `true` into `false` and vice versa |        
 
 #### Data
 
