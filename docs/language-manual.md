@@ -2050,4 +2050,6 @@ The standard `IO` module provides common operations for effectful actions, inclu
   write_file     : string -> string -> IO<unit>
 
   readln         : unit -> IO<string>
+
+  random         : unit -> IO<double>
 ```
