@@ -34,7 +34,7 @@ src
 
 ### Imports
 
-An `import` statement is used to bring in functions and other definitions from another module in your project. These must appear at the beginning of the code, before all definitions in a module. The following line of code makes three functions from the `List` module available to the current module:
+An `import` statement is used to bring in functions and other definitions from another module in your project. These must appear at the beginning of your code, before all definitions in a module. The following line makes three functions from the `List` module available to the current module:
 
 ```
 import List(concat, head, tail)
@@ -298,13 +298,13 @@ Algebraic data types are especially useful for describing language grammars and 
 A type alias assigns a name to an existing type, making complex definitions easier to express and reuse. It can refer to primitive types, records, function types, or algebraic data types.
 
 ```
-  alias %Name<%param_1, ..., %param_n> = %type
+  type alias %Name<%param_1, ..., %param_n> = %type
 ```
 
 For example:
 
 ```
-  alias User = { username : string, email : string, permissions: List<Permission> }
+  type alias User = { username : string, email : string, permissions: List<Permission> }
 ```
 
 ## Expression syntax
@@ -457,7 +457,7 @@ Variables form the simplest form of pattern, namely one that matches any value a
 let name = "Zlatan" 
 ```
 
-The pattern used on the left-hand side must be such that it is guaranteed to match the result of the expression `<e_1>`. For example:
+The pattern used on the left-hand side must be such that it is guaranteed to match the result of the expression `%e_1`. For example:
 
 ```
 -- Destructuring with a tuple
@@ -553,6 +553,29 @@ Just like with let-bindings, the arguments in a lambda-function are patterns:
   fn((lhs, rhs)) => lhs
 ```
 
+#### Function binding `let` syntax
+
+In addition to ordinary value bindings, let-expressions support a convenient function binding syntax. A definition of the form
+
+```
+  let
+    add(x, y) =
+      x + y
+    in 
+      ...
+```
+
+is syntactic sugar for binding `add` to a lambda expression:
+
+```
+  let
+    add =
+      fn(x, y) =>
+        x + y
+      in 
+        ...
+```
+
 ### Operators
 
 #### Arithmetic and comparison
@@ -580,11 +603,13 @@ Just like with let-bindings, the arguments in a lambda-function are patterns:
 
 #### Logical
 
-|               | Description            | Arity      | Type                   |                                                                         
-| ------------- | ---------------------- | ---------- | ---------------------- |                                                                        
-| `&&`          | AND                    | 2          | `bool -> bool -> bool` |                                                                        
-| `||`          | OR                     | 2          | `bool -> bool -> bool` |                                                                        
-| `!`           | NOT                    | 1          | `bool -> bool`         |                                                                        
+Like most languages, Coal supports the standard logical operators for working with boolean values.
+
+|               | Description            | Arity      | Type                   |                                                               |         
+| ------------- | ---------------------- | ---------- | ---------------------- | ------------------------------------------------------------- |        
+| `&&`          | AND                    | 2          | `bool -> bool -> bool` | Evaluates to `true` only if both of its operands are `true`   |                                                               
+| `||`          | OR                     | 2          | `bool -> bool -> bool` | Evaluates to `true` if at least one of its operands is `true` |        
+| `!`           | NOT                    | 1          | `bool -> bool`         | Inverts a boolean value, turning `true` into `false` and vice versa |        
 
 #### Data
 
