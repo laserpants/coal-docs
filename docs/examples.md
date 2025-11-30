@@ -63,3 +63,54 @@ module Main {
 
 }
 ```
+
+## Monads
+
+### Reader
+
+```
+module Main {
+
+  import namespace IO
+  import Coal.Monad(trait Monad, and_then)
+
+  type Reader<r, a> = Reader(r -> a)
+
+  fun run_reader(reader, env) =
+    match(reader) {
+      | Reader(f) => f(env)
+    }
+
+  fun pure_reader(r) = Reader(fn(_) => r)
+
+  fun ask() = 
+    Reader(fn(env) => env)
+
+  instance Monad<Reader<r>> {
+    fun bind(reader : Reader<r, a>, next : a -> Reader<r, b>) : Reader<r, b> = 
+      match(reader) {
+        | Reader(f) =>
+            Reader(fn(env) =>
+              let a = 
+                f(env) 
+              in
+              match(next(a)) {
+                | Reader(g) => g(env)
+              }
+            )
+      }
+  }
+
+  fun local(transform, Reader(f)) = 
+    Reader(fn(env) => f(transform(env)))
+
+  fun test_reader(val : int32) : Reader<int32, int32> =
+    ask()
+      |. and_then(fn(r) => pure_reader(val + r))
+
+  fun main() =
+    IO.println_int32(run_reader(test_reader(5), 5))
+
+}
+```
+
