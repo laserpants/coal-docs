@@ -11,6 +11,10 @@
         <link rel="canonical" href="https://mydomain.org/mysite/examples/">
       
       
+        <link rel="prev" href="../language-manual/">
+      
+      
+        <link rel="next" href="../data-and-codata/">
       
       
         
@@ -280,6 +284,91 @@
       
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic I/O
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
   
   
     <li class="md-nav__item">
@@ -350,6 +439,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic I/O
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -366,6 +474,66 @@
 
 
 <h1 id="examples">Examples</h1>
+<h2 id="basic-io">Basic I/O</h2>
+<p>This program demonstrates how to combine parsing and monadic pipelining to build a small interactive console application.
+Using <code>IO</code> operations composed through monadic combinators, the program asks the user for their name and then runs a simple number-guessing game</p>
+<div class="highlight"><pre><span></span><code>module Main {
+
+  import Char(digit_to_int32)
+  import Coal.Functor(trait Functor(map))
+  import Coal.Monad(trait Monad, and_then, and_eval)
+  import IO(readln, println_string, random, return)
+  import List(is_empty)
+  import Number(double_to_int32)
+  import String(to_list, remove_whitespace, int32_to_string)
+
+  fun digits_to_unsigned(chars) : Option&lt;int32&gt; =
+    if (is_empty(chars)) 
+      then
+        None
+      else
+        fold(chars, Some(0)) {
+          | ch :: @go =&gt;
+              fn(t) =&gt;
+                match(digit_to_int32(ch)) {
+                  | Some(n) =&gt;
+                      go(map(fn(s) =&gt; n + 10 * s, t))
+                  | None =&gt;
+                      None
+                }
+          | [] =&gt;
+              fn(t) =&gt; t
+        }
+
+  fun parse_int32(str : string) : Option&lt;int32&gt; =
+    digits_to_unsigned(to_list(remove_whitespace(str)))
+
+  fun random_int32() : IO&lt;int32&gt; =
+    random()
+      |. and_then(fn(n) =&gt; return(double_to_int32(n * 10)))
+
+  fun main() = 
+    println_string(&quot;Enter your name&quot;)
+      |. and_then(readln)
+      |. and_then(fn(s) =&gt; println_string(&quot;Hello, &quot; &lt;&gt; s &lt;&gt; &quot;!&quot;))
+      |. and_eval(random_int32())
+      |. and_then(fn(rand) =&gt; 
+           println_string(&quot;Guess what number I am thinking of&quot;)
+             |. and_then(readln)
+             |. and_then(fn(s) =&gt; 
+                  match(parse_int32(s)) {
+                    | Some(n) =&gt;
+                        if (n == rand) 
+                          then println_string(&quot;You guessed right!&quot;)
+                          else println_string(&quot;Sorry, the number I was thinking of was &quot; &lt;&gt; int32_to_string(rand) &lt;&gt; &quot;.&quot;)
+                    | None =&gt;
+                        println_string(&quot;Not a number&quot;)
+                  }
+                )
+         )
+
+}
+</code></pre></div>
 
 
 
