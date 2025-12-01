@@ -1483,10 +1483,10 @@ import namespace List
 </code></pre></div>
 <p>Top-level functions can also be defined in the form of a list of pattern–expression pairs, separated by a <code>|</code>-symbol. For example:</p>
 <div class="highlight"><pre><span></span><code>  fun unpack
-    | ([a], true)    = a
-    | ([a, _], true) = a
-    | ([a, _, _], _) = a
-    | (_, _)         = 0
+    | [a], true    = a
+    | [a, _], true = a
+    | [a, _, _], _ = a
+    | _, _         = 0
 </code></pre></div>
 <p>This style of top-level function is equivalent to defining the function with an explicit <code>match</code> expression inside its body: </p>
 <div class="highlight"><pre><span></span><code>  fun unpack(a1, a2) =
@@ -1496,6 +1496,14 @@ import namespace List
       | ([a, _, _], _) =&gt; a
       | (_, _)         =&gt; 0
     }
+</code></pre></div>
+<p>Here is another example from the <code>Option</code> module:</p>
+<div class="highlight"><pre><span></span><code>  fun with_default
+    | _, Some(value) = value
+    | value, _       = value
+</code></pre></div>
+<p>This function is used to extract a value of type <code>a</code> from an <code>Option&lt;a&gt;</code> by providing a default value for the case when the input is <code>None</code>. For example:</p>
+<div class="highlight"><pre><span></span><code>  let name = Option.with_default(&quot;Anonymous&quot;, user.name)
 </code></pre></div>
 <p>See <strong><a href="#pattern-matching">Pattern matching</a></strong> for a more detailed discussion of patterns and the <code>match</code> syntax.</p>
 <h4 id="main">Main</h4>

@@ -357,6 +357,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#monads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reader
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -456,6 +506,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#monads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reader
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -481,7 +581,7 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
 
   import Char(digit_to_int32)
   import Coal.Functor(trait Functor(map))
-  import Coal.Monad(trait Monad, and_then, and_eval)
+  import Coal.Monad(trait Monad, and_then)
   import IO(readln, println_string, random, return)
   import List(is_empty)
   import Number(double_to_int32)
@@ -516,7 +616,7 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
     println_string(&quot;Enter your name&quot;)
       |. and_then(readln)
       |. and_then(fn(s) =&gt; println_string(&quot;Hello, &quot; &lt;&gt; s &lt;&gt; &quot;!&quot;))
-      |. and_eval(random_int32())
+      |. and_then(random_int32)
       |. and_then(fn(rand) =&gt; 
            println_string(&quot;Guess what number I am thinking of&quot;)
              |. and_then(readln)
@@ -531,6 +631,175 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
                   }
                 )
          )
+
+}
+</code></pre></div>
+<h2 id="monads">Monads</h2>
+<p>These examples reimplement Haskell’s Reader, Writer, and State monads.</p>
+<h3 id="reader">Reader</h3>
+<div class="highlight"><pre><span></span><code>module Main {
+
+  import namespace IO
+  import Coal.Monad(trait Monad, and_then)
+
+  type Reader&lt;r, a&gt; = Reader(r -&gt; a)
+
+  fun run_reader(reader, env) =
+    match(reader) {
+      | Reader(f) =&gt; f(env)
+    }
+
+  fun pure_reader(r) = Reader(fn(_) =&gt; r)
+
+  fun ask() = 
+    Reader(fn(env) =&gt; env)
+
+  instance Monad&lt;Reader&lt;r&gt;&gt; {
+    fun bind(reader : Reader&lt;r, a&gt;, next : a -&gt; Reader&lt;r, b&gt;) : Reader&lt;r, b&gt; = 
+      match(reader) {
+        | Reader(f) =&gt;
+            Reader(fn(env) =&gt;
+              let a = 
+                f(env) 
+              in
+              match(next(a)) {
+                | Reader(g) =&gt; g(env)
+              }
+            )
+      }
+  }
+
+  fun local(transform, Reader(f)) = 
+    Reader(fn(env) =&gt; f(transform(env)))
+
+  fun test_reader(val : int32) : Reader&lt;int32, int32&gt; =
+    ask()
+      |. and_then(fn(r) =&gt; pure_reader(val + r))
+
+  fun main() =
+    IO.println_int32(run_reader(test_reader(5), 5))
+
+}
+</code></pre></div>
+<h3 id="writer">Writer</h3>
+<div class="highlight"><pre><span></span><code>module Main {
+
+  import namespace List
+  import Coal.Monad(trait Monad, and_then, and_eval)
+  import Coal.Monoid(trait Monoid)
+  import IO(return)
+
+  type Writer&lt;w, a&gt; = Writer(a, w)
+
+  fun run_writer(writer) =
+    match(writer) {
+      | Writer(a, w) =&gt; (a, w)
+    }
+
+  fun pure_writer(w) : Writer&lt;w, a&gt; =
+    Writer(w, id)
+
+  instance Monad&lt;Writer&lt;w&gt;&gt; {
+    fun bind(writer, k) : Writer&lt;w, b&gt; =
+      match(writer) {
+        | Writer(a, w1) =&gt;
+            match(k(a)) {
+              | Writer(b, w2) =&gt; 
+                  Writer(b, w1 &lt;&gt; w2)
+            }
+      }
+  }
+
+  fun tell(w) : Writer&lt;w, unit&gt; =
+    Writer((), w)
+
+  fun listen(m) : Writer&lt;w,(a, w)&gt; =
+    match(m) {
+      | Writer(a, w) =&gt; Writer((a, w), w)
+    }
+
+  fun test_writer() : Writer&lt;List&lt;string&gt;, int32&gt; =
+    tell([&quot;one&quot;])
+      |. and_eval(tell([&quot;two&quot;]))
+      |. and_eval(tell([&quot;three&quot;]))
+      |. and_eval(pure_writer(100))
+
+  fun print_msgs(msgs : List&lt;string&gt;) =
+    fold(msgs) {
+      | [] =&gt; 
+          return()
+      | m :: @next =&gt;
+          IO.println_string(m) |. and_eval(next)
+    }
+
+  fun main() =
+    match(run_writer(test_writer())) {
+      | ((_, w)) =&gt; print_msgs(w)
+    }
+
+}
+</code></pre></div>
+<h3 id="state">State</h3>
+<div class="highlight"><pre><span></span><code>module Main {
+
+  import namespace IO
+  import Coal.Monad(trait Monad, and_then)
+  import Coal.Combinators(fst)
+
+  type State&lt;s, a&gt; = State(s -&gt; (a, s))
+
+  fun run_state(st, s0) =
+    match(st) {
+      | State(f) =&gt; 
+          f(s0)
+    }
+
+  fun eval_state(st, s0) =
+    fst(run_state(st, s0))
+
+  fun pure_state(x) =
+    State(fn(s) =&gt; (x, s))
+
+  instance Monad&lt;State&lt;s&gt;&gt; {
+    fun bind(m, k) =
+      State(fn(s0) =&gt;
+        let (a, s1) = run_state(m, s0) 
+        in
+        run_state(k(a), s1)
+      )
+  }
+
+  fun get() = 
+    State(fn(s) =&gt; (s, s))
+
+  fun put(s) = 
+    State(fn(_) =&gt; ((), s))
+
+  fun modify(f) = 
+    State(fn(s) =&gt; ((), f(s)))
+
+  //
+
+  fun authenticate
+    | &quot;password123&quot; = put(true)
+    | _             = put(false)
+
+   fun msg(success : bool) =
+     if (success) then &quot;Logged in&quot; else &quot;Authentication failed&quot;
+
+  fun state_example(pw : string) =
+    get()
+      |. and_then(fn(logged_in) =&gt; 
+           if (logged_in) 
+             then pure_state(&quot;Already logged in&quot;)
+             else 
+               authenticate(pw) 
+                 |. and_then(get) 
+                 |. and_then(pure_state &lt;&lt; msg)
+      )
+
+  fun main() =
+    IO.println_string(eval_state(state_example(&quot;abc123&quot;), false))
 
 }
 </code></pre></div>
