@@ -63,3 +63,64 @@ module Main {
 
 }
 ```
+
+```
+module Main {
+
+  import namespace IO
+  import namespace List
+  import Coal.Monad(trait Monad, and_then, and_eval)
+  import Coal.Monoid(trait Monoid)
+  import IO(return)
+
+  type Writer<w, a> = Writer(a, w)
+
+  fun run_writer(writer) =
+    match(writer) {
+      | Writer(a, w) => (a, w)
+    }
+
+  fun pure_writer(w) : Writer<w, a> =
+    Writer(w, id)
+
+  instance Monad<Writer<w>> {
+    fun bind(writer, k) : Writer<w, b> =
+      match(writer) {
+        | Writer(a, w1) =>
+            match(k(a)) {
+              | Writer(b, w2) => 
+                  Writer(b, w1 <> w2)
+            }
+      }
+  }
+
+  fun tell(w) : Writer<w, unit> =
+    Writer((), w)
+
+  fun listen(m) : Writer<w,(a, w)> =
+    match(m) {
+      | Writer(a, w) => Writer((a, w), w)
+    }
+
+  fun test_writer() : Writer<List<string>, int32> =
+    tell(["one"])
+      |. and_eval(tell(["two"]))
+      |. and_eval(tell(["three"]))
+      |. and_eval(pure_writer(100))
+
+  fun print_msgs(msgs : List<string>) =
+    fold(msgs) {
+      | [] => 
+          return()
+      | m :: @next =>
+          IO.println_string(m) |. and_eval(next)
+    }
+
+  fun main() =
+    match(run_writer(test_writer())) {
+      | ((_, w)) => print_msgs(w)
+    }
+
+}
+```
+
