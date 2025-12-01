@@ -10,7 +10,7 @@ module Main {
 
   import Char(digit_to_int32)
   import Coal.Functor(trait Functor(map))
-  import Coal.Monad(trait Monad, and_then, and_eval)
+  import Coal.Monad(trait Monad, and_then)
   import IO(readln, println_string, random, return)
   import List(is_empty)
   import Number(double_to_int32)
@@ -45,7 +45,7 @@ module Main {
     println_string("Enter your name")
       |. and_then(readln)
       |. and_then(fn(s) => println_string("Hello, " <> s <> "!"))
-      |. and_eval(random_int32())
+      |. and_then(random_int32)
       |. and_then(fn(rand) => 
            println_string("Guess what number I am thinking of")
              |. and_then(readln)
@@ -110,6 +110,65 @@ module Main {
 
   fun main() =
     IO.println_int32(run_reader(test_reader(5), 5))
+
+}
+```
+
+```
+module Main {
+
+  import namespace List
+  import Coal.Monad(trait Monad, and_then, and_eval)
+  import Coal.Monoid(trait Monoid)
+  import IO(return)
+
+  type Writer<w, a> = Writer(a, w)
+
+  fun run_writer(writer) =
+    match(writer) {
+      | Writer(a, w) => (a, w)
+    }
+
+  fun pure_writer(w) : Writer<w, a> =
+    Writer(w, id)
+
+  instance Monad<Writer<w>> {
+    fun bind(writer, k) : Writer<w, b> =
+      match(writer) {
+        | Writer(a, w1) =>
+            match(k(a)) {
+              | Writer(b, w2) => 
+                  Writer(b, w1 <> w2)
+            }
+      }
+  }
+
+  fun tell(w) : Writer<w, unit> =
+    Writer((), w)
+
+  fun listen(m) : Writer<w,(a, w)> =
+    match(m) {
+      | Writer(a, w) => Writer((a, w), w)
+    }
+
+  fun test_writer() : Writer<List<string>, int32> =
+    tell(["one"])
+      |. and_eval(tell(["two"]))
+      |. and_eval(tell(["three"]))
+      |. and_eval(pure_writer(100))
+
+  fun print_msgs(msgs : List<string>) =
+    fold(msgs) {
+      | [] => 
+          return()
+      | m :: @next =>
+          IO.println_string(m) |. and_eval(next)
+    }
+
+  fun main() =
+    match(run_writer(test_writer())) {
+      | ((_, w)) => print_msgs(w)
+    }
 
 }
 ```

@@ -148,10 +148,10 @@ Top-level functions can also be defined in the form of a list of pattern–expre
 
 ```
   fun unpack
-    | ([a], true)    = a
-    | ([a, _], true) = a
-    | ([a, _, _], _) = a
-    | (_, _)         = 0
+    | [a], true    = a
+    | [a, _], true = a
+    | [a, _, _], _ = a
+    | _, _         = 0
 ```
 
 This style of top-level function is equivalent to defining the function with an explicit `match` expression inside its body: 
