@@ -166,6 +166,21 @@ This style of top-level function is equivalent to defining the function with an 
     }
 ```
 
+Here is another example from the `Option` module:
+
+```
+  fun with_default
+    | _, Some(value) = value
+    | value, _       = value
+
+```
+
+This function is used to extract a value of type `a` from an `Option<a>` by providing a default value for the case when the input is `None`. For example:
+
+```
+  let name = Option.with_default("Anonymous", user.name)
+```
+
 See **[Pattern matching](#pattern-matching)** for a more detailed discussion of patterns and the `match` syntax.
 
 #### Main

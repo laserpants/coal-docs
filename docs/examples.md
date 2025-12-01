@@ -114,6 +114,8 @@ module Main {
 }
 ```
 
+### Writer
+
 ```
 module Main {
 
@@ -172,7 +174,5 @@ module Main {
 
 }
 ```
-
-### Writer
 
 ### State
