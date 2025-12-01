@@ -176,3 +176,68 @@ module Main {
 ```
 
 ### State
+
+```
+module Main {
+
+  import namespace IO
+  import Coal.Monad(trait Monad, and_then)
+  import Coal.Combinators(fst)
+
+  type State<s, a> = State(s -> (a, s))
+
+  fun run_state(st, s0) =
+    match(st) {
+      | State(f) => 
+          f(s0)
+    }
+
+  fun eval_state(st, s0) =
+    fst(run_state(st, s0))
+
+  fun pure_state(x) =
+    State(fn(s) => (x, s))
+
+  instance Monad<State<s>> {
+    fun bind(m, k) =
+      State(fn(s0) =>
+        let (a, s1) = run_state(m, s0) 
+        in
+        run_state(k(a), s1)
+      )
+  }
+
+  fun get() = 
+    State(fn(s) => (s, s))
+
+  fun put(s) = 
+    State(fn(_) => ((), s))
+
+  fun modify(f) = 
+    State(fn(s) => ((), f(s)))
+
+  //
+
+  fun authenticate
+    | "password123" = put(true)
+    | _             = put(false)
+
+   fun msg(success : bool) =
+     if (success) then "Logged in" else "Authentication failed"
+
+  fun state_example(pw : string) =
+    get()
+      |. and_then(fn(logged_in) => 
+           if (logged_in) 
+             then pure_state("Already logged in")
+             else 
+               authenticate(pw) 
+                 |. and_then(get) 
+                 |. and_then(pure_state << msg)
+      )
+
+  fun main() =
+    IO.println_string(eval_state(state_example("abc123"), false))
+
+}
+```
