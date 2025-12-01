@@ -10,7 +10,7 @@ module Main {
 
   import Char(digit_to_int32)
   import Coal.Functor(trait Functor(map))
-  import Coal.Monad(trait Monad, and_then, and_eval)
+  import Coal.Monad(trait Monad, and_then)
   import IO(readln, println_string, random, return)
   import List(is_empty)
   import Number(double_to_int32)
@@ -45,7 +45,7 @@ module Main {
     println_string("Enter your name")
       |. and_then(readln)
       |. and_then(fn(s) => println_string("Hello, " <> s <> "!"))
-      |. and_eval(random_int32())
+      |. and_then(random_int32)
       |. and_then(fn(rand) => 
            println_string("Guess what number I am thinking of")
              |. and_then(readln)
