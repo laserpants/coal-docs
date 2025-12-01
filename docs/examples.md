@@ -66,6 +66,8 @@ module Main {
 
 ## Monads
 
+These examples reimplement Haskell’s Reader, Writer, and State monads.
+
 ### Reader
 
 ```
