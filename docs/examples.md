@@ -224,8 +224,8 @@ module Main {
     | "password123" = put(true)
     | _             = put(false)
 
-   fun msg(success : bool) =
-     if (success) then "Logged in" else "Authentication failed"
+  fun msg(success : bool) =
+    if (success) then "Logged in" else "Authentication failed"
 
   fun state_example(pw : string) =
     get()
