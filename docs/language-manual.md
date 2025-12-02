@@ -1891,7 +1891,7 @@ From one fold, we can invoke another. But folding is only possible from within a
 
 The `@`-pattern works in the same way here as in expression-level folds, binding values to the result of recursively folding over the list.
 
-The following is a complete implementation the JSON encoder using this approach:
+The following is a complete implementation the JSON encoder using this approach. The `+++` operator performs string concatenation:
 
 ```
 module Json {
