@@ -40,6 +40,8 @@ An `import` statement is used to bring in functions and other definitions from a
 import List(concat, head, tail)
 ```
 
+Note that only definitions that are exported by the source module can be imported. See **[Exports](#exports)**.
+
 #### Type and cotype imports
 
 To import a type, the name of the type must be preceded by the `type` keyword. Following the type name is an optional list of data constructors enclosed in parentheses. For example, let’s say our project includes a module `Utilities`, and that this module defines the following type:
@@ -179,6 +181,12 @@ This function is used to extract a value of type `a` from an `Option<a>` by prov
 
 ```
   let name = Option.with_default("Anonymous", user.name)
+```
+
+or
+
+```
+  let name = user.name |. with_default("Anonymous")
 ```
 
 See **[Pattern matching](#pattern-matching)** for a more detailed discussion of patterns and the `match` syntax.
@@ -658,6 +666,10 @@ Like most languages, Coal supports the standard logical operators for working wi
 |               | Description            | Type                            |                                                                         
 | ------------- | ---------------------- | ------------------------------- |                                                                        
 | `+++`         | String concatenation   | `string -> string -> string`    |                                                                        
+
+### Type annotations
+
+TODO
 
 ### Comments
 
