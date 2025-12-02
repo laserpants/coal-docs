@@ -879,6 +879,8 @@ You can also match lists using literal patterns. The following example matches a
 
 #### Common list operations
 
+TODO: import statement??
+
 The function `length` returns the number of elements in a list:
 
 ```
@@ -1310,6 +1312,12 @@ curry   : ((a, b) -> c) -> a -> b -> c
 uncurry : (a -> b -> c) -> (a, b) -> c
 ```
 
+To import these, add the following import statement:
+
+```
+import Coal.Combinators(curry, uncurry)
+```
+
 Here is how `curry` is used with the uncurried version of `add`, to change it into curried form.
 
 ```
@@ -1412,7 +1420,7 @@ For instance, all of the following are valid:
 This type is open. The general format of an open record type is 
 
 ```
-{ %label_1 : %t_1, %label_2 : %t_2, ..., %label_n : %t_n | %r },
+{ %label_1 : %type_1, %label_2 : %type_2, ..., %label_n : %type_n | %r },
 ```
 
 for some *n* ≥ 0. Recall the earlier `tagged` example and the type of the argument `rec` in that function:
@@ -1969,7 +1977,7 @@ Codata is ideal for representing streams, event sequences, or any ongoing proces
 A codata type is introduced using the `cotype` keyword and (like a record type) is defined by a set of comma-separated fields enclosed in curly braces:
 
 ```
-cotype %Name = { %Field_1 : %t_1, ..., %Field_n : %t_n }
+cotype %Name = { %Field_1 : %type_1, ..., %Field_n : %type_n }
 ```
 
 Unlike records, the codata field labels start with an **uppercase** letter.
