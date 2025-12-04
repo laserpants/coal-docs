@@ -64,6 +64,14 @@ module Main {
 }
 ```
 
+## JSON
+
+TODO
+
+## Quicksort
+
+TODO
+
 ## Monads
 
 These examples reimplement Haskell’s Reader, Writer, and State monads.
