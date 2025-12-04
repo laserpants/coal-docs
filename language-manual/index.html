@@ -1422,6 +1422,7 @@
 <p>An <code>import</code> statement is used to bring in functions and other definitions from another module in your project. These must appear at the beginning of your code, before all definitions in a module. The following line makes three functions from the <code>List</code> module available to the current module:</p>
 <div class="highlight"><pre><span></span><code>import List(concat, head, tail)
 </code></pre></div>
+<p>Note that only definitions that are exported by the source module can be imported. See <strong><a href="#exports">Exports</a></strong>.</p>
 <h4 id="type-and-cotype-imports">Type and cotype imports</h4>
 <p>To import a type, the name of the type must be preceded by the <code>type</code> keyword. Following the type name is an optional list of data constructors enclosed in parentheses. For example, let’s say our project includes a module <code>Utilities</code>, and that this module defines the following type:</p>
 <div class="highlight"><pre><span></span><code>  type Answer = Yes | No
@@ -1504,6 +1505,9 @@ import namespace List
 </code></pre></div>
 <p>This function is used to extract a value of type <code>a</code> from an <code>Option&lt;a&gt;</code> by providing a default value for the case when the input is <code>None</code>. For example:</p>
 <div class="highlight"><pre><span></span><code>  let name = Option.with_default(&quot;Anonymous&quot;, user.name)
+</code></pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><code>  let name = user.name |. with_default(&quot;Anonymous&quot;)
 </code></pre></div>
 <p>See <strong><a href="#pattern-matching">Pattern matching</a></strong> for a more detailed discussion of patterns and the <code>match</code> syntax.</p>
 <h4 id="main">Main</h4>
@@ -2008,6 +2012,12 @@ Error: Name &quot;fib&quot; not in scope
 </tr>
 </tbody>
 </table>
+<!--
+### Type annotations
+
+TODO
+-->
+
 <h3 id="comments">Comments</h3>
 <p>There are two types of comments:</p>
 <ul>
@@ -2209,6 +2219,13 @@ unpack : nat -&gt; int32
     }
 </code></pre></div>
 <h4 id="common-list-operations">Common list operations</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section covers various functions from the standard <code>List</code> module. To 
+import these, use an import statement like:</p>
+<div class="highlight"><pre><span></span><code>import List(length, head, tail, uncons)
+</code></pre></div>
+</div>
 <p>The function <code>length</code> returns the number of elements in a list:</p>
 <div class="highlight"><pre><span></span><code>length([0, 1, 2, 3, 4])   // returns 5
 </code></pre></div>
@@ -2451,10 +2468,10 @@ Therefore, if the input list is empty, then we have nothing to look at. <code>Op
 </code></pre></div>
 <h3 id="tuples">Tuples</h3>
 <p>Just like lists, tuples are ordered sequences of values. Unlike lists, however, a tuple’s length is fixed (i.e. determined at compile-time), and its elements can have different types. In code, a tuple is written as a comma-separated sequence of expressions enclosed in parentheses:</p>
-<div class="highlight"><pre><span></span><code>  ( %expr_1 : %t_1
-  , %expr_2 : %t_2
+<div class="highlight"><pre><span></span><code>  ( %expr_1 : %type_1
+  , %expr_2 : %type_2
   , ...
-  , %expr_n : %t_n
+  , %expr_n : %type_n
   ) 
 </code></pre></div>
 <p>For example:</p>
@@ -2484,6 +2501,9 @@ let five = add((1, 4))
 <p>The <code>curry</code> and <code>uncurry</code> combinators convert an uncurried function into a curried one, and vice versa.</p>
 <div class="highlight"><pre><span></span><code>curry   : ((a, b) -&gt; c) -&gt; a -&gt; b -&gt; c
 uncurry : (a -&gt; b -&gt; c) -&gt; (a, b) -&gt; c
+</code></pre></div>
+<p>To import these, add the following import statement:</p>
+<div class="highlight"><pre><span></span><code>import Coal.Combinators(curry, uncurry)
 </code></pre></div>
 <p>Here is how <code>curry</code> is used with the uncurried version of <code>add</code>, to change it into curried form.</p>
 <div class="highlight"><pre><span></span><code>let five = curry(add, 1, 4)         // or (curry(add))(1, 4)
@@ -2544,7 +2564,7 @@ For instance, all of the following are valid:</p>
 <li><code>{ lat = 0.0, lng = 1.0 }</code>,</li>
 </ul>
 <p>This type is open. The general format of an open record type is </p>
-<div class="highlight"><pre><span></span><code>{ %label_1 : %t_1, %label_2 : %t_2, ..., %label_n : %t_n | %r },
+<div class="highlight"><pre><span></span><code>{ %label_1 : %type_1, %label_2 : %type_2, ..., %label_n : %type_n | %r },
 </code></pre></div>
 <p>for some <em>n</em> ≥ 0. Recall the earlier <code>tagged</code> example and the type of the argument <code>rec</code> in that function:</p>
 <div class="highlight"><pre><span></span><code>rec : { | r }
@@ -2762,7 +2782,7 @@ We write the full type of <code>is_less_than</code> as: <code>t -&gt; t -&gt; bo
 </blockquote>
 <p>This generalizes to constructors of higher kinds. For example, <code>Result&lt;e, a&gt;</code> has kind <code>* -&gt; * -&gt; *</code>.</p>
 <p>Traits can be parameterized by type constructors. Instead of <code>T&lt;t : *&gt;</code>, we then get a trait of the form <code>T&lt;f : * -&gt; ... -&gt; *&gt;</code>. A common example is the <code>Functor</code> trait, which abstracts the idea of <a href="#mapping-over-a-list">mapping a function</a> over some container-like structure:</p>
-<div class="highlight"><pre><span></span><code>trait Functor&lt;f : * -&gt; *&gt; {
+<div class="highlight"><pre><span></span><code>trait Functor&lt;f&gt; {
   map : (a -&gt; b) -&gt; f&lt;a&gt; -&gt; f&lt;b&gt;;
 }
 </code></pre></div>
@@ -2917,7 +2937,7 @@ Name not in scope: factorial
 <div class="highlight"><pre><span></span><code>    | JsonArray(encode_json_array(@values)) =&gt; ...
 </code></pre></div>
 <p>The <code>@</code>-pattern works in the same way here as in expression-level folds, binding values to the result of recursively folding over the list.</p>
-<p>The following is a complete implementation the JSON encoder using this approach:</p>
+<p>The following is a complete implementation the JSON encoder using this approach. The <code>+++</code> operator performs string concatenation:</p>
 <div class="highlight"><pre><span></span><code>module Json {
 
   import String(intercalate)
@@ -3006,7 +3026,7 @@ Name not in scope: factorial
 </table>
 <p>Codata is ideal for representing streams, event sequences, or any ongoing process, where you only need to observe a finite part at a time. </p>
 <p>A codata type is introduced using the <code>cotype</code> keyword and (like a record type) is defined by a set of comma-separated fields enclosed in curly braces:</p>
-<div class="highlight"><pre><span></span><code>cotype %Name = { %Field_1 : %t_1, ..., %Field_n : %t_n }
+<div class="highlight"><pre><span></span><code>cotype %Name = { %Field_1 : %type_1, ..., %Field_n : %type_n }
 </code></pre></div>
 <p>Unlike records, the codata field labels start with an <strong>uppercase</strong> letter.</p>
 <h4 id="a-basic-counter">A basic counter</h4>

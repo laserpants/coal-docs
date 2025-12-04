@@ -634,6 +634,16 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
 
 }
 </code></pre></div>
+<!--
+## JSON
+
+TODO
+
+## Quicksort
+
+TODO
+-->
+
 <h2 id="monads">Monads</h2>
 <p>These examples reimplement Haskell’s Reader, Writer, and State monads.</p>
 <h3 id="reader">Reader</h3>
@@ -641,6 +651,8 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
 
   import namespace IO
   import Coal.Monad(trait Monad, and_then)
+  import Coal.Functor(trait Functor)
+  import Coal.Applicative(trait Applicative)
 
   type Reader&lt;r, a&gt; = Reader(r -&gt; a)
 
@@ -649,10 +661,25 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
       | Reader(f) =&gt; f(env)
     }
 
-  fun pure_reader(r) = Reader(fn(_) =&gt; r)
-
   fun ask() = 
     Reader(fn(env) =&gt; env)
+
+  instance Functor&lt;Reader&lt;r&gt;&gt; {
+    fun map(f, Reader(g)) =
+      Reader(fn(r) =&gt; f(g(r)))
+  }
+
+  instance Applicative&lt;Reader&lt;r&gt;&gt; {
+    fun pure(r) = 
+      Reader(fn(_) =&gt; r)
+
+    fun ap(Reader(f), Reader(g)) =
+      Reader(fn(r) =&gt;
+        let func = f(r) in
+        let a    = g(r) in
+        func(a)
+      )
+  }
 
   instance Monad&lt;Reader&lt;r&gt;&gt; {
     fun bind(reader : Reader&lt;r, a&gt;, next : a -&gt; Reader&lt;r, b&gt;) : Reader&lt;r, b&gt; = 
@@ -672,9 +699,11 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
   fun local(transform, Reader(f)) = 
     Reader(fn(env) =&gt; f(transform(env)))
 
+  // Example use:
+
   fun test_reader(val : int32) : Reader&lt;int32, int32&gt; =
     ask()
-      |. and_then(fn(r) =&gt; pure_reader(val + r))
+      |. and_then(fn(r) =&gt; pure(val + r))
 
   fun main() =
     IO.println_int32(run_reader(test_reader(5), 5))
@@ -684,8 +713,11 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
 <h3 id="writer">Writer</h3>
 <div class="highlight"><pre><span></span><code>module Main {
 
+  import namespace IO
   import namespace List
   import Coal.Monad(trait Monad, and_then, and_eval)
+  import Coal.Functor(trait Functor)
+  import Coal.Applicative(trait Applicative)
   import Coal.Monoid(trait Monoid)
   import IO(return)
 
@@ -696,8 +728,18 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
       | Writer(a, w) =&gt; (a, w)
     }
 
-  fun pure_writer(w) : Writer&lt;w, a&gt; =
-    Writer(w, id)
+  instance Functor&lt;Writer&lt;w&gt;&gt; {
+    fun map(f, Writer(a, w)) =
+      Writer(f(a), w)
+  }
+
+  instance Applicative&lt;Writer&lt;w&gt;&gt; {
+    fun pure(w) = 
+      Writer(w, id)
+
+    fun ap(Writer(f, w1), Writer(a, w2)) =
+      Writer(f(a), w1 &lt;&gt; w2)
+  }
 
   instance Monad&lt;Writer&lt;w&gt;&gt; {
     fun bind(writer, k) : Writer&lt;w, b&gt; =
@@ -718,11 +760,13 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
       | Writer(a, w) =&gt; Writer((a, w), w)
     }
 
+  // Example use:
+
   fun test_writer() : Writer&lt;List&lt;string&gt;, int32&gt; =
     tell([&quot;one&quot;])
       |. and_eval(tell([&quot;two&quot;]))
       |. and_eval(tell([&quot;three&quot;]))
-      |. and_eval(pure_writer(100))
+      |. and_eval(pure(100))
 
   fun print_msgs(msgs : List&lt;string&gt;) =
     fold(msgs) {
@@ -743,22 +787,39 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
 <div class="highlight"><pre><span></span><code>module Main {
 
   import namespace IO
+  import Coal.Functor(trait Functor)
   import Coal.Monad(trait Monad, and_then)
+  import Coal.Applicative(trait Applicative)
   import Coal.Combinators(fst)
 
   type State&lt;s, a&gt; = State(s -&gt; (a, s))
 
-  fun run_state(st, s0) =
-    match(st) {
-      | State(f) =&gt; 
-          f(s0)
-    }
+  fun run_state(State(f), s) = 
+    f(s)
 
   fun eval_state(st, s0) =
     fst(run_state(st, s0))
 
-  fun pure_state(x) =
-    State(fn(s) =&gt; (x, s))
+  instance Functor&lt;State&lt;s&gt;&gt; {
+    fun map(f, State(g)) =
+      State(fn(s) =&gt;
+        let (a, s1) = g(s) 
+        in
+        (f(a), s1)
+      )
+  }
+
+  instance Applicative&lt;State&lt;s&gt;&gt; {
+    fun pure(x) =
+      State(fn(s) =&gt; (x, s))
+
+    fun ap(State(sf), State(sa)) =
+      State(fn(s0) =&gt;
+        let (f, s1) = sf(s0) in
+        let (a, s2) = sa(s1) in
+        (f(a), s2)
+      )
+  }
 
   instance Monad&lt;State&lt;s&gt;&gt; {
     fun bind(m, k) =
@@ -778,7 +839,7 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
   fun modify(f) = 
     State(fn(s) =&gt; ((), f(s)))
 
-  //
+  // Example use:
 
   fun authenticate
     | &quot;password123&quot; = put(true)
@@ -791,11 +852,11 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
     get()
       |. and_then(fn(logged_in) =&gt; 
            if (logged_in) 
-             then pure_state(&quot;Already logged in&quot;)
+             then pure(&quot;Already logged in&quot;)
              else 
                authenticate(pw) 
                  |. and_then(get) 
-                 |. and_then(pure_state &lt;&lt; msg)
+                 |. and_then(pure &lt;&lt; msg)
       )
 
   fun main() =
