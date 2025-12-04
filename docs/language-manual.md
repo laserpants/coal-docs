@@ -667,9 +667,11 @@ Like most languages, Coal supports the standard logical operators for working wi
 | ------------- | ---------------------- | ------------------------------- |                                                                        
 | `+++`         | String concatenation   | `string -> string -> string`    |                                                                        
 
+<!--
 ### Type annotations
 
 TODO
+-->
 
 ### Comments
 
@@ -879,7 +881,14 @@ You can also match lists using literal patterns. The following example matches a
 
 #### Common list operations
 
-TODO: import statement??
+!!! note 
+
+    This section covers various functions from the standard `List` module. To 
+    import these, use an import statement like:
+
+    ```
+    import List(length, head, tail, uncons)
+    ```
 
 The function `length` returns the number of elements in a list:
 
