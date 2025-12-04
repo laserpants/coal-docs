@@ -83,6 +83,8 @@ module Main {
 
   import namespace IO
   import Coal.Monad(trait Monad, and_then)
+  import Coal.Functor(trait Functor)
+  import Coal.Applicative(trait Applicative)
 
   type Reader<r, a> = Reader(r -> a)
 
@@ -91,10 +93,25 @@ module Main {
       | Reader(f) => f(env)
     }
 
-  fun pure_reader(r) = Reader(fn(_) => r)
-
   fun ask() = 
     Reader(fn(env) => env)
+
+  instance Functor<Reader<r>> {
+    fun map(f, Reader(g)) =
+      Reader(fn(r) => f(g(r)))
+  }
+
+  instance Applicative<Reader<r>> {
+    fun pure(r) = 
+      Reader(fn(_) => r)
+
+    fun ap(Reader(f), Reader(g)) =
+      Reader(fn(r) =>
+        let func = f(r) in
+        let a    = g(r) in
+        func(a)
+      )
+  }
 
   instance Monad<Reader<r>> {
     fun bind(reader : Reader<r, a>, next : a -> Reader<r, b>) : Reader<r, b> = 
@@ -114,9 +131,11 @@ module Main {
   fun local(transform, Reader(f)) = 
     Reader(fn(env) => f(transform(env)))
 
+  // Example use:
+
   fun test_reader(val : int32) : Reader<int32, int32> =
     ask()
-      |. and_then(fn(r) => pure_reader(val + r))
+      |. and_then(fn(r) => pure(val + r))
 
   fun main() =
     IO.println_int32(run_reader(test_reader(5), 5))
@@ -129,8 +148,11 @@ module Main {
 ```
 module Main {
 
+  import namespace IO
   import namespace List
   import Coal.Monad(trait Monad, and_then, and_eval)
+  import Coal.Functor(trait Functor)
+  import Coal.Applicative(trait Applicative)
   import Coal.Monoid(trait Monoid)
   import IO(return)
 
@@ -141,8 +163,18 @@ module Main {
       | Writer(a, w) => (a, w)
     }
 
-  fun pure_writer(w) : Writer<w, a> =
-    Writer(w, id)
+  instance Functor<Writer<w>> {
+    fun map(f, Writer(a, w)) =
+      Writer(f(a), w)
+  }
+
+  instance Applicative<Writer<w>> {
+    fun pure(w) = 
+      Writer(w, id)
+
+    fun ap(Writer(f, w1), Writer(a, w2)) =
+      Writer(f(a), w1 <> w2)
+  }
 
   instance Monad<Writer<w>> {
     fun bind(writer, k) : Writer<w, b> =
@@ -163,11 +195,13 @@ module Main {
       | Writer(a, w) => Writer((a, w), w)
     }
 
+  // Example use:
+
   fun test_writer() : Writer<List<string>, int32> =
     tell(["one"])
       |. and_eval(tell(["two"]))
       |. and_eval(tell(["three"]))
-      |. and_eval(pure_writer(100))
+      |. and_eval(pure(100))
 
   fun print_msgs(msgs : List<string>) =
     fold(msgs) {
@@ -219,11 +253,9 @@ module Main {
 
     fun ap(State(sf), State(sa)) =
       State(fn(s0) =>
-        let (f, s1) = sf(s0) 
-        in
-          let (a, s2) = sa(s1) 
-          in
-            (f(a), s2)
+        let (f, s1) = sf(s0) in
+        let (a, s2) = sa(s1) in
+        (f(a), s2)
       )
   }
 
