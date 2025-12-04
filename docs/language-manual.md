@@ -1668,7 +1668,7 @@ This generalizes to constructors of higher kinds. For example, `Result<e, a>` ha
 Traits can be parameterized by type constructors. Instead of `T<t : *>`, we then get a trait of the form `T<f : * -> ... -> *>`. A common example is the `Functor` trait, which abstracts the idea of [mapping a function](#mapping-over-a-list) over some container-like structure:
 
 ```
-trait Functor<f : * -> *> {
+trait Functor<f> {
   map : (a -> b) -> f<a> -> f<b>;
 }
 ```
