@@ -1754,7 +1754,7 @@ To call a function from itself in this way is not possible. Instead, recursion m
 
 ### Fold syntax
 
-A fold (or *catamorphism*) is a way to deconstruct data, layer by layer. It abstracts the notion of a structurally recursive computation over some algebraic data type. Note that `fold` is a language keyword in Coal, not an ordinary function. Syntactically, it is similar to a `match` expression (explained [here](#pattern-matching)), but with one crucial difference: a `fold` carries built-in support for recursion. 
+A fold (or *catamorphism*) is a way to deconstruct data, layer by layer. It abstracts the notion of a structurally recursive computation over some algebraic data type. Although similar to how folds work in many other programming langues, note that `fold` is a language keyword in Coal, and not an ordinary function. Syntactically, it is similar to a `match` expression (explained [here](#pattern-matching)), but with one crucial difference: a `fold` carries built-in support for recursion. 
 
 To implement the factorial function using a fold, we are going to use the `nat` data type, which [defines the natural numbers](#natural-numbers) recursively:
 
@@ -1773,6 +1773,8 @@ type nat
 This type is recursive because `nat` appears inside one of its own constructors. We mark this recursive position with the special symbol `@`:
 
 ```
+-- Pseudo-code:
+
 type nat 
   = Zero 
   | Succ(@)
@@ -1807,7 +1809,7 @@ This produces the same behavior as if you could have written an explicitly recur
 
 but without referring to the function by name.
 
-The fibonacci function can be implemented in the following way:
+As another example, the fibonacci function can be implemented in the following way:
 
 ```
   fun fib(p : nat) =
