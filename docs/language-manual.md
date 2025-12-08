@@ -899,7 +899,7 @@ You can also match lists using literal patterns. The following example matches a
 
 !!! note 
 
-    This section covers various functions from the standard `List` module. To 
+    This section covers several functions from the standard `List` module. To 
     import these, use an import statement like:
 
     ```
