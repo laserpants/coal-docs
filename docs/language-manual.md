@@ -58,7 +58,7 @@ Function parameters are *patterns*, allowing functions to directly deconstruct t
     ...
 ```
 
-Top-level functions can also be defined in the form of a list of pattern–expression pairs, separated by a `|`-symbol. For example:
+Top-level functions can also be defined in the form of a list of pattern-expression pairs, separated by a `|`-symbol. For example:
 
 ```
   fun unpack
