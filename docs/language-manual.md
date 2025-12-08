@@ -230,7 +230,13 @@ Algebraic data types are especially useful for describing language grammars and 
 
 ### Codata types
 
-TODO
+In addition to ordinary algebraic data types, Coal also makes it possible to declare data types that represent potentially infinite data — the type of data that may result from processes that run indefinitely. To distinguish between these two, the latter is known as *codata*. A codata type is defined using the `cotype` keyword:
+
+```
+cotype Stream<a> = { Head : a, Tail : Stream<a> }
+```
+
+Codata is explored in more detail in **[Recursion, corecursion, and codata](#recursion-corecursion-and-codata)**.
 
 ### Type aliases
 
