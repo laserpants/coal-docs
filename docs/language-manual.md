@@ -252,9 +252,7 @@ For example:
   type alias User = { username : string, email : string, permissions: List<Permission> }
 ```
 
-TODO
-
-given a type `Map<key, val>`, we can define:
+An alias can include type parameters. For example, given a type `Map<key, val>`, we can define:
 
 ```
   type alias Dictionary<val> = Map<string, val>
