@@ -2,7 +2,7 @@
 
 ## Modules 
 
-Projects in Coal are organized as collections of *modules*. Modules provide a way to group related functionality into distinct namespaces. A module contains functions, type definitions and other language constructs, typically focused on a specific purpose within a library or application.
+Projects in Coal are organized as collections of *modules*. Modules provide a conventional way to group related functionality into distinct namespaces. A module contains functions, type definitions and other language constructs, typically focused on a specific purpose within a library or application.
 
 ```
 module %path(%export_list) {
@@ -15,7 +15,7 @@ module %path(%export_list) {
 }
 ```
 
-A *definition* can be a function, let-binding, data or codata type definition, type alias, trait, or trait instance. Traits and instances are [introduced here](#traits). The rest of these are explained in more detail under [Top-level definitions](#top-level-definitions).
+A *definition* can be a function, let-binding, data or codata type definition, type alias, trait, or trait instance. Traits and trait instances are [introduced here](#traits). The rest of these are explained in more detail under [Top-level definitions](#top-level-definitions).
 
 Every module is uniquely identified by its *path*. 
 
@@ -31,94 +31,6 @@ src
     └── Math
         └── Trigonometry.coal
 ```
-
-### Imports
-
-An `import` statement is used to bring in functions and other definitions from another module in your project. These must appear at the beginning of your code, before all definitions in a module. The following line makes three functions from the `List` module available to the current module:
-
-```
-import List(concat, head, tail)
-```
-
-Note that only definitions that are exported by the source module can be imported. See **[Exports](#exports)**.
-
-#### Type and cotype imports
-
-To import a type, the name of the type must be preceded by the `type` keyword. Following the type name is an optional list of data constructors enclosed in parentheses. For example, let’s say our project includes a module `Utilities`, and that this module defines the following type:
-
-```
-  type Answer = Yes | No
-```
-
-To import this type and its constructors, we use the following statement:
-
-```
-import Utilities(type Answer(Yes, No))
-```
-
-If the list of constructors is omitted, all public data constructors of the type are imported:
-
-```
-import Utilities(type Answer)   // Brings in Answer and its constructors
-```
-
-Similarly, a codata type is imported using the `cotype` keyword:
-
-```
-import Utilities(cotype Counter(Current, Next))
-```
-
-In this case, the list specifies the field accessors to include. This list can be left out to import everything.
-
-!!! note "Built-in types are always in scope "
-
-    You may have noticed that some examples use the `List` type without an explicit import. `List` and other built-in types are available in every module by default. 
-    These types include `Option`, `Ordering`, and the different primitive types, such as `int32`, `string`, and `bool`. 
-
-#### Trait imports
-
-Traits are imported using the `trait` keyword.
-
-```
-import Utilities(trait Countable)
-```
-
-Alternatively, you can import the individual methods of a trait directly. For example, if `Countable` is defined in the following way:
-
-```
-  trait Countable<a> {
-    count :: a -> nat
-  }
-```
-
-Then `count` can be imported like any regular function:
-
-```
-import Utilities(count)
-```
-
-#### Qualified imports
-
-The special `namespace` keyword allows you to import and access all functions, types, and other definitions from a module via their *qualified* names. A qualified name is formed by prefixing the name with the path of the module:
-
-```
-// Import the List module under its namespace
-import namespace List
-
-  // And use it like this:
-  let zs = List.concat(xs, ys)
-```
-
-### Exports
-
-In a module declaration, the path identifier is followed by an optional list of exported names enclosed in parentheses. Only exported names are visible outside the module (or *public* in OOP terminology).
-
-```
-module Utils.Math.Trigonometry(sin, cos, tan) {
-  // ...
-```
-
-If this list is left out, everything in the module is exported.
 
 ## Top-level definitions
 
@@ -146,7 +58,7 @@ Function parameters are *patterns*, allowing functions to directly deconstruct t
     ...
 ```
 
-Top-level functions can also be defined in the form of a list of pattern–expression pairs, separated by a `|`-symbol. For example:
+Top-level functions can also be defined in the form of a list of pattern-expression pairs, separated by a `|`-symbol. For example:
 
 ```
   fun unpack
@@ -316,6 +228,16 @@ Algebraic data types are especially useful for describing language grammars and 
     | Object(List<(string, JsonValue)>)
 ```
 
+### Codata types
+
+In addition to ordinary algebraic data types, Coal also makes it possible to declare data types that represent potentially infinite data — the type of data that may result from processes that run indefinitely. To distinguish between these two, the latter is known as *codata*. A codata type is defined using the `cotype` keyword:
+
+```
+cotype Stream<a> = { Head : a, Tail : Stream<a> }
+```
+
+Codata is explored in more detail in **[Recursion, corecursion, and codata](#recursion-corecursion-and-codata)**.
+
 ### Type aliases
 
 A type alias assigns a name to an existing type, making complex definitions easier to express and reuse. It can refer to primitive types, records, function types, or algebraic data types.
@@ -329,6 +251,100 @@ For example:
 ```
   type alias User = { username : string, email : string, permissions: List<Permission> }
 ```
+
+An alias can include type parameters. For example, given a type `Map<key, val>`, we can define:
+
+```
+  type alias Dictionary<val> = Map<string, val>
+```
+
+### Imports
+
+An `import` statement is used to bring in functions and other definitions from a module in your project. These statements must appear at the beginning of your code, before all definitions in a module. The following line makes some functions from the `List` module available to the current module:
+
+```
+import List(concat, head, tail)
+```
+
+Note that only definitions that are exported by the source module can be imported. See **[Exports](#exports)**.
+
+#### Type and cotype imports
+
+To import a [type](#data-types), the name of the type must be preceded by the `type` keyword. Following the type name is an optional list of data constructors enclosed in parentheses. For example, let’s say our project includes a module `Utilities`, and that this module defines the following type:
+
+```
+  type Answer = Yes | No
+```
+
+To import this type and its constructors, we use the following statement:
+
+```
+import Utilities(type Answer(Yes, No))
+```
+
+If the list of constructors is omitted, all public data constructors of the type are imported:
+
+```
+import Utilities(type Answer)   // Brings in Answer and its constructors
+```
+
+Similarly, a [codata type](#codata-and-unfold) is imported using the `cotype` keyword:
+
+```
+import Utilities(cotype Counter(Current, Next))
+```
+
+In this case, the list specifies the field accessors to include. This list can be left out to import everything.
+
+!!! note "Built-in types are always in scope "
+
+    In the following, you may notice that some examples use the `List` type without an explicit import. `List` and other built-in types are available in every module by default. 
+    These types include `Option`, `Ordering`, and the different primitive types, such as `int32`, `string`, and `bool`. 
+
+#### Trait imports
+
+[Traits](#traits) are imported using the `trait` keyword.
+
+```
+import Utilities(trait Countable)
+```
+
+Alternatively, you can import the individual methods of a trait directly. For example, if `Countable` is defined in the following way:
+
+```
+  trait Countable<a> {
+    count :: a -> nat
+  }
+```
+
+Then `count` can be imported like any regular function:
+
+```
+import Utilities(count)
+```
+
+#### Qualified imports
+
+The special `namespace` keyword allows you to import and access all functions, types, and other definitions from a module via their *qualified* names. A qualified name is formed by prefixing the name with the path of the module:
+
+```
+// Import the List module under its namespace
+import namespace List
+
+  // And use it like this:
+  let zs = List.concat(xs, ys)
+```
+
+### Exports
+
+In a module declaration, the path identifier is followed by an optional list of exported names enclosed in parentheses. Only exported names are visible outside the module (or *public* in OOP terminology).
+
+```
+module Utils.Math.Trigonometry(sin, cos, tan) {
+  // ...
+```
+
+If this list is left out, everything in the module is exported.
 
 ## Expression syntax
 
@@ -883,7 +899,7 @@ You can also match lists using literal patterns. The following example matches a
 
 !!! note 
 
-    This section covers various functions from the standard `List` module. To 
+    This section covers several functions from the standard `List` module. To 
     import these, use an import statement like:
 
     ```
@@ -1744,7 +1760,7 @@ To call a function from itself in this way is not possible. Instead, recursion m
 
 ### Fold syntax
 
-A fold (or *catamorphism*) is a way to deconstruct data, layer by layer. It abstracts the notion of a structurally recursive computation over some algebraic data type. Note that `fold` is a language keyword in Coal, not an ordinary function. Syntactically, it is similar to a `match` expression (explained [here](#pattern-matching)), but with one crucial difference: a `fold` carries built-in support for recursion. 
+A fold (or *catamorphism*) is a way to deconstruct data, layer by layer. It abstracts the notion of a structurally recursive computation over some algebraic data type. Although similar to how folds work in many other programming langues, note that `fold` is a language keyword in Coal, and not an ordinary function. Syntactically, it is similar to a `match` expression (explained [here](#pattern-matching)), but with one crucial difference: a `fold` carries built-in support for recursion. 
 
 To implement the factorial function using a fold, we are going to use the `nat` data type, which [defines the natural numbers](#natural-numbers) recursively:
 
@@ -1763,6 +1779,8 @@ type nat
 This type is recursive because `nat` appears inside one of its own constructors. We mark this recursive position with the special symbol `@`:
 
 ```
+-- Pseudo-code:
+
 type nat 
   = Zero 
   | Succ(@)
@@ -1797,7 +1815,7 @@ This produces the same behavior as if you could have written an explicitly recur
 
 but without referring to the function by name.
 
-The fibonacci function can be implemented in the following way:
+As another example, the fibonacci function can be implemented in the following way:
 
 ```
   fun fib(p : nat) =
