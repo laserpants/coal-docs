@@ -260,7 +260,7 @@ An alias can include type parameters. For example, given a type `Map<key, val>`,
 
 ### Imports
 
-An `import` statement is used to bring in functions and other definitions from another module in your project. These must appear at the beginning of your code, before all definitions in a module. The following line makes some functions from the `List` module available to the current module:
+An `import` statement is used to bring in functions and other definitions from some other module in your project. These statements must appear at the beginning of your code, before all definitions in a module. The following line makes some functions from the `List` module available to the current module:
 
 ```
 import List(concat, head, tail)
