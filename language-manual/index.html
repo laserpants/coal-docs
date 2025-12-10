@@ -328,34 +328,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Modules">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#imports" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Imports
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#exports" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Exports
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -404,10 +376,43 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#codata-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codata types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#type-aliases" class="md-nav__link">
     <span class="md-ellipsis">
       
         Type aliases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Imports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exports
       
     </span>
   </a>
@@ -914,34 +919,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Modules">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#imports" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Imports
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#exports" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Exports
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -990,10 +967,43 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#codata-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codata types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#type-aliases" class="md-nav__link">
     <span class="md-ellipsis">
       
         Type aliases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Imports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exports
       
     </span>
   </a>
@@ -1395,7 +1405,7 @@
 
 <h1 id="language-manual">Language manual</h1>
 <h2 id="modules">Modules</h2>
-<p>Projects in Coal are organized as collections of <em>modules</em>. Modules provide a way to group related functionality into distinct namespaces. A module contains functions, type definitions and other language constructs, typically focused on a specific purpose within a library or application.</p>
+<p>Projects in Coal are organized as collections of <em>modules</em>. Modules provide a conventional way to group related functionality into distinct namespaces. A module contains functions, type definitions and other language constructs, typically focused on a specific purpose within a library or application.</p>
 <div class="highlight"><pre><span></span><code>module %path(%export_list) {
   %import_statement
   %import_statement
@@ -1405,7 +1415,7 @@
   ...
 }
 </code></pre></div>
-<p>A <em>definition</em> can be a function, let-binding, data or codata type definition, type alias, trait, or trait instance. Traits and instances are <a href="#traits">introduced here</a>. The rest of these are explained in more detail under <a href="#top-level-definitions">Top-level definitions</a>.</p>
+<p>A <em>definition</em> can be a function, let-binding, data or codata type definition, type alias, trait, or trait instance. Traits and trait instances are <a href="#traits">introduced here</a>. The rest of these are explained in more detail under <a href="#top-level-definitions">Top-level definitions</a>.</p>
 <p>Every module is uniquely identified by its <em>path</em>. </p>
 <ul>
 <li>The path mirrors the directory structure of the source file in which the module is defined. </li>
@@ -1418,56 +1428,6 @@
     └── Math
         └── Trigonometry.coal
 </code></pre></div>
-<h3 id="imports">Imports</h3>
-<p>An <code>import</code> statement is used to bring in functions and other definitions from another module in your project. These must appear at the beginning of your code, before all definitions in a module. The following line makes three functions from the <code>List</code> module available to the current module:</p>
-<div class="highlight"><pre><span></span><code>import List(concat, head, tail)
-</code></pre></div>
-<p>Note that only definitions that are exported by the source module can be imported. See <strong><a href="#exports">Exports</a></strong>.</p>
-<h4 id="type-and-cotype-imports">Type and cotype imports</h4>
-<p>To import a type, the name of the type must be preceded by the <code>type</code> keyword. Following the type name is an optional list of data constructors enclosed in parentheses. For example, let’s say our project includes a module <code>Utilities</code>, and that this module defines the following type:</p>
-<div class="highlight"><pre><span></span><code>  type Answer = Yes | No
-</code></pre></div>
-<p>To import this type and its constructors, we use the following statement:</p>
-<div class="highlight"><pre><span></span><code>import Utilities(type Answer(Yes, No))
-</code></pre></div>
-<p>If the list of constructors is omitted, all public data constructors of the type are imported:</p>
-<div class="highlight"><pre><span></span><code>import Utilities(type Answer)   // Brings in Answer and its constructors
-</code></pre></div>
-<p>Similarly, a codata type is imported using the <code>cotype</code> keyword:</p>
-<div class="highlight"><pre><span></span><code>import Utilities(cotype Counter(Current, Next))
-</code></pre></div>
-<p>In this case, the list specifies the field accessors to include. This list can be left out to import everything.</p>
-<div class="admonition note">
-<p class="admonition-title">Built-in types are always in scope </p>
-<p>You may have noticed that some examples use the <code>List</code> type without an explicit import. <code>List</code> and other built-in types are available in every module by default. 
-These types include <code>Option</code>, <code>Ordering</code>, and the different primitive types, such as <code>int32</code>, <code>string</code>, and <code>bool</code>. </p>
-</div>
-<h4 id="trait-imports">Trait imports</h4>
-<p>Traits are imported using the <code>trait</code> keyword.</p>
-<div class="highlight"><pre><span></span><code>import Utilities(trait Countable)
-</code></pre></div>
-<p>Alternatively, you can import the individual methods of a trait directly. For example, if <code>Countable</code> is defined in the following way:</p>
-<div class="highlight"><pre><span></span><code>  trait Countable&lt;a&gt; {
-    count :: a -&gt; nat
-  }
-</code></pre></div>
-<p>Then <code>count</code> can be imported like any regular function:</p>
-<div class="highlight"><pre><span></span><code>import Utilities(count)
-</code></pre></div>
-<h4 id="qualified-imports">Qualified imports</h4>
-<p>The special <code>namespace</code> keyword allows you to import and access all functions, types, and other definitions from a module via their <em>qualified</em> names. A qualified name is formed by prefixing the name with the path of the module:</p>
-<div class="highlight"><pre><span></span><code>// Import the List module under its namespace
-import namespace List
-
-  // And use it like this:
-  let zs = List.concat(xs, ys)
-</code></pre></div>
-<h3 id="exports">Exports</h3>
-<p>In a module declaration, the path identifier is followed by an optional list of exported names enclosed in parentheses. Only exported names are visible outside the module (or <em>public</em> in OOP terminology).</p>
-<div class="highlight"><pre><span></span><code>module Utils.Math.Trigonometry(sin, cos, tan) {
-  // ...
-</code></pre></div>
-<p>If this list is left out, everything in the module is exported.</p>
 <h2 id="top-level-definitions">Top-level definitions</h2>
 <p>Definitions that occupy the outermost scope of a module are functions, top-level let-expressions, data and codata type definitions, traits, trait instances, folds, and unfolds.</p>
 <h3 id="functions">Functions</h3>
@@ -1482,7 +1442,7 @@ import namespace List
 <div class="highlight"><pre><span></span><code>  fun grok({ n : int32 }, (fst, snd), _) =
     ...
 </code></pre></div>
-<p>Top-level functions can also be defined in the form of a list of pattern–expression pairs, separated by a <code>|</code>-symbol. For example:</p>
+<p>Top-level functions can also be defined in the form of a list of pattern-expression pairs, separated by a <code>|</code>-symbol. For example:</p>
 <div class="highlight"><pre><span></span><code>  fun unpack
     | [a], true    = a
     | [a, _], true = a
@@ -1599,6 +1559,11 @@ let tree_of_gondor =
     | Array(List&lt;JsonValue&gt;)
     | Object(List&lt;(string, JsonValue)&gt;)
 </code></pre></div>
+<h3 id="codata-types">Codata types</h3>
+<p>In addition to ordinary algebraic data types, Coal also makes it possible to declare data types that represent potentially infinite data — the type of data that may result from processes that run indefinitely. To distinguish between these two, the latter is known as <em>codata</em>. A codata type is defined using the <code>cotype</code> keyword:</p>
+<div class="highlight"><pre><span></span><code>cotype Stream&lt;a&gt; = { Head : a, Tail : Stream&lt;a&gt; }
+</code></pre></div>
+<p>Codata is explored in more detail in <strong><a href="#recursion-corecursion-and-codata">Recursion, corecursion, and codata</a></strong>.</p>
 <h3 id="type-aliases">Type aliases</h3>
 <p>A type alias assigns a name to an existing type, making complex definitions easier to express and reuse. It can refer to primitive types, records, function types, or algebraic data types.</p>
 <div class="highlight"><pre><span></span><code>  type alias %Name&lt;%param_1, ..., %param_n&gt; = %type
@@ -1606,6 +1571,59 @@ let tree_of_gondor =
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code>  type alias User = { username : string, email : string, permissions: List&lt;Permission&gt; }
 </code></pre></div>
+<p>An alias can include type parameters. For example, given a type <code>Map&lt;key, val&gt;</code>, we can define:</p>
+<div class="highlight"><pre><span></span><code>  type alias Dictionary&lt;val&gt; = Map&lt;string, val&gt;
+</code></pre></div>
+<h3 id="imports">Imports</h3>
+<p>An <code>import</code> statement is used to bring in functions and other definitions from a module in your project. These statements must appear at the beginning of your code, before all definitions in a module. The following line makes some functions from the <code>List</code> module available to the current module:</p>
+<div class="highlight"><pre><span></span><code>import List(concat, head, tail)
+</code></pre></div>
+<p>Note that only definitions that are exported by the source module can be imported. See <strong><a href="#exports">Exports</a></strong>.</p>
+<h4 id="type-and-cotype-imports">Type and cotype imports</h4>
+<p>To import a <a href="#data-types">type</a>, the name of the type must be preceded by the <code>type</code> keyword. Following the type name is an optional list of data constructors enclosed in parentheses. For example, let’s say our project includes a module <code>Utilities</code>, and that this module defines the following type:</p>
+<div class="highlight"><pre><span></span><code>  type Answer = Yes | No
+</code></pre></div>
+<p>To import this type and its constructors, we use the following statement:</p>
+<div class="highlight"><pre><span></span><code>import Utilities(type Answer(Yes, No))
+</code></pre></div>
+<p>If the list of constructors is omitted, all public data constructors of the type are imported:</p>
+<div class="highlight"><pre><span></span><code>import Utilities(type Answer)   // Brings in Answer and its constructors
+</code></pre></div>
+<p>Similarly, a <a href="#codata-and-unfold">codata type</a> is imported using the <code>cotype</code> keyword:</p>
+<div class="highlight"><pre><span></span><code>import Utilities(cotype Counter(Current, Next))
+</code></pre></div>
+<p>In this case, the list specifies the field accessors to include. This list can be left out to import everything.</p>
+<div class="admonition note">
+<p class="admonition-title">Built-in types are always in scope </p>
+<p>In the following, you may notice that some examples use the <code>List</code> type without an explicit import. <code>List</code> and other built-in types are available in every module by default. 
+These types include <code>Option</code>, <code>Ordering</code>, and the different primitive types, such as <code>int32</code>, <code>string</code>, and <code>bool</code>. </p>
+</div>
+<h4 id="trait-imports">Trait imports</h4>
+<p><a href="#traits">Traits</a> are imported using the <code>trait</code> keyword.</p>
+<div class="highlight"><pre><span></span><code>import Utilities(trait Countable)
+</code></pre></div>
+<p>Alternatively, you can import the individual methods of a trait directly. For example, if <code>Countable</code> is defined in the following way:</p>
+<div class="highlight"><pre><span></span><code>  trait Countable&lt;a&gt; {
+    count :: a -&gt; nat
+  }
+</code></pre></div>
+<p>Then <code>count</code> can be imported like any regular function:</p>
+<div class="highlight"><pre><span></span><code>import Utilities(count)
+</code></pre></div>
+<h4 id="qualified-imports">Qualified imports</h4>
+<p>The special <code>namespace</code> keyword allows you to import and access all functions, types, and other definitions from a module via their <em>qualified</em> names. A qualified name is formed by prefixing the name with the path of the module:</p>
+<div class="highlight"><pre><span></span><code>// Import the List module under its namespace
+import namespace List
+
+  // And use it like this:
+  let zs = List.concat(xs, ys)
+</code></pre></div>
+<h3 id="exports">Exports</h3>
+<p>In a module declaration, the path identifier is followed by an optional list of exported names enclosed in parentheses. Only exported names are visible outside the module (or <em>public</em> in OOP terminology).</p>
+<div class="highlight"><pre><span></span><code>module Utils.Math.Trigonometry(sin, cos, tan) {
+  // ...
+</code></pre></div>
+<p>If this list is left out, everything in the module is exported.</p>
 <h2 id="expression-syntax">Expression syntax</h2>
 <p>Expressions are the core building blocks of programs. They include variables, literals, let-bindings, operators, and control structures like <code>if-then-else</code>. An expression can often be composed of other, smaller expressions. For example, a binary operator consists of two sub-expressions: its left-hand side and right-hand side operands:</p>
 <div class="highlight"><pre><span></span><code>  (+)     
@@ -2221,7 +2239,7 @@ unpack : nat -&gt; int32
 <h4 id="common-list-operations">Common list operations</h4>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This section covers various functions from the standard <code>List</code> module. To 
+<p>This section covers several functions from the standard <code>List</code> module. To 
 import these, use an import statement like:</p>
 <div class="highlight"><pre><span></span><code>import List(length, head, tail, uncons)
 </code></pre></div>
@@ -2828,7 +2846,7 @@ Name not in scope: factorial
 </code></pre></div>
 <p>To call a function from itself in this way is not possible. Instead, recursion must be accomplished through a pattern know as a <em>fold</em>. </p>
 <h3 id="fold-syntax">Fold syntax</h3>
-<p>A fold (or <em>catamorphism</em>) is a way to deconstruct data, layer by layer. It abstracts the notion of a structurally recursive computation over some algebraic data type. Note that <code>fold</code> is a language keyword in Coal, not an ordinary function. Syntactically, it is similar to a <code>match</code> expression (explained <a href="#pattern-matching">here</a>), but with one crucial difference: a <code>fold</code> carries built-in support for recursion. </p>
+<p>A fold (or <em>catamorphism</em>) is a way to deconstruct data, layer by layer. It abstracts the notion of a structurally recursive computation over some algebraic data type. Although similar to how folds work in many other programming langues, note that <code>fold</code> is a language keyword in Coal, and not an ordinary function. Syntactically, it is similar to a <code>match</code> expression (explained <a href="#pattern-matching">here</a>), but with one crucial difference: a <code>fold</code> carries built-in support for recursion. </p>
 <p>To implement the factorial function using a fold, we are going to use the <code>nat</code> data type, which <a href="#natural-numbers">defines the natural numbers</a> recursively:</p>
 <div class="highlight"><pre><span></span><code>Zero, Succ(Zero), Succ(Succ(Zero)), ...
 </code></pre></div>
@@ -2838,7 +2856,9 @@ Name not in scope: factorial
   | Succ(nat)
 </code></pre></div>
 <p>This type is recursive because <code>nat</code> appears inside one of its own constructors. We mark this recursive position with the special symbol <code>@</code>:</p>
-<div class="highlight"><pre><span></span><code>type nat 
+<div class="highlight"><pre><span></span><code>-- Pseudo-code:
+
+type nat 
   = Zero 
   | Succ(@)
 </code></pre></div>
@@ -2863,7 +2883,7 @@ Name not in scope: factorial
 <div class="highlight"><pre><span></span><code>      | Succ(r) =&gt; Succ(r) * fold(r)
 </code></pre></div>
 <p>but without referring to the function by name.</p>
-<p>The fibonacci function can be implemented in the following way:</p>
+<p>As another example, the fibonacci function can be implemented in the following way:</p>
 <div class="highlight"><pre><span></span><code>  fun fib(p : nat) =
     let (res, _) =
       fold(p - 1) {
