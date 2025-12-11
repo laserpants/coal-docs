@@ -347,6 +347,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#quicksort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quicksort
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basic-io" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -496,6 +507,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#quicksort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quicksort
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basic-io" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -574,6 +596,76 @@
 
 
 <h1 id="examples">Examples</h1>
+<h2 id="quicksort">Quicksort</h2>
+<h4 id="treecoal">Tree.coal</h4>
+<div class="highlight"><pre><span></span><code>module Tree {
+
+  type Tree&lt;a&gt;
+    = Node(a, Tree&lt;a&gt;, Tree&lt;a&gt;)
+    | Leaf
+
+  fun flatten(tree) = 
+    fold(tree) {
+      | Node(y, @lhs, @rhs) =&gt;
+          lhs ++ y :: rhs
+      | Leaf =&gt;
+          []
+    }
+
+}
+</code></pre></div>
+<h4 id="qsortcoal">Qsort.coal</h4>
+<div class="highlight"><pre><span></span><code>module Qsort(sort, sort2) {
+
+  import Tree(type Tree, flatten)
+  import Coal.Combinators(always)
+  import Number(_INT32_MAX)
+
+  fun binary_search_tree(list : List&lt;int32&gt;) : Tree&lt;int32&gt; =
+    fold(list, { min = 0, max = _INT32_MAX }) {
+      | (p :: @g) =&gt;
+          fn(range) =&gt;
+            if (p &gt; range.min &amp;&amp; p &lt;= range.max)
+              then 
+                Node
+                  ( p 
+                  , g({ min = range.min, max = p })
+                  , g({ min = p, max = range.max })
+                  )
+              else
+                g(range)
+      | [] =&gt;
+          always(Leaf)
+    }
+
+  let sort = flatten &lt;&lt; binary_search_tree
+
+}
+</code></pre></div>
+<h4 id="maincoal">Main.coal</h4>
+<div class="highlight"><pre><span></span><code>module Main {
+
+  import Qsort(sort)
+  import Coal.Monad(trait Monad, and_eval)
+  import IO(return)
+
+  import namespace IO
+
+  fun print_all(ints : List&lt;int32&gt;) : IO&lt;unit&gt; =
+    fold(ints) {
+      | [] =&gt; 
+          return()
+      | m :: @next =&gt;
+          IO.println_int32(m) |. and_eval(next)
+    }
+
+  fun main() = 
+    let xs = [105, 103, 234, 109, 107, 55, 102, 999, 101, 8, 106, 104]
+    in
+    print_all(sort(xs))
+
+}
+</code></pre></div>
 <h2 id="basic-io">Basic I/O</h2>
 <p>This program demonstrates how to combine parsing and monadic pipelining to build a small interactive console application.
 Using <code>IO</code> operations composed through monadic combinators, the program asks the user for their name and then runs a simple number-guessing game</p>
