@@ -1,5 +1,85 @@
 # Examples
 
+## Quicksort
+
+#### Tree.coal
+
+```
+module Tree {
+
+  type Tree<a>
+    = Node(a, Tree<a>, Tree<a>)
+    | Leaf
+
+  fun flatten(tree) = 
+    fold(tree) {
+      | Node(y, @lhs, @rhs) =>
+          lhs ++ y :: rhs
+      | Leaf =>
+          []
+    }
+
+}
+```
+
+#### Qsort.coal
+
+```
+module Qsort(sort, sort2) {
+
+  import Tree(type Tree, flatten)
+  import Coal.Combinators(always)
+  import Number(_INT32_MAX)
+
+  fun binary_search_tree(list : List<int32>) : Tree<int32> =
+    fold(list, { min = 0, max = _INT32_MAX }) {
+      | (p :: @g) =>
+          fn(range) =>
+            if (p > range.min && p <= range.max)
+              then 
+                Node
+                  ( p 
+                  , g({ min = range.min, max = p })
+                  , g({ min = p, max = range.max })
+                  )
+              else
+                g(range)
+      | [] =>
+          always(Leaf)
+    }
+
+  let sort = flatten << binary_search_tree
+
+}
+```
+
+#### Main.coal
+
+```
+module Main {
+
+  import Qsort(sort)
+  import Coal.Monad(trait Monad, and_eval)
+  import IO(return)
+
+  import namespace IO
+
+  fun print_all(ints : List<int32>) : IO<unit> =
+    fold(ints) {
+      | [] => 
+          return()
+      | m :: @next =>
+          IO.println_int32(m) |. and_eval(next)
+    }
+
+  fun main() = 
+    let xs = [105, 103, 234, 109, 107, 55, 102, 999, 101, 8, 106, 104]
+    in
+    print_all(sort(xs))
+
+}
+```
+
 ## Basic I/O
 
 This program demonstrates how to combine parsing and monadic pipelining to build a small interactive console application.
