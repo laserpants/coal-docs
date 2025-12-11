@@ -25,7 +25,7 @@ module Tree {
 #### Qsort.coal
 
 ```
-module Qsort(sort, sort2) {
+module Qsort(sort) {
 
   import Tree(type Tree, flatten)
   import Coal.Combinators(always)
