@@ -366,6 +366,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Basic I/O">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#do-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Do-notation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -525,6 +542,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Basic I/O">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#do-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Do-notation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -726,12 +760,31 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
 
 }
 </code></pre></div>
+<h3 id="do-notation">Do-notation</h3>
+<p>Using <code>do</code>-notation, we can refactor <code>main</code> in the above program, so that it
+instead becomes:</p>
+<div class="highlight"><pre><span></span><code>  fun main() = do {
+    println_string(&quot;Enter your name&quot;);
+    name &lt;- readln();
+    println_string(&quot;Hello, &quot; &lt;&gt; name &lt;&gt; &quot;!&quot;);
+
+    rand &lt;- random_int32();
+    println_string(&quot;Guess what number I am thinking of&quot;);
+    guess &lt;- readln();
+
+    println_string(
+      match(parse_int32(guess)) {
+        | Some(n) =&gt;
+            if (n == rand) 
+              then &quot;You guessed right!&quot;
+              else &quot;Sorry, the number I was thinking of was &quot; &lt;&gt; int32_to_string(rand) &lt;&gt; &quot;.&quot;
+        | None =&gt;
+            &quot;Not a number&quot;
+      });
+  }
+</code></pre></div>
 <!--
 ## JSON
-
-TODO
-
-## Quicksort
 
 TODO
 -->
