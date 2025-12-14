@@ -144,12 +144,35 @@ module Main {
 }
 ```
 
+### Do-notation
+
+Using `do`-notation, we can refactor `main` in the above program, so that it
+instead becomes:
+
+```
+  fun main() = do {
+    println_string("Enter your name");
+    name <- readln();
+    println_string("Hello, " <> name <> "!");
+
+    rand <- random_int32();
+    println_string("Guess what number I am thinking of");
+    guess <- readln();
+
+    println_string(
+      match(parse_int32(guess)) {
+        | Some(n) =>
+            if (n == rand) 
+              then "You guessed right!"
+              else "Sorry, the number I was thinking of was " <> int32_to_string(rand) <> "."
+        | None =>
+            "Not a number"
+      });
+  }
+```
+
 <!--
 ## JSON
-
-TODO
-
-## Quicksort
 
 TODO
 -->
