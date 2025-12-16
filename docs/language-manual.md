@@ -1278,6 +1278,18 @@ Therefore, if the input list is empty, then we have nothing to look at. `Option`
     }
 ```
 
+### Result
+
+The `Result` type is similar to `Either` in Haskell.
+
+TODO
+
+```
+type Result<r, e>
+  = Ok(r)
+  | Err(e)
+```
+
 ### Tuples
 
 Just like lists, tuples are ordered sequences of values. Unlike lists, however, a tuple’s length is fixed (i.e. determined at compile-time), and its elements can have different types. In code, a tuple is written as a comma-separated sequence of expressions enclosed in parentheses:
