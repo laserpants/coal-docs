@@ -683,11 +683,19 @@ Like most languages, Coal supports the standard logical operators for working wi
 | ------------- | ---------------------- | ------------------------------- |                                                                        
 | `+++`         | String concatenation   | `string -> string -> string`    |                                                                        
 
-<!--
 ### Type annotations
 
+In most situations, expressions and patterns can be given a type annotation:
+
 TODO
--->
+
+```
+<expr> : type
+```
+
+```
+<pattern> : type
+```
 
 ### Comments
 
@@ -755,7 +763,9 @@ TODO
 
 ### Function types
 
-Function types are written using the arrow notation `->`, following the same convention as in Haskell. The type `a -> b` represents a function from `a` to `b`, and parentheses can be added to make grouping explicit, such as in `a -> (b -> c)`.
+Function types are written in arrow notation, following the same convention as in Haskell. The type `a -> b` represents a function from `a` to `b`, and parentheses can be added to make grouping explicit, such as in `(a -> b) -> c`.
+
+The arrow operator is right-associative, which means that `a -> b -> c` is the same type as `a -> (b -> c)`.   
 
 ### Natural numbers
 
@@ -771,7 +781,7 @@ type nat
  | Succ(nat)
 ```
 
-The number five, for example, can then be written:
+The number five, for example, can then be expressed as:
 
 ```
 Succ(Succ(Succ(Succ(Succ(Zero)))))
@@ -1280,15 +1290,18 @@ Therefore, if the input list is empty, then we have nothing to look at. `Option`
 
 ### Result
 
-The `Result` type is similar to `Either` in Haskell.
-
-TODO
+The `Result` type represents computations that may either succeed or fail. It is similar to `Either` in Haskell: 
 
 ```
 type Result<r, e>
   = Ok(r)
   | Err(e)
 ```
+
+A value of type `Result<r, e>` is one of:
+
+- `Ok(r)`, indicating a successful outcome carrying a result value of type `r`, or
+- `Err(e)`, indicating a failure carrying an error value of type `e`. 
 
 ### Tuples
 
@@ -1687,6 +1700,18 @@ fun is_less_than(x : t, y : t) : bool with Ordered<t> =
 
 Type parameters, like `t` in the type of `is_less_than` are [universally quantified](https://en.wikipedia.org/wiki/Universal_quantification). The `with` keyword introduces one or more constraints on type variables appearing in a type. In this case it demands that an instance of `Ordered` exists for the type substituted for `t`.
 We write the full type of `is_less_than` as: `t -> t -> bool with Ordered<t>`.
+
+### Built-in traits
+
+TODO
+
+#### Numeric
+
+TODO
+
+#### Ordered
+
+TODO
 
 ### Higher-kinded traits
 
@@ -2145,7 +2170,7 @@ The standard `IO` module provides common operations for effectful actions, inclu
   println_double : double -> IO<unit>
   print_double   : double -> IO<unit>
 
-  read_file      : string -> IO<string>
+  read_file      : string -> IO<Result<string, FileError>>
   write_file     : string -> string -> IO<unit>
 
   readln         : unit -> IO<string>
