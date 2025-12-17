@@ -411,7 +411,7 @@ Integer literals introduced in code without an explicit type annotation, such as
 let answer = 42
 ```
 
-are polymorphic. The inferred type of this expression is `n with Numeric(n)`, which means that `n` can be *any* type, as long as it implements the `Numeric` trait (see **[Traits](#traits)**). This includes the built-in `int32`, `int64`, `bignum`, and `nat` types. All `Numeric` types support the basic arithmetic operations of addition, subtraction, and multiplication.
+are *overloaded*. The inferred type of this expression is `n with Numeric(n)`, which means that `n` can be *any* type, as long as it implements the `Numeric` trait (see **[Traits](#traits)**). This includes the built-in `int32`, `int64`, `bignum`, and `nat` types. All `Numeric` types support the basic arithmetic operations of addition, subtraction, and multiplication.
 
 ```
 fun sum_of(x, y, z) = 
@@ -1302,6 +1302,42 @@ A value of type `Result<r, e>` is one of:
 
 - `Ok(r)`, indicating a successful outcome carrying a result value of type `r`, or
 - `Err(e)`, indicating a failure carrying an error value of type `e`. 
+
+#### Example
+
+This example shows how `Result` is used in the return type of `read_file` from 
+the `IO`-package to handle errors when reading a file from the file system.
+
+```
+module Main {
+
+  import IO(println_string, read_file, type FileIOError)
+  import Coal.Monad(and_then)
+
+  fun show_error(error : FileIOError) =
+    match(error) {
+      | FileNotFound => 
+          println_string("File not found")
+      | _ => 
+          println_string("Unspecified error")
+    }
+
+  fun main() =
+    read_file("does_not_exist.txt")
+      |. and_then(fn(result) =>
+           match(result) {
+             | Ok(file) => println_string(file)
+             | Err(err) => show_error(err)
+           })
+
+}
+```
+
+The type of `read_file` is:
+
+```
+  read_file : string -> IO<Result<string, FileIOError>>
+```
 
 ### Tuples
 
