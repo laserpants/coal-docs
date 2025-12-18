@@ -1611,7 +1611,7 @@ See [below](#supported-patterns) for a complete list of available patterns.
 
 ### Totality requirement
 
-For a function to be *total*, it must be defined for all inputs of its corresponding type. A consequence of this in the context of `match` expressions is that all possible cases for a type need to be covered by the patterns. In other words, the patterns must be *exhaustive*. If a case is missing, the compiler will reject the program. 
+For a function to be *total*, it must be defined for all inputs of its corresponding type. In Coal, functions are always total. A consequence of this in the context of `match` expressions is that all possible cases for a type need to be covered by the patterns. In other words, the patterns must be *exhaustive*. If a case is missing, the compiler will reject the program. 
 
 For example, the following function
 
