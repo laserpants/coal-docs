@@ -1771,9 +1771,22 @@ TODO
   }
 ```
 
+```
+  let b = false + true * true
+```
+
 #### Ordered
 
 TODO
+
+```
+  instance Ordered<bool> {
+    fun compare
+      | false, true  = LessThan
+      | true, false  = GreaterThan
+      | _, _         = EqualTo
+  }
+```
 
 ### Higher-kinded traits
 
