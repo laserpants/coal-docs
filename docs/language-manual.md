@@ -260,7 +260,7 @@ An alias can include type parameters. For example, given a type `Map<key, val>`,
 
 ### Imports
 
-An `import` statement is used to bring in functions and other definitions from a module in your project. These statements must appear at the beginning of your code, before all definitions in a module. The following line makes some functions from the `List` module available to the current module:
+An `import` statement is used to bring in functions and other definitions from a module in your project. These statements must appear at the beginning of the module, before any definitions. The following line makes some functions from the `List` module available to the current module:
 
 ```
 import List(concat, head, tail)
@@ -401,7 +401,7 @@ Because shadowing is often a source of subtle bugs, the Coal compiler treats it 
 
 ### Literal expressions
 
-A *literal* is an expression that directly represents a fixed value of one of the [built-in primitive types](#built-in-language-primitives), such as integers, booleans, or strings.
+A *literal* is an expression that directly represents a fixed value. It is either one of the [built-in primitive types](#built-in-language-primitives), such as integers, booleans, or strings, or a composite value, like lists or tuples.
 
 #### Integral types
 
@@ -1852,14 +1852,14 @@ type nat
 This type is recursive because `nat` appears inside one of its own constructors. We mark this recursive position with the special symbol `@`:
 
 ```
--- Pseudo-code:
+// Pseudo-code:
 
 type nat 
   = Zero 
   | Succ(@)
 ```
 
-This location is significant since it is precisely where the `fold` mechanism will recurse. Using the special `@`-pattern syntax only available in `fold` expressions, we can now express the factorial function as:
+This location is significant since it is precisely where the `fold` mechanism will recurse. Now in actual code, using the special `@`-pattern syntax (only available in `fold` expressions), we now express the factorial function as:
 
 ```
   fun factorial(n : nat) =
