@@ -1960,7 +1960,7 @@ Even though the `fold` expression syntax is applicable to a wide range of algori
     | Object(List<(string, JsonValue)>)
 ```
 
-This type is recursive, but it differs from a simple type like `nat` in an important way: `JsonValue` does not appear immediately under a constructor. Instead, it is wrapped inside other data structures (e.g., `List` in the `Array` constructor, or `List<(string, JsonValue)>` in the `Object` constructor).
+This type is recursive, but it differs from a simple type like `nat` in an important way: `JsonValue` does not appear immediately under a constructor. Instead, it is wrapped inside other data structures (`List` in the `Array` constructor, or `List<(string, JsonValue)>` in the `Object` constructor).
 
 Suppose we want to implement a function that encodes JSON values as strings &mdash; that is, a recursive function of type `JsonValue -> string`:
 
@@ -1979,7 +1979,8 @@ We might try to handle the `Array` case by matching on the list constructor:
       | Array(@head :: tail) => ?
 ```
 
-The `@head` pattern works as expected: it binds head to the result of recursively folding over that element. However, the rest of the list (`tail`) cannot be processed using an `@`-pattern in the same way. Its type is `List<JsonValue>`, not `JsonValue`. Fold-patterns expect a value of the same type as the one being folded over.
+The `@head` pattern works as expected: it binds `head` to the result of recursively folding over that element. However, the rest of the list (`tail`) cannot be processed using an `@`-pattern in the same way. Its type is `List<JsonValue>`, not `JsonValue`. Fold-patterns expect a value of the same type as the one being folded over.
+For this situation, we need TODO
 
 #### Top-level folds
 
