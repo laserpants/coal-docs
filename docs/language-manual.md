@@ -765,9 +765,7 @@ TODO
 
 ### Function types
 
-Function types are written in arrow notation, following the same convention as in Haskell. The type `a -> b` represents a function from `a` to `b`, and parentheses can be added to make grouping explicit, such as in `(a -> b) -> c`.
-
-The arrow operator is right-associative, which means that `a -> b -> c` is the same type as `a -> (b -> c)`.   
+Function types are written in arrow notation, following the same convention as in Haskell. The type `a -> b` represents a function from `a` to `b`. Parentheses can be added to make grouping explicit, such as in `(a -> b) -> c`. The arrow operator is right-associative, which means that `a -> b -> c` is the same type as `a -> (b -> c)`.
 
 ### Natural numbers
 
