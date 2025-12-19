@@ -2258,14 +2258,27 @@ The standard `IO` module provides common operations for effectful actions, inclu
 
 ### Monads and pipelining
 
-Monads describe a way to sequence computations that produce a value along with extra information. A *monadic* function is one of the form:
+Monads describe how to sequence computations that produce a value along with some extra information. A *monadic* function is one of the form:
 
 ```
 a -> m<b>
 ```
 
-In the case of `IO`-computations, this is a function `a -> IO<b>` that takes some input of type `a` and returns a , and 
+In the case of `IO` this means a function from `a` to `b`, where the return value is being computed in a way that involves side-effects.
 
-To compose these functions, we use the `bind` function .
+```
+a -> m<b>
+b -> m<c>
+```
+
+Instead, to compose these functions, we need to use a type of composition known as Kleisli composition:
+
+```
+kleisli : (a -> m<b>) -> (b -> m<c>) -> a -> m<c>
+```
+
+```
+bind : m<a> -> (a -> m<b>) -> m<b> 
+```
 
 ### Do-notation
