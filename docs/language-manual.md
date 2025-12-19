@@ -2256,4 +2256,14 @@ The standard `IO` module provides common operations for effectful actions, inclu
 
 ### Monads and pipelining
 
+Monads describe how to structure computations as a sequence of steps, in circumstances where each step also produces some extra information, apart from the value being computed. A *monadic* function is one of the form:
+
+```
+a -> m<b>
+```
+
+For `IO`-computations, this is a function `a -> IO<b>` that takes some input of type `a` and returns a , and 
+
+To compose these functions, we use the `bind` function .
+
 ### Do-notation
