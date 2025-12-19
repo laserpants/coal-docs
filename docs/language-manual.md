@@ -411,7 +411,7 @@ Integer literals introduced in code without an explicit type annotation, such as
 let answer = 42
 ```
 
-are *overloaded*. The inferred type of this expression is `n with Numeric(n)`, which means that `n` can be *any* type, as long as it implements the `Numeric` trait (see **[Traits](#traits)**). This includes the built-in `int32`, `int64`, `bignum`, and `nat` types. All `Numeric` types support the basic arithmetic operations of addition, subtraction, and multiplication.
+are *overloaded*. The inferred type of this expression is `n with Numeric(n)`, which means that `n` can be *any* type, as long as it implements the `Numeric` trait (see **[Traits](#traits)**). This includes the built-in `int32`, `int64`, `float`, `double`, `bignum`, and `nat` types. All `Numeric` types support the basic arithmetic operations of addition, subtraction, and multiplication.
 
 ```
 fun sum_of(x, y, z) = 
@@ -618,6 +618,8 @@ is syntactic sugar for binding `add` to a lambda expression:
 ### Operators
 
 #### Arithmetic and comparison
+
+The basic arithmetic operators are overloaded and work with all types for which there exists an instance of the suitable trait (explained under [**Built-in traits**](http://localhost:8000/mysite/language-manual/#built-in-traits)).
 
 |               | Description            | Type                                 |                                                                        
 | ------------- | ---------------------- | ------------------------------------ |                                                                        
