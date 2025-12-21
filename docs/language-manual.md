@@ -2262,21 +2262,49 @@ Monads describe how to sequence computations that produce a value along with som
 a -> m<b>
 ```
 
-In the case of `IO` this means a function from `a` to `b`, where the return value is being computed in a way that involves side-effects.
+The _ of `m` determines what this extra information entails.
+
+In the case of `IO` this _ a function from `a` to `b`, where the return value `b` is being computed in a way that involves side-effects.
+Given two functions
 
 ```
 a -> m<b>
 b -> m<c>
 ```
 
-Instead, to compose these functions, we need to use a type of composition known as Kleisli composition:
+we cannot use regular function composition to get a function from `a -> m<c>`. Instead, to glue these two functions together, we need to use a type of composition known as Kleisli composition:
 
 ```
 kleisli : (a -> m<b>) -> (b -> m<c>) -> a -> m<c>
 ```
 
+A more compact way to express this, commonly used in programming languages is the `bind` operator:
+
 ```
 bind : m<a> -> (a -> m<b>) -> m<b> 
 ```
 
+The function `and_then` is just `bind` with the arguments flipped:
+
+```
+and_then : (a -> m<b>) -> m<a> -> m<b>
+```
+
+This version of `bind` is convenient when chaining together multiple monadic functions using the reverse application operator (`|.`):
+
+
+```
+    println_string("Enter your name")
+      |. and_then(readln)
+      |. and_then(fn(s) => println_string("Hello, " <> s <> "!"))
+```
+
 ### Do-notation
+
+a way of structuring programs similar to imperative programming
+
+Taking this a step further, `do`-notation was introduced in Haskell
+
+Coal supports this notation for 
+
+
