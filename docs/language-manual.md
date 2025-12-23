@@ -1170,7 +1170,7 @@ The higher-order function `reduce` takes a list and combines its elements into a
 let sum = reduce(fn(n, a) => n + a, 0, [1, 2, 3])
 ```
 
-> The operation described here is also commonly referred to as a *fold*. That name is not used, however, since it is a reserved language keyword in Coal. Along with the special `@`-pattern syntax, it provides the foundation for implementing recursive functions, including `reduce`. This is explored in detail in **[Recursion, corecursion, and codata](#recursion-corecursion-and-codata)**.
+> The operation described here is also commonly referred to as a *fold*. That name is not used, however, since it is a reserved language keyword in Coal. Along with the special `@`-pattern syntax, it provides the foundation for implementing recursive functions, including `reduce`. This is explained in detail in **[Recursion, corecursion, and codata](#recursion-corecursion-and-codata)**.
 
 The type of `reduce` is:
 
