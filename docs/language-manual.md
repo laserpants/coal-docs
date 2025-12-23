@@ -769,7 +769,7 @@ Function types are written in arrow notation, following the same convention as i
 
 ### Natural numbers
 
-Recursion in Coal is closely tied to pattern matching: we peel off layers of a recursively defined data structure step by step, until reaching its base case. This works naturally with lists, trees, and other algebraic data types. Ordinary machine integers (`int32`, `int64`), however, cannot be pattern matched on in such a manner. Nevertheless, we often want to use numbers in recursive computations &mdash; for example, when repeating an action, or mimicking the behavior of loops in imperative languages. To describe numbers in a way compatible with recursion, we find some inspiration from the standard axiomatization of the natural numbers:
+Recursion in Coal is closely tied to pattern matching: we peel off layers of a recursively defined data structure step by step, until reaching its base case. This works naturally with lists, trees, and other algebraic data types. Ordinary machine integers (`int32`, `int64`), however, cannot be pattern matched on in such a manner. Nevertheless, we often want to use numbers in recursive computations &mdash; for example, when repeating an action, or mimicking the behavior of loops in imperative languages. To describe numbers in a way compatible with recursion, we need to borrow some ideas from the standard axiomatization of the natural numbers:
 
 > Every natural number is either zero or the successor of another natural number.
 
@@ -2302,7 +2302,15 @@ This version of `bind` is convenient when chaining together multiple monadic fun
 ### Do-notation
 
 Kleisli composition _ leads to a way of structuring programs similar to imperative programming. Taking this a step further, `do`-notation was introduced in Haskell
+to simplify IO-
 
-Coal supports this notation for 
+Coal supports this for 
 
+```
+    do {
+      println_string("Enter your name");
+      s <- readln();
+      println_string("Hello, " <> s <> "!");
+    }
+```
 
