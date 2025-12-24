@@ -2290,13 +2290,12 @@ The function `and_then` is just `bind` with the arguments flipped:
 and_then : (a -> m<b>) -> m<a> -> m<b>
 ```
 
-This version of `bind` is convenient when chaining together multiple monadic functions using the reverse application operator (`|.`):
-
+This version of `bind` can be combined with the reverse application operator (`|.`) to chain together multiple monadic functions in the following way:
 
 ```
-    println_string("Enter your name")
-      |. and_then(readln)
-      |. and_then(fn(s) => println_string("Hello, " <> s <> "!"))
+  println_string("Enter your name")
+    |. and_then(readln)
+    |. and_then(fn(s) => println_string("Hello, " <> s <> "!"))
 ```
 
 ### Do-notation
