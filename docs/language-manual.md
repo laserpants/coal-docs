@@ -435,7 +435,7 @@ let d : double = sum(0.5, 1.0, 1.5)
 
 ### Function application
 
-Unlike Haskell, ML, and OCaml, Coal uses parentheses and commas to separate arguments in function applications — a syntax more similar to languages like C, Java, or Python. For example:
+Unlike Haskell, ML, and OCaml, Coal uses parentheses and commas to separate arguments in function applications — a syntax more akin to languages like C, Java, or Python. For example:
 
 ```
 concat("one", "two")
