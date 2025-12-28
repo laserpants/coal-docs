@@ -619,7 +619,7 @@ is syntactic sugar for binding `add` to a lambda expression:
 
 #### Arithmetic and comparison
 
-The basic arithmetic operators are overloaded and work with all types for which there exists an instance of the suitable trait (explained under [**Built-in traits**](http://localhost:8000/mysite/language-manual/#built-in-traits)).
+The basic arithmetic operators are overloaded and work with all types for which there exists an instance of the appropriate trait (explained under [**Built-in traits**](http://localhost:8000/mysite/language-manual/#built-in-traits)).
 
 |               | Description            | Type                                 |                                                                        
 | ------------- | ---------------------- | ------------------------------------ |                                                                        
