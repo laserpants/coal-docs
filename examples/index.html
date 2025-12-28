@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -435,6 +435,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#data-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data structures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data structures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avl-tree-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AVL-Tree Map
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -601,6 +629,34 @@
     <span class="md-ellipsis">
       
         State
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data structures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data structures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avl-tree-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AVL-Tree Map
       
     </span>
   </a>
@@ -1009,6 +1065,196 @@ TODO
 
 }
 </code></pre></div>
+<h2 id="data-structures">Data structures</h2>
+<h3 id="avl-tree-map">AVL-Tree Map</h3>
+<div class="highlight"><pre><span></span><code>module Map {
+
+  import Number(max)
+
+  type alias MapFields&lt;key, val&gt; =
+    { key    : key
+    , value  : val
+    , height : int32
+    , left   : Map&lt;key, val&gt;
+    , right  : Map&lt;key, val&gt; 
+    }
+
+  type Map&lt;key, val&gt; = Empty | Map(MapFields&lt;key, val&gt;)
+
+  // Helpers
+
+  fun height(map) =
+    match(map) {
+      | Empty =&gt; 0
+      | Map({ height = h | _ }) =&gt; h
+    }
+
+  fun make_node(key, val, left, right) =
+    Map({ key    = key
+        , value  = val
+        , height = 1 + max(height(left), height(right))
+        , left   = left
+        , right  = right
+        })
+
+  fun balance_factor
+    | Empty  = 0
+    | Map(m) = height(m.left) - height(m.right)
+
+  // Constructors
+
+  let empty = Empty
+
+  fun singleton(key, val) = 
+    make_node(key, val, Empty, Empty)
+
+  // Rotations
+
+  //
+  //       y              x
+  //      / \            / \
+  //     x   t3   ==&gt;   t1  y
+  //    / \                / \
+  //   t1 t2              t2 t3
+  //
+
+  fun rotate_right(map) = 
+    match(map) {
+      | Map({ key = yk, value = yv, left = Map(x), right = t3 | _ }) =&gt; 
+          let t1 = x.left;
+              t2 = x.right
+          in
+          make_node(x.key, x.value, t1, make_node(yk, yv, t2, t3))
+      | _ =&gt; 
+          map
+    }
+
+  //
+  //     x                 y
+  //    / \               / \
+  //   t1  y     ==&gt;     x  t3
+  //      / \           / \
+  //     t2 t3         t1 t2
+  //
+
+  fun rotate_left(map) = 
+    match(map) {
+      | Map({ key = xk, value = xv, left = t1, right = Map(y) | _ }) =&gt; 
+          let t2 = y.left;
+              t3 = y.right
+          in
+          make_node(y.key, y.value, make_node(xk, xv, t1, t2), t3)
+      | _ =&gt; 
+          map
+    }
+
+  // Rebalancing
+
+  fun rebalance(map) =
+    match(map) {
+      | Empty =&gt;
+          Empty
+
+      | Map(m) =&gt;
+          let bf = balance_factor(map) in
+          if (bf &gt; 1) then
+            if (balance_factor(m.left) &lt; 0) then
+              rotate_right(
+                make_node(m.key, m.value,
+                  rotate_left(m.left),
+                  m.right
+                )
+              )
+            else
+              rotate_right(map)
+
+          else if (bf &lt; -1) then
+            if (balance_factor(m.right) &gt; 0) then
+              rotate_left(
+                make_node(m.key, m.value,
+                  m.left,
+                  rotate_right(m.right)
+                )
+              )
+            else
+              rotate_left(map)
+
+          else
+            map
+    }
+
+  // Lookup
+
+  fun lookup(key, map) =
+    fold(map) {
+      | Empty =&gt;
+          None
+
+      | Map({ key = key_, value = value, left = @left, right = @right | _ }) =&gt;
+          if (key == key_) then
+            Some(value)
+          else 
+            if (key &lt; key_) then
+              left
+            else
+              right
+    }
+
+  // Insertion
+
+  fun insert(key, val, map) =
+    fold(map) {
+      | Empty =&gt;
+          singleton(key, val)
+
+      | Map({ left = @left, right = @right | _ } as m) =&gt;
+          if (key == m.key) then
+            make_node(key, val, m.left, m.right)
+
+          else if (key &lt; m.key) then
+            rebalance(make_node(m.key, m.value, left, m.right))
+
+          else
+            rebalance(make_node(m.key, m.value, m.left, right))
+    }
+
+  // Deletion
+
+  fold delete_min_node : Map&lt;k, v&gt; -&gt; (Option&lt;k&gt;, Option&lt;v&gt;, Map&lt;k, v&gt;) {
+    | Empty =&gt;
+        (None, None, Empty)
+
+    | Map({ left = Empty | _ } as m) =&gt;
+        (Some(m.key), Some(m.value), m.right)
+
+    | Map({ left = delete_min_node(@left) | _ } as m) =&gt;
+        let (k, v, new_left) = left 
+        in
+        (Some(k), Some(v), rebalance(make_node(m.key, m.value, new_left, m.right)))
+  }
+
+  fun delete(key, map) =
+    fold(map) {
+      | Empty =&gt;
+          Empty
+
+      | Map({ left = @left, right = @right as rhs | _ } as m) =&gt;
+          if (key &lt; m.key) then
+            rebalance(make_node(m.key, m.value, left, m.right))
+
+          else if (key &gt; m.key) then
+            rebalance(make_node(m.key, m.value, m.left, right))
+
+          else
+            match(delete_min_node(m.right)) {
+              | (Some(k), Some(v), new_right) =&gt;
+                  rebalance(make_node(k, v, m.left, new_right))
+              | _ =&gt;
+                  m.left
+            }
+    }
+}
+</code></pre></div>
 
 
 
@@ -1058,10 +1304,10 @@ TODO
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       
