@@ -1743,7 +1743,7 @@ TODO
 
 #### Numeric
 
-The `Numeric` trait describes types that support basic arithmetic.
+The `Numeric` trait describes types that support basic arithmetic, like addition and multiplication.
 
 The following examples shows how to define a `Numeric` instance for `bool`.
 
