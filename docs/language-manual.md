@@ -1921,7 +1921,7 @@ Here is how to unpack the meaning of this:
 
 So intuitively, `@p` behaves like “the result of recursively applying this same fold to the inner structure.” In other words, the compiler performs the recursion for you.
 
-This produces the same behavior as if you could have written an explicitly recursive definition such as:
+The end-result is the same as if you could have written an explicitly recursive definition such as:
 
 ```
       | Succ(r) => Succ(r) * fold(r)
