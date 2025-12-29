@@ -2302,7 +2302,7 @@ This version of `bind` can be combined with the reverse application operator (`|
 
 ### Do-notation
 
-Kleisli composition _ leads to a way of structuring programs similar to imperative programming. Taking this a step further, `do`-notation was introduced in Haskell
+Kleisli composition alludes to a way of structuring programs similar to imperative programming. Taking this a step further, `do`-notation was introduced in Haskell
 to simplify IO-
 
 Coal supports this for 
