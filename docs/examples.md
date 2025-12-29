@@ -584,7 +584,7 @@ module Map {
       | Empty =>
           Empty
 
-      | Map({ left = @left, right = @right as rhs | _ } as m) =>
+      | Map({ left = @left, right = @right | _ } as m) =>
           if (key < m.key) then
             rebalance(make_node(m.key, m.value, left, m.right))
 
