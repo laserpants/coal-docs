@@ -1743,7 +1743,9 @@ TODO
 
 #### Numeric
 
-TODO
+The `Numeric` trait describes types that support basic arithmetic.
+
+The following examples shows how to define a `Numeric` instance for `bool`.
 
 ```
   import Number(is_even)
