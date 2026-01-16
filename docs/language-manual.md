@@ -1499,7 +1499,7 @@ fn(p : { lat : float, lng : float | q }) => p.lat
 This function, on the other hand, is polymorphic in the row variable `q`. It accepts any record that includes `lat` and `lng` (both floats), regardless of any additional fields.
 For instance, all of the following are valid:
 
-- `{ lat =-3.067425, lng = 37.355625, alt = 5895 }` , 
+- `{ lat = -3.067425, lng = 37.355625, alt = 5895 }` , 
 - `{ location = "Great Pyramid", time = "2024-09-15T10:57:19Z", lat = 29.9792, lng = 31.1342 }`, and 
 - `{ lat = 0.0, lng = 1.0 }`,
 
@@ -1523,6 +1523,14 @@ As with other data types, it is possible to pattern match on records. In this co
 
 ```
   fun full_name({ first_name = fn, last_name = ln }) = fn +++ " " +++ ln 
+```
+
+#### Shorthand syntax
+
+TODO
+
+```
+  fun full_name({ first_name, last_name }) = first_name +++ " " +++ last_name 
 ```
 
 #### Deconstructing records
@@ -1647,6 +1655,38 @@ A *wildcard* pattern is a pattern that matches any value without binding it to a
       | 1 => "one"
       | _ => "something else"
     }
+```
+
+### Guards
+
+TODO
+
+```
+  match(parse_int32(s)) {
+    | Some(n) =>
+        if (n == rand) 
+          then println_string("You guessed right!")
+        else if (n > rand)
+          then println_string("Too large!")
+        else
+          println_string("Too small!")
+    | None =>
+        println_string("Not a number")
+  }
+```
+
+```
+  match(parse_int32(s)) {
+    | Some(n) 
+        when (n == rand) => 
+          println_string("You guessed right!")
+        when (n > rand) => 
+          println_string("Too large!")
+        otherwise => 
+          println_string("Too small!")
+    | _ =>
+        println_string("Not a number")
+  }
 ```
 
 ### Lambda match 
