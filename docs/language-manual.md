@@ -19,7 +19,7 @@ A *definition* can be a function, let-binding, data or codata type definition, t
 
 Every module is uniquely identified by its *path*. 
 
-- The path mirrors the directory structure of the source file in which the module is defined. 
+- The path mirrors the directory structure of the source file in which the module is located. 
 - Path segments begin with an uppercase letter and are separated by a dot (`.`). 
 - Files have a `.coal` extension. 
 
@@ -1960,10 +1960,10 @@ Here is how to unpack the meaning of this:
 
 - In the base case `Zero`, the result is simply `1`.
 - In the recursive case `Succ(@p) as m`:
-  - `m` is bound to the current value being matched (e.g., `Succ(Succ(Zero))`),
-  - `p` is bound to the result of recursively folding over the inner value — the one inside the constructor (`Succ`).
+      - `m` is bound to the current value being matched (e.g., `Succ(Succ(Zero))`),
+      - `p` is bound to the result of recursively folding over the inner value — the one inside the constructor (`Succ`).
 
-So intuitively, `@p` behaves like “the result of recursively applying this same fold to the inner structure.” In other words, the compiler performs the recursion for you.
+So intuitively, `@p` behaves like “the result of recursively applying this same fold to the inner structure.” The compiler performs the recursion for you.
 
 The end-result is the same as if you could have written an explicitly recursive definition such as:
 
@@ -2265,7 +2265,7 @@ Coal is a highly [expression-oriented](https://en.wikipedia.org/wiki/Expression-
 
 To support interactions with the outside world while preserving the language’s pure semantics, Coal provides an `IO` type, similar to Haskell’s. Values of this type describe effectful operations — such as reading input, writing output, or accessing the file system. These computations are constructed as pure values and executed only by the runtime, allowing the code to remain referentially transparent.
 
-The standard `IO` module provides common operations for effectful actions, including functions for printing to the console and interacting with the environment.
+The standard `IO` module provides many common operations for effectful actions, including functions for printing to the console and interacting with the environment.
 
 ```
   println_string : string -> IO<unit>
