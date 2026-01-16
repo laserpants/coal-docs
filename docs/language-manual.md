@@ -1509,7 +1509,11 @@ This type is open. The general format of an open record type is
 { %label_1 : %type_1, %label_2 : %type_2, ..., %label_n : %type_n | %r },
 ```
 
-for some *n* ≥ 0. Recall the earlier `tagged` example and the type of the argument `rec` in that function:
+for some *n* ≥ 0. 
+
+TODO: Explain %r
+
+Recall the earlier `tagged` example and the type of the argument `rec` in that function:
 
 ```
 rec : { | r }
@@ -1525,7 +1529,7 @@ As with other data types, it is possible to pattern match on records. In this co
   fun full_name({ first_name = fn, last_name = ln }) = fn +++ " " +++ ln 
 ```
 
-#### Shorthand syntax
+##### Shorthand syntax
 
 TODO
 
