@@ -1553,7 +1553,7 @@ The right-hand side pattern must be either a variable or a wildcard (`_`). If yo
 
 Here, the name field is removed and a record with all remaining fields are returned.
 
-If you only need to retrieve a single field, the dot syntax (`record.field`) is simpler and more concise. [Pattern matching](#pattern-matching) becomes necessary when you want to extract multiple fields at once, remove fields, or work with the remainder of a record.
+Keep in mind that if you only need to retrieve a single field, the dot syntax (`record.field`) is simpler and more concise. [Pattern matching](#pattern-matching) really becomes necessary when you want to extract multiple fields at once, remove fields, or work with the remainder of a record.
 
 #### Updating a field
 
