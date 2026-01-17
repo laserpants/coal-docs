@@ -272,7 +272,7 @@ Note that only definitions that are exported by the source module can be importe
 
 #### Type and cotype imports
 
-To import a [type](#data-types), the name of the type must be preceded by the `type` keyword. Following the type name is an optional list of data constructors enclosed in parentheses. For example, let’s say our project includes a module `Utilities`, and that this module defines the following type:
+To import a [type](#data-types), the name of the type must be preceded by the `type` keyword. Following the name of the type is an optional list of data constructors enclosed in parentheses. For example, let’s say our project includes a module `Utilities`, and that this module defines the following type:
 
 ```
   type Answer = Yes | No
@@ -327,7 +327,7 @@ import Utilities(count)
 
 #### Qualified imports
 
-The special `namespace` keyword allows you to import and access all functions, types, and other definitions from a module via their *qualified* names. A qualified name is formed by prefixing the name with the path of the module:
+The special `namespace` keyword allows you to import and access all functions, types, and other definitions from a module via their *qualified* names. A qualified name is formed by prefixing the name with the path of the module followed by a dot (`.`):
 
 ```
 // Import the List module under its namespace
