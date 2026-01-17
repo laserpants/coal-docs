@@ -852,7 +852,11 @@ A *list* is an ordered collection in which all elements share the same type. Lis
 In Coal, list literals are written as a sequence of comma-separated expressions enclosed in square brackets:
 
 ```
-[%expr_1 : %t, %expr_2 : %t, ..., %expr_n : %t] 
+[%expr_1, %expr_2, ..., %expr_n] 
+```
+
+```
+[%expr_1 : %t, %expr_2 : %t, ..., %expr_n : %t] : List<%t>
 ```
 
 For example:
@@ -861,7 +865,7 @@ For example:
 [1, 1, 2, 5, 14, 42, 132, 429] : List<int32>
 ```
 
-Lists are defined inductively and implemented internally as a [singly linked list](https://en.wikipedia.org/wiki/Linked_list). This means that a list of type `List<a>` is either:
+Lists are defined inductively and implemented internally as [singly linked lists](https://en.wikipedia.org/wiki/Linked_list). This means that a list of type `List<a>` is either:
 
 1. the empty list `[]`; or
 2. a value of type `a` (the *head*) followed by another list of type `List<a>` (the *tail*).
@@ -1344,11 +1348,20 @@ The type of `read_file` is:
 Just like lists, tuples are ordered sequences of values. Unlike lists, however, a tuple’s length is fixed (i.e. determined at compile-time), and its elements can have different types. In code, a tuple is written as a comma-separated sequence of expressions enclosed in parentheses:
 
 ```
+  (%expr_1, %expr_2, ..., %expr_n) 
+```
+
+```
   ( %expr_1 : %type_1
   , %expr_2 : %type_2
   , ...
   , %expr_n : %type_n
-  ) 
+  ) : 
+  ( %type_1
+  , %type_2
+  , ...
+  , %type_n
+  )
 ```
 
 For example:
@@ -1363,7 +1376,7 @@ Tuples of length two and three are often called *pairs* and *triples*, respectiv
 (42)  // Not a tuple -- just the integer 42
 ```
 
-The empty tuple *does* exist, and has special meaning. It is written `()` and is known as the unit value. The type of `()` is `unit`. (See **[Built-in language primitives](#built-in-language-primitives)** for more details.)
+The empty tuple *does* exist, and has special meaning. It is written `()` and is known as the unit value. The type of `()` is `unit`. (See **[Built-in language primitives](#built-in-language-primitives)** for more on this type.)
 
 ```
 ()            : unit                           // unit value
@@ -1899,7 +1912,7 @@ Here, the `Show<Option<a>>` instance inherits from `Show<a>`. The compiler will 
 In most programming languages, a typical implementation of the factorial function looks something like this:
 
 ```
-fun factorial(n : int32) =
+fun factorial(n) =
   if (n == 0)
     then 1
     else n * factorial(n - 1)
@@ -1914,7 +1927,7 @@ If we pass this function to the Coal compiler, it is rejected with the following
 Name not in scope: factorial
 ```
 
-To call a function from itself in this way is not possible. Instead, recursion must be accomplished through a pattern know as a *fold*. 
+To call a function from itself in this way is not possible. Instead, recursion is accomplished through a pattern know as a *fold*. 
 
 ### Fold syntax
 
