@@ -157,6 +157,8 @@ Since a `let` can hold any expression, top-level functions can also be defined t
   // fun add(x, y) = x + y
 ```
 
+TODO: Differences between top-level let and let-expressions... E.g., patterns can't be used at top-level
+
 ### Data types
 
 User-defined data types in Coal are introduced using the `type` keyword. They are of the product-sum variety.
