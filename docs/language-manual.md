@@ -2,7 +2,7 @@
 
 ## Modules 
 
-Projects in Coal are organized as collections of *modules*. Modules provide a conventional way to group related functionality into distinct namespaces. A module contains functions, type definitions and other language constructs, typically focused on a specific purpose within a library or application.
+Projects in Coal are organized as collections of *modules*. Modules make it possible to group related functionality into distinct namespaces. A module contains functions, type definitions and other language constructs, typically focused on a specific purpose within a library or application.
 
 ```
 module %path(%export_list) {
