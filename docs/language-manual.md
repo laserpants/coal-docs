@@ -2418,7 +2418,7 @@ This pipeline first prints a prompt, then reads a line of input, and finally pri
 
 ### Do-notation
 
-Kleisli composition alludes to a way of structuring programs similar to imperative programming. Taking this a step further, `do`-notation was introduced in Haskell to allow a more readable, imperative-looking syntax.
+Kleisli composition alludes to a way of structuring programs similar to imperative programming. Taking this a step further, `do`-notation was introduced in Haskell to allow a more readable syntax.
 
 Coal supports `do`-notation for sequencing monadic operations. The same example from above can be written more concisely as:
 
@@ -2437,14 +2437,3 @@ Within a `do` block:
 - The final expression in the block determines the overall result
 
 This is syntactic sugar for the `and_then` chains shown earlier. Each `<-` binding corresponds to a call to `and_then`, extracting the value from the monadic context and making it available to subsequent statements.
-
-For example, the `do` block above desugars to:
-
-```
-println_string("Enter your name")
-  |. and_then(fn(_) => readln())
-  |. and_then(fn(s) => println_string("Hello, " +++ s +++ "!"))
-```
-
-The `do`-notation makes it easier to write sequences of effectful operations while maintaining the functional purity of the language.
-
