@@ -2195,131 +2195,73 @@ The key difference between data and codata lies in how values are produced and c
 
 Codata is ideal for representing streams, event sequences, or any ongoing process, where you only need to observe a finite part at a time. 
 
-<!--
-### Codata and unfold
+#### Streams
 
-Recursion over ordinary data in Coal (or any language with well-founded recursion) is always guaranteed to terminate. This implies that all data is finite as well. In many cases, this is desirable &mdash; it makes reasoning about programs predictable and safe. However, there are situations where we want potentially infinite structures or non-terminating behavior. For example:
+One of the most practical applications of codata is representing infinite streams — sequences of values that can be observed one at a time, without ever constructing the entire sequence in memory.
 
-- Infinite sequences of numbers, like the natural numbers, are easy to define in Haskell due to its lazy-by-default evaluation strategy:
-
-  ```
-  nats = [0..]
-  ```
-
-- Programs that continuously run in the background, such as web servers or event loops, inherently involve non-terminating processes.
-
-In Coal, ordinary data cannot be infinite: a `List`, `Tree`, or any recursive data type must eventually reach a base case. To express potentially infinite or ongoing computations, Coal provides a separate mechanism called *codata*.
-
-#### Data on demand
-
-The key difference between data and codata lies in how values are produced and consumed. Whereas data is finite and *constructed*, codata is potentially infinite and *observed*: you unfold it step by step. The following table gives a comparison between the two:
-
-|                    | Access pattern         | Structure             | Evaluation strategy  | Invariant               |
-| ------------------ | ---------------------- | --------------------- | -------------------- | ----------------------- |
-| **Data**           | Recursion (`fold`)     | Always finite         | Eager (strict)       | Progress                |
-| **Codata**         | Corecursion (`unfold`) | Potentially infinite  | Lazy (non-strict)    | Productivity            |
-
-Codata is ideal for representing streams, event sequences, or any ongoing process, where you only need to observe a finite part at a time. 
-
-A codata type is introduced using the `cotype` keyword and (like a record type) is defined by a set of comma-separated fields enclosed in curly braces:
+A stream in Coal is defined as a process that produces values without requiring meaningful input:
 
 ```
-cotype %Name = { %Field_1 : %type_1, ..., %Field_n : %type_n }
+type alias Stream<a> = Process<a, unit>
 ```
 
-Unlike records, the codata field labels start with an **uppercase** letter.
-
-#### A basic counter
-
-A simple codata type is a counter, which represents an infinite sequence of integers:
+The simplest stream is one that repeats the same value indefinitely:
 
 ```
-cotype Counter = { Current : int32, Next : Counter }
+fun repeat(state : a) : Stream<a> =
+  process(state, fn(_, _) => state)
 ```
 
-This definition involves two codata fields: `Current` gives access to the current value, and `Next` produces the next rendition of the counter. The corecursive counterpart of `fold` is `unfold`. To define a counter based on the `Counter` codata type, we can write:
+Here, `process` creates a stream from an initial state and a step function. The step function receives the current input (which we ignore with `_`) and the current state, and returns the next state. Since we always return the same state, this stream repeats endlessly.
+
+A more interesting example is a stream that counts upward from a starting number:
 
 ```
-  unfold count_from(n : int32) : Counter {
-    , Current = n
-    , @Next = n + 1
-  }
+fun enum_from(n : int32) : Stream<int32> =
+  process(n, fn(_, m) => m + 1)
+
+let nats : Stream<int32> = enum_from(0)  // The natural numbers: 0, 1, 2, 3, ...
 ```
 
-Here, the `@` symbol resurfaces, but this time in the name of the field. In this context, `@Next` means that the value for `Next` is obtained corecursively, by invoking `count_from` again with the field value (in this case, `n + 1`). Conceptually, the result is equivalent to writing the following, if explicit recursion were possible:
+Each time we observe the stream, the step function increments the state, producing the next number in the sequence.
+
+##### Observing streams
+
+To work with streams, we use two main operations:
+
+- `head` returns the current value in the stream
+- `tail` advances the stream to its next state
+
+For example:
 
 ```
-  unfold count_from(n : int32) : Counter {
-    , Current = n
-    , Next = count_from(n + 1)
-  }
+  let numbers = enum_from(5)
+
+  numbers |.head // 5
+  numbers |.tail |.head // 6
+  numbers |.tail |.tail |.head // 7
 ```
 
-We can now observe the counter, by accessing its fields:
+Each call to `tail` produces a new stream advanced by one step, leaving the original stream unchanged (streams are immutable, like all data in Coal).
+
+##### Transforming streams
+
+Streams can be transformed using `map_process`:
 
 ```
-let counter = count_from(10)
+  let evens =
+    enum_from(0) |.map_process(fn(n) => n * 2)
 
-counter.Current             // => 10
-counter.Next.Current        // => 11
-counter.Next.Next.Current   // => 12
+  evens |.head // 0
+  evens |.tail |.head // 2
+  evens |.tail |.tail |.head // 4
 ```
 
-Each observation reveals one additional layer of the codata structure, producing a value that can itself be further observed. Unlike ordinary data, this can continue indefinitely &mdash; you can keep asking for `Next` without ever reaching a base case.
+This creates a new stream where each value is transformed by the given function.
 
-It is also possible to define operations that transform counters while preserving their infinite, coinductive structure:
+#### Codata behind the scenes
 
-```
-  unfold transform_counter(f : int32 -> int32, c : Counter) : Counter {
-    , Current = f(c.Current)
-    , @Next = (f, c.Next)
-  }
-```
--->
-
-<!--
-
-Aside: Why can't we simply write `counter(n + 1)` then? The reason is similar to that of folds. But instead of being concerned with progress in each step, here we are worried about *productivity*. 
-Consider what would happen if we could write, for example:
-
-```
-  unfold counter(n : int32) : Counter {
-    , Current = n
-    , Next = counter(n + 1).Current
-  }
-```
-
-Example: pseudo-randomness
-
---
-
-```
-  fun increment(counter : Counter) =
-    counter.Next
-```
-
-```
-  fun main() {
-    trace_int32(counter(1).Current)
-  }
-```
-
-#### Does codata need to be infinite?
-
-TODO
-
-```
-cotype FiniteCounter = { Current : int32, Next : Option<FiniteCounter> }
-```
-
-```
-  unfold count_from(n : int32) : Option<FiniteCounter> {
-    , Current = n
-    , @Next = if (n >= 10) then @Some(n + 1) else @None
-  }
-```
-
--->
+##### The `Process` type
 
 ## IO
 
