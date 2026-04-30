@@ -1933,7 +1933,7 @@ To call a function from itself in this way is not possible. Instead, recursion i
 
 ### Fold syntax
 
-A fold (or *catamorphism*) is a way to deconstruct data, layer by layer. It abstracts the notion of a structurally recursive computation over some algebraic data type. Although similar to how folds work in many other programming langues, note that `fold` is a language keyword in Coal, and not an ordinary function. Syntactically, it is similar to a `match` expression (explained [here](#pattern-matching)), but with the crucial difference that a `fold` carries built-in support for recursion. 
+A fold (or *catamorphism*) is a way to deconstruct data, layer by layer. It abstracts the notion of a structurally recursive computation over some algebraic data type. Although similar to how folds work in many other programming langues, note that `fold` is a language keyword in Coal, and not an ordinary function. It is syntactically similar to a `match` expression (explained [here](#pattern-matching)), but with the crucial difference that a `fold` carries built-in support for recursion. 
 
 To implement the factorial function using a fold, we are going to use the `nat` data type, which [defines the natural numbers](#natural-numbers) recursively:
 
