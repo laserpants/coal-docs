@@ -1764,7 +1764,7 @@ is a shorthand version of this:
 | List constructor   | `x :: xs`            | Matches a list by separating it into head and tail.                                              |                                                 
 | List literal       | `[f, s, t]`          | Matches a list of fixed length with elements matching the given sub-patterns.                    |                                                 
 | Tuple              | `(lhs, rhs)`         | Matches a tuple by decomposing it into its components.                                           |                                                 
-| Record             | `{ name = n \| _ }`  | Matches a record by specifying patterns for one or more fields. See **[Pattern matching over records](#pattern-matching-over-records)** for details. |                                                 
+| Record             | `{ name = n | _ }`  | Matches a record by specifying patterns for one or more fields. See **[Pattern matching over records](#pattern-matching-over-records)** for details. |                                                 
 | As                 | `(lhs, _) as pair`   | Matches the inner pattern, while also binding the entire value to a variable.                    |                                                 
 | @                  | `Succ(@n)`           | Fold recursion. See **[Recursion and corecursion](#recursion-and-corecursion)**. |                                                 
 | Or                 | `1 or 2`             | Matches if the value satisfies at least one of the given alternative patterns.                   |      
@@ -2015,7 +2015,7 @@ So intuitively, `@p` behaves like “the result of recursively applying this sam
 The end-result is the same as if you could have written an explicitly recursive definition such as:
 
 ```
-      | Succ(r) => Succ(r) * fold(r)
+  | Succ(r) => Succ(r) * fold(r)
 ```
 
 but without referring to the function by name.
