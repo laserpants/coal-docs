@@ -2261,7 +2261,70 @@ This creates a new stream where each value is transformed by the given function.
 
 #### Codata behind the scenes
 
+Now that we've seen how to use streams, let's explore the underlying mechanism that makes codata work in Coal. Unlike ordinary data types that you construct with values, codata types are defined by how they can be *observed*. In Coal, all codata is built on top of the `Process` type, which is a special built-in type that represents stateful computations with observable behavior.
+
 ##### The `Process` type
+
+The `Process<a, v>` type is Coal's built-in codata primitive. It represents a process with:
+
+- A current state of type `a` (what you can observe)
+- The ability to receive input of type `v` and transition to a new state
+
+##### Creating Process instances
+
+To create a `Process`, you use the `process` function:
+
+```
+fun process(seed : a, f : v -> a -> a) : Process<a, v> = ...
+```
+
+The `process` function takes:
+
+- An initial state (`seed : a`)
+- A step function (`f : v -> a -> a`) that computes the next state given input and current state
+
+For example, here's how you create a counter that increments on each observation:
+
+```
+fun counter(n : int32) : Stream<int32> =
+  process(n, fn(_, current) => current + 1)
+```
+
+##### Transforming processes
+
+The function `map_process` transforms the observable state of a `Process`:
+
+```
+fun map_process(f : a -> b, process : Process<a, v>) : Process<b, v> = ...
+```
+
+This creates a new process where every observation of the state is transformed by the function `f`. The process continues to receive the same type of input (`v`), but its observable state becomes type `b` instead of `a`.
+
+Similarly, you can transform the input type:
+
+```
+fun contramap_input(f : w -> v, process : Process<a, v>) : Process<a, w> = ...
+```
+
+This creates a process that accepts input of type `w`, transforms it with `f`, and feeds the result to the original process.
+
+##### Composing processes
+
+Processes can be composed to create pipelines. The `compose` function connects two processes so that the output of the first feeds into the input of the second:
+
+```
+fun compose(p : Process<b, a>, q : Process<c, b>) : Process<c, a> = ...
+```
+
+This works by:
+
+1. `zip_processes` creates a process that maintains both `p` and `q` as its state
+2. When input `v : a` arrives:
+   - It's fed to process `p`, producing a new state `p'`
+   - The observable state of `p'` (type `b`) is then fed to process `q`
+3. `map_process` extracts just the observable state of `q` (type `c`)
+
+The result is a single process of type `Process<c, a>` that internally manages the pipeline.
 
 ## IO
 
