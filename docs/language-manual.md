@@ -633,7 +633,7 @@ The basic arithmetic operators are overloaded and work with all types for which 
 
 #### Logical
 
-Like most languages, Coal supports the standard logical operators for working with boolean values.
+Coal supports the standard logical operators for working with boolean values.
 
 |               | Description            | Arity      | Type                   |                                                               |         
 | ------------- | ---------------------- | ---------- | ---------------------- | ------------------------------------------------------------- |        
@@ -1518,7 +1518,7 @@ This type is open. The general format of an open record type is
 
 for some *n* ≥ 0. 
 
-TODO: Explain %r
+The variable `%r` on the right-hand side of the pipe represents a *row variable* that captures all remaining fields of the record — those not explicitly listed on the left-hand side. Unlike the field patterns on the left, `%r` is a simple variable name, not a pattern. It serves as a placeholder for "whatever other fields this record might have," making the type polymorphic over those additional fields.
 
 Recall the earlier `tagged` example and the type of the argument `rec` in that function:
 
