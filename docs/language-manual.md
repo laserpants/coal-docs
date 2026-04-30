@@ -1812,7 +1812,7 @@ Coal includes several built-in traits that enable operator overloading and provi
 
 #### Numeric
 
-The `Numeric` trait describes types that support basic arithmetic, like addition and multiplication. All built-in numeric types (`int32`, `int64`, `bignum`, `float`, and `double`) have `Numeric` instances.
+The `Numeric` trait describes types that support basic arithmetic, like addition and multiplication. All built-in numeric types (`int32`, `int64`, `bignum`, `float`, `double`, and `nat`) have `Numeric` instances.
 
 The following examples shows how to define a `Numeric` instance for `bool`.
 
