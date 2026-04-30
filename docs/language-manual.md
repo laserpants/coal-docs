@@ -2369,33 +2369,36 @@ The standard `IO` module provides many common operations for effectful actions, 
 
 ### Monads and pipelining
 
-Monads describe how to sequence computations that produce a value along with some extra information. A *monadic* function is one of the form:
+Monads describe how to sequence computations that produce a value along with some contextual information or effect. A *monadic* function is one of the form:
 
 ```
 a -> m<b>
 ```
 
-The _ of `m` determines what this extra information entails.
+The type constructor `m` determines the context or effect that underpins the computation. For example, `Option` represents computations that might fail, `List` represents nondeterministic computations with multiple results, and `IO` represents computations that perform side effects.
 
-In the case of `IO` this _ a function from `a` to `b`, where the return value is being computed in a way that involves side-effects.
-Given two functions
+In the case of `IO`, the type `IO<a>` represents a computation that, when executed, performs side effects and produces a value of type `a`. Unlike pure functions of type `a -> b`, IO computations interact with the outside world.
+
+Given two monadic functions:
 
 ```
 a -> m<b>
 b -> m<c>
 ```
 
-we cannot use regular function composition to get a function from `a -> m<c>`. Instead, to glue these two functions together, we need to use a type of composition known as Kleisli composition:
+we cannot use regular function composition to obtain a function of type `a -> m<c>`. Instead, to glue these two functions together, we need to use a type of composition known as Kleisli composition:
 
 ```
 kleisli : (a -> m<b>) -> (b -> m<c>) -> a -> m<c>
 ```
 
-A more compact way to express this, commonly used in programming languages is the `bind` operator:
+A more compact way to express this, commonly used in programming languages, is the `bind` operator:
 
 ```
 bind : m<a> -> (a -> m<b>) -> m<b> 
 ```
+
+The `bind` operator takes a monadic value `m<a>` and a function `a -> m<b>`, extracts the `a` from the context, applies the function to get `m<b>`, and flattens the result to avoid nested contexts.
 
 The function `and_then` is just `bind` with the arguments flipped:
 
@@ -2403,26 +2406,45 @@ The function `and_then` is just `bind` with the arguments flipped:
 and_then : (a -> m<b>) -> m<a> -> m<b>
 ```
 
-This version of `bind` can be combined with the reverse application operator (`|.`) to chain together multiple monadic functions in the following way:
+This version of `bind` can be combined with the reverse application operator (`|.`) to chain together multiple monadic operations in a readable pipeline style:
 
 ```
   println_string("Enter your name")
     |. and_then(readln)
-    |. and_then(fn(s) => println_string("Hello, " <> s <> "!"))
+    |. and_then(fn(s) => println_string("Hello, " +++ s +++ "!"))
 ```
+
+This pipeline first prints a prompt, then reads a line of input, and finally prints a greeting with the input.
 
 ### Do-notation
 
-Kleisli composition alludes to a way of structuring programs similar to imperative programming. Taking this a step further, `do`-notation was introduced in Haskell
-to simplify IO-
+Kleisli composition alludes to a way of structuring programs similar to imperative programming. Taking this a step further, `do`-notation was introduced in Haskell to allow a more readable, imperative-looking syntax.
 
-Coal supports this for 
+Coal supports `do`-notation for sequencing monadic operations. The same example from above can be written more concisely as:
 
 ```
-    do {
-      println_string("Enter your name");
-      s <- readln();
-      println_string("Hello, " <> s <> "!");
-    }
+do {
+  println_string("Enter your name");
+  s <- readln();
+  println_string("Hello, " +++ s +++ "!");
+}
 ```
+
+Within a `do` block:
+
+- Statements are separated by semicolons
+- The `<-` operator binds the result of a monadic computation to a variable
+- The final expression in the block determines the overall result
+
+This is syntactic sugar for the `and_then` chains shown earlier. Each `<-` binding corresponds to a call to `and_then`, extracting the value from the monadic context and making it available to subsequent statements.
+
+For example, the `do` block above desugars to:
+
+```
+println_string("Enter your name")
+  |. and_then(fn(_) => readln())
+  |. and_then(fn(s) => println_string("Hello, " +++ s +++ "!"))
+```
+
+The `do`-notation makes it easier to write sequences of effectful operations while maintaining the functional purity of the language.
 
