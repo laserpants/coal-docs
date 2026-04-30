@@ -385,8 +385,8 @@ module Main {
   // Example use:
 
   fun authenticate
-    | "password123" = put(true)
-    | _             = put(false)
+    | "password123" => put(true)
+    | _             => put(false)
 
    fun msg(success : bool) =
      if (success) then "Logged in" else "Authentication failed"
@@ -444,8 +444,8 @@ module Map {
         })
 
   fun balance_factor
-    | Empty  = 0
-    | Map(m) = height(m.left) - height(m.right)
+    | Empty  => 0
+    | Map(m) => height(m.left) - height(m.right)
  
   // Constructors
 
