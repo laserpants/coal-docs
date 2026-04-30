@@ -2188,10 +2188,10 @@ In Coal, ordinary data cannot be infinite: a `List`, `Tree`, or any recursive da
 
 The key difference between data and codata lies in how values are produced and consumed. Whereas data is finite and *constructed*, codata is potentially infinite and *observed*: you unfold it step by step. The following table gives a comparison between the two:
 
-|                    | Access pattern         | Structure             | Evaluation strategy  | Invariant               |
-| ------------------ | ---------------------- | --------------------- | -------------------- | ----------------------- |
-| **Data**           | Recursion (`fold`)     | Always finite         | Eager (strict)       | Progress                |
-| **Codata**         | Corecursion (`unfold`) | Potentially infinite  | Lazy (non-strict)    | Productivity            |
+|                    | Access pattern                     | Structure             | Evaluation strategy  | Invariant               |
+| ------------------ | ---------------------------------- | --------------------- | -------------------- | ----------------------- |
+| **Data**           | Recursion (`fold`)                 | Always finite         | Eager (strict)       | Progress                |
+| **Codata**         | Corecursion (`receive`, `observe`) | Potentially infinite  | Lazy (non-strict)    | Productivity            |
 
 Codata is ideal for representing streams, event sequences, or any ongoing process, where you only need to observe a finite part at a time. 
 
@@ -2320,8 +2320,8 @@ This works by:
 
 1. `zip_processes` creates a process that maintains both `p` and `q` as its state
 2. When input `v : a` arrives:
-   - It's fed to process `p`, producing a new state `p'`
-   - The observable state of `p'` (type `b`) is then fed to process `q`
+     - It's fed to process `p`, producing a new state `p'`
+     - The observable state of `p'` (type `b`) is then fed to process `q`
 3. `map_process` extracts just the observable state of `q` (type `c`)
 
 The result is a single process of type `Process<c, a>` that internally manages the pipeline.
@@ -2377,7 +2377,7 @@ a -> m<b>
 
 The _ of `m` determines what this extra information entails.
 
-In the case of `IO` this _ a function from `a` to `b`, where the return value `b` is being computed in a way that involves side-effects.
+In the case of `IO` this _ a function from `a` to `b`, where the return value is being computed in a way that involves side-effects.
 Given two functions
 
 ```
