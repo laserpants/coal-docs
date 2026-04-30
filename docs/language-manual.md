@@ -298,7 +298,7 @@ import Utilities(Answer)   // Brings in Answer and its constructors
 import Utilities(Countable)
 ```
 
-Alternatively, you can import the individual methods of a trait directly. For example, if `Countable` is defined in the following way:
+Alternatively, you can import the individual methods of a trait directly. For example, if `Countable` is defined as:
 
 ```
   trait Countable<a> {
