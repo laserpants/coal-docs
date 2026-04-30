@@ -1720,6 +1720,18 @@ With guards, the same logic becomes more declarative:
 
 Each `when` clause tests a condition in order. If none of the `when` conditions match, the `otherwise` clause serves as a fallback for that pattern. Guards are evaluated sequentially, and the first matching guard's expression is executed.
 
+An important distinction between guards and `if-then-else` expressions is that guards can *fail* and allow the match to continue to the next clause. Unlike `if-then-else`, which requires both a `then` and `else` branch, a `when` guard without a matching condition will fall through to the next pattern in the `match` expression. For example:
+
+```
+  match(opt) {
+    | Some(n) when (n > 0) => "positive"
+    | Some(n) => "non-positive or zero"
+    | None => "no value"
+  }
+```
+
+Here, if `opt` is `Some(n)` but `n` is not greater than zero, the first clause's guard fails and matching continues with the second clause. This would be impossible to express cleanly with nested `if-then-else`, which would force you to handle all cases within the first `Some` branch or duplicate the pattern.
+
 ### Lambda match 
 
 A lambda match is a special syntax that lets you get rid of the variable in a `match` expression. For example, this expression:
