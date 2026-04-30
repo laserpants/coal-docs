@@ -681,9 +681,9 @@ Coal supports the standard logical operators for working with boolean values.
 
 ### Type annotations
 
-In most situations, expressions and patterns can be given a type annotation:
+Type annotations explicitly specify the type of an expression or pattern. While Coal's type inference system can usually determine types automatically, annotations are useful for documentation, catching errors early, and disambiguating when multiple types are possible.
 
-TODO
+The syntax uses a colon (`:`) followed by the type:
 
 ```
 <expr> : type
@@ -692,6 +692,20 @@ TODO
 ```
 <pattern> : type
 ```
+
+For example, you can annotate a variable to specify its type:
+
+```
+let x : int32 = 42
+```
+
+Or annotate a pattern in a function parameter:
+
+```
+fun process(value : string) = ...
+```
+
+Type annotations can appear in many contexts: let-bindings, function parameters, lambda arguments, match patterns, and standalone expressions. When provided, the compiler verifies that the annotated type matches the inferred type, reporting an error if there's a mismatch.
 
 ### Comments
 
