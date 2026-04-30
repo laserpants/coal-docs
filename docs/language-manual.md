@@ -1810,7 +1810,7 @@ We write the full type of `is_less_than` as: `t -> t -> bool with Ordered<t>`.
 
 ### Built-in traits
 
-TODO
+Coal includes several built-in traits that enable operator overloading and provide common functionality across different types. *Operator overloading* means that the same operator symbol (such as `+` or `==`) can work with multiple types — for example, allowing `+` to add both integers and floating-point numbers. By implementing these traits for a type, you define how standard operators behave for that type.
 
 #### Numeric
 
