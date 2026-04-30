@@ -2256,6 +2256,21 @@ For example:
 
 Each call to `tail` produces a new stream advanced by one step, leaving the original stream unchanged (streams are immutable, like all data in Coal).
 
+Here is another example where `random_stream` is a function that takes a seed value and returns a stream of pseudo-random numbers:
+
+```
+  fun random_stream(seed : int32) : Stream<int32> =
+    process(seed, fn(_, state) =>
+      let a = 1664525;
+          c = 1013904223;
+          m = 2147483647  // 2^31 - 1
+      in
+        (a * state + c) % m
+    )
+
+  let n = random_stream(42) |.tail |.tail |.tail |.head   
+```
+
 ##### Transforming streams
 
 Streams can be transformed using `map_process`:
