@@ -2026,7 +2026,7 @@ As another example, the fibonacci function can be implemented in the following w
 
 To ensure that recursion is well-founded (guaranteed to terminate), the use of `@`-patterns is restricted. Most importantly, they can only appear inside constructors. The reason for this is that a constructor’s fields are always *structurally smaller* than the value being folded. Progress toward the base case is thereby guaranteed in each step.
 
-The following, for example, is invalid:
+The following, for example, is therefore invalid:
 
 ```
     fold(n) {
