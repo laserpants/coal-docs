@@ -1845,12 +1845,12 @@ The following examples shows how to define a `Numeric` instance for `bool`.
 ```
 
 ```
-  let result = false + true * true
+  let result = false + true * true  // true
 ```
 
 #### Ordered
 
- The `Ordered` trait captures the notion of a [total order](https://en.wikipedia.org/wiki/Total_order) on its parameterized type (similar to Haskell’s `Ord` type class). This makes it possible to compare two values using the comparison operators (`<`, `>`, `<=`, and `>=`).
+ The `Ordered` trait captures the notion of a [total order](https://en.wikipedia.org/wiki/Total_order) on its parameterized type (similar to Haskell’s `Ord` type class). This makes it possible to compare two values using the comparison (`<`, `>`, `<=`, and `>=`) and equality (`==` and `!=`) operators.
 
 ```
   instance Ordered<bool> {
@@ -1862,7 +1862,7 @@ The following examples shows how to define a `Numeric` instance for `bool`.
 ```
 
 ```
-  let result = false < true
+  let result = false < true  // true
 ```
 
 ### Higher-kinded traits
@@ -2096,7 +2096,7 @@ We might try to handle the `Array` case by matching on the list constructor:
 ```
 
 The `@head` pattern works as expected: it binds `head` to the result of recursively folding over that element. However, the rest of the list (`tail`) cannot be processed using an `@`-pattern in the same way. Its type is `List<JsonValue>`, not `JsonValue`. Fold-patterns expect a value of the same type as the one being folded over.
-For this situation, we need TODO
+For this situation, we need a different solution.
 
 #### Top-level folds
 
