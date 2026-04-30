@@ -1842,6 +1842,8 @@ The following examples shows how to define a `Numeric` instance for `bool`.
   }
 ```
 
+Here is how this instance can be used:
+
 ```
   let result = false + true * true  // true
 ```
@@ -1858,6 +1860,8 @@ The following examples shows how to define a `Numeric` instance for `bool`.
       | _, _         = EqualTo
   }
 ```
+
+Here is how this instance can be used:
 
 ```
   let result = false < true  // true
