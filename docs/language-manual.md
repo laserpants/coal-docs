@@ -1814,7 +1814,7 @@ Coal includes several built-in traits that enable operator overloading and provi
 
 #### Numeric
 
-The `Numeric` trait describes types that support basic arithmetic, like addition and multiplication.
+The `Numeric` trait describes types that support basic arithmetic, like addition and multiplication. All built-in numeric types (`int32`, `int64`, `bignum`, `float`, and `double`) have `Numeric` instances.
 
 The following examples shows how to define a `Numeric` instance for `bool`.
 
@@ -1845,12 +1845,12 @@ The following examples shows how to define a `Numeric` instance for `bool`.
 ```
 
 ```
-  let b = false + true * true
+  let result = false + true * true
 ```
 
 #### Ordered
 
- The `Ordered` trait captures the notion of a [total order](https://en.wikipedia.org/wiki/Total_order) on its parameterized type (similar to Haskell’s `Ord` type class).
+ The `Ordered` trait captures the notion of a [total order](https://en.wikipedia.org/wiki/Total_order) on its parameterized type (similar to Haskell’s `Ord` type class). This makes it possible to compare two values using the comparison operators (`<`, `>`, `<=`, and `>=`).
 
 ```
   instance Ordered<bool> {
@@ -1861,9 +1861,13 @@ The following examples shows how to define a `Numeric` instance for `bool`.
   }
 ```
 
+```
+  let result = false < true
+```
+
 ### Higher-kinded traits
 
-So far, the traits we’ve looked at have all been of the form `T<t>`, where `t` is a placeholder for an ordinary type. Unlike these, a *type constructor* is a type-level function which takes one or more types as arguments and returns a type. That is, a type constructor on its own isn’t really a type, until it is provided with all necessary type arguments. For example, in the type `Option<int32>`, `Option` is a type constructor with [kind](https://en.wikipedia.org/wiki/Kind_(type_theory))
+So far, the traits we’ve looked at have all been of the form `T<t>`, where `t` is a placeholder for any ordinary type. Unlike these, a *type constructor* is a type-level function which takes one or more types as arguments and returns a type. That is, a type constructor on its own isn’t really a type, until it is provided with all necessary type arguments. For example, in the type `Option<int32>`, `Option` is a type constructor with [kind](https://en.wikipedia.org/wiki/Kind_(type_theory))
 
 ```
 * -> *
