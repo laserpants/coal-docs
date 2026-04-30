@@ -161,7 +161,7 @@ Since a `let` can hold any expression, top-level functions can also be defined t
 Note that, unlike at the expression level, it isn't possible to bind to a pattern in a top-level let-binding.
 
 ```
-  let (a, b) = (1, 3)
+  let (a, b) = (1, 3)  // This only works inside expressions
 ```
 
 ### Data types
