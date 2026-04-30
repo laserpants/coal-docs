@@ -1941,10 +1941,10 @@ fun factorial(n) =
 If we pass this function to the Coal compiler, it rejects the program with the following error:
 
 ```
-  |       else n * factorial(n - 1);
-  |                ^^^^^^^^^
+  |       else n * factorial(n - 1)
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Name not in scope: factorial
+• Explicit recursion detected: factorial
 ```
 
 To call a function from itself in this way is not possible. Instead, recursion is accomplished through a pattern know as a *fold*. 
