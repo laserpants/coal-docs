@@ -287,7 +287,7 @@ import Utilities(Answer)   // Brings in Answer and its constructors
 
 !!! note "Built-in types are always in scope "
 
-    In the following, you may notice that some examples use the `List` type without an explicit import. `List` and other built-in types are available in every module by default. 
+    You may have noticed that some examples use the `List` type without an explicit import. `List` and other built-in types are available in every module by default. 
     These types include `Option`, `Ordering`, and the different primitive types, such as `int32`, `string`, and `bool`. 
 
 #### Trait imports
