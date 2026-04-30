@@ -157,7 +157,13 @@ Since a `let` can hold any expression, top-level functions can also be defined t
   // fun add(x, y) = x + y
 ```
 
-TODO: Differences between top-level let and let-expressions... E.g., patterns can't be used at top-level
+!!! note "Limitations of top-level let compared to the expression syntax"
+
+    Note that, unlike at the expression level, it isn't possible to bind to a pattern in a top-level let-binding.
+
+    ```
+      let (a, b) = (1, 3)
+    ```
 
 ### Data types
 
@@ -636,6 +642,8 @@ Like most languages, Coal supports the standard logical operators for working wi
 | `||`          | OR                     | 2          | `bool -> bool -> bool` | Evaluates to `true` if at least one of its operands is `true` |        
 | `!`           | NOT                    | 1          | `bool -> bool`         | Inverts a boolean value, turning `true` into `false` and vice versa |        
 
+Like in most other languages, the `&&` and `||` operators use short-circuit evaluation. For `&&`, if the left operand is `false`, the right operand is not evaluated, since the result must be `false` regardless. Similarly, for `||`, if the left operand is `true`, the right operand is not evaluated, since the result must be `true`. 
+
 #### Data
 
 |               | Description            |                                       |                                                          
@@ -668,8 +676,6 @@ Like most languages, Coal supports the standard logical operators for working wi
 |               | Description            | Type                            |                                                                         
 | ------------- | ---------------------- | ------------------------------- |                                                                        
 | `+++`         | String concatenation   | `string -> string -> string`    |                                                                        
-
-TODO: Short-circuit behavior
 
 ### Type annotations
 
