@@ -1530,7 +1530,7 @@ As with other data types, it is possible to pattern match on records. In this co
 
 ##### Shorthand syntax
 
-TODO
+When the variable name you want to bind to is the same as the field label, you can use a shorthand notation to omit the explicit binding. Instead of writing `{ field = field }`, you can simply write `{ field }`. This is purely syntactic sugar and behaves in the exact same way.
 
 ```
   fun full_name({ first_name, last_name }) = first_name +++ " " +++ last_name 
