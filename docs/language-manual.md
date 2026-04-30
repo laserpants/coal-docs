@@ -34,7 +34,7 @@ src
 
 ## Top-level definitions
 
-Definitions that occupy the outermost scope of a module are functions, top-level let-expressions, data type definitions, traits, trait instances, folds, and unfolds.
+Definitions that occupy the outermost scope of a module are functions, top-level let-expressions, data type definitions, traits, trait instances, and folds.
 
 ### Functions
 
