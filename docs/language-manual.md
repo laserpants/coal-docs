@@ -2168,6 +2168,31 @@ module Json {
 }
 ```
 
+### Codata and corecursion
+
+Recursion over ordinary data in Coal (or any language with well-founded recursion) is always guaranteed to terminate. This implies that all data is finite as well. In many cases, this is desirable &mdash; it makes reasoning about programs predictable and safe. However, there are situations where we want potentially infinite structures or non-terminating behavior. For example:
+
+- Infinite sequences of numbers, like the natural numbers, are easy to define in Haskell due to its lazy-by-default evaluation strategy:
+
+  ```
+  nats = [0..]
+  ```
+
+- Programs that continuously run in the background, such as web servers or event loops, inherently involve non-terminating processes.
+
+In Coal, ordinary data cannot be infinite: a `List`, `Tree`, or any recursive data type must eventually reach a base case. To express potentially infinite or ongoing computations, Coal provides a separate mechanism called *codata*.
+
+#### Data on demand
+
+The key difference between data and codata lies in how values are produced and consumed. Whereas data is finite and *constructed*, codata is potentially infinite and *observed*: you unfold it step by step. The following table gives a comparison between the two:
+
+|                    | Access pattern         | Structure             | Evaluation strategy  | Invariant               |
+| ------------------ | ---------------------- | --------------------- | -------------------- | ----------------------- |
+| **Data**           | Recursion (`fold`)     | Always finite         | Eager (strict)       | Progress                |
+| **Codata**         | Corecursion (`unfold`) | Potentially infinite  | Lazy (non-strict)    | Productivity            |
+
+Codata is ideal for representing streams, event sequences, or any ongoing process, where you only need to observe a finite part at a time. 
+
 <!--
 ### Codata and unfold
 
