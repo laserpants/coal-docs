@@ -4,11 +4,6 @@
 
 The compiler has been tested on Linux and Mac OS.
 
-!!! warning "Important notice"
-
-    The Coal compiler is still a work in progress. Expect features to change and bugs.
-    Also consider [contributing](https://codeberg.org/laserpants/noll/src/branch/develop#how-to-contribute) to the project.
-
 ### Prerequisites
 
 #### Haskell/GHC

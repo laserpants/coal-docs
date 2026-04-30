@@ -15,7 +15,7 @@ module %path(%export_list) {
 }
 ```
 
-A *definition* can be a function, let-binding, data or codata type definition, type alias, trait, or trait instance. Traits and trait instances are [introduced here](#traits). The rest of these are explained in more detail under [Top-level definitions](#top-level-definitions).
+A *definition* can be a function, let-binding, data type definition, type alias, trait, or trait instance. Traits and trait instances are [introduced here](#traits). The rest of these are explained in more detail under [Top-level definitions](#top-level-definitions).
 
 Every module is uniquely identified by its *path*. 
 
@@ -34,7 +34,7 @@ src
 
 ## Top-level definitions
 
-Definitions that occupy the outermost scope of a module are functions, top-level let-expressions, data and codata type definitions, traits, trait instances, folds, and unfolds.
+Definitions that occupy the outermost scope of a module are functions, top-level let-expressions, data type definitions, traits, trait instances, folds, and unfolds.
 
 ### Functions
 
@@ -62,10 +62,10 @@ Top-level functions can also be defined in the form of a list of pattern-express
 
 ```
   fun unpack
-    | [a], true    = a
-    | [a, _], true = a
-    | [a, _, _], _ = a
-    | _, _         = 0
+    | [a], true    => a
+    | [a, _], true => a
+    | [a, _, _], _ => a
+    | _, _         => 0
 ```
 
 This style of top-level function is equivalent to defining the function with an explicit `match` expression inside its body: 
@@ -84,8 +84,8 @@ Here is another example from the `Option` module:
 
 ```
   fun with_default
-    | _, Some(value) = value
-    | value, _       = value
+    | _, Some(value) => value
+    | value, _       => value
 
 ```
 
@@ -230,16 +230,6 @@ Algebraic data types are especially useful for describing language grammars and 
     | Object(List<(string, JsonValue)>)
 ```
 
-### Codata types
-
-In addition to ordinary algebraic data types, Coal also makes it possible to declare data types that represent potentially infinite data — the type of data that may result from processes that run indefinitely. To distinguish between these two, the latter is known as *codata*. A codata type is defined using the `cotype` keyword:
-
-```
-cotype Stream<a> = { Head : a, Tail : Stream<a> }
-```
-
-Codata is explored in more detail in **[Recursion, corecursion, and codata](#recursion-corecursion-and-codata)**.
-
 ### Type aliases
 
 A type alias assigns a name to an existing type, making complex definitions easier to express and reuse. It can refer to primitive types, records, function types, or algebraic data types.
@@ -270,9 +260,9 @@ import List(concat, head, tail)
 
 Note that only definitions that are exported by the source module can be imported. See **[Exports](#exports)**.
 
-#### Type and cotype imports
+#### Type imports
 
-To import a [type](#data-types), the name of the type must be preceded by the `type` keyword. Following the name of the type is an optional list of data constructors enclosed in parentheses. For example, let’s say our project includes a module `Utilities`, and that this module defines the following type:
+Importing a [type](#data-types) follows the same pattern. After the name of the type is an optional list of data constructors enclosed in parentheses. For example, let’s say our project includes a module `Utilities`, and that this module defines the following type:
 
 ```
   type Answer = Yes | No
@@ -281,22 +271,14 @@ To import a [type](#data-types), the name of the type must be preceded by the `t
 To import this type and its constructors, we use the following statement:
 
 ```
-import Utilities(type Answer(Yes, No))
+import Utilities(Answer(Yes, No))
 ```
 
 If the list of constructors is omitted, all public data constructors of the type are imported:
 
 ```
-import Utilities(type Answer)   // Brings in Answer and its constructors
+import Utilities(Answer)   // Brings in Answer and its constructors
 ```
-
-Similarly, a [codata type](#codata-and-unfold) is imported using the `cotype` keyword:
-
-```
-import Utilities(cotype Counter(Current, Next))
-```
-
-In this case, the list specifies the field accessors to include. This list can be left out to import everything.
 
 !!! note "Built-in types are always in scope "
 
@@ -305,10 +287,10 @@ In this case, the list specifies the field accessors to include. This list can b
 
 #### Trait imports
 
-[Traits](#traits) are imported using the `trait` keyword.
+[Traits](#traits) are imported in the same way.
 
 ```
-import Utilities(trait Countable)
+import Utilities(Countable)
 ```
 
 Alternatively, you can import the individual methods of a trait directly. For example, if `Countable` is defined in the following way:
@@ -377,15 +359,15 @@ Variable names are subject to the following rules:
 Reserved language keywords cannot be used as variable names. They are:
 
 ```
-alias           false           int32           trait
-as              float           int64           true
-bignum          fn              let             type
-bool            fold            match           unfold
-char            fun             module          unit
-cotype          if              nat             when
-double          import          or              where
-do              in              string          with
-else            instance        then              
+alias           float           int64           true         
+as              fn              let             type
+bignum          fold            match           unit 
+bool            fun             module          when       
+char            if              nat             where
+double          import          or              with
+do              in              string          
+else            instance        then            
+false           int32           trait          
 ```
 
 #### Shadowing considered harmful
@@ -429,7 +411,7 @@ let d : double = sum(0.5, 1.0, 1.5)
 
   type Complex = Complex(double, double)
 
-  instance Numeric(Complex) {
+  instance Numeric<Complex> {
     // ...
   }
 ```
@@ -511,7 +493,7 @@ let { tidbits = { f = a | _ } } = compute(4)
 !!! note "A note about let-generalization"
 
     Let-bindings are in some ways similar to lambda functions. For example, writing `let x = 1 in increment(x)` yields the same result as `(fn(x) => increment(x))(1)`.
-    But besides being more readable, the let-binding also serves another purpose; in [Hindley-Milner](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system) languages, it is `let` that introduce polymorphism. Consider the following expression, which doesn’t type check:
+    But besides being more readable, the let-binding also serves another purpose; in [Hindley-Milner](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system) languages, it is `let` that introduces polymorphism. Consider the following expression, which doesn’t type check:
 
     ```
       (fn(f) => (f(3 : int32), f("three")))(fn(x) => x)
@@ -687,6 +669,8 @@ Like most languages, Coal supports the standard logical operators for working wi
 | ------------- | ---------------------- | ------------------------------- |                                                                        
 | `+++`         | String concatenation   | `string -> string -> string`    |                                                                        
 
+TODO: Short-circuit behavior
+
 ### Type annotations
 
 In most situations, expressions and patterns can be given a type annotation:
@@ -737,19 +721,19 @@ There are two types of comments:
 
 Coal provides the following built-in types:
 
-| Type               | Description                             | Example values            |                       
-| ------------------ | --------------------------------------- | ------------------------- |                       
-| `bool`             | Booleans                                | `true`, `false`           |                       
-| `char`             | A single Unicode character              | `'a'`, `'b'`, `'🤖'`, ... |                        
-| `float`            | Single precision floating point numbers | `3.1519f`                 |                        
-| `double`           | Double precision floating point numbers | `3.141592653589793`       |                        
-| `int32`            | 32-bit integers                         | `0`, `1`, `2`, `3`, ...   |                        
-| `int64`            | 64-bit integers                         | `0`, `1`, `2`, `3`, ...   |                        
-| `bignum`           | Arbitrary precision integers            | `0`, `1`, `2`, `3`, ...   |                        
-| `string`           | UTF-8 text                              |  `"Hello, ✨ world!"`     |                        
-| `unit`             | Singleton type                          | `()`                      |                        
-| `void`             | The uninhabited type                    |                           |                        
-| `nat`              | Natural numbers (Peano arithmetic)      | `Zero`, `Succ(Zero)`, ... |                        
+| Type               | Description                             | Example values                |                       
+| ------------------ | --------------------------------------- | ----------------------------- |                       
+| `bool`             | Booleans                                | `true`, `false`               |                       
+| `char`             | A single Unicode character              | `'a'`, `'b'`, `'🤖'`, ...     |                        
+| `float`            | Single precision floating point numbers | `3.1519f`                     |                        
+| `double`           | Double precision floating point numbers | `3.141592653589793`           |                        
+| `int32`            | 32-bit integers                         | `0`, `1`, ..., `_INT32_MAX`   |                        
+| `int64`            | 64-bit integers                         | `0`, `1`, ..., `_INT64_MAX`   |                        
+| `bignum`           | Arbitrary precision integers            | `0`, `1`, `2`, `3`, ...       |                        
+| `string`           | UTF-8 text                              |  `"Hello, ✨ world!"`         |                        
+| `unit`             | Singleton type                          | `()`                          |                        
+| `void`             | The uninhabited type                    |                               |                        
+| `nat`              | Natural numbers (Peano arithmetic)      | `Zero`, `Succ(Zero)`, ...     |                        
 
 <!--
 
@@ -1176,7 +1160,7 @@ The higher-order function `reduce` takes a list and combines its elements into a
 let sum = reduce(fn(n, a) => n + a, 0, [1, 2, 3])
 ```
 
-> The operation described here is also commonly referred to as a *fold*. That name is not used, however, since it is a reserved language keyword in Coal. Along with the special `@`-pattern syntax, it provides the foundation for implementing recursive functions, including `reduce`. This is explained in detail in **[Recursion, corecursion, and codata](#recursion-corecursion-and-codata)**.
+> The operation described here is also commonly referred to as a *fold*. That name is not used, however, since it is a reserved language keyword in Coal. Along with the special `@`-pattern syntax, it provides the foundation for implementing recursive functions, including `reduce`. This is explained in detail in **[Recursion and corecursion](#recursion-and-corecursion)**.
 
 The type of `reduce` is:
 
@@ -1742,7 +1726,7 @@ is a shorthand version of this:
 | Tuple              | `(lhs, rhs)`         | Matches a tuple by decomposing it into its components.                                           |                                                 
 | Record             | `{ name = n \| _ }`  | Matches a record by specifying patterns for one or more fields. See **[Pattern matching over records](#pattern-matching-over-records)** for details. |                                                 
 | As                 | `(lhs, _) as pair`   | Matches the inner pattern, while also binding the entire value to a variable.                    |                                                 
-| @                  | `Succ(@n)`           | Fold recursion. See **[Recursion, corecursion, and codata](#recursion-corecursion-and-codata)**. |                                                 
+| @                  | `Succ(@n)`           | Fold recursion. See **[Recursion and corecursion](#recursion-and-corecursion)**. |                                                 
 | Or                 | `1 or 2`             | Matches if the value satisfies at least one of the given alternative patterns.                   |      
 
 <!-- TODO: Describe each -->
@@ -1909,7 +1893,7 @@ A trait can declare that it depends on another trait by *inheriting* from it. Th
 
 Here, the `Show<Option<a>>` instance inherits from `Show<a>`. The compiler will only accept this instance assuming a `Show` implementation for `a` is available. Inside the trait body, we can call `show(v)` on the inner value `v : a`. The parent trait `Show<a>` guarantees that `show` is defined for this type. In other words, the ability to show an `Option<a>` depends directly on the ability to show its element type `a`.
 
-## Recursion, corecursion, and codata
+## Recursion and corecursion
 
 In most programming languages, a typical implementation of the factorial function looks something like this:
 
@@ -2150,6 +2134,7 @@ module Json {
 }
 ```
 
+<!--
 ### Codata and unfold
 
 Recursion over ordinary data in Coal (or any language with well-founded recursion) is always guaranteed to terminate. This implies that all data is finite as well. In many cases, this is desirable &mdash; it makes reasoning about programs predictable and safe. However, there are situations where we want potentially infinite structures or non-terminating behavior. For example:
@@ -2229,6 +2214,7 @@ It is also possible to define operations that transform counters while preservin
     , @Next = (f, c.Next)
   }
 ```
+-->
 
 <!--
 
