@@ -1670,7 +1670,9 @@ A *wildcard* pattern is a pattern that matches any value without binding it to a
 
 ### Guards
 
-TODO
+*Guards* add conditional logic to patterns, allowing you to refine a match based on boolean conditions. Instead of using nested `if-then-else` expressions within a `match` clause, guards provide a cleaner syntax with the `when` and `otherwise` keywords.
+
+The first example below shows the traditional approach using `if-then-else`:
 
 ```
   match(parse_int32(s)) {
@@ -1686,6 +1688,8 @@ TODO
   }
 ```
 
+With guards, the same logic becomes more declarative:
+
 ```
   match(parse_int32(s)) {
     | Some(n) 
@@ -1699,6 +1703,8 @@ TODO
         println_string("Not a number")
   }
 ```
+
+Each `when` clause tests a condition in order. If none of the `when` conditions match, the `otherwise` clause serves as a fallback for that pattern. Guards are evaluated sequentially, and the first matching guard's expression is executed.
 
 ### Lambda match 
 
