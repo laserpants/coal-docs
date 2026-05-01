@@ -745,27 +745,15 @@ Coal provides the following built-in types:
 | `void`             | The uninhabited type                    |                               |                        
 | `nat`              | Natural numbers (Peano arithmetic)      | `Zero`, `Succ(Zero)`, ...     |                        
 
-#### Booleans
-
-#### Char
-
-#### Floating point types
-
-Note that to define a literal `float` value, the literal is suffixed with a `f` character.
-
-```
-3.0   // is a double
-```
-
-```
-3.0f  // is float
-```
-
-#### Integral types
-
-#### String
-
-
+> Note that to define a literal `float` value, the literal is suffixed with a `f` character.
+> 
+> ```
+> 3.0   // is a double
+> ```
+> 
+> ```
+> 3.0f  // is float
+> ```
 
 ### Function types
 
@@ -866,15 +854,15 @@ The `+++` operator concatenates two strings:
 "Hello, " +++ "world!"  // "Hello, world!"
 ```
 
-This operator is right-associative, so multiple concatenations can be chained naturally:
+Multiple concatenations can be chained naturally:
 
 ```
 "first" +++ "second" +++ "third"  // "firstsecondthird"
 ```
 
-#### String module operations
+#### Common string operations
 
-The built-in `String` module provides functions for common string operations. These can be imported using:
+The built-in `String` module provides functions for working with strings. These can be imported using:
 
 ```
 import String(length, head, tail, to_list, from_list, ...)
@@ -882,21 +870,21 @@ import String(length, head, tail, to_list, from_list, ...)
 
 ##### Length and emptiness
 
+`length` returns the number of characters in a string:
+
 ```
 length : string -> nat
 ```
-
-Returns the number of characters in a string:
 
 ```
 length("hello")  // 5
 ```
 
+`is_empty` tests whether a string contains no characters:
+
 ```
 is_empty : string -> bool
 ```
-
-Tests whether a string contains no characters:
 
 ```
 is_empty("")      // true
@@ -905,22 +893,22 @@ is_empty("hello") // false
 
 ##### Head and tail
 
+`head` returns the first character of a string as an `Option<char>` (this type is explained [here](#option)) if the string is empty:
+
 ```
 head : string -> Option<char>
 ```
-
-Returns the first character of a string as an `Option<char>`, or `None` if the string is empty:
 
 ```
 head("hello")  // Some('h')
 head("")       // None
 ```
 
+`tail` returns the string without its first character:
+
 ```
 tail : string -> string
 ```
-
-Returns the string without its first character:
 
 ```
 tail("hello")  // "ello"
