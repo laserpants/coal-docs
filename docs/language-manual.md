@@ -868,23 +868,27 @@ The built-in `String` module provides functions for working with strings. These 
 import String(length, head, tail, to_list, from_list, ...)
 ```
 
-##### Length and emptiness
+##### String inspection
 
-`length` returns the number of characters in a string:
+##### `length`
 
 ```
 length : string -> nat
 ```
 
+Returns the number of characters in a string:
+
 ```
 length("hello")  // 5
 ```
 
-`is_empty` tests whether a string contains no characters:
+##### `is_empty`
 
 ```
 is_empty : string -> bool
 ```
+
+Tests whether a string contains no characters:
 
 ```
 is_empty("")      // true
@@ -893,29 +897,35 @@ is_empty("hello") // false
 
 ##### Head and tail
 
-`head` returns the first character of a string as an `Option<char>` (this type is explained [here](#option)) if the string is empty:
+##### `head`
 
 ```
 head : string -> Option<char>
 ```
+
+Returns the first character of a string as an `Option<char>` (this type is explained [here](#option)) if the string is empty:
 
 ```
 head("hello")  // Some('h')
 head("")       // None
 ```
 
-`tail` returns the string without its first character:
+##### `tail`
 
 ```
 tail : string -> string
 ```
+
+Returns the string without its first character:
 
 ```
 tail("hello")  // "ello"
 tail("")       // ""
 ```
 
-##### Character and list conversions
+##### Conversion from and to other types
+
+##### `char_to_string`
 
 ```
 char_to_string : char -> string
@@ -927,6 +937,8 @@ Converts a single character to a one-character string:
 char_to_string('A')  // "A"
 ```
 
+##### `to_list`
+
 ```
 to_list : string -> List<char>
 ```
@@ -936,6 +948,8 @@ Converts a string into a list of its characters:
 ```
 to_list("hi")  // ['h', 'i']
 ```
+
+##### `from_list`
 
 ```
 from_list : List<char> -> string
@@ -949,6 +963,8 @@ from_list(['h', 'i'])  // "hi"
 
 ##### String manipulation
 
+##### `reverse`
+
 ```
 reverse : string -> string
 ```
@@ -959,6 +975,8 @@ Reverses the order of characters in a string:
 reverse("hello")  // "olleh"
 ```
 
+##### `drop`
+
 ```
 drop : nat -> string -> string
 ```
@@ -968,6 +986,8 @@ Removes the first *n* characters from a string:
 ```
 drop(2, "hello")  // "llo"
 ```
+
+##### `cons`
 
 ```
 cons : char -> string -> string
@@ -981,6 +1001,8 @@ cons('H', "ello")  // "Hello"
 
 ##### Working with lists of strings
 
+##### `concat`
+
 ```
 concat : List<string> -> string
 ```
@@ -990,6 +1012,8 @@ Concatenates a list of strings into a single string:
 ```
 concat(["Hello", " ", "world", "!"])  // "Hello world!"
 ```
+
+##### `intercalate`
 
 ```
 intercalate : string -> List<string> -> string
