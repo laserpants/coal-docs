@@ -745,15 +745,68 @@ Coal provides the following built-in types:
 | `void`             | The uninhabited type                    |                               |                        
 | `nat`              | Natural numbers (Peano arithmetic)      | `Zero`, `Succ(Zero)`, ...     |                        
 
-> Note that to define a literal `float` value, the literal is suffixed with a `f` character.
-> 
-> ```
-> 3.0   // is a double
-> ```
-> 
-> ```
-> 3.0f  // is float
-> ```
+### Numeric types
+
+Coal provides six distinct numeric types.
+
+#### Integer types
+
+The fixed-size integer types `int32` and `int64` provide efficient arithmetic for most common use cases. Use `int32` for typical counting and indexing operations, and `int64` when you need a larger range.
+
+```
+let small : int32 = 42
+let large : int64 = 9000000000
+```
+
+For computations requiring arbitrary precision — such as cryptography, number theory, or working with very large numbers — use `bignum`:
+
+```
+let factorial_100 : bignum = 
+  93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000
+```
+
+#### Floating-point types
+
+Coal provides both single and double precision floating-point types following the IEEE 754 standard. Use `float` when memory efficiency is important, and `double` when you need higher precision.
+
+To distinguish between `float` and `double` literals, suffix float values with `f`:
+
+```
+3.0   // double (default for decimal literals)
+3.0f  // float (explicitly marked with 'f')
+```
+
+```
+let pi_approx : float = 3.14159f
+let pi_precise : double = 3.141592653589793
+```
+
+#### Natural numbers
+
+Natural numbers (`nat`) are covered in detail under [Natural numbers](#natural-numbers). They provide a recursion-friendly representation of non-negative integers using the Peano construction.
+
+#### Numeric literal overloading
+
+Numeric literals in Coal are polymorphic — their type is inferred from context or can be explicitly annotated. When you write a literal like `42`, its type is initially `n with Numeric(n)`, meaning it can be any type that implements the [`Numeric`](#numeric) trait.
+
+```
+let a : int32 = 100   // 100 inferred as int32
+let b : int64 = 100   // 100 inferred as int64
+let c : bignum = 100  // 100 inferred as bignum
+let d : double = 100  // 100 inferred as double (converted to 100.0)
+```
+
+This polymorphism extends to arithmetic expressions:
+
+```
+fun add(x, y) = x + y
+
+add(1 : int32, 2 : int32)   // returns int32
+add(1.0, 2.0)               // returns double
+add(1f, 2f)                 // returns float
+```
+
+The compiler resolves the concrete type based on how the value is used, ensuring type safety while maintaining convenience.
 
 ### Function types
 
