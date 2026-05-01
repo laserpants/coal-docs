@@ -27,7 +27,7 @@ module Tree {
 ```
 module Qsort(sort) {
 
-  import Tree(type Tree, flatten)
+  import Tree(Tree, flatten)
   import Coal.Combinators(always)
   import Number(_INT32_MAX)
 
@@ -59,7 +59,7 @@ module Qsort(sort) {
 module Main {
 
   import Qsort(sort)
-  import Coal.Monad(trait Monad, and_eval)
+  import Coal.Monad(Monad, and_eval)
   import IO(return)
 
   import namespace IO
@@ -89,8 +89,8 @@ Using `IO` operations composed through monadic combinators, the program asks the
 module Main {
 
   import Char(digit_to_int32)
-  import Coal.Functor(trait Functor(map))
-  import Coal.Monad(trait Monad, and_then)
+  import Coal.Functor(Functor(map))
+  import Coal.Monad(Monad, and_then)
   import IO(readln, println_string, random, return)
   import List(is_empty)
   import Number(double_to_int32)
@@ -187,9 +187,9 @@ These examples reimplement Haskell’s Reader, Writer, and State monads.
 module Main {
 
   import namespace IO
-  import Coal.Monad(trait Monad, and_then)
-  import Coal.Functor(trait Functor)
-  import Coal.Applicative(trait Applicative)
+  import Coal.Monad(Monad, and_then)
+  import Coal.Functor(Functor)
+  import Coal.Applicative(Applicative)
 
   type Reader<r, a> = Reader(r -> a)
 
@@ -255,10 +255,10 @@ module Main {
 
   import namespace IO
   import namespace List
-  import Coal.Monad(trait Monad, and_then, and_eval)
-  import Coal.Functor(trait Functor)
-  import Coal.Applicative(trait Applicative)
-  import Coal.Monoid(trait Monoid)
+  import Coal.Monad(Monad, and_then, and_eval)
+  import Coal.Functor(Functor)
+  import Coal.Applicative(Applicative)
+  import Coal.Monoid(Monoid)
   import IO(return)
 
   type Writer<w, a> = Writer(a, w)
@@ -330,9 +330,9 @@ module Main {
 module Main {
 
   import namespace IO
-  import Coal.Functor(trait Functor)
-  import Coal.Monad(trait Monad, and_then)
-  import Coal.Applicative(trait Applicative)
+  import Coal.Functor(Functor)
+  import Coal.Monad(Monad, and_then)
+  import Coal.Applicative(Applicative)
   import Coal.Combinators(fst)
 
   type State<s, a> = State(s -> (a, s))
@@ -385,8 +385,8 @@ module Main {
   // Example use:
 
   fun authenticate
-    | "password123" = put(true)
-    | _             = put(false)
+    | "password123" => put(true)
+    | _             => put(false)
 
    fun msg(success : bool) =
      if (success) then "Logged in" else "Authentication failed"
@@ -444,8 +444,8 @@ module Map {
         })
 
   fun balance_factor
-    | Empty  = 0
-    | Map(m) = height(m.left) - height(m.right)
+    | Empty  => 0
+    | Map(m) => height(m.left) - height(m.right)
  
   // Constructors
 
@@ -584,7 +584,7 @@ module Map {
       | Empty =>
           Empty
 
-      | Map({ left = @left, right = @right as rhs | _ } as m) =>
+      | Map({ left = @left, right = @right | _ } as m) =>
           if (key < m.key) then
             rebalance(make_node(m.key, m.value, left, m.right))
 

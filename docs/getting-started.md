@@ -4,11 +4,6 @@
 
 The compiler has been tested on Linux and Mac OS.
 
-!!! warning "Important notice"
-
-    The Coal compiler is still a work in progress. Expect features to change and bugs.
-    Also consider [contributing](https://codeberg.org/laserpants/noll/src/branch/develop#how-to-contribute) to the project.
-
 ### Prerequisites
 
 #### Haskell/GHC
@@ -17,7 +12,7 @@ A recent version of [GHC](https://www.haskell.org/ghc/) is needed. It is **recom
 
 #### LLVM
 
-An [LLVM](https://llvm.org/) toolchain that provides `llc` (the LLVM static compiler) is also required.
+An [LLVM](https://llvm.org/) toolchain that provides `llvm-as` and `llc` (the LLVM static compiler) is also required.
 
 ##### Linux
 
@@ -98,7 +93,7 @@ cd coal && stack install
 Restart or refresh your shell, using e.g., `exec $SHELL -l`. To verify that the executable is installed, run:
 
 ```
-coal --help
+coal --version
 ```
 
 ### Hello, world!
@@ -117,5 +112,5 @@ module Main {
 Save this program as "Main.coal". Compile the program with the command:
 
 ```
-coal -I./ Main.coal -o dist
+coal compile -I. Main.coal -o dist
 ```
