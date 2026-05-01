@@ -14,7 +14,7 @@
         <link rel="prev" href="../getting-started/">
       
       
-        <link rel="next" href="../examples/">
+        <link rel="next" href="../cli/">
       
       
         
@@ -882,6 +882,33 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -3591,7 +3618,7 @@ let nats : Stream&lt;int32&gt; = enum_from(0)  // The natural numbers: 0, 1, 2, 
 <p>Monads describe how to sequence computations that produce a value along with some contextual information or effect. A <em>monadic</em> function is one of the form:</p>
 <div class="highlight"><pre><span></span><code>a -&gt; m&lt;b&gt;
 </code></pre></div>
-<p>The type constructor <code>m</code> determines the context or effect that underpins the computation. For example, <code>Option</code> represents computations that might fail, <code>List</code> represents nondeterministic computations with multiple results, and <code>IO</code> represents computations that perform side effects.</p>
+<p>The type constructor <code>m</code> determines the context or effect that underpins the computation. For example, <code>Option</code> represents computations that might fail, <code>List</code> represents non-deterministic computations with multiple results, and <code>IO</code> represents computations that perform side effects.</p>
 <p>In the case of <code>IO</code>, the type <code>IO&lt;a&gt;</code> represents a computation that, when executed, performs side effects and produces a value of type <code>a</code>. Unlike pure functions of type <code>a -&gt; b</code>, IO computations interact with the outside world.</p>
 <p>Given two monadic functions:</p>
 <div class="highlight"><pre><span></span><code>a -&gt; m&lt;b&gt;
