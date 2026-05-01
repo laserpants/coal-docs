@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -707,7 +707,7 @@
 <h4 id="qsortcoal">Qsort.coal</h4>
 <div class="highlight"><pre><span></span><code>module Qsort(sort) {
 
-  import Tree(type Tree, flatten)
+  import Tree(Tree, flatten)
   import Coal.Combinators(always)
   import Number(_INT32_MAX)
 
@@ -736,7 +736,7 @@
 <div class="highlight"><pre><span></span><code>module Main {
 
   import Qsort(sort)
-  import Coal.Monad(trait Monad, and_eval)
+  import Coal.Monad(Monad, and_eval)
   import IO(return)
 
   import namespace IO
@@ -762,8 +762,8 @@ Using <code>IO</code> operations composed through monadic combinators, the progr
 <div class="highlight"><pre><span></span><code>module Main {
 
   import Char(digit_to_int32)
-  import Coal.Functor(trait Functor(map))
-  import Coal.Monad(trait Monad, and_then)
+  import Coal.Functor(Functor(map))
+  import Coal.Monad(Monad, and_then)
   import IO(readln, println_string, random, return)
   import List(is_empty)
   import Number(double_to_int32)
@@ -851,9 +851,9 @@ TODO
 <div class="highlight"><pre><span></span><code>module Main {
 
   import namespace IO
-  import Coal.Monad(trait Monad, and_then)
-  import Coal.Functor(trait Functor)
-  import Coal.Applicative(trait Applicative)
+  import Coal.Monad(Monad, and_then)
+  import Coal.Functor(Functor)
+  import Coal.Applicative(Applicative)
 
   type Reader&lt;r, a&gt; = Reader(r -&gt; a)
 
@@ -916,10 +916,10 @@ TODO
 
   import namespace IO
   import namespace List
-  import Coal.Monad(trait Monad, and_then, and_eval)
-  import Coal.Functor(trait Functor)
-  import Coal.Applicative(trait Applicative)
-  import Coal.Monoid(trait Monoid)
+  import Coal.Monad(Monad, and_then, and_eval)
+  import Coal.Functor(Functor)
+  import Coal.Applicative(Applicative)
+  import Coal.Monoid(Monoid)
   import IO(return)
 
   type Writer&lt;w, a&gt; = Writer(a, w)
@@ -988,9 +988,9 @@ TODO
 <div class="highlight"><pre><span></span><code>module Main {
 
   import namespace IO
-  import Coal.Functor(trait Functor)
-  import Coal.Monad(trait Monad, and_then)
-  import Coal.Applicative(trait Applicative)
+  import Coal.Functor(Functor)
+  import Coal.Monad(Monad, and_then)
+  import Coal.Applicative(Applicative)
   import Coal.Combinators(fst)
 
   type State&lt;s, a&gt; = State(s -&gt; (a, s))
@@ -1043,8 +1043,8 @@ TODO
   // Example use:
 
   fun authenticate
-    | &quot;password123&quot; = put(true)
-    | _             = put(false)
+    | &quot;password123&quot; =&gt; put(true)
+    | _             =&gt; put(false)
 
    fun msg(success : bool) =
      if (success) then &quot;Logged in&quot; else &quot;Authentication failed&quot;
@@ -1098,8 +1098,8 @@ TODO
         })
 
   fun balance_factor
-    | Empty  = 0
-    | Map(m) = height(m.left) - height(m.right)
+    | Empty  =&gt; 0
+    | Map(m) =&gt; height(m.left) - height(m.right)
 
   // Constructors
 
@@ -1238,7 +1238,7 @@ TODO
       | Empty =&gt;
           Empty
 
-      | Map({ left = @left, right = @right as rhs | _ } as m) =&gt;
+      | Map({ left = @left, right = @right | _ } as m) =&gt;
           if (key &lt; m.key) then
             rebalance(make_node(m.key, m.value, left, m.right))
 

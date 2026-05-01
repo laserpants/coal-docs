@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -566,16 +566,11 @@
 <h1 id="getting-started">Getting started</h1>
 <h2 id="installation-and-setup">Installation and setup</h2>
 <p>The compiler has been tested on Linux and Mac OS.</p>
-<div class="admonition warning">
-<p class="admonition-title">Important notice</p>
-<p>The Coal compiler is still a work in progress. Expect features to change and bugs.
-Also consider <a href="https://codeberg.org/laserpants/noll/src/branch/develop#how-to-contribute">contributing</a> to the project.</p>
-</div>
 <h3 id="prerequisites">Prerequisites</h3>
 <h4 id="haskellghc">Haskell/GHC</h4>
 <p>A recent version of <a href="https://www.haskell.org/ghc/">GHC</a> is needed. It is <strong>recommended</strong> to install Haskell, GHC and Stack using the <a href="https://www.haskell.org/ghcup/">GHCup</a> tool.</p>
 <h4 id="llvm">LLVM</h4>
-<p>An <a href="https://llvm.org/">LLVM</a> toolchain that provides <code>llc</code> (the LLVM static compiler) is also required.</p>
+<p>An <a href="https://llvm.org/">LLVM</a> toolchain that provides <code>llvm-as</code> and <code>llc</code> (the LLVM static compiler) is also required.</p>
 <h5 id="linux">Linux</h5>
 <ul>
 <li>Debian/Ubuntu (or derivatives):</li>
@@ -631,7 +626,7 @@ sudo apt install libgc-dev libgmp-dev build-essential
 <div class="highlight"><pre><span></span><code>cd coal &amp;&amp; stack install
 </code></pre></div>
 <p>Restart or refresh your shell, using e.g., <code>exec $SHELL -l</code>. To verify that the executable is installed, run:</p>
-<div class="highlight"><pre><span></span><code>coal --help
+<div class="highlight"><pre><span></span><code>coal --version
 </code></pre></div>
 <h3 id="hello-world">Hello, world!</h3>
 <div class="highlight"><pre><span></span><code>module Main {
@@ -644,7 +639,7 @@ sudo apt install libgc-dev libgmp-dev build-essential
 }
 </code></pre></div>
 <p>Save this program as "Main.coal". Compile the program with the command:</p>
-<div class="highlight"><pre><span></span><code>coal -I./ Main.coal -o dist
+<div class="highlight"><pre><span></span><code>coal compile -I. Main.coal -o dist
 </code></pre></div>
 
 
