@@ -2614,7 +2614,7 @@ This pipeline first prints a prompt, then reads a line of input, and finally pri
 
 ### Do-notation
 
-Kleisli composition alludes to a way of structuring programs similar to imperative programming. Taking this a step further, `do`-notation was introduced in Haskell to allow a more readable syntax.
+Monads allude to a way of structuring programs similar to imperative programming. Taking this a step further, `do`-notation was introduced in Haskell to allow a more readable syntax.
 
 Coal supports `do`-notation for sequencing monadic operations. The same example from above can be written more concisely as:
 
