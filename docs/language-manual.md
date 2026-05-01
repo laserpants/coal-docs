@@ -2624,7 +2624,7 @@ Monads describe how to sequence computations that produce a value along with som
 a -> m<b>
 ```
 
-The type constructor `m` determines the context or effect that underpins the computation. For example, `Option` represents computations that might fail, `List` represents nondeterministic computations with multiple results, and `IO` represents computations that perform side effects.
+The type constructor `m` determines the context or effect that underpins the computation. For example, `Option` represents computations that might fail, `List` represents non-deterministic computations with multiple results, and `IO` represents computations that perform side effects.
 
 In the case of `IO`, the type `IO<a>` represents a computation that, when executed, performs side effects and produces a value of type `a`. Unlike pure functions of type `a -> b`, IO computations interact with the outside world.
 
