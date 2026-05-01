@@ -803,7 +803,7 @@ fun add(x, y) = x + y
 
 add(1 : int32, 2 : int32)   // returns int32
 add(1.0, 2.0)               // returns double
-add(1f, 2f)                 // returns float
+add(1.0f, 2.0f)             // returns float
 ```
 
 The compiler resolves the concrete type based on how the value is used, ensuring type safety while maintaining convenience.
