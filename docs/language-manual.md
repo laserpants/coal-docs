@@ -410,18 +410,6 @@ let n : int32 = sum(1, 2, 3)
 let d : double = sum(0.5, 1.0, 1.5)
 ```
 
-<!--
-```
-  // 
-
-  type Complex = Complex(double, double)
-
-  instance Numeric<Complex> {
-    // ...
-  }
-```
--->
-
 ### Function application
 
 Unlike Haskell, ML, and OCaml, Coal uses parentheses and commas to separate arguments in function applications — a syntax more akin to languages like C, Java, or Python. For example:
@@ -757,19 +745,25 @@ Coal provides the following built-in types:
 | `void`             | The uninhabited type                    |                               |                        
 | `nat`              | Natural numbers (Peano arithmetic)      | `Zero`, `Succ(Zero)`, ...     |                        
 
-<!--
-
-TODO
-
 #### Booleans
 
 #### Char
 
-#### Float
+#### Floating point types
 
-#### Natural numbers
+Note that to define a literal `float` value, the literal is suffixed with a `f` character.
 
--->
+```
+3.0   // is a double
+```
+
+```
+3.0f  // is float
+```
+
+#### Integral types
+
+#### bignum
 
 ### Function types
 
@@ -1048,12 +1042,6 @@ The list concatenation operator (`++`) appends one list to the end of another, r
 
 **Note:** The time complecity of `++` is linear (O(n)) in the length of the first list.
 
-<!--
-##### Sorting
-
-TODO
--->
-
 #### Useful higher-order list functions
 
 These are functions that take some other function as input and modify the list in some way based on the behavior of the given function.
@@ -1112,49 +1100,6 @@ map : (a -> b) -> List<a> -> List<b>
 
     Together, these laws guarantee that mapping behaves consistently: the shape of the container is unchanged, and each element inside the context is transformed individually, and in the same way as if the function were applied directly to that element. These laws aren’t enforced by the compiler, but following them is always a good idea. 
 
-
-<!--
-> #### List
->
-> ```
-> instance Functor<List> {
->   fun map(f, xs) =
->     fold(xs) {
->       | [] => []                // (1)
->       | x :: @xs = f(x) :: xs   // (2)
->     }
-> }
-> ```
->
-> ##### Identity law:
-> 
-> For the `List` instance to satisfy this law, we must have that:
-> 
-> ```
-> map(id, xs) === id(xs)
-> ```
->
-> For an empty list, ..
->
-> ```
-> map(id, []) == []      // Follows from (1)
->             == id([])  // By the definition of id
-> ```
->
-> ##### The other law (?):
->
-> The claim here is that, for any list `xs`:
->
-> ```
-> map(f << g, xs) == (map(f) << map(g))(xs)
-> ```
->
-> Inductive hypothesis:
-> 
-> Base case:
-> Inductive step:
-> 
--->
 
 ##### Filtering a list
 
@@ -1836,21 +1781,21 @@ The following examples shows how to define a `Numeric` instance for `bool`.
     fun from_int64(n : int64) = is_even(n)
     fun from_bignum(n : bignum) = is_even(n)
     fun negate
-      | false = true
-      | _     = false
+      | false        => true
+      | _            => false
     fun `+`
-      | false, false = false // 0 + 0 = 0
-      | false, true  = true  // 0 + 1 = 1
-      | true, false  = true  // 1 + 0 = 1
-      | true, true   = false // 1 + 1 = 0
+      | false, false => false // 0 + 0 = 0
+      | false, true  => true  // 0 + 1 = 1
+      | true, false  => true  // 1 + 0 = 1
+      | true, true   => false // 1 + 1 = 0
     fun `-`
-      | false, false = true  // 0 - 0 = 0 + (-0) = 0 + 1 = 1
-      | false, true  = false // 0 - 1 = 0 + (-1) = 0 + 0 = 0
-      | true, false  = false // 1 - 0 = 1 + (-0) = 1 + 1 = 0
-      | true, true   = true  // 1 - 1 = 1 + (-1) = 1 + 0 = 1
+      | false, false => true  // 0 - 0 = 0 + (-0) = 0 + 1 = 1
+      | false, true  => false // 0 - 1 = 0 + (-1) = 0 + 0 = 0
+      | true, false  => false // 1 - 0 = 1 + (-0) = 1 + 1 = 0
+      | true, true   => true  // 1 - 1 = 1 + (-1) = 1 + 0 = 1
     fun `*`
-      | true, true   = true  // 1 * 1 = 1
-      | _, _         = false // otherwise 0
+      | true, true   => true  // 1 * 1 = 1
+      | _, _         => false // otherwise 0
   }
 ```
 
@@ -1860,6 +1805,33 @@ Here is how this instance can be used:
   let result = false + true * true  // true
 ```
 
+As another example, we can define a type `Complex` to represent complex numbers:
+
+```
+  type Complex = Complex(double, double)
+```
+
+The `Numeric` instance for this type could then be implemented as:
+
+```
+  instance Numeric<Complex> {
+    fun from_int32(n : int32) = 
+      Complex(int32_to_double(n), 0)
+    fun from_int64(n : int64) = 
+      Complex(int64_to_double(n), 0)
+    fun from_bignum(n : bignum) = 
+      Complex(bignum_to_double(n), 0)
+    fun negate(Complex(r, i)) =
+      Complex(-r, -i)
+    fun `+`(Complex(r, i), Complex(q, j)) =
+      Complex(r + q, i + j)
+    fun `-`(Complex(r, i), Complex(q, j)) =
+      Complex(r - q, i - j)
+    fun `*`(Complex(r, i), Complex(q, j)) =
+      Complex(r * q - i * j, r * j + i * q)
+  }
+```
+
 #### Ordered
 
  The `Ordered` trait captures the notion of a [total order](https://en.wikipedia.org/wiki/Total_order) on its parameterized type (similar to Haskell’s `Ord` type class). This makes it possible to compare two values using the comparison (`<`, `>`, `<=`, and `>=`) and equality (`==` and `!=`) operators.
@@ -1867,9 +1839,9 @@ Here is how this instance can be used:
 ```
   instance Ordered<bool> {
     fun compare
-      | false, true  = LessThan
-      | true, false  = GreaterThan
-      | _, _         = EqualTo
+      | false, true  => LessThan
+      | true, false  => GreaterThan
+      | _, _         => EqualTo
   }
 ```
 
