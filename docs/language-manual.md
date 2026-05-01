@@ -763,7 +763,9 @@ Note that to define a literal `float` value, the literal is suffixed with a `f` 
 
 #### Integral types
 
-#### bignum
+#### String
+
+
 
 ### Function types
 
@@ -845,6 +847,189 @@ Keep in mind that this only works with `unit`. For non-empty tuples, you still n
 
 ```
 fun fst4((fst, _, _, _)) = fst
+```
+
+### String
+
+Strings in Coal represent UTF-8 encoded text. String literals are written using double quotes:
+
+```
+"Hello, world!"
+"Unicode characters like 🎉 and ✨ are supported"
+```
+
+#### String concatenation
+
+The `+++` operator concatenates two strings:
+
+```
+"Hello, " +++ "world!"  // "Hello, world!"
+```
+
+This operator is right-associative, so multiple concatenations can be chained naturally:
+
+```
+"first" +++ "second" +++ "third"  // "firstsecondthird"
+```
+
+#### String module operations
+
+The built-in `String` module provides functions for common string operations. These can be imported using:
+
+```
+import String(length, head, tail, to_list, from_list, ...)
+```
+
+##### Length and emptiness
+
+```
+length : string -> nat
+```
+
+Returns the number of characters in a string:
+
+```
+length("hello")  // 5
+```
+
+```
+is_empty : string -> bool
+```
+
+Tests whether a string contains no characters:
+
+```
+is_empty("")      // true
+is_empty("hello") // false
+```
+
+##### Head and tail
+
+```
+head : string -> Option<char>
+```
+
+Returns the first character of a string as an `Option<char>`, or `None` if the string is empty:
+
+```
+head("hello")  // Some('h')
+head("")       // None
+```
+
+```
+tail : string -> string
+```
+
+Returns the string without its first character:
+
+```
+tail("hello")  // "ello"
+tail("")       // ""
+```
+
+##### Character and list conversions
+
+```
+char_to_string : char -> string
+```
+
+Converts a single character to a one-character string:
+
+```
+char_to_string('A')  // "A"
+```
+
+```
+to_list : string -> List<char>
+```
+
+Converts a string into a list of its characters:
+
+```
+to_list("hi")  // ['h', 'i']
+```
+
+```
+from_list : List<char> -> string
+```
+
+Builds a string from a list of characters:
+
+```
+from_list(['h', 'i'])  // "hi"
+```
+
+##### String manipulation
+
+```
+reverse : string -> string
+```
+
+Reverses the order of characters in a string:
+
+```
+reverse("hello")  // "olleh"
+```
+
+```
+drop : nat -> string -> string
+```
+
+Removes the first *n* characters from a string:
+
+```
+drop(2, "hello")  // "llo"
+```
+
+```
+cons : char -> string -> string
+```
+
+Prepends a character to the front of a string:
+
+```
+cons('H', "ello")  // "Hello"
+```
+
+##### Working with lists of strings
+
+```
+concat : List<string> -> string
+```
+
+Concatenates a list of strings into a single string:
+
+```
+concat(["Hello", " ", "world", "!"])  // "Hello world!"
+```
+
+```
+intercalate : string -> List<string> -> string
+```
+
+Inserts a separator between strings in a list and concatenates them:
+
+```
+intercalate(", ", ["apple", "banana", "cherry"])  // "apple, banana, cherry"
+```
+
+##### Type conversions
+
+The `String` module also provides functions to convert various types to their string representations:
+
+```
+bool_to_string   : bool -> string
+int32_to_string  : int32 -> string
+float_to_string  : float -> string
+double_to_string : double -> string
+```
+
+For example:
+
+```
+int32_to_string(42)    // "42"
+bool_to_string(true)   // "true"
+float_to_string(3.14f) // "3.14"
 ```
 
 ### List
