@@ -215,7 +215,7 @@ The command will fail if:
 coal install
 ```
 
-See [Adding Dependencies](#adding-dependencies) for a complete workflow example.
+See [Adding dependencies](#adding-dependencies) for a complete workflow example.
 
 ### coal clean
 
