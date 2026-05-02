@@ -824,7 +824,7 @@ The compiler will:
 
 **Problem:** The current directory doesn't contain a `coal.json` file.
 
-**Solution:** Create a `coal.json` manifest file. See [Creating a New Project](#creating-a-new-project).
+**Solution:** Create a `coal.json` manifest file. See [Creating a new project](#creating-a-new-project).
 
 ```bash
 cat > coal.json << 'EOF'
