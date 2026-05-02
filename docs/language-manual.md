@@ -747,7 +747,7 @@ Coal provides the following built-in types:
 
 ### Numeric types
 
-Coal provides six distinct numeric types.
+Coal has six distinct numeric types.
 
 #### Integer types
 
