@@ -102,7 +102,7 @@ coal compile -I. Main.coal -o dist --generate-debug-artifacts --debug-llvm-ir
 
 This generates additional debugging files including:
 
-- Graphviz DOT files for visualizing the compilation process
+- [Graphviz](https://graphviz.org/) DOT files for visualizing the compilation process
 - Build information files
 - LLVM IR output
 
