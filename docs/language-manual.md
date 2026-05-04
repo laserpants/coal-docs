@@ -406,8 +406,8 @@ are *overloaded*. The inferred type of this expression is `n with Numeric(n)`, w
 fun sum_of(x, y, z) = 
   x + y + z 
 
-let n : int32 = sum(1, 2, 3)
-let d : double = sum(0.5, 1.0, 1.5)
+let n : int32 = sum_of(1, 2, 3)
+let d : double = sum_of(0.5, 1.0, 1.5)
 ```
 
 ### Function application
