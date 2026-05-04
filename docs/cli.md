@@ -1,4 +1,4 @@
-# CLI Reference
+# CLI reference
 
 The Coal CLI is the primary tool for compiling Coal programs and managing Coal projects. It provides commands for:
 
