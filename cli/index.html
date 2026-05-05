@@ -1795,6 +1795,7 @@ coal<span class="w"> </span>build
 <span class="s">}</span>
 <span class="s">EOF</span>
 </code></pre></div>
+<hr />
 <blockquote>
 <h4 id="no-project-lock-file-found-try-running-coal-install">"No project lock-file found. Try running <code>coal install</code>."</h4>
 </blockquote>
@@ -1803,6 +1804,7 @@ coal<span class="w"> </span>build
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>install
 coal<span class="w"> </span>build
 </code></pre></div>
+<hr />
 <blockquote>
 <h4 id="project-manifest-coaljson-file-format-is-invalid">"Project manifest (coal.json) file format is invalid"</h4>
 </blockquote>
@@ -1813,6 +1815,7 @@ coal<span class="w"> </span>build
 <li><code>modules</code> (required, must be an array)</li>
 </ul>
 <p>Use a JSON validator or linter to check your file.</p>
+<hr />
 <blockquote>
 <h4 id="no-install-candidate-found-for-package">"No install candidate found for package '<name>'"</h4>
 </blockquote>
@@ -1829,11 +1832,13 @@ coal<span class="w"> </span>build
 <li>Try using a wildcard constraint: <code>"version": "*"</code></li>
 <li>Verify the repository URL is correct</li>
 </ol>
+<hr />
 <blockquote>
 <h4 id="the-package-is-missing-a-manifest-file">"The package '<name>' is missing a manifest file"</h4>
 </blockquote>
 <p><strong>Problem:</strong> A dependency doesn't have a <code>coal.json</code> file.</p>
 <p><strong>Solution:</strong> Ensure the dependency repository contains a valid <code>coal.json</code> at its root. This is required for all Coal packages.</p>
+<hr />
 <blockquote>
 <h4 id="is-not-a-valid-module-name">"'<module>' is not a valid module name"</h4>
 </blockquote>
