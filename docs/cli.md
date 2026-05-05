@@ -836,6 +836,8 @@ cat > coal.json << 'EOF'
 EOF
 ```
 
+---
+
 > #### "No project lock-file found. Try running `coal install`."
 
 **Problem:** Running `coal build` without a `coal.lock.json` file.
@@ -847,6 +849,8 @@ coal install
 coal build
 ```
 
+---
+
 > #### "Project manifest (coal.json) file format is invalid"
 
 **Problem:** The `coal.json` file contains invalid JSON or is missing required fields.
@@ -857,6 +861,8 @@ coal build
 - `modules` (required, must be an array)
 
 Use a JSON validator or linter to check your file.
+
+---
 
 > #### "No install candidate found for package '<name>'"
 
@@ -874,11 +880,15 @@ Use a JSON validator or linter to check your file.
 2. Try using a wildcard constraint: `"version": "*"`
 3. Verify the repository URL is correct
 
+---
+
 > #### "The package '<name>' is missing a manifest file"
 
 **Problem:** A dependency doesn't have a `coal.json` file.
 
 **Solution:** Ensure the dependency repository contains a valid `coal.json` at its root. This is required for all Coal packages.
+
+---
 
 > #### "'<module>' is not a valid module name"
 
