@@ -302,11 +302,11 @@ The project manifest file defines package metadata, modules, dependencies, and b
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `name` | String | Yes | Package name (used as identifier in dependency resolution) |
-| `version` | String | No | Package version in SemVer format (e.g., `"0.1.0"`, `"1.2.3"`) |
-| `modules` | Array[String] | Yes | List of module paths to compile |
-| `source_dirs` | Array[String] | No | Source directories to search (defaults to `["src"]`) |
-| `dependencies` | Object | No | Map of package dependencies |
+| `name` | `String` | Yes | Package name (used as identifier in dependency resolution) |
+| `version` | `String` | No | Package version in SemVer format (e.g., `"0.1.0"`, `"1.2.3"`) |
+| `modules` | `Array[String]` | Yes | List of module paths to compile |
+| `source_dirs` | `Array[String]` | No | Source directories to search (defaults to `["src"]`) |
+| `dependencies` | `Object` | No | Map of package dependencies |
 
 #### Module paths
 
