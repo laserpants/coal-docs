@@ -605,7 +605,7 @@ The basic arithmetic operators are overloaded and work with all types for which 
 | `+`           | Addition               | `∀n : n -> n -> n with (Numeric<n>)`   |                                                                        
 | `-`           | Subtraction            | `∀n : n -> n -> n with (Numeric<n>)`   |                                                                        
 | `*`           | Multiplication         | `∀n : n -> n -> n with (Numeric<n>)`   |                                           
-| `/`           | Division               | `∀q : q -> q -> q with Divisible(q)` |                                                                        
+| `/`           | Division               | `∀q : q -> q -> q with (Divisible<q>)` |                                                                        
 | `^`           | Exponentiation         | `∀n : n -> nat -> n with (Numeric<n>)` |                                                                        
 
 |               | Description            | Type                                  |                                                                        
@@ -646,7 +646,7 @@ Coal supports the standard logical operators for working with boolean values.
 
 |               | Description            |                                       |                                                          
 | ------------- | ---------------------- | ------------------------------------- |                                                                      
-| `<>`          | Semigroup operator     | `∀a : a -> a -> a with Semigroup(a)`  |
+| `<>`          | Semigroup operator     | `∀a : a -> a -> a with (Semigroup<a>)`  |
 
 #### Function composition and pipelining
 
