@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/logo.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="zensical-0.0.40">
     
     
       
@@ -29,10 +29,15 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.fba56155.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
       
       
 
@@ -46,14 +51,14 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
       
     
     
       <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
     
       
 
@@ -64,6 +69,8 @@
   
     
     
+      
+    
     
     
     
@@ -72,7 +79,7 @@
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
     <div data-md-component="skip">
       
         
@@ -92,14 +99,14 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Coal" class="md-header__button md-logo" aria-label="Coal" data-md-component="logo">
+    <a href="./.." title="Coal" class="md-header__button md-logo" aria-label="Coal" data-md-component="logo">
       
-  <img src="../assets/logo.svg" alt="logo">
+  <img src="../assets/logo.svg" alt="Coal">
 
     </a>
-    <label class="md-header__button md-icon" for="__drawer">
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -119,51 +126,38 @@
     </div>
     
       
+        <form class="md-header__option" data-md-component="palette">
+  
     
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
       
       
-        <label class="md-header__button md-icon" for="__search">
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
           
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
         </label>
-        <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
 </div>
       
     
-    
+    <div class="md-header__source">
+      
+    </div>
   </nav>
   
 </header>
@@ -189,9 +183,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Coal" class="md-nav__button md-logo" aria-label="Coal" data-md-component="logo">
+    <a href="./.." title="Coal" class="md-nav__button md-logo" aria-label="Coal" data-md-component="logo">
       
-  <img src="../assets/logo.svg" alt="logo">
+  <img src="../assets/logo.svg" alt="Coal">
 
     </a>
     Coal
@@ -206,15 +200,14 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="./.." class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Home
-  
+  Home
 
     
   </span>
@@ -240,8 +233,7 @@
   <span class="md-ellipsis">
     
   
-    Getting started
-  
+  Getting started
 
     
   </span>
@@ -267,8 +259,7 @@
   <span class="md-ellipsis">
     
   
-    Language manual
-  
+  Language manual
 
     
   </span>
@@ -290,7 +281,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
       
       
         
@@ -303,8 +294,7 @@
   <span class="md-ellipsis">
     
   
-    CLI reference
-  
+  CLI reference
 
     
   </span>
@@ -314,15 +304,14 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="./" class="md-nav__link md-nav__link--active">
+      <a href="././" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
     
   
-    CLI reference
-  
+  CLI reference
 
     
   </span>
@@ -333,7 +322,8 @@
       
         
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
   
   
   
@@ -342,16 +332,16 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Quick start
-      
+      </span>
     </span>
   </a>
   
@@ -360,9 +350,9 @@
         <li class="md-nav__item">
   <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Commands
-      
+      </span>
     </span>
   </a>
   
@@ -372,9 +362,9 @@
           <li class="md-nav__item">
   <a href="#coal-compile" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         coal compile
-      
+      </span>
     </span>
   </a>
   
@@ -383,9 +373,9 @@
           <li class="md-nav__item">
   <a href="#coal-build" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         coal build
-      
+      </span>
     </span>
   </a>
   
@@ -394,9 +384,9 @@
           <li class="md-nav__item">
   <a href="#coal-install" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         coal install
-      
+      </span>
     </span>
   </a>
   
@@ -405,9 +395,9 @@
           <li class="md-nav__item">
   <a href="#coal-clean" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         coal clean
-      
+      </span>
     </span>
   </a>
   
@@ -416,9 +406,9 @@
           <li class="md-nav__item">
   <a href="#coal-version" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         coal --version
-      
+      </span>
     </span>
   </a>
   
@@ -432,9 +422,9 @@
         <li class="md-nav__item">
   <a href="#configuration-files" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Configuration files
-      
+      </span>
     </span>
   </a>
   
@@ -444,9 +434,9 @@
           <li class="md-nav__item">
   <a href="#coaljson" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         coal.json
-      
+      </span>
     </span>
   </a>
   
@@ -455,9 +445,9 @@
           <li class="md-nav__item">
   <a href="#coallockjson" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         coal.lock.json
-      
+      </span>
     </span>
   </a>
   
@@ -471,9 +461,9 @@
         <li class="md-nav__item">
   <a href="#dependency-management" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Dependency management
-      
+      </span>
     </span>
   </a>
   
@@ -483,9 +473,9 @@
           <li class="md-nav__item">
   <a href="#git-based-dependencies" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Git-based dependencies
-      
+      </span>
     </span>
   </a>
   
@@ -494,9 +484,9 @@
           <li class="md-nav__item">
   <a href="#version-constraints" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Version constraints
-      
+      </span>
     </span>
   </a>
   
@@ -505,9 +495,9 @@
           <li class="md-nav__item">
   <a href="#resolution-algorithm" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Resolution algorithm
-      
+      </span>
     </span>
   </a>
   
@@ -516,9 +506,9 @@
           <li class="md-nav__item">
   <a href="#package-storage_1" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Package storage
-      
+      </span>
     </span>
   </a>
   
@@ -532,9 +522,9 @@
         <li class="md-nav__item">
   <a href="#workflows-and-tutorials" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Workflows and tutorials
-      
+      </span>
     </span>
   </a>
   
@@ -544,9 +534,9 @@
           <li class="md-nav__item">
   <a href="#creating-a-new-project" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Creating a new project
-      
+      </span>
     </span>
   </a>
   
@@ -555,9 +545,9 @@
           <li class="md-nav__item">
   <a href="#adding-dependencies" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Adding dependencies
-      
+      </span>
     </span>
   </a>
   
@@ -566,9 +556,9 @@
           <li class="md-nav__item">
   <a href="#multi-module-projects" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Multi-module projects
-      
+      </span>
     </span>
   </a>
   
@@ -582,9 +572,9 @@
         <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Troubleshooting
-      
+      </span>
     </span>
   </a>
   
@@ -594,9 +584,9 @@
           <li class="md-nav__item">
   <a href="#common-errors" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Common errors
-      
+      </span>
     </span>
   </a>
   
@@ -605,9 +595,9 @@
           <li class="md-nav__item">
   <a href="#debug-options" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Debug options
-      
+      </span>
     </span>
   </a>
   
@@ -640,8 +630,7 @@
   <span class="md-ellipsis">
     
   
-    Examples
-  
+  Examples
 
     
   </span>
@@ -667,8 +656,7 @@
   <span class="md-ellipsis">
     
   
-    Data and codata
-  
+  Data and codata
 
     
   </span>
@@ -694,8 +682,7 @@
   <span class="md-ellipsis">
     
   
-    License
-  
+  License
 
     
   </span>
@@ -717,10 +704,24 @@
               
               <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
   
   
   
@@ -729,16 +730,16 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Quick start
-      
+      </span>
     </span>
   </a>
   
@@ -747,9 +748,9 @@
         <li class="md-nav__item">
   <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Commands
-      
+      </span>
     </span>
   </a>
   
@@ -759,9 +760,9 @@
           <li class="md-nav__item">
   <a href="#coal-compile" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         coal compile
-      
+      </span>
     </span>
   </a>
   
@@ -770,9 +771,9 @@
           <li class="md-nav__item">
   <a href="#coal-build" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         coal build
-      
+      </span>
     </span>
   </a>
   
@@ -781,9 +782,9 @@
           <li class="md-nav__item">
   <a href="#coal-install" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         coal install
-      
+      </span>
     </span>
   </a>
   
@@ -792,9 +793,9 @@
           <li class="md-nav__item">
   <a href="#coal-clean" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         coal clean
-      
+      </span>
     </span>
   </a>
   
@@ -803,9 +804,9 @@
           <li class="md-nav__item">
   <a href="#coal-version" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         coal --version
-      
+      </span>
     </span>
   </a>
   
@@ -819,9 +820,9 @@
         <li class="md-nav__item">
   <a href="#configuration-files" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Configuration files
-      
+      </span>
     </span>
   </a>
   
@@ -831,9 +832,9 @@
           <li class="md-nav__item">
   <a href="#coaljson" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         coal.json
-      
+      </span>
     </span>
   </a>
   
@@ -842,9 +843,9 @@
           <li class="md-nav__item">
   <a href="#coallockjson" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         coal.lock.json
-      
+      </span>
     </span>
   </a>
   
@@ -858,9 +859,9 @@
         <li class="md-nav__item">
   <a href="#dependency-management" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Dependency management
-      
+      </span>
     </span>
   </a>
   
@@ -870,9 +871,9 @@
           <li class="md-nav__item">
   <a href="#git-based-dependencies" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Git-based dependencies
-      
+      </span>
     </span>
   </a>
   
@@ -881,9 +882,9 @@
           <li class="md-nav__item">
   <a href="#version-constraints" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Version constraints
-      
+      </span>
     </span>
   </a>
   
@@ -892,9 +893,9 @@
           <li class="md-nav__item">
   <a href="#resolution-algorithm" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Resolution algorithm
-      
+      </span>
     </span>
   </a>
   
@@ -903,9 +904,9 @@
           <li class="md-nav__item">
   <a href="#package-storage_1" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Package storage
-      
+      </span>
     </span>
   </a>
   
@@ -919,9 +920,9 @@
         <li class="md-nav__item">
   <a href="#workflows-and-tutorials" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Workflows and tutorials
-      
+      </span>
     </span>
   </a>
   
@@ -931,9 +932,9 @@
           <li class="md-nav__item">
   <a href="#creating-a-new-project" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Creating a new project
-      
+      </span>
     </span>
   </a>
   
@@ -942,9 +943,9 @@
           <li class="md-nav__item">
   <a href="#adding-dependencies" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Adding dependencies
-      
+      </span>
     </span>
   </a>
   
@@ -953,9 +954,9 @@
           <li class="md-nav__item">
   <a href="#multi-module-projects" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Multi-module projects
-      
+      </span>
     </span>
   </a>
   
@@ -969,9 +970,9 @@
         <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Troubleshooting
-      
+      </span>
     </span>
   </a>
   
@@ -981,9 +982,9 @@
           <li class="md-nav__item">
   <a href="#common-errors" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Common errors
-      
+      </span>
     </span>
   </a>
   
@@ -992,9 +993,9 @@
           <li class="md-nav__item">
   <a href="#debug-options" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Debug options
-      
+      </span>
     </span>
   </a>
   
@@ -1019,8 +1020,6 @@
               <article class="md-content__inner md-typeset">
                 
                   
-
-
 
 <h1 id="cli-reference">CLI reference</h1>
 <p>The Coal CLI is the primary tool for compiling Coal programs and managing Coal projects. It provides commands for:</p>
@@ -1894,6 +1893,8 @@ coal<span class="w"> </span>build
 
 
 
+
+
                 
               </article>
             </div>
@@ -1912,8 +1913,8 @@ coal<span class="w"> </span>build
   
   
     Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
     </a>
   
 </div>
@@ -1931,10 +1932,10 @@ coal<span class="w"> </span>build
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":[],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.dbc0afdc.min.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       
