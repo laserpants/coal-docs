@@ -114,6 +114,8 @@ module Main {
     ...
 ```
 
+The type of `main` is `unit -> IO<unit>`. See [IO](#io) for an explanation of the `IO` type.
+
 ### Let-expressions
 
 The `let` keyword introduces a new name bound to the result of an expression. Inside functions, a `let` is often used to give names to intermediate values:
@@ -400,14 +402,14 @@ Integer literals introduced in code without an explicit type annotation, such as
 let answer = 42
 ```
 
-are *overloaded*. The inferred type of this expression is `n with Numeric(n)`, which means that `n` can be *any* type, as long as it implements the `Numeric` trait (see **[Traits](#traits)**). This includes the built-in `int32`, `int64`, `float`, `double`, `bignum`, and `nat` types. All `Numeric` types support the basic arithmetic operations of addition, subtraction, and multiplication.
+are *overloaded*. The inferred type of this expression is `n with (Numeric<n>)`, which means that `n` can be *any* type, as long as it implements the `Numeric` trait (see **[Traits](#traits)**). This includes the built-in `int32`, `int64`, `float`, `double`, `bignum`, and `nat` types. All `Numeric` types support the basic arithmetic operations of addition, subtraction, and multiplication.
 
 ```
 fun sum_of(x, y, z) = 
   x + y + z 
 
-let n : int32 = sum(1, 2, 3)
-let d : double = sum(0.5, 1.0, 1.5)
+let n : int32 = sum_of(1, 2, 3)
+let d : double = sum_of(0.5, 1.0, 1.5)
 ```
 
 ### Function application
@@ -600,24 +602,24 @@ The basic arithmetic operators are overloaded and work with all types for which 
 
 |               | Description            | Type                                 |                                                                        
 | ------------- | ---------------------- | ------------------------------------ |                                                                        
-| `+`           | Addition               | `∀n : n -> n -> n with Numeric(n)`   |                                                                        
-| `-`           | Subtraction            | `∀n : n -> n -> n with Numeric(n)`   |                                                                        
-| `*`           | Multiplication         | `∀n : n -> n -> n with Numeric(n)`   |                                           
+| `+`           | Addition               | `∀n : n -> n -> n with (Numeric<n>)`   |                                                                        
+| `-`           | Subtraction            | `∀n : n -> n -> n with (Numeric<n>)`   |                                                                        
+| `*`           | Multiplication         | `∀n : n -> n -> n with (Numeric<n>)`   |                                           
 | `/`           | Division               | `∀q : q -> q -> q with Divisible(q)` |                                                                        
-| `^`           | Exponentiation         | `∀n : n -> nat -> n with Numeric(n)` |                                                                        
+| `^`           | Exponentiation         | `∀n : n -> nat -> n with (Numeric<n>)` |                                                                        
 
 |               | Description            | Type                                  |                                                                        
 | ------------- | ---------------------- | ------------------------------------- |                                                                        
-| `==`          | Equality               | `∀n : n -> n -> bool with Comparable(n)` |                                                                        
-| `!=`          | Inequality             | `∀n : n -> n -> bool with Comparable(n)` |                                                                        
-| `<`           | Less than              | `∀n : n -> n -> bool with Ordered(n)` |                                           
-| `>`           | Greater than           | `∀n : n -> n -> bool with Ordered(n)` |                                                                        
-| `<=`          | Less than or equal     | `∀n : n -> n -> bool with Ordered(n)` |                                           
-| `>=`          | Greater than or equal  | `∀n : n -> n -> bool with Ordered(n)` |                                                                        
+| `==`          | Equality               | `∀n : n -> n -> bool with (Comparable<n>)` |                                                                        
+| `!=`          | Inequality             | `∀n : n -> n -> bool with (Comparable<n>)` |                                                                        
+| `<`           | Less than              | `∀n : n -> n -> bool with (Ordered<n>)` |                                           
+| `>`           | Greater than           | `∀n : n -> n -> bool with (Ordered<n>)` |                                                                        
+| `<=`          | Less than or equal     | `∀n : n -> n -> bool with (Ordered<n>)` |                                           
+| `>=`          | Greater than or equal  | `∀n : n -> n -> bool with (Ordered<n>)` |                                                                        
 
 |               | Description            | Type                               |                                                                        
 | ------------- | ---------------------- | ---------------------------------- |                                                                        
-| `%`           | Modulus                | `∀m : m -> m -> m with Modulo(m)`  |                                                                        
+| `%`           | Modulus                | `∀m : m -> m -> m with (Modulo<m>)`  |                                                                        
 
 #### Logical
 
@@ -787,7 +789,7 @@ Natural numbers (`nat`) are covered in detail under [Natural numbers](#natural-n
 
 #### Numeric literal overloading
 
-Numeric literals in Coal are polymorphic — their type is inferred from context or can be explicitly annotated. When you write a literal like `42`, its type is initially `n with Numeric(n)`, meaning it can be any type that implements the [`Numeric`](#numeric) trait.
+Numeric literals in Coal are polymorphic — their type is inferred from context or can be explicitly annotated. When you write a literal like `42`, its type is initially `n with (Numeric<n>)`, meaning it can be any type that implements the [`Numeric`](#numeric) trait.
 
 ```
 let a : int32 = 100   // 100 inferred as int32
@@ -1317,7 +1319,7 @@ map : (a -> b) -> List<a> -> List<b>
     The actual type of `map` is more general than the specialized `List` version above. In fact, any value of type `f<a>` can be mapped over, as long as `f` implements the `Functor` [trait](#traits):
 
     ```
-    map : (a -> b) -> f<a> -> f<b> with Functor<f>
+    map : (a -> b) -> f<a> -> f<b> with (Functor<f>)
     ```
 
     We can think of this more abstractly as **"transforming values inside a fixed context**." In mathematical terms, this corresponds to a structure-preserving map, also known as a *homomorphism*. 
@@ -2003,7 +2005,7 @@ instance Ordered<bool> {
 Code that uses `compare` now works uniformly for all types that have an `Ordered` instance:
 
 ```
-fun is_less_than(x : t, y : t) : bool with Ordered<t> =
+fun is_less_than(x : t, y : t) : bool with (Ordered<t>) =
   compare(x, y) == Lt
 
 // is_less_than(3, 5)
@@ -2011,7 +2013,7 @@ fun is_less_than(x : t, y : t) : bool with Ordered<t> =
 ```
 
 Type parameters, like `t` in the type of `is_less_than` are [universally quantified](https://en.wikipedia.org/wiki/Universal_quantification). The `with` keyword introduces one or more constraints on type variables appearing in a type. In this case it demands that an instance of `Ordered` exists for the type substituted for `t`.
-We write the full type of `is_less_than` as: `t -> t -> bool with Ordered<t>`.
+We write the full type of `is_less_than` as: `t -> t -> bool with (Ordered<t>)`.
 
 ### Built-in traits
 
@@ -2150,7 +2152,7 @@ map(times100, [1, 2, 3])  // ==> [100, 200, 300]
 A trait can declare that it depends on another trait by *inheriting* from it. The inheriting trait is then able to access to the methods of the parent trait, and build its own functionality on top of them. For example, the following instance defines how to display an `Option<a>` value, provided that there is already a way to display values of type `a`:
 
 ```
-  trait Show<Option<a>> with Show<a> {
+  trait Show<Option<a>> with (Show<a>) {
     fun show(opt) =
       match(opt) {
         | Some(v) => "Some(" +++ show(v) +++ ")"
