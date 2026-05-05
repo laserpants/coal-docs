@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://mydomain.org/mysite/</loc>
+         <loc>https://coal-lang.org/</loc>
          <lastmod>2026-05-05</lastmod>
     </url>
     <url>
-         <loc>https://mydomain.org/mysite/cli/</loc>
+         <loc>https://coal-lang.org/cli/</loc>
          <lastmod>2026-05-05</lastmod>
     </url>
     <url>
-         <loc>https://mydomain.org/mysite/data-and-codata/</loc>
+         <loc>https://coal-lang.org/data-and-codata/</loc>
          <lastmod>2026-05-05</lastmod>
     </url>
     <url>
-         <loc>https://mydomain.org/mysite/examples/</loc>
+         <loc>https://coal-lang.org/examples/</loc>
          <lastmod>2026-05-05</lastmod>
     </url>
     <url>
-         <loc>https://mydomain.org/mysite/ffi/</loc>
+         <loc>https://coal-lang.org/ffi/</loc>
          <lastmod>2026-05-05</lastmod>
     </url>
     <url>
-         <loc>https://mydomain.org/mysite/getting-started/</loc>
+         <loc>https://coal-lang.org/getting-started/</loc>
          <lastmod>2026-05-05</lastmod>
     </url>
     <url>
-         <loc>https://mydomain.org/mysite/language-manual/</loc>
+         <loc>https://coal-lang.org/language-manual/</loc>
          <lastmod>2026-05-05</lastmod>
     </url>
     <url>
-         <loc>https://mydomain.org/mysite/license/</loc>
+         <loc>https://coal-lang.org/license/</loc>
          <lastmod>2026-05-05</lastmod>
     </url>
 </urlset>
