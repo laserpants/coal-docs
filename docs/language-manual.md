@@ -114,6 +114,8 @@ module Main {
     ...
 ```
 
+The type of `main` is `unit -> IO<unit>`. See [IO](#io) for an explanation of the `IO` type.
+
 ### Let-expressions
 
 The `let` keyword introduces a new name bound to the result of an expression. Inside functions, a `let` is often used to give names to intermediate values:
