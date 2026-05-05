@@ -20,7 +20,7 @@
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../assets/logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
@@ -1670,6 +1670,7 @@
   fun main() =
     ...
 </code></pre></div>
+<p>The type of <code>main</code> is <code>unit -&gt; IO&lt;unit&gt;</code>. See <a href="#io">IO</a> for an explanation of the <code>IO</code> type.</p>
 <h3 id="let-expressions">Let-expressions</h3>
 <p>The <code>let</code> keyword introduces a new name bound to the result of an expression. Inside functions, a <code>let</code> is often used to give names to intermediate values:</p>
 <div class="highlight"><pre><span></span><code>  fun hypotenuse(a, b) =
@@ -1853,12 +1854,12 @@ false           int32           trait
 <p>Integer literals introduced in code without an explicit type annotation, such as</p>
 <div class="highlight"><pre><span></span><code>let answer = 42
 </code></pre></div>
-<p>are <em>overloaded</em>. The inferred type of this expression is <code>n with Numeric(n)</code>, which means that <code>n</code> can be <em>any</em> type, as long as it implements the <code>Numeric</code> trait (see <strong><a href="#traits">Traits</a></strong>). This includes the built-in <code>int32</code>, <code>int64</code>, <code>float</code>, <code>double</code>, <code>bignum</code>, and <code>nat</code> types. All <code>Numeric</code> types support the basic arithmetic operations of addition, subtraction, and multiplication.</p>
+<p>are <em>overloaded</em>. The inferred type of this expression is <code>n with (Numeric&lt;n&gt;)</code>, which means that <code>n</code> can be <em>any</em> type, as long as it implements the <code>Numeric</code> trait (see <strong><a href="#traits">Traits</a></strong>). This includes the built-in <code>int32</code>, <code>int64</code>, <code>float</code>, <code>double</code>, <code>bignum</code>, and <code>nat</code> types. All <code>Numeric</code> types support the basic arithmetic operations of addition, subtraction, and multiplication.</p>
 <div class="highlight"><pre><span></span><code>fun sum_of(x, y, z) = 
   x + y + z 
 
-let n : int32 = sum(1, 2, 3)
-let d : double = sum(0.5, 1.0, 1.5)
+let n : int32 = sum_of(1, 2, 3)
+let d : double = sum_of(0.5, 1.0, 1.5)
 </code></pre></div>
 <h3 id="function-application">Function application</h3>
 <p>Unlike Haskell, ML, and OCaml, Coal uses parentheses and commas to separate arguments in function applications — a syntax more akin to languages like C, Java, or Python. For example:</p>
@@ -1990,17 +1991,17 @@ Error: Name &quot;fib&quot; not in scope
 <tr>
 <td><code>+</code></td>
 <td>Addition</td>
-<td><code>∀n : n -&gt; n -&gt; n with Numeric(n)</code></td>
+<td><code>∀n : n -&gt; n -&gt; n with (Numeric&lt;n&gt;)</code></td>
 </tr>
 <tr>
 <td><code>-</code></td>
 <td>Subtraction</td>
-<td><code>∀n : n -&gt; n -&gt; n with Numeric(n)</code></td>
+<td><code>∀n : n -&gt; n -&gt; n with (Numeric&lt;n&gt;)</code></td>
 </tr>
 <tr>
 <td><code>*</code></td>
 <td>Multiplication</td>
-<td><code>∀n : n -&gt; n -&gt; n with Numeric(n)</code></td>
+<td><code>∀n : n -&gt; n -&gt; n with (Numeric&lt;n&gt;)</code></td>
 </tr>
 <tr>
 <td><code>/</code></td>
@@ -2010,7 +2011,7 @@ Error: Name &quot;fib&quot; not in scope
 <tr>
 <td><code>^</code></td>
 <td>Exponentiation</td>
-<td><code>∀n : n -&gt; nat -&gt; n with Numeric(n)</code></td>
+<td><code>∀n : n -&gt; nat -&gt; n with (Numeric&lt;n&gt;)</code></td>
 </tr>
 </tbody>
 </table>
@@ -2026,32 +2027,32 @@ Error: Name &quot;fib&quot; not in scope
 <tr>
 <td><code>==</code></td>
 <td>Equality</td>
-<td><code>∀n : n -&gt; n -&gt; bool with Comparable(n)</code></td>
+<td><code>∀n : n -&gt; n -&gt; bool with (Comparable&lt;n&gt;)</code></td>
 </tr>
 <tr>
 <td><code>!=</code></td>
 <td>Inequality</td>
-<td><code>∀n : n -&gt; n -&gt; bool with Comparable(n)</code></td>
+<td><code>∀n : n -&gt; n -&gt; bool with (Comparable&lt;n&gt;)</code></td>
 </tr>
 <tr>
 <td><code>&lt;</code></td>
 <td>Less than</td>
-<td><code>∀n : n -&gt; n -&gt; bool with Ordered(n)</code></td>
+<td><code>∀n : n -&gt; n -&gt; bool with (Ordered&lt;n&gt;)</code></td>
 </tr>
 <tr>
 <td><code>&gt;</code></td>
 <td>Greater than</td>
-<td><code>∀n : n -&gt; n -&gt; bool with Ordered(n)</code></td>
+<td><code>∀n : n -&gt; n -&gt; bool with (Ordered&lt;n&gt;)</code></td>
 </tr>
 <tr>
 <td><code>&lt;=</code></td>
 <td>Less than or equal</td>
-<td><code>∀n : n -&gt; n -&gt; bool with Ordered(n)</code></td>
+<td><code>∀n : n -&gt; n -&gt; bool with (Ordered&lt;n&gt;)</code></td>
 </tr>
 <tr>
 <td><code>&gt;=</code></td>
 <td>Greater than or equal</td>
-<td><code>∀n : n -&gt; n -&gt; bool with Ordered(n)</code></td>
+<td><code>∀n : n -&gt; n -&gt; bool with (Ordered&lt;n&gt;)</code></td>
 </tr>
 </tbody>
 </table>
@@ -2067,7 +2068,7 @@ Error: Name &quot;fib&quot; not in scope
 <tr>
 <td><code>%</code></td>
 <td>Modulus</td>
-<td><code>∀m : m -&gt; m -&gt; m with Modulo(m)</code></td>
+<td><code>∀m : m -&gt; m -&gt; m with (Modulo&lt;m&gt;)</code></td>
 </tr>
 </tbody>
 </table>
@@ -2343,7 +2344,7 @@ let pi_precise : double = 3.141592653589793
 <h4 id="natural-numbers">Natural numbers</h4>
 <p>Natural numbers (<code>nat</code>) are covered in detail under <a href="#natural-numbers">Natural numbers</a>. They provide a recursion-friendly representation of non-negative integers using the Peano construction.</p>
 <h4 id="numeric-literal-overloading">Numeric literal overloading</h4>
-<p>Numeric literals in Coal are polymorphic — their type is inferred from context or can be explicitly annotated. When you write a literal like <code>42</code>, its type is initially <code>n with Numeric(n)</code>, meaning it can be any type that implements the <a href="#numeric"><code>Numeric</code></a> trait.</p>
+<p>Numeric literals in Coal are polymorphic — their type is inferred from context or can be explicitly annotated. When you write a literal like <code>42</code>, its type is initially <code>n with (Numeric&lt;n&gt;)</code>, meaning it can be any type that implements the <a href="#numeric"><code>Numeric</code></a> trait.</p>
 <div class="highlight"><pre><span></span><code>let a : int32 = 100   // 100 inferred as int32
 let b : int64 = 100   // 100 inferred as int64
 let c : bignum = 100  // 100 inferred as bignum
@@ -2652,7 +2653,7 @@ draw_shape   : Shape -&gt; Canvas -&gt; Canvas
 <div class="admonition note">
 <p class="admonition-title">Mapping and the <code>Functor</code> trait</p>
 <p>The actual type of <code>map</code> is more general than the specialized <code>List</code> version above. In fact, any value of type <code>f&lt;a&gt;</code> can be mapped over, as long as <code>f</code> implements the <code>Functor</code> <a href="#traits">trait</a>:</p>
-<div class="highlight"><pre><span></span><code>map : (a -&gt; b) -&gt; f&lt;a&gt; -&gt; f&lt;b&gt; with Functor&lt;f&gt;
+<div class="highlight"><pre><span></span><code>map : (a -&gt; b) -&gt; f&lt;a&gt; -&gt; f&lt;b&gt; with (Functor&lt;f&gt;)
 </code></pre></div>
 <p>We can think of this more abstractly as <strong>"transforming values inside a fixed context</strong>." In mathematical terms, this corresponds to a structure-preserving map, also known as a <em>homomorphism</em>. 
 Homomorphisms are the topic of study in category theory. It is also in category theory that we find the origin of functors. A functor, in this context, is a mapping between categories &mdash; one that sends objects and morphisms from one category to another (subject to certain laws). </p>
@@ -3147,14 +3148,14 @@ Non-exhaustive patterns
 }
 </code></pre></div>
 <p>Code that uses <code>compare</code> now works uniformly for all types that have an <code>Ordered</code> instance:</p>
-<div class="highlight"><pre><span></span><code>fun is_less_than(x : t, y : t) : bool with Ordered&lt;t&gt; =
+<div class="highlight"><pre><span></span><code>fun is_less_than(x : t, y : t) : bool with (Ordered&lt;t&gt;) =
   compare(x, y) == Lt
 
 // is_less_than(3, 5)
 // is_less_than(false, true)
 </code></pre></div>
 <p>Type parameters, like <code>t</code> in the type of <code>is_less_than</code> are <a href="https://en.wikipedia.org/wiki/Universal_quantification">universally quantified</a>. The <code>with</code> keyword introduces one or more constraints on type variables appearing in a type. In this case it demands that an instance of <code>Ordered</code> exists for the type substituted for <code>t</code>.
-We write the full type of <code>is_less_than</code> as: <code>t -&gt; t -&gt; bool with Ordered&lt;t&gt;</code>.</p>
+We write the full type of <code>is_less_than</code> as: <code>t -&gt; t -&gt; bool with (Ordered&lt;t&gt;)</code>.</p>
 <h3 id="built-in-traits">Built-in traits</h3>
 <p>Coal includes several built-in traits that enable operator overloading and provide common functionality across different types. <em>Operator overloading</em> means that the same operator symbol (such as <code>+</code> or <code>==</code>) can work with multiple types — for example, allowing <code>+</code> to add both integers and floating-point numbers. By implementing these traits for a type, you define how standard operators behave for that type.</p>
 <h4 id="numeric">Numeric</h4>
@@ -3252,7 +3253,7 @@ map(times100, [1, 2, 3])  // ==&gt; [100, 200, 300]
 </code></pre></div>
 <h3 id="trait-inheritance">Trait inheritance</h3>
 <p>A trait can declare that it depends on another trait by <em>inheriting</em> from it. The inheriting trait is then able to access to the methods of the parent trait, and build its own functionality on top of them. For example, the following instance defines how to display an <code>Option&lt;a&gt;</code> value, provided that there is already a way to display values of type <code>a</code>:</p>
-<div class="highlight"><pre><span></span><code>  trait Show&lt;Option&lt;a&gt;&gt; with Show&lt;a&gt; {
+<div class="highlight"><pre><span></span><code>  trait Show&lt;Option&lt;a&gt;&gt; with (Show&lt;a&gt;) {
     fun show(opt) =
       match(opt) {
         | Some(v) =&gt; &quot;Some(&quot; +++ show(v) +++ &quot;)&quot;
