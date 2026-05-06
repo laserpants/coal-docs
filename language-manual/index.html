@@ -2234,7 +2234,15 @@ Error: Name &quot;fib&quot; not in scope
 </tbody>
 </table>
 <h3 id="reverse-application-pipelining">Reverse application pipelining</h3>
-<p>The operator <code>|.</code> represents a reversed version of regular function application. It is very convenient when chaining together multiple function calls. Suppose we have the following basic drawing API:</p>
+<p>The operator <code>|.</code> represents a reversed version of regular function application. For example, instead of:</p>
+<div class="highlight"><pre><span></span><code>let my_list = [1, 2, 3] in
+  map(fn(x) =&gt; 2 ^ x, [1, 2, 3])
+</code></pre></div>
+<p>we can write:</p>
+<div class="highlight"><pre><span></span><code>let my_list = [1, 2, 3] in
+  my_list |.map(fn(x) =&gt; 2 ^ x)
+</code></pre></div>
+<p>This way of expressing operations resembles method invocation in object-oriented programming. It is very convenient when chaining together multiple function calls. Suppose we have the following basic drawing API:</p>
 <div class="highlight"><pre><span></span><code>circle       : Config -&gt; Shape
 fill         : string -&gt; Shape -&gt; Shape
 set_position : float -&gt; float -&gt; Shape -&gt; Shape
@@ -2248,18 +2256,6 @@ draw_shape   : Shape -&gt; Canvas -&gt; Canvas
   |.fill(&quot;blue&quot;)
   |.set_position(10.0f, 5.0f)
   |.flip(draw_shape, canvas)
-</code></pre></div>
-<p>This way of expressing operations resembles method invocation in object-oriented programming. For example, instead of:</p>
-<div class="highlight"><pre><span></span><code>let 
-  my_list = [1, 2, 3]
-  in
-  map(fn(x) =&gt; 2 ^ x, [1, 2, 3])
-</code></pre></div>
-<p>we can write:</p>
-<div class="highlight"><pre><span></span><code>let
-  my_list = [1, 2, 3]
-  in
-  my_list |.map(fn(x) =&gt; 2 ^ x)
 </code></pre></div>
 <h3 id="type-annotations">Type annotations</h3>
 <p>Type annotations explicitly specify the type of an expression or pattern. While Coal's type inference system can usually determine types automatically, annotations are useful for documentation, catching errors early, and disambiguating when multiple types are possible.</p>
