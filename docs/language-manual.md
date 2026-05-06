@@ -1,342 +1,5 @@
 # Language manual
 
-## Modules 
-
-Projects in Coal are organized as collections of *modules*. Modules make it possible to group related functionality into distinct namespaces. A module contains functions, type definitions and other language constructs, typically focused on a specific purpose within a library or application.
-
-```
-module %path(%export_list) {
-  %import_statement
-  %import_statement
-  ...
-  %definition
-  %definition
-  ...
-}
-```
-
-A *definition* can be a function, let-binding, data type definition, type alias, trait, or trait instance. Traits and trait instances are [introduced here](#traits). The rest of these are explained in more detail under [Top-level definitions](#top-level-definitions).
-
-Every module is uniquely identified by its *path*. 
-
-- The path mirrors the directory structure of the source file in which the module is located. 
-- Path segments begin with an uppercase letter and are separated by a dot (`.`). 
-- Files have a `.coal` extension. 
-
-A module `Utils.Math.Trigonometry`, for instance, is defined in a file named `Trigonometry.coal`, located under `Utils/Math/` relative to your project’s root directory:
-
-```
-src
-└── Utils
-    └── Math
-        └── Trigonometry.coal
-```
-
-## Top-level definitions
-
-Definitions that occupy the outermost scope of a module are functions, top-level let-expressions, data type definitions, traits, trait instances, and folds.
-
-### Functions
-
-A function is defined with the `fun` keyword, followed by the function’s name and a list of comma-separated arguments enclosed in parentheses. The function body is simply an expression, which comes after the arguments and is preceded by an equals sign:
-
-```
-  fun %name(%arg_1, %arg_2, ..., %arg_n) = %expr
-```
-
-A type annotion can be given to indicate a function’s return type, as in the following example:
-
-```
-  fun is_even(n : int32) : bool =
-    n % 2 == 0
-```
-
-Function parameters are *patterns*, allowing functions to directly deconstruct their arguments. In addition to basic variables, records, tuples, and other data constructors, patterns can also include wildcards, literals, and nested structures. 
-
-```
-  fun grok({ n : int32 }, (fst, snd), _) =
-    ...
-```
-
-Top-level functions can also be defined in the form of a list of pattern-expression pairs, separated by a `|`-symbol. For example:
-
-```
-  fun unpack
-    | [a], true    => a
-    | [a, _], true => a
-    | [a, _, _], _ => a
-    | _, _         => 0
-```
-
-This style of top-level function is equivalent to defining the function with an explicit `match` expression inside its body: 
-
-```
-  fun unpack(a1, a2) =
-    match((a1, a2)) {
-      | ([a], true)    => a
-      | ([a, _], true) => a
-      | ([a, _, _], _) => a
-      | (_, _)         => 0
-    }
-```
-
-Here is another example from the `Option` module:
-
-```
-  fun with_default
-    | _, Some(value) => value
-    | value, _       => value
-
-```
-
-This function is used to extract a value of type `a` from an `Option<a>` by providing a default value for the case when the input is `None`. For example:
-
-```
-  let name = Option.with_default("Anonymous", user.name)
-```
-
-or
-
-```
-  let name = user.name |. with_default("Anonymous")
-```
-
-See **[Pattern matching](#pattern-matching)** for a more detailed discussion of patterns and the `match` syntax.
-
-#### Main
-
-Just like in many other programming languages, the `main` function serves as the entry point of a program:
-
-```
-module Main {
-
-  fun main() =
-    ...
-```
-
-The type of `main` is `unit -> IO<unit>`. See [IO](#io) for an explanation of the `IO` type.
-
-### Let-expressions
-
-The `let` keyword introduces a new name bound to the result of an expression. Inside functions, a `let` is often used to give names to intermediate values:
-
-```
-  fun hypotenuse(a, b) =
-    let sqr_a = a * a;
-        sqr_b = b * b
-    in 
-      sqrt(sqr_a + sqr_b)
-```
-
-Here, `sqr_a` and `sqr_b` are local bindings, only visible in the body that follows the `in`.
-
-At the top level of a module, a `let` works in the same way, except there is no enclosing body — the binding simply introduces a global name that can be referenced elsewhere in the module (or from other modules):
-
-```
-  let days = 
-    [ "Monday"
-    , "Tuesday"
-    , "Wednesday"
-    , "Thursday"
-    , "Friday"
-    , "Saturday"
-    , "Sunday" 
-    ]
-```
-
-Type annotations for let-bindings look similar to those for functions:
-
-```
-  let days : List<string> =
-    [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]
-```
-
-Since a `let` can hold any expression, top-level functions can also be defined this way:
-
-```
-  let add = fn(x, y) => x + y
-  // Equivalent to:
-  // fun add(x, y) = x + y
-```
-
-
-Note that, unlike at the expression level, it isn't possible to bind to a pattern in a top-level let-binding.
-
-```
-  let (a, b) = (1, 3)  // This only works inside expressions
-```
-
-### Data types
-
-User-defined data types in Coal are introduced using the `type` keyword. They are of the product-sum variety.
-
-A *product* type combines multiple fields into one single value: All of the components appear together in the constructed data. An RGB color triplet that contains individual red, green, and blue values can be described with a type:
-
-```
-type Color = Rgb(int8, int8, int8)
-```
-
-A *sum* type is a choice between alternatives: A value belongs to exactly one of the specified variants. A type that represents a shape that can be either a `Circle` or a `Rectangle` can be defined as:
-
-```
-type Shape = Circle | Rectangle
-```
-
-More complex types can be built by combining product and sum constructors. The following is a type that defines a binary tree, parameterized by the type (`a`) of its nodes:
-
-```
-type Tree<a> 
-  = Leaf
-  | Node(a, Tree<a>, Tree<a>)
-```
-
-This definition says that a `Tree<a>` is either:
-
-- a `Leaf` (the empty tree), or
-- a `Node` containing a value of type `a` along with two sub-trees (the left and right branches).
-
-Using this type, we can represent any finite binary tree. For example, here is a tree of integers:
-
-```
-//          (4)
-//          / \
-//       ---------
-//       /       \
-//     (2)       (6)
-//    -----     -----
-//    /   \     /   \ 
-//  (1)   (3) (5)   (7)  
-
-let tree_of_gondor = 
-  Node 
-    ( 4
-    , Node
-        ( 2
-        , Node(1, Leaf, Leaf)
-        , Node(3, Leaf, Leaf)
-        )
-    , Node
-        ( 6
-        , Node(5, Leaf, Leaf)
-        , Node(7, Leaf, Leaf)
-        )
-    )
-```
-
-The structure of the tree is entirely determined by its constructors (`Leaf` and `Node`), which makes recursion natural. 
-
-Algebraic data types are especially useful for describing language grammars and other hierarchical structures. Consider this JSON representation:
-
-```
-  type JsonValue
-    = Null
-    | Bool(bool)
-    | Number(double)
-    | String(string)
-    | Array(List<JsonValue>)
-    | Object(List<(string, JsonValue)>)
-```
-
-### Type aliases
-
-A type alias assigns a name to an existing type, making complex definitions easier to express and reuse. It can refer to primitive types, records, function types, or algebraic data types.
-
-```
-  type alias %Name<%param_1, ..., %param_n> = %type
-```
-
-For example:
-
-```
-  type alias User = { username : string, email : string, permissions: List<Permission> }
-```
-
-An alias can include type parameters. For example, given a type `Map<key, val>`, we can define:
-
-```
-  type alias Dictionary<val> = Map<string, val>
-```
-
-### Imports
-
-An `import` statement is used to bring in functions and other definitions from a module in your project. These statements must appear at the beginning of the module, before any definitions. The following line makes some functions from the `List` module available to the current module:
-
-```
-import List(concat, head, tail)
-```
-
-Note that only definitions that are exported by the source module can be imported. See **[Exports](#exports)**.
-
-#### Type imports
-
-Importing a [type](#data-types) follows the same pattern. After the name of the type is an optional list of data constructors enclosed in parentheses. For example, let’s say our project includes a module `Utilities`, and that this module defines the following type:
-
-```
-  type Answer = Yes | No
-```
-
-To import this type and its constructors, we use the following statement:
-
-```
-import Utilities(Answer(Yes, No))
-```
-
-If the list of constructors is omitted, all public data constructors of the type are imported:
-
-```
-import Utilities(Answer)   // Brings in Answer and its constructors
-```
-
-!!! note "Built-in types are always in scope "
-
-    You may have noticed that some examples use the `List` type without an explicit import. `List` and other built-in types are available in every module by default. 
-    These types include `Option`, `Ordering`, and the different primitive types, such as `int32`, `string`, and `bool`. 
-
-#### Trait imports
-
-[Traits](#traits) are imported in the same way.
-
-```
-import Utilities(Countable)
-```
-
-Alternatively, you can import the individual methods of a trait directly. For example, if `Countable` is defined as:
-
-```
-  trait Countable<a> {
-    count :: a -> nat
-  }
-```
-
-Then `count` can be imported like any regular function:
-
-```
-import Utilities(count)
-```
-
-#### Qualified imports
-
-The special `namespace` keyword allows you to import and access all functions, types, and other definitions from a module via their *qualified* names. A qualified name is formed by prefixing the name with the path of the module followed by a dot (`.`):
-
-```
-// Import the List module under its namespace
-import namespace List
-
-  // And use it like this:
-  let zs = List.concat(xs, ys)
-```
-
-### Exports
-
-In a module declaration, the path identifier is followed by an optional list of exported names enclosed in parentheses. Only exported names are visible outside the module (or *public* in OOP terminology).
-
-```
-module Utils.Math.Trigonometry(sin, cos, tan) {
-  // ...
-```
-
-If this list is left out, everything in the module is exported.
-
 ## Expression syntax
 
 Expressions are the core building blocks of programs. They include variables, literals, let-bindings, operators, and control structures like `if-then-else`. An expression can often be composed of other, smaller expressions. For example, a binary operator consists of two sub-expressions: its left-hand side and right-hand side operands:
@@ -1811,6 +1474,343 @@ This proceeds in two steps: first remove the old field using pattern matching, t
 ```
 
 This function requires not only that the `tag` field is present, but also that it has the expected type. For example, `{ tag = false }` would be rejected, since `tag` is required to have type `string`.
+
+## Modules 
+
+Projects in Coal are organized as collections of *modules*. Modules make it possible to group related functionality into distinct namespaces. A module contains functions, type definitions and other language constructs, typically focused on a specific purpose within a library or application.
+
+```
+module %path(%export_list) {
+  %import_statement
+  %import_statement
+  ...
+  %definition
+  %definition
+  ...
+}
+```
+
+A *definition* can be a function, let-binding, data type definition, type alias, trait, or trait instance. Traits and trait instances are [introduced here](#traits). The rest of these are explained in more detail under [Top-level definitions](#top-level-definitions).
+
+Every module is uniquely identified by its *path*. 
+
+- The path mirrors the directory structure of the source file in which the module is located. 
+- Path segments begin with an uppercase letter and are separated by a dot (`.`). 
+- Files have a `.coal` extension. 
+
+A module `Utils.Math.Trigonometry`, for instance, is defined in a file named `Trigonometry.coal`, located under `Utils/Math/` relative to your project’s root directory:
+
+```
+src
+└── Utils
+    └── Math
+        └── Trigonometry.coal
+```
+
+## Top-level definitions
+
+Definitions that occupy the outermost scope of a module are functions, top-level let-expressions, data type definitions, traits, trait instances, and folds.
+
+### Functions
+
+A function is defined with the `fun` keyword, followed by the function’s name and a list of comma-separated arguments enclosed in parentheses. The function body is simply an expression, which comes after the arguments and is preceded by an equals sign:
+
+```
+  fun %name(%arg_1, %arg_2, ..., %arg_n) = %expr
+```
+
+A type annotion can be given to indicate a function’s return type, as in the following example:
+
+```
+  fun is_even(n : int32) : bool =
+    n % 2 == 0
+```
+
+Function parameters are *patterns*, allowing functions to directly deconstruct their arguments. In addition to basic variables, records, tuples, and other data constructors, patterns can also include wildcards, literals, and nested structures. 
+
+```
+  fun grok({ n : int32 }, (fst, snd), _) =
+    ...
+```
+
+Top-level functions can also be defined in the form of a list of pattern-expression pairs, separated by a `|`-symbol. For example:
+
+```
+  fun unpack
+    | [a], true    => a
+    | [a, _], true => a
+    | [a, _, _], _ => a
+    | _, _         => 0
+```
+
+This style of top-level function is equivalent to defining the function with an explicit `match` expression inside its body: 
+
+```
+  fun unpack(a1, a2) =
+    match((a1, a2)) {
+      | ([a], true)    => a
+      | ([a, _], true) => a
+      | ([a, _, _], _) => a
+      | (_, _)         => 0
+    }
+```
+
+Here is another example from the `Option` module:
+
+```
+  fun with_default
+    | _, Some(value) => value
+    | value, _       => value
+
+```
+
+This function is used to extract a value of type `a` from an `Option<a>` by providing a default value for the case when the input is `None`. For example:
+
+```
+  let name = Option.with_default("Anonymous", user.name)
+```
+
+or
+
+```
+  let name = user.name |. with_default("Anonymous")
+```
+
+See **[Pattern matching](#pattern-matching)** for a more detailed discussion of patterns and the `match` syntax.
+
+#### Main
+
+Just like in many other programming languages, the `main` function serves as the entry point of a program:
+
+```
+module Main {
+
+  fun main() =
+    ...
+```
+
+The type of `main` is `unit -> IO<unit>`. See [IO](#io) for an explanation of the `IO` type.
+
+### Let-expressions
+
+The `let` keyword introduces a new name bound to the result of an expression. Inside functions, a `let` is often used to give names to intermediate values:
+
+```
+  fun hypotenuse(a, b) =
+    let sqr_a = a * a;
+        sqr_b = b * b
+    in 
+      sqrt(sqr_a + sqr_b)
+```
+
+Here, `sqr_a` and `sqr_b` are local bindings, only visible in the body that follows the `in`.
+
+At the top level of a module, a `let` works in the same way, except there is no enclosing body — the binding simply introduces a global name that can be referenced elsewhere in the module (or from other modules):
+
+```
+  let days = 
+    [ "Monday"
+    , "Tuesday"
+    , "Wednesday"
+    , "Thursday"
+    , "Friday"
+    , "Saturday"
+    , "Sunday" 
+    ]
+```
+
+Type annotations for let-bindings look similar to those for functions:
+
+```
+  let days : List<string> =
+    [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]
+```
+
+Since a `let` can hold any expression, top-level functions can also be defined this way:
+
+```
+  let add = fn(x, y) => x + y
+  // Equivalent to:
+  // fun add(x, y) = x + y
+```
+
+
+Note that, unlike at the expression level, it isn't possible to bind to a pattern in a top-level let-binding.
+
+```
+  let (a, b) = (1, 3)  // This only works inside expressions
+```
+
+### Data types
+
+User-defined data types in Coal are introduced using the `type` keyword. They are of the product-sum variety.
+
+A *product* type combines multiple fields into one single value: All of the components appear together in the constructed data. An RGB color triplet that contains individual red, green, and blue values can be described with a type:
+
+```
+type Color = Rgb(int8, int8, int8)
+```
+
+A *sum* type is a choice between alternatives: A value belongs to exactly one of the specified variants. A type that represents a shape that can be either a `Circle` or a `Rectangle` can be defined as:
+
+```
+type Shape = Circle | Rectangle
+```
+
+More complex types can be built by combining product and sum constructors. The following is a type that defines a binary tree, parameterized by the type (`a`) of its nodes:
+
+```
+type Tree<a> 
+  = Leaf
+  | Node(a, Tree<a>, Tree<a>)
+```
+
+This definition says that a `Tree<a>` is either:
+
+- a `Leaf` (the empty tree), or
+- a `Node` containing a value of type `a` along with two sub-trees (the left and right branches).
+
+Using this type, we can represent any finite binary tree. For example, here is a tree of integers:
+
+```
+//          (4)
+//          / \
+//       ---------
+//       /       \
+//     (2)       (6)
+//    -----     -----
+//    /   \     /   \ 
+//  (1)   (3) (5)   (7)  
+
+let tree_of_gondor = 
+  Node 
+    ( 4
+    , Node
+        ( 2
+        , Node(1, Leaf, Leaf)
+        , Node(3, Leaf, Leaf)
+        )
+    , Node
+        ( 6
+        , Node(5, Leaf, Leaf)
+        , Node(7, Leaf, Leaf)
+        )
+    )
+```
+
+The structure of the tree is entirely determined by its constructors (`Leaf` and `Node`), which makes recursion natural. 
+
+Algebraic data types are especially useful for describing language grammars and other hierarchical structures. Consider this JSON representation:
+
+```
+  type JsonValue
+    = Null
+    | Bool(bool)
+    | Number(double)
+    | String(string)
+    | Array(List<JsonValue>)
+    | Object(List<(string, JsonValue)>)
+```
+
+### Type aliases
+
+A type alias assigns a name to an existing type, making complex definitions easier to express and reuse. It can refer to primitive types, records, function types, or algebraic data types.
+
+```
+  type alias %Name<%param_1, ..., %param_n> = %type
+```
+
+For example:
+
+```
+  type alias User = { username : string, email : string, permissions: List<Permission> }
+```
+
+An alias can include type parameters. For example, given a type `Map<key, val>`, we can define:
+
+```
+  type alias Dictionary<val> = Map<string, val>
+```
+
+### Imports
+
+An `import` statement is used to bring in functions and other definitions from a module in your project. These statements must appear at the beginning of the module, before any definitions. The following line makes some functions from the `List` module available to the current module:
+
+```
+import List(concat, head, tail)
+```
+
+Note that only definitions that are exported by the source module can be imported. See **[Exports](#exports)**.
+
+#### Type imports
+
+Importing a [type](#data-types) follows the same pattern. After the name of the type is an optional list of data constructors enclosed in parentheses. For example, let’s say our project includes a module `Utilities`, and that this module defines the following type:
+
+```
+  type Answer = Yes | No
+```
+
+To import this type and its constructors, we use the following statement:
+
+```
+import Utilities(Answer(Yes, No))
+```
+
+If the list of constructors is omitted, all public data constructors of the type are imported:
+
+```
+import Utilities(Answer)   // Brings in Answer and its constructors
+```
+
+!!! note "Built-in types are always in scope "
+
+    You may have noticed that some examples use the `List` type without an explicit import. `List` and other built-in types are available in every module by default. 
+    These types include `Option`, `Ordering`, and the different primitive types, such as `int32`, `string`, and `bool`. 
+
+#### Trait imports
+
+[Traits](#traits) are imported in the same way.
+
+```
+import Utilities(Countable)
+```
+
+Alternatively, you can import the individual methods of a trait directly. For example, if `Countable` is defined as:
+
+```
+  trait Countable<a> {
+    count :: a -> nat
+  }
+```
+
+Then `count` can be imported like any regular function:
+
+```
+import Utilities(count)
+```
+
+#### Qualified imports
+
+The special `namespace` keyword allows you to import and access all functions, types, and other definitions from a module via their *qualified* names. A qualified name is formed by prefixing the name with the path of the module followed by a dot (`.`):
+
+```
+// Import the List module under its namespace
+import namespace List
+
+  // And use it like this:
+  let zs = List.concat(xs, ys)
+```
+
+### Exports
+
+In a module declaration, the path identifier is followed by an optional list of exported names enclosed in parentheses. Only exported names are visible outside the module (or *public* in OOP terminology).
+
+```
+module Utils.Math.Trigonometry(sin, cos, tan) {
+  // ...
+```
+
+If this list is left out, everything in the module is exported.
 
 ## Pattern matching
 
