@@ -494,6 +494,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#reverse-application-pipelining" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reverse application pipelining
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#type-annotations" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -1198,6 +1209,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         Operators
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reverse-application-pipelining" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reverse application pipelining
       </span>
     </span>
   </a>
@@ -2211,6 +2233,34 @@ Error: Name &quot;fib&quot; not in scope
 </tr>
 </tbody>
 </table>
+<h3 id="reverse-application-pipelining">Reverse application pipelining</h3>
+<p>The operator <code>|.</code> represents a reversed version of regular function application. It is very convenient when chaining together multiple function calls. Suppose we have the following basic drawing API:</p>
+<div class="highlight"><pre><span></span><code>circle       : Config -&gt; Shape
+fill         : string -&gt; Shape -&gt; Shape
+set_position : float -&gt; float -&gt; Shape -&gt; Shape
+draw_shape   : Shape -&gt; Canvas -&gt; Canvas
+</code></pre></div>
+<p>To describe a sequence of steps that creates a circle, sets properties such as its color and position, and finally places it on the canvas, we would normally write:</p>
+<div class="highlight"><pre><span></span><code>draw_shape(set_position(10.0f, 5.0f, fill(&quot;blue&quot;, circle({ radius = 5.0f }))), canvas)
+</code></pre></div>
+<p>Using the reverse function application operator, we could instead write the above in a more readable <em>pipeline</em>-style:</p>
+<div class="highlight"><pre><span></span><code>circle({ radius = 5.0f })
+  |.fill(&quot;blue&quot;)
+  |.set_position(10.0f, 5.0f)
+  |.flip(draw_shape, canvas)
+</code></pre></div>
+<p>This way of expressing operations resembles method invocation in object-oriented programming. For example, instead of:</p>
+<div class="highlight"><pre><span></span><code>let 
+  my_list = [1, 2, 3]
+  in
+  map(fn(x) =&gt; 2 ^ x, [1, 2, 3])
+</code></pre></div>
+<p>we can write:</p>
+<div class="highlight"><pre><span></span><code>let
+  my_list = [1, 2, 3]
+  in
+  my_list |.map(fn(x) =&gt; 2 ^ x)
+</code></pre></div>
 <h3 id="type-annotations">Type annotations</h3>
 <p>Type annotations explicitly specify the type of an expression or pattern. While Coal's type inference system can usually determine types automatically, annotations are useful for documentation, catching errors early, and disambiguating when multiple types are possible.</p>
 <p>The syntax uses a colon (<code>:</code>) followed by the type:</p>
@@ -2589,21 +2639,7 @@ uncons : List&lt;a&gt; -&gt; Option&lt;(a, List&lt;a&gt;)&gt;
 <p>The operator <code>|.</code> is used in the following examples. It is an infix operator that performs function application, but with the arguments reversed. So, for example, the expression 
 <div class="highlight"><pre><span></span><code>  xs |.map(f)
 </code></pre></div>
-is really syntactic sugar for <code>map(f, xs)</code>. This operator is very convenient when chaining together multiple function calls. Suppose we have the following basic drawing API:</p>
-<div class="highlight"><pre><span></span><code>circle       : Config -&gt; Shape
-fill         : string -&gt; Shape -&gt; Shape
-set_position : float -&gt; float -&gt; Shape -&gt; Shape
-draw_shape   : Shape -&gt; Canvas -&gt; Canvas
-</code></pre></div>
-<p>To describe a sequence of steps that creates a circle, sets properties such as its color and position, and finally places it on the canvas, we would normally write:</p>
-<div class="highlight"><pre><span></span><code>draw_shape(set_position(10.0f, 5.0f, fill(&quot;blue&quot;, circle({ radius = 5.0f }))), canvas)
-</code></pre></div>
-<p>Using the reverse function application operator, we could instead write the above in a more readable <em>pipeline</em>-style:</p>
-<div class="highlight"><pre><span></span><code>circle({ radius = 5.0f })
-  |.fill(&quot;blue&quot;)
-  |.set_position(10.0f, 5.0f)
-  |.flip(draw_shape, canvas)
-</code></pre></div>
+is really syntactic sugar for <code>map(f, xs)</code>. This operator is explained in more detailed under <a href="#reverse-application-pipelining">Reverse application pipelining</a>.</p>
 </div>
 <h5 id="take-drop-and-slice">Take, drop and slice</h5>
 <p>Use <code>take</code> to get another list with the first <em>n</em> elements from a given list:</p>
