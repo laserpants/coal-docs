@@ -1917,6 +1917,8 @@ With guards, the same logic becomes more declarative:
 
 Each `when` clause tests a condition in order. If none of the `when` conditions match, the `otherwise` clause serves as a fallback for that pattern. Guards are evaluated sequentially, and the first matching guard's expression is executed.
 
+#### Fallthrough semantics
+
 An important distinction between guards and `if-then-else` expressions is that guards can *fail* and allow the match to continue to the next clause. Unlike `if-then-else`, which requires both a `then` and `else` branch, a `when` guard without a matching condition will fall through to the next pattern in the `match` expression. For example:
 
 ```
