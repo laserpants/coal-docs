@@ -3032,6 +3032,7 @@ Non-exhaustive patterns
   }
 </code></pre></div>
 <p>Each <code>when</code> clause tests a condition in order. If none of the <code>when</code> conditions match, the <code>otherwise</code> clause serves as a fallback for that pattern. Guards are evaluated sequentially, and the first matching guard's expression is executed.</p>
+<h4 id="fallthrough-semantics">Fallthrough semantics</h4>
 <p>An important distinction between guards and <code>if-then-else</code> expressions is that guards can <em>fail</em> and allow the match to continue to the next clause. Unlike <code>if-then-else</code>, which requires both a <code>then</code> and <code>else</code> branch, a <code>when</code> guard without a matching condition will fall through to the next pattern in the <code>match</code> expression. For example:</p>
 <div class="highlight"><pre><span></span><code>  match(opt) {
     | Some(n) when (n &gt; 0) =&gt; &quot;positive&quot;
