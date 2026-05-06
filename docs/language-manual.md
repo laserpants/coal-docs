@@ -669,6 +669,50 @@ Coal supports the standard logical operators for working with boolean values.
 | ------------- | ---------------------- | ------------------------------- |                                                                        
 | `+++`         | String concatenation   | `string -> string -> string`    |                                                                        
 
+### Reverse application pipelining
+
+The operator `|.` represents a reversed version of regular function application. It is very convenient when chaining together multiple function calls. Suppose we have the following basic drawing API:
+
+```
+circle       : Config -> Shape
+fill         : string -> Shape -> Shape
+set_position : float -> float -> Shape -> Shape
+draw_shape   : Shape -> Canvas -> Canvas
+```
+
+To describe a sequence of steps that creates a circle, sets properties such as its color and position, and finally places it on the canvas, we would normally write:
+
+```
+draw_shape(set_position(10.0f, 5.0f, fill("blue", circle({ radius = 5.0f }))), canvas)
+```
+
+Using the reverse function application operator, we could instead write the above in a more readable *pipeline*-style:
+
+```
+circle({ radius = 5.0f })
+  |.fill("blue")
+  |.set_position(10.0f, 5.0f)
+  |.flip(draw_shape, canvas)
+```
+
+This way of expressing operations resembles method invocation in object-oriented programming. For example, instead of:
+
+```
+let 
+  my_list = [1, 2, 3]
+  in
+  map(fn(x) => 2 ^ x, [1, 2, 3])
+```
+
+we can write:
+
+```
+let
+  my_list = [1, 2, 3]
+  in
+  my_list |.map(fn(x) => 2 ^ x)
+```
+
 ### Type annotations
 
 Type annotations explicitly specify the type of an expression or pattern. While Coal's type inference system can usually determine types automatically, annotations are useful for documentation, catching errors early, and disambiguating when multiple types are possible.
@@ -1208,29 +1252,7 @@ uncons : List<a> -> Option<(a, List<a>)>
     ```
       xs |.map(f)
     ```
-    is really syntactic sugar for `map(f, xs)`. This operator is very convenient when chaining together multiple function calls. Suppose we have the following basic drawing API:
-
-    ```
-    circle       : Config -> Shape
-    fill         : string -> Shape -> Shape
-    set_position : float -> float -> Shape -> Shape
-    draw_shape   : Shape -> Canvas -> Canvas
-    ```
-
-    To describe a sequence of steps that creates a circle, sets properties such as its color and position, and finally places it on the canvas, we would normally write:
-
-    ```
-    draw_shape(set_position(10.0f, 5.0f, fill("blue", circle({ radius = 5.0f }))), canvas)
-    ```
-
-    Using the reverse function application operator, we could instead write the above in a more readable *pipeline*-style:
-
-    ```
-    circle({ radius = 5.0f })
-      |.fill("blue")
-      |.set_position(10.0f, 5.0f)
-      |.flip(draw_shape, canvas)
-    ```
+    is really syntactic sugar for `map(f, xs)`. This operator is explained in more detailed under [Reverse application pipelining](#reverse-application-pipelining).
 
 ##### Take, drop and slice
 
