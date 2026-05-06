@@ -671,7 +671,21 @@ Coal supports the standard logical operators for working with boolean values.
 
 ### Reverse application pipelining
 
-The operator `|.` represents a reversed version of regular function application. It is very convenient when chaining together multiple function calls. Suppose we have the following basic drawing API:
+The operator `|.` represents a reversed version of regular function application. For example, instead of:
+
+```
+let my_list = [1, 2, 3] in
+  map(fn(x) => 2 ^ x, [1, 2, 3])
+```
+
+we can write:
+
+```
+let my_list = [1, 2, 3] in
+  my_list |.map(fn(x) => 2 ^ x)
+```
+
+This way of expressing operations resembles method invocation in object-oriented programming. It is very convenient when chaining together multiple function calls. Suppose we have the following basic drawing API:
 
 ```
 circle       : Config -> Shape
@@ -693,24 +707,6 @@ circle({ radius = 5.0f })
   |.fill("blue")
   |.set_position(10.0f, 5.0f)
   |.flip(draw_shape, canvas)
-```
-
-This way of expressing operations resembles method invocation in object-oriented programming. For example, instead of:
-
-```
-let 
-  my_list = [1, 2, 3]
-  in
-  map(fn(x) => 2 ^ x, [1, 2, 3])
-```
-
-we can write:
-
-```
-let
-  my_list = [1, 2, 3]
-  in
-  my_list |.map(fn(x) => 2 ^ x)
 ```
 
 ### Type annotations
