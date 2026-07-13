@@ -5,18 +5,37 @@
 #### Tree.coal
 
 ```
-module Tree {
+module Tree(Tree, insert, from_list, flatten) {
+
+  import List(reduce)
 
   type Tree<a>
-    = Node(a, Tree<a>, Tree<a>)
-    | Leaf
+    = Leaf
+    | Node(a, Tree<a>, Tree<a>)
 
-  fun flatten(tree) = 
+  fun insert(n : a, tree : Tree<a>) : Tree<a> with (Ordered<a>) =
     fold(tree) {
-      | Node(y, @lhs, @rhs) =>
-          lhs ++ y :: rhs
-      | Leaf =>
-          []
+      | Leaf => 
+          Node(n, Leaf, Leaf)
+      | Node(v, @left as left_tree, @right as right_tree) 
+          when (n < v) => 
+            Node(v, left, right_tree)
+          when (n > v) => 
+            Node(v, left_tree, right)
+          otherwise => 
+            Node(v, left_tree, right_tree)
+    }
+
+  fun from_list(xs : List<a>) : Tree<a> with (Ordered<a>) =
+    reduce(insert, Leaf, xs)
+
+  fun flatten(tree : Tree<a>) : List<a> =
+    fold(tree, []) {
+      | Leaf => 
+          fn(acc) => acc
+      | Node(v, @left, @right) =>
+          fn(acc) =>
+            left(v :: right(acc))
     }
 
 }
@@ -27,28 +46,10 @@ module Tree {
 ```
 module Qsort(sort) {
 
-  import Tree(Tree, flatten)
-  import Coal.Combinators(always)
-  import Number(_INT32_MAX)
+  import Tree(flatten, from_list)
 
-  fun binary_search_tree(list : List<int32>) : Tree<int32> =
-    fold(list, { min = 0, max = _INT32_MAX }) {
-      | (p :: @g) =>
-          fn(range) =>
-            if (p > range.min && p <= range.max)
-              then 
-                Node
-                  ( p 
-                  , g({ min = range.min, max = p })
-                  , g({ min = p, max = range.max })
-                  )
-              else
-                g(range)
-      | [] =>
-          always(Leaf)
-    }
-
-  let sort = flatten << binary_search_tree
+  let sort : List<a> -> List<a> with (Ordered<a>) =
+    flatten << from_list
 
 }
 ```
@@ -59,23 +60,30 @@ module Qsort(sort) {
 module Main {
 
   import Qsort(sort)
-  import Coal.Monad(Monad, and_eval)
   import IO(return)
-
+  
   import namespace IO
 
-  fun print_all(ints : List<int32>) : IO<unit> =
-    fold(ints) {
-      | [] => 
-          return()
-      | m :: @next =>
-          IO.println_int32(m) |. and_eval(next)
+  fun print_1st(xs) =
+    match(xs) {
+      | x :: _ => IO.println_int32(x)
+      | _ => IO.println_int32(-1)
+    }
+
+  fun print_2nd(xs) =
+    match(xs) {
+      | _ :: x :: _ => IO.println_int32(x)
+      | _ => IO.println_int32(-1)
     }
 
   fun main() = 
-    let xs = [105, 103, 234, 109, 107, 55, 102, 999, 101, 8, 106, 104]
-    in
-    print_all(sort(xs))
+    let sorted = sort([ 4, 34, 8, 99, 5, 102, 42, 7, 2, 1, 103, 3, 6 ]) 
+    in 
+      do {
+        print_1st(sorted) ;
+        print_2nd(sorted) ;
+        return() ;
+      }
 
 }
 ```
@@ -219,18 +227,15 @@ module Main {
   }
 
   instance Monad<Reader<r>> {
-    fun bind(reader : Reader<r, a>, next : a -> Reader<r, b>) : Reader<r, b> = 
-      match(reader) {
-        | Reader(f) =>
-            Reader(fn(env) =>
-              let a = 
-                f(env) 
-              in
-              match(next(a)) {
-                | Reader(g) => g(env)
-              }
-            )
-      }
+    fun bind(Reader(f) : Reader<r, a>, next : a -> Reader<r, b>) : Reader<r, b> = 
+      Reader(fn(env) =>
+        let a = 
+          f(env) 
+        in
+        match(next(a)) {
+          | Reader(g) => g(env)
+        }
+      )
   }
 
   fun local(transform, Reader(f)) = 
