@@ -296,7 +296,7 @@ Coal supports the standard logical operators for working with boolean values.
 
 !!! note 
 
-    Like in most other languages, the `&&` and `||` operators use short-circuit evaluation. For `&&`, if the left operand is `false`, the right operand is not evaluated, since the result must be `false` regardless. Similarly, for `||`, if the left operand is `true`, the right operand is not evaluated, since the result must be `true`. 
+    Like in most other languages, the `&&` and `||` operators perform short-circuit evaluation. For `&&`, if the left operand is `false`, the right operand is not evaluated, since the result must be `false` regardless. Similarly, for `||`, if the left operand is `true`, the right operand is not evaluated, since the result must be `true`. 
 
 
 #### Data
@@ -334,7 +334,7 @@ Coal supports the standard logical operators for working with boolean values.
 
 ### Reverse application pipelining
 
-The operator `|.` represents a reversed version of regular function application. For example, instead of:
+The operator `|.` is a reversed version of ordinary function application. For example, instead of:
 
 ```
 let my_list = [1, 2, 3] in

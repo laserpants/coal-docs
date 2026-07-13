@@ -61,29 +61,22 @@ module Main {
 
   import Qsort(sort)
   import IO(return)
+  import Coal.Monad(and_eval)
   
   import namespace IO
 
-  fun print_1st(xs) =
-    match(xs) {
-      | x :: _ => IO.println_int32(x)
-      | _ => IO.println_int32(-1)
-    }
-
-  fun print_2nd(xs) =
-    match(xs) {
-      | _ :: x :: _ => IO.println_int32(x)
-      | _ => IO.println_int32(-1)
+  fun print_all(ints : List<int32>) : IO<unit> =
+    fold(ints) {
+      | [] =>
+          return()
+      | m :: @next =>
+          IO.println_int32(m) |. and_eval(next)
     }
 
   fun main() = 
     let sorted = sort([ 4, 34, 8, 99, 5, 102, 42, 7, 2, 1, 103, 3, 6 ]) 
     in 
-      do {
-        print_1st(sorted) ;
-        print_2nd(sorted) ;
-        return() ;
-      }
+    print_all(sorted) 
 
 }
 ```
@@ -581,7 +574,7 @@ module Map {
     | Map({ left = delete_min_node(@left) | _ } as m) =>
         let (k, v, new_left) = left 
         in
-        (Some(k), Some(v), rebalance(make_node(m.key, m.value, new_left, m.right)))
+        (k, v, rebalance(make_node(m.key, m.value, new_left, m.right)))
   }
 
   fun delete(key, map) =
