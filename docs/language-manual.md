@@ -2106,7 +2106,9 @@ The `Numeric` instance for this type could then be implemented as:
 
 #### Ordered
 
- The `Ordered` trait captures the notion of a [total order](https://en.wikipedia.org/wiki/Total_order) on its parameterized type (similar to Haskell’s `Ord` type class). This makes it possible to compare two values using the comparison (`<`, `>`, `<=`, and `>=`) and equality (`==` and `!=`) operators.
+The `Ordered` trait captures the notion of a [total order](https://en.wikipedia.org/wiki/Total_order) on its parameterized type (similar to Haskell’s `Ord` type class). This makes it possible to compare two values using the comparison (`<`, `>`, `<=`, and `>=`) operators.
+
+For boolean values we can define an instance:
 
 ```
   instance Ordered<bool> {
