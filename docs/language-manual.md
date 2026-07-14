@@ -2120,18 +2120,12 @@ The `Numeric` instance for this type could then be implemented as:
 Here is how this instance can be used:
 
 ```
-  let result = false < true  // true
+  let result = false < true  // evaluates to true
 ```
 
 ### Higher-kinded traits
 
-So far, the traits we’ve looked at have all been of the form `T<t>`, where `t` is a placeholder for any ordinary type. Unlike these, a *type constructor* is a type-level function which takes one or more types as arguments and returns a type. That is, a type constructor on its own isn’t really a type, until it is provided with all necessary type arguments. For example, in the type `Option<int32>`, `Option` is a type constructor with [kind](https://en.wikipedia.org/wiki/Kind_(type_theory))
-
-```
-* -> *
-```
-
-where `*` denotes a *proper* type (i.e., a fully applied type with no parameters). We can read `Option : * -> *` as:
+So far, the traits we’ve looked at have all been of the form `T<t>`, where `t` is a placeholder for any ordinary type. Unlike these, a *type constructor* is a type-level function which takes one or more types as arguments and returns a type. That is, a type constructor on its own isn’t really a type, until it is provided with all necessary type arguments. For example, in the type `Option<int32>`, `Option` is a type constructor with [kind](https://en.wikipedia.org/wiki/Kind_(type_theory)) `* -> *`, where `*` denotes a *proper* type (i.e., a fully applied type with no parameters). We can then read `Option : * -> *` as:
 
 > Option is a type constructor that takes a type as input and produces a type.
 
@@ -2194,7 +2188,7 @@ fun factorial(n) =
     else n * factorial(n - 1)
 ```
 
-If we pass this function to the Coal compiler, it rejects the program with the following error:
+If we pass this function to the Coal compiler, then the program is rejected with the following error:
 
 ```
   |       else n * factorial(n - 1)
@@ -2211,7 +2205,7 @@ A fold (or *catamorphism*) is a way to deconstruct data, layer by layer. It abst
 
 > Although similar to how folds work in many other programming langues, note that `fold` is a language keyword in Coal, and not an ordinary function. It is syntactically similar to a `match` expression (explained [here](#pattern-matching)), but with the crucial difference that a `fold` carries built-in support for recursion. 
 
-To implement the factorial function using a fold, we are going to use the `nat` data type, which [defines the natural numbers](#natural-numbers) recursively:
+To implement the factorial function using a fold, we are going to use the `nat` data type, which [enumerates the natural numbers](#natural-numbers) recursively:
 
 ```
 Zero, Succ(Zero), Succ(Succ(Zero)), ...
@@ -2648,7 +2642,7 @@ a -> m<b>
 
 The type constructor `m` determines the context or effect that underpins the computation. For example, `Option` represents computations that might fail, `List` represents non-deterministic computations with multiple results, and `IO` represents computations that perform side effects.
 
-In the case of `IO`, the type `IO<a>` represents a computation that, when executed, performs side effects and produces a value of type `a`. Unlike pure functions of type `a -> b`, IO computations interact with the outside world.
+In the case of `IO`, the type `IO<a>` represents a computation that performs side effects and produces a value of type `a`. Unlike pure functions of type `a -> b`, IO computations interact with the outside world.
 
 Given two monadic functions:
 
