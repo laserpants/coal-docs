@@ -194,7 +194,7 @@ None. Dependencies are read from `coal.json` in the current directory.
 
 #### Package storage
 
-Packages are stored at: `.coal/packages/<package-name>/<commit-hash>/`
+Packages are stored in: `.coal/packages/<package-name>/<commit-hash>/`
 
 For example:
 ```
