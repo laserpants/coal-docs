@@ -71,6 +71,7 @@ coal compile [OPTIONS] FILES...
 | `--debug-llvm-ir` | | Flag | Output intermediate LLVM IR |
 | `--silent` | `-s` | Flag | Suppress terminal output |
 | `--no-cache` | | Flag | Disable caching |
+| `--entry-point MODULE.FUNCTION` | | Optional | Entry point module and function (e.g., `Main.main`) |
 
 #### Behavior
 
@@ -116,6 +117,12 @@ coal compile -I. Main.coal --extra-c helpers.c --extra-c utils.c -o myapp
 
 ```bash
 coal compile -s --no-cache -I. Main.coal -o dist
+```
+
+**Compile with custom entry point:**
+
+```bash
+coal compile -I. Main.coal -o myprogram --entry-point Main.main
 ```
 
 ### coal build
@@ -289,6 +296,7 @@ The project manifest file defines package metadata, modules, dependencies, and b
   "version": "<semver-version>",
   "modules": ["<module-path>", ...],
   "source_dirs": ["<path>", ...],
+  "entry_point": "Module.function",
   "dependencies": {
     "<package-name>": {
       "version": "<version-constraint>",
@@ -306,6 +314,7 @@ The project manifest file defines package metadata, modules, dependencies, and b
 | `version` | `String` | No | Package version in SemVer format (e.g., `"0.1.0"`, `"1.2.3"`) |
 | `modules` | `Array[String]` | Yes | List of module paths to compile |
 | `source_dirs` | `Array[String]` | No | Source directories to search (defaults to `["src"]`) |
+| `entry_point` | `String` | No | Entry point module and function (e.g., `"Main.main"`) |
 | `dependencies` | `Object` | No | Map of package dependencies |
 
 #### Module paths
@@ -376,6 +385,17 @@ Each dependency entry has the following structure:
       "git": "ssh://git@codeberg.org/laserpants/coal-hello-world.git"
     }
   }
+}
+```
+
+**With custom entry point:**
+
+```json
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "modules": ["Main", "Utils.Helpers"],
+  "entry_point": "Main.main"
 }
 ```
 
