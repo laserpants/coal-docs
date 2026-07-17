@@ -2746,8 +2746,8 @@ For streams, `cons` prepends one observation. The first `tail` discards the prep
 ```
 let values = cons(3, cons(5, nats))
 
-values |.head             // 3
-values |.tail |.head      // 5
+values |.head               // 3
+values |.tail |.head        // 5
 values |.tail |.tail |.head // 0
 ```
 
