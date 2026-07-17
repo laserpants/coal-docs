@@ -1998,12 +1998,12 @@ Each `when` clause tests a condition in order. If none of the `when` conditions 
 
 #### Fallthrough semantics
 
-An important distinction between guards and `if-then-else` expressions is that guards can *fail* and allow the match to continue to the next clause. Unlike `if-then-else`, which requires both a `then` and `else` branch, a `when` guard without a matching condition will fall through to the next pattern in the `match` expression. For example:
+An important difference between guards and `if-then-else` expressions is that guards can *fail* and allow the match to continue to the next clause. Unlike `if-then-else`, which requires both a `then` and `else` branch, a `when` guard without a matching condition will fall through to the next pattern in the `match` expression. For example:
 
 ```
   match(opt) {
     | Some(n) when (n > 0) => "positive"
-    | Some(n) => "non-positive or zero"
+    | Some(n) => "negative or zero"
     | None => "no value"
   }
 ```
