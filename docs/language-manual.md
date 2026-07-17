@@ -532,7 +532,7 @@ add(1.0, 2.0)               // returns double
 add(1.0f, 2.0f)             // returns float
 ```
 
-The compiler resolves the concrete type based on how the value is used, ensuring type safety while maintaining convenience.
+The compiler resolves the concrete type based on how the value is used, ensuring type safety while making numeric literals straightforward to work with.
 
 !!! note "Qualified types"
 
