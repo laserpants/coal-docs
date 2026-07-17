@@ -2424,7 +2424,7 @@ module Json {
 
 ### Codata and corecursion
 
-Recursion over ordinary data in Coal (or any language with well-founded recursion) is always guaranteed to terminate. This implies that all data is finite as well. In many cases, this is desirable &mdash; it makes reasoning about programs predictable and safe. However, there are situations where we want potentially infinite structures or non-terminating behavior. For example:
+Recursion over ordinary data in Coal (or any language with well-founded recursion) is always guaranteed to terminate. This means that all data is finite as well. In many cases, this is desirable &mdash; it makes reasoning about programs predictable and safe. However, there are situations where we want potentially infinite structures or non-terminating behavior. For example:
 
 - Infinite sequences of numbers, like the natural numbers, are easy to describe in Haskell due to its lazy-by-default evaluation strategy:
 
@@ -2685,7 +2685,7 @@ This pipeline first prints a prompt, then reads a line of input, and finally pri
 
 ### Do-notation
 
-Monads allude to a way of structuring programs similar to imperative programming. Taking this a step further, `do`-notation was introduced in Haskell to allow a more readable syntax.
+Monads and the bind-operator allude to a way of structuring programs similar to imperative programming. Taking this a step further, `do`-notation was introduced in Haskell to allow a more readable syntax.
 
 Coal supports `do`-notation for sequencing monadic operations. The same example from above can be written more concisely as:
 
