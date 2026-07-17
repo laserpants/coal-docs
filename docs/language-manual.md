@@ -2003,12 +2003,11 @@ An important difference between guards and `if-then-else` expressions is that gu
 ```
   match(opt) {
     | Some(n) when (n > 0) => "positive"
-    | Some(n) => "negative or zero"
-    | None => "no value"
+    | _ => "no value, zero, or negative"
   }
 ```
 
-Here, if `opt` is `Some(n)` but `n` is not greater than zero, the first clause's guard fails and matching continues with the second clause. This would be impossible to express cleanly with nested `if-then-else`, which would force you to handle all cases within the first `Some` branch or duplicate the pattern.
+Here, if `opt` is `Some(n)` but `n` is not greater than zero, the first clause's guard fails and matching continues with the wildcard clause. The same wildcard also handles `None`. This allows values with different patterns to share a fallback clause without duplicating its result or handling every case within the first `Some` branch.
 
 ### Supported patterns
 
