@@ -66,14 +66,28 @@ let answer = 42
 ```
 
 are *overloaded*. The inferred type of this expression is `n with (Numeric<n>)`, which means that `n` can be *any* type, as long as it implements the `Numeric` trait (see **[Traits](#traits)**). This includes the built-in `int32`, `int64`, `float`, `double`, `bignum`, and `nat` types. All `Numeric` types support the basic arithmetic operations of addition, subtraction, and multiplication.
+For example:
 
 ```
 fun sum_of(x, y, z) = 
   x + y + z 
 
-let n : int32 = sum_of(1, 2, 3)
+```
+
+In this example, the function `sum_of` is polymorphic: it can operate on any type that implements `Numeric`.  With explicit type annotations:
+
+```
+fun sum_of(x : a, y : a, z : a) : a with (Numeric<a>) = 
+```
+
+We can then use `sum_of` in the following way:
+
+```
+let n : int32  = sum_of(1, 2, 3)
 let d : double = sum_of(0.5, 1.0, 1.5)
 ```
+
+The expected types of `n` and `d` specialize the first call to `int32` and the second to `double`, respectively.
 
 ### Function application
 
@@ -375,8 +389,9 @@ circle({ radius = 5.0f })
 ### Type annotations
 
 Type annotations explicitly specify the type of an expression or pattern. While Coal's type inference system can usually determine types automatically, annotations are useful for documentation, catching errors early, and disambiguating when multiple types are possible.
+Annotations can appear in many contexts: let-bindings, function parameters, lambda arguments, match patterns, and standalone expressions. 
 
-The syntax uses a colon (`:`) followed by the type:
+A type annotation is written in postfix form, as a colon (`:`) followed by the type:
 
 ```
 <expr> : type
@@ -386,10 +401,10 @@ The syntax uses a colon (`:`) followed by the type:
 <pattern> : type
 ```
 
-For example, you can annotate a variable to specify its type:
+For example, you can specify the exact type of a numeric expression:
 
 ```
-let x : int32 = 42
+5 + 3 : int32
 ```
 
 Or annotate a pattern in a function parameter:
@@ -398,7 +413,13 @@ Or annotate a pattern in a function parameter:
 fun process(value : string) = ...
 ```
 
-Type annotations can appear in many contexts: let-bindings, function parameters, lambda arguments, match patterns, and standalone expressions. When provided, the compiler verifies that the annotated type matches the inferred type, reporting an error if there's a mismatch.
+In `let`-expressions, you can annotate variables to specify their type:
+
+```
+let x : int32 = 42
+```
+
+When provided, the compiler verifies that the annotated type matches the inferred type, reporting an error if there's a mismatch.
 
 ### Comments
 
@@ -488,11 +509,47 @@ let pi_precise : double = 3.141592653589793
 
 #### Natural numbers
 
-Natural numbers (`nat`) are covered in detail under [Natural numbers](#natural-numbers). They provide a recursion-friendly representation of non-negative integers using the Peano construction.
+Natural numbers (`nat`) are covered in detail under [Natural numbers](#natural-numbers). They provide a recursion-friendly representation of non-negative integers, based on the Peano construction.
 
 #### Numeric literal overloading
 
-Numeric literals in Coal are polymorphic — their type is inferred from context or can be explicitly annotated. When you write a literal like `42`, its type is initially `n with (Numeric<n>)`, meaning it can be any type that implements the [`Numeric`](#numeric) trait.
+Numeric literals in Coal are polymorphic — their type is inferred from context or can be explicitly annotated. When you write a literal like `42`, its inferred type is `n with (Numeric<n>)`, meaning it can be any type that implements the [`Numeric`](#numeric) trait.
+
+
+!!! note "Qualified types"
+
+    One way to think of types such as `n with (Numeric<n>)` is as a form of placeholder. 
+    Numeric literals are translated by the compiler to a function call, e.g.:
+
+    ```
+    from_int32(42)
+    ```
+
+    The type of `from_int32` is `int32 -> n with (Numeric<n>)` 
+
+    When you define an expression like
+
+    ```
+    fun do_stuff(x, y) =
+      ...
+        let x =
+          42
+        in
+      ...
+    ```
+
+    the compiler inserts 
+
+    ```
+    fun do_stuff(num_instance : Numeric<n>, x, y) =
+      ...
+        let x =
+          num_instance.from_int32(42)
+        in
+      ...
+    ```
+
+    See **[Traits](#traits)** for
 
 ```
 let a : int32 = 100   // 100 inferred as int32
