@@ -2498,7 +2498,7 @@ The key difference between data and codata lies in how values are produced and c
 |                    | Access pattern                     | Structure             | Evaluation strategy  | Invariant               |
 | ------------------ | ---------------------------------- | --------------------- | -------------------- | ----------------------- |
 | **Data**           | Recursion (`fold`)                 | Always finite         | Eager (strict)       | Progress                |
-| **Codata**         | Corecursion (`receive`, `observe`) | Potentially infinite  | Lazy (non-strict)    | Productivity            |
+| **Codata**         | Corecursion (`receive`, `observe`) | Potentially infinite  | Observation-driven   | Productivity            |
 
 Codata is ideal for representing streams, event sequences, or any ongoing process, where you only need to observe a finite part at a time. 
 
@@ -2506,10 +2506,16 @@ Codata is ideal for representing streams, event sequences, or any ongoing proces
 
 One of the most practical applications of codata is representing infinite streams — sequences of values that can be observed one at a time, without ever constructing the entire sequence in memory.
 
-A stream in Coal is defined as a process that produces values without requiring meaningful input:
+A stream in Coal is a `Machine` that produces values without requiring meaningful input:
 
 ```
-type alias Stream<a> = Process<a, unit>
+type alias Stream<a> = Machine<unit, a>
+```
+
+The first type argument of `Machine` is its input type and the second is its output type. A stream accepts only `unit`, so advancing it requires no meaningful input. The alias and the stream operations in this section are provided by `Codata.Stream`:
+
+```
+import Codata.Stream(Stream, repeat, enum_from, nats, head, tail)
 ```
 
 The simplest stream is one that repeats the same value indefinitely:
@@ -2519,7 +2525,7 @@ fun repeat(state : a) : Stream<a> =
   process(state, fn(_, _) => state)
 ```
 
-Here, `process` creates a stream from an initial state and a step function. The step function receives the current input (which we ignore with `_`) and the current state, and returns the next state. Since we always return the same state, this stream repeats endlessly.
+The function `process` creates a stream from an initial state and a step function. The step function receives the current input (which we ignore with `_`) and the current state, and returns the next state. Since we always return the same state, this stream repeats endlessly.
 
 A more interesting example is a stream that counts upward from a starting number:
 
@@ -2527,10 +2533,11 @@ A more interesting example is a stream that counts upward from a starting number
 fun enum_from(n : int32) : Stream<int32> =
   process(n, fn(_, m) => m + 1)
 
-let nats : Stream<int32> = enum_from(0)  // The natural numbers: 0, 1, 2, 3, ...
+let nats : Stream<int32> = 
+  enum_from(0)  // The natural numbers: 0, 1, 2, 3, ...
 ```
 
-Each time we observe the stream, the step function increments the state, producing the next number in the sequence.
+Calling `tail` runs the step function once, incrementing the state and producing the next stream. Merely observing a stream does not advance it.
 
 ##### Observing streams
 
@@ -2551,9 +2558,20 @@ For example:
 
 Each call to `tail` produces a new stream advanced by one step, leaving the original stream unchanged (streams are immutable, like all data in Coal).
 
+These operations are specializations of the general machine operations:
+
+```
+let head = observe
+let tail = receive()
+```
+
+In other words, `head` observes the current output, while `tail` supplies the only possible `unit` input and returns the resulting stream.
+
 Here is another example where `random_stream` is a function that takes a seed value and returns a stream of pseudo-random numbers:
 
 ```
+  import Codata.Machine(process)
+
   fun random_stream(seed : int32) : Stream<int32> =
     process(seed, fn(_, state) =>
       let a = 1664525;
@@ -2568,11 +2586,13 @@ Here is another example where `random_stream` is a function that takes a seed va
 
 ##### Transforming streams
 
-Streams can be transformed using `map_process`:
+Streams can be transformed using `map_machine` from `Codata.Machine`:
 
 ```
+  import Codata.Machine(map_machine)
+
   let evens =
-    enum_from(0) |.map_process(fn(n) => n * 2)
+    enum_from(0) |.map_machine(fn(n) => n * 2)
 
   evens |.head // 0
   evens |.tail |.head // 2
@@ -2583,70 +2603,182 @@ This creates a new stream where each value is transformed by the given function.
 
 #### Codata behind the scenes
 
-Now that we've seen how to use streams, let's explore the underlying mechanism that makes codata work in Coal. Unlike ordinary data types that you construct with values, codata types are defined by how they can be *observed*. In Coal, all codata is built on top of the `Process` type, which is a special built-in type that represents stateful computations with observable behavior.
+Now that we've seen how to use streams, let's explore the underlying mechanism that makes codata work in Coal. Unlike ordinary data types, which are defined by how values are constructed, codata is defined by how it can be observed. Coal represents stateful codata with the built-in `Machine` type and the functions in `Codata.Machine`.
 
-##### The `Process` type
+##### The `Machine` type
 
-The `Process<a, v>` type is Coal's built-in codata primitive. It represents a process with:
+A value of type `Machine<i, o>` represents a state machine that:
 
-- A current state of type `a` (what you can observe)
-- The ability to receive input of type `v` and transition to a new state
+- accepts inputs of type `i`;
+- produces observations of type `o`; and
+- carries some internal state of a type known only to the machine.
 
-##### Creating Process instances
+The internal state type does not appear in `Machine<i, o>`. It is hidden so that machines with different state representations can expose the same input/output interface. Conceptually, a machine contains:
 
-To create a `Process`, you use the `process` function:
+- a current state `state : s`;
+- a transition function `i -> s -> s`; and
+- a view function `s -> o`.
 
-```
-fun process(seed : a, f : v -> a -> a) : Process<a, v> = ...
-```
+Separating the internal state from its observable output allows a machine to retain detailed implementation state while exposing a smaller or entirely different output type.
 
-The `process` function takes:
-
-- An initial state (`seed : a`)
-- A step function (`f : v -> a -> a`) that computes the next state given input and current state
-
-For example, here's how you create a counter that increments on each observation:
+Two operations form the basic observation interface:
 
 ```
-fun counter(n : int32) : Stream<int32> =
-  process(n, fn(_, current) => current + 1)
+observe : Machine<i, o> -> o
+receive : i -> Machine<i, o> -> Machine<i, o>
 ```
 
-##### Transforming processes
+`observe` applies the machine's view to its current state. `receive` supplies one input, applies the transition, and returns a new machine containing the next state. Neither operation mutates the original machine, and repeated calls to `observe` return the same value unless the machine has first been advanced with `receive`.
 
-The function `map_process` transforms the observable state of a `Process`:
+##### Creating machines
 
-```
-fun map_process(f : a -> b, process : Process<a, v>) : Process<b, v> = ...
-```
-
-This creates a new process where every observation of the state is transformed by the function `f`. The process continues to receive the same type of input (`v`), but its observable state becomes type `b` instead of `a`.
-
-Similarly, you can transform the input type:
+The general machine constructor is:
 
 ```
-fun contramap_input(f : w -> v, process : Process<a, v>) : Process<a, w> = ...
+machine : s -> (i -> s -> s) -> (s -> o) -> Machine<i, o>
 ```
 
-This creates a process that accepts input of type `w`, transforms it with `f`, and feeds the result to the original process.
-
-##### Composing processes
-
-Processes can be composed to create pipelines. The `compose` function connects two processes so that the output of the first feeds into the input of the second:
+Its arguments are an initial state, a transition function, and a view function. For example, this machine accumulates integer inputs internally but exposes twice the current total:
 
 ```
-fun compose(p : Process<b, a>, q : Process<c, b>) : Process<c, a> = ...
+fun doubled_total(seed : int32) : Machine<int32, int32> =
+  machine(
+    seed,
+    fn(input, total) => total + input,
+    fn(total) => total * 2
+  )
+
+let m = doubled_total(10)
+
+m |.observe                 // 20
+m |.receive(5) |.observe    // 30
 ```
 
-This works by:
+When the internal state and observable output are the same type, `process` provides a convenient shorthand by using the identity function as the view:
 
-1. `zip_processes` creates a process that maintains both `p` and `q` as its state
-2. When input `v : a` arrives:
-     - It's fed to process `p`, producing a new state `p'`
-     - The observable state of `p'` (type `b`) is then fed to process `q`
-3. `map_process` extracts just the observable state of `q` (type `c`)
+```
+process : s -> (i -> s -> s) -> Machine<i, s>
 
-The result is a single process of type `Process<c, a>` that internally manages the pipeline.
+fun process(seed, transition) =
+  machine(seed, transition, fn(state) => state)
+```
+
+This shorthand is why the stream definitions above still use `process`.
+
+##### Transforming inputs and outputs
+
+`map_machine` transforms a machine's observations without changing the inputs it accepts:
+
+```
+map_machine : (o -> p) -> Machine<i, o> -> Machine<i, p>
+```
+
+For example:
+
+```
+let doubled =
+  process(0, fn(input : int32, total) => total + input)
+    |.map_machine(fn(total) => total * 2)
+
+doubled |.receive(3) |.observe  // 6
+```
+
+The underlying transition and state are retained; only the view is transformed. This is also the operation used to map over a `Stream`.
+
+Inputs can be transformed in the opposite direction with `contramap_input`:
+
+```
+contramap_input : (j -> i) -> Machine<i, o> -> Machine<j, o>
+```
+
+Given a conversion from `j` to the machine's original input type `i`, it produces a machine that accepts `j` instead. For example, `contramap_input(Char.ord, m)` adapts a machine accepting integer character codes into one accepting `char` values.
+
+##### Composing machines
+
+Machines can be connected into pipelines with `compose`:
+
+```
+compose : Machine<a, b> -> Machine<b, c> -> Machine<a, c>
+```
+
+Whenever the composed machine receives an input of type `a`, it:
+
+1. supplies the input to the first machine;
+2. observes the resulting output of type `b`;
+3. supplies that output to the second machine; and
+4. exposes the second machine's observation of type `c`.
+
+For example:
+
+```
+fun accumulator(seed : int32) : Machine<int32, int32> =
+  process(seed, fn(input, total) => total + input)
+
+fun doubler() : Machine<int32, int32> =
+  machine(0, fn(input, _) => input, fn(value) => value * 2)
+
+let pipeline = compose(accumulator(0), doubler())
+
+pipeline |.receive(3) |.observe              // 6
+pipeline |.receive(3) |.receive(4) |.observe // 14
+```
+
+The composed machine retains both component machines as its internal state.
+
+##### Combining machines
+
+`zip` runs two machines side by side. Both machines receive every input, and their observations are returned as a pair:
+
+```
+zip : Machine<i, o1> -> Machine<i, o2> -> Machine<i, (o1, o2)>
+```
+
+`duplicate` exposes the current machine itself as the observation. Advancing the duplicate advances the machine it exposes:
+
+```
+duplicate : Machine<i, o> -> Machine<i, Machine<i, o>>
+```
+
+This is useful when a computation needs access not only to the current output, but also to the machine representing the remainder of the computation.
+
+For streams, `cons` prepends one observation. The first `tail` discards the prepended value and returns to the original stream:
+
+```
+let values = cons(3, cons(5, nats))
+
+values |.head             // 3
+values |.tail |.head      // 5
+values |.tail |.tail |.head // 0
+```
+
+##### Corecursive machines
+
+`cofix` is the corecursive counterpart of a recursive `fold`. It ties a machine-producing function back to its own result:
+
+```
+cofix : (Machine<i, o> -> Machine<i, o>) -> Machine<i, o>
+```
+
+For example, an infinite stream of ones can be described as a value whose tail is the same stream:
+
+```
+let ones : Stream<int32> =
+  cofix(fn(self) => cons(1, self))
+```
+
+The function passed to `cofix` must be *productive*: it must make an observation available before asking for another observation from `self`. In the example, `cons` supplies `1` before referring to the rest of the stream. A non-productive definition can fail to produce a value.
+
+`cofix` is useful for definitions such as recursive parser combinators, where the next machine layer must refer to the parser being defined.
+
+##### Running ongoing machines
+
+Most machine code advances a machine explicitly with `receive`. For event loops and other ongoing computations, `run_while` repeatedly advances a machine with `unit` input while a predicate remains true:
+
+```
+run_while : (unit -> bool) -> Machine<unit, a> -> a
+```
+
+When the predicate becomes false, `run_while` stops and returns the machine's current observation. If the predicate never becomes false, the computation continues indefinitely. This provides the bridge from a pure description of an ongoing machine to programs such as event loops.
 
 ## IO
 
