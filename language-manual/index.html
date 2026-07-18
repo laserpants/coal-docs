@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/logo.svg">
-      <meta name="generator" content="zensical-0.0.40">
+      <meta name="generator" content="zensical-0.0.51">
     
     
       
@@ -32,7 +32,7 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.fba56155.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.62c9b9cc.min.css">
       
         
           
@@ -715,10 +715,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#lambda-match" class="md-nav__link">
+  <a href="#supported-patterns" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Lambda match
+        Supported patterns
       </span>
     </span>
   </a>
@@ -726,10 +726,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#supported-patterns" class="md-nav__link">
+  <a href="#lambda-match" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Supported patterns
+        Lambda match
       </span>
     </span>
   </a>
@@ -1437,10 +1437,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#lambda-match" class="md-nav__link">
+  <a href="#supported-patterns" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Lambda match
+        Supported patterns
       </span>
     </span>
   </a>
@@ -1448,10 +1448,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#supported-patterns" class="md-nav__link">
+  <a href="#lambda-match" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Supported patterns
+        Lambda match
       </span>
     </span>
   </a>
@@ -1619,7 +1619,7 @@
 
 <h1 id="language-manual">Language manual</h1>
 <h2 id="expression-syntax">Expression syntax</h2>
-<p>Expressions are the core building blocks of programs. They include variables, literals, let-bindings, operators, and control structures like <code>if-then-else</code>. An expression can often be composed of other, smaller expressions. For example, a binary operator consists of two sub-expressions: its left-hand side and right-hand side operands:</p>
+<p>Expressions are the core building blocks of programs in Coal. They include variables, literals, let-bindings, operators, and control structures like <code>if-then-else</code>. An expression can often be composed of other, smaller expressions. For example, a binary operator consists of two sub-expressions: its left-hand side and right-hand side operands:</p>
 <div class="highlight"><pre><span></span><code>  (+)     
   / \     x and y are sub-expressions of the expression x + y
  x   y
@@ -1660,13 +1660,19 @@ false           int32           trait
 <p>Integer literals introduced in code without an explicit type annotation, such as</p>
 <div class="highlight"><pre><span></span><code>let answer = 42
 </code></pre></div>
-<p>are <em>overloaded</em>. The inferred type of this expression is <code>n with (Numeric&lt;n&gt;)</code>, which means that <code>n</code> can be <em>any</em> type, as long as it implements the <code>Numeric</code> trait (see <strong><a href="#traits">Traits</a></strong>). This includes the built-in <code>int32</code>, <code>int64</code>, <code>float</code>, <code>double</code>, <code>bignum</code>, and <code>nat</code> types. All <code>Numeric</code> types support the basic arithmetic operations of addition, subtraction, and multiplication.</p>
+<p>are <em>overloaded</em>. The inferred type of this expression is <code>n with (Numeric&lt;n&gt;)</code>, which means that <code>n</code> can be <em>any</em> type, as long as it implements the <code>Numeric</code> trait (see <strong><a href="#traits">Traits</a></strong>). This includes the built-in <code>int32</code>, <code>int64</code>, <code>float</code>, <code>double</code>, <code>bignum</code>, and <code>nat</code> types. All <code>Numeric</code> types support the basic arithmetic operations of addition, subtraction, and multiplication.
+For example:</p>
 <div class="highlight"><pre><span></span><code>fun sum_of(x, y, z) = 
   x + y + z 
-
-let n : int32 = sum_of(1, 2, 3)
+</code></pre></div>
+<p>In this example, the function <code>sum_of</code> is polymorphic: it can operate on any type that implements <code>Numeric</code>.  With explicit type annotations:</p>
+<div class="highlight"><pre><span></span><code>fun sum_of(x : a, y : a, z : a) : a with (Numeric&lt;a&gt;) = 
+</code></pre></div>
+<p>We can then use <code>sum_of</code> in the following way:</p>
+<div class="highlight"><pre><span></span><code>let n : int32  = sum_of(1, 2, 3)
 let d : double = sum_of(0.5, 1.0, 1.5)
 </code></pre></div>
+<p>The expected types of <code>n</code> and <code>d</code> specialize the first call to <code>int32</code> and the second to <code>double</code>, respectively.</p>
 <h3 id="function-application">Function application</h3>
 <p>Unlike Haskell, ML, and OCaml, Coal uses parentheses and commas to separate arguments in function applications — a syntax more akin to languages like C, Java, or Python. For example:</p>
 <div class="highlight"><pre><span></span><code>concat(&quot;one&quot;, &quot;two&quot;)
@@ -1742,7 +1748,7 @@ Error: Name &quot;fib&quot; not in scope
                 main = fn() =&gt; 
                   ...
 </code></pre></div>
-<p>This is why functions such as the fibonacci function above are straight out rejected by the compiler. </p>
+<p>This is why functions such as the fibonacci function above are rejected by the compiler. </p>
 <h3 id="lambda-expressions">Lambda expressions</h3>
 <p>An anonymous (lambda) function is declared with the <code>fn</code> keyword and the “fat” arrow (<code>=&gt;</code>) symbol:</p>
 <div class="highlight"><pre><span></span><code>  fn(%arg_1, %arg_2, ..., %arg_n) =&gt; %expr
@@ -1916,7 +1922,7 @@ Error: Name &quot;fib&quot; not in scope
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Like in most other languages, the <code>&amp;&amp;</code> and <code>||</code> operators use short-circuit evaluation. For <code>&amp;&amp;</code>, if the left operand is <code>false</code>, the right operand is not evaluated, since the result must be <code>false</code> regardless. Similarly, for <code>||</code>, if the left operand is <code>true</code>, the right operand is not evaluated, since the result must be <code>true</code>. </p>
+<p>Like in most other languages, the <code>&amp;&amp;</code> and <code>||</code> operators perform short-circuit evaluation. For <code>&amp;&amp;</code>, if the left operand is <code>false</code>, the right operand is not evaluated, since the result must be <code>false</code> regardless. Similarly, for <code>||</code>, if the left operand is <code>true</code>, the right operand is not evaluated, since the result must be <code>true</code>. </p>
 </div>
 <h4 id="data">Data</h4>
 <table>
@@ -2019,7 +2025,7 @@ Error: Name &quot;fib&quot; not in scope
 </tbody>
 </table>
 <h3 id="reverse-application-pipelining">Reverse application pipelining</h3>
-<p>The operator <code>|.</code> represents a reversed version of regular function application. For example, instead of:</p>
+<p>The operator <code>|.</code> is a reversed version of ordinary function application. For example, instead of:</p>
 <div class="highlight"><pre><span></span><code>let my_list = [1, 2, 3] in
   map(fn(x) =&gt; 2 ^ x, [1, 2, 3])
 </code></pre></div>
@@ -2043,19 +2049,23 @@ draw_shape   : Shape -&gt; Canvas -&gt; Canvas
   |.flip(draw_shape, canvas)
 </code></pre></div>
 <h3 id="type-annotations">Type annotations</h3>
-<p>Type annotations explicitly specify the type of an expression or pattern. While Coal's type inference system can usually determine types automatically, annotations are useful for documentation, catching errors early, and disambiguating when multiple types are possible.</p>
-<p>The syntax uses a colon (<code>:</code>) followed by the type:</p>
+<p>Type annotations explicitly specify the type of an expression or pattern. While Coal's type inference system can usually determine types automatically, annotations are useful for documentation, catching errors early, and disambiguating when multiple types are possible.
+Annotations can appear in many contexts: let-bindings, function parameters, lambda arguments, match patterns, and standalone expressions. </p>
+<p>A type annotation is written in postfix form, as a colon (<code>:</code>) followed by the type:</p>
 <div class="highlight"><pre><span></span><code>&lt;expr&gt; : type
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>&lt;pattern&gt; : type
 </code></pre></div>
-<p>For example, you can annotate a variable to specify its type:</p>
-<div class="highlight"><pre><span></span><code>let x : int32 = 42
+<p>For example, you can specify the exact type of a numeric expression:</p>
+<div class="highlight"><pre><span></span><code>5 + 3 : int32
 </code></pre></div>
 <p>Or annotate a pattern in a function parameter:</p>
 <div class="highlight"><pre><span></span><code>fun process(value : string) = ...
 </code></pre></div>
-<p>Type annotations can appear in many contexts: let-bindings, function parameters, lambda arguments, match patterns, and standalone expressions. When provided, the compiler verifies that the annotated type matches the inferred type, reporting an error if there's a mismatch.</p>
+<p>In <code>let</code>-expressions, you can annotate variables to specify their type:</p>
+<div class="highlight"><pre><span></span><code>let x : int32 = 42
+</code></pre></div>
+<p>When provided, the compiler verifies that the annotated type matches the inferred type, reporting an error if there's a mismatch.</p>
 <h3 id="comments">Comments</h3>
 <p>There are two types of comments:</p>
 <ul>
@@ -2172,9 +2182,9 @@ let large : int64 = 9000000000
 let pi_precise : double = 3.141592653589793
 </code></pre></div>
 <h4 id="natural-numbers">Natural numbers</h4>
-<p>Natural numbers (<code>nat</code>) are covered in detail under <a href="#natural-numbers">Natural numbers</a>. They provide a recursion-friendly representation of non-negative integers using the Peano construction.</p>
+<p>Natural numbers (<code>nat</code>) are covered in detail under <a href="#natural-numbers">Natural numbers</a>. They provide a recursion-friendly representation of non-negative integers, based on the Peano construction.</p>
 <h4 id="numeric-literal-overloading">Numeric literal overloading</h4>
-<p>Numeric literals in Coal are polymorphic — their type is inferred from context or can be explicitly annotated. When you write a literal like <code>42</code>, its type is initially <code>n with (Numeric&lt;n&gt;)</code>, meaning it can be any type that implements the <a href="#numeric"><code>Numeric</code></a> trait.</p>
+<p>Numeric literals in Coal are polymorphic — their type is inferred from context or can be explicitly annotated. When you write a literal like <code>42</code>, its inferred type is <code>n with (Numeric&lt;n&gt;)</code>, meaning it can be any type that implements the <a href="#numeric"><code>Numeric</code></a> trait.</p>
 <div class="highlight"><pre><span></span><code>let a : int32 = 100   // 100 inferred as int32
 let b : int64 = 100   // 100 inferred as int64
 let c : bignum = 100  // 100 inferred as bignum
@@ -2187,7 +2197,32 @@ add(1 : int32, 2 : int32)   // returns int32
 add(1.0, 2.0)               // returns double
 add(1.0f, 2.0f)             // returns float
 </code></pre></div>
-<p>The compiler resolves the concrete type based on how the value is used, ensuring type safety while maintaining convenience.</p>
+<p>The compiler resolves the concrete type based on how the value is used, ensuring type safety. This makes numeric literals straightforward to work with.</p>
+<div class="admonition note">
+<p class="admonition-title">Qualified types</p>
+<p>One way to think of types like <code>n with (Numeric&lt;n&gt;)</code> is as a form of placeholder. 
+Numeric literals are translated by the compiler to a function call, in this case:</p>
+<div class="highlight"><pre><span></span><code>from_int32(42)
+</code></pre></div>
+<p>The type of <code>from_int32</code> is <code>int32 -&gt; n with (Numeric&lt;n&gt;)</code>. This is a qualified type. When you define an expression involving a qualified type, e.g.:</p>
+<div class="highlight"><pre><span></span><code>fun do_stuff(x, y) =
+  ...
+    let z =
+      from_int32(42)
+    in
+  ...
+</code></pre></div>
+<p>the compiler adds a hidden parameter to the enclosing function to supply the instance of the trait in question. The final code generated by the compiler will then look something like this:</p>
+<div class="highlight"><pre><span></span><code>fun do_stuff(num_instance : Numeric&lt;n&gt;, x, y) =
+  ...
+    let x =
+      num_instance.from_int32(42)
+    in
+  ...
+</code></pre></div>
+<p>Passing an instance such as <code>Numeric&lt;int32&gt;</code> or <code>Numeric&lt;nat&gt;</code> specializes <code>do_stuff</code> to that type. This is also done by the compiler implicitly, based on the resolved type in the context where the function is used.</p>
+<p>See <strong><a href="#traits">Traits</a></strong> for more about trait constraints and instances.</p>
+</div>
 <h3 id="function-types">Function types</h3>
 <p>Function types are written in arrow notation, following the same convention as in Haskell. The type <code>a -&gt; b</code> represents a function from <code>a</code> to <code>b</code>. Parentheses can be added to make grouping explicit, such as in <code>(a -&gt; b) -&gt; c</code>. The arrow operator is right-associative, which means that <code>a -&gt; b -&gt; c</code> is the same type as <code>a -&gt; (b -&gt; c)</code>.</p>
 <h3 id="natural-numbers_1">Natural numbers</h3>
@@ -2209,7 +2244,7 @@ add(1.0f, 2.0f)             // returns float
     | Succ(_) =&gt; &quot;nay&quot;
   }
 </code></pre></div>
-<p>Writing numbers in this style quickly becomes impractical, however. To make working with naturals convenient (and efficient), the compiler internally represents values of type <code>nat</code> as ordinary integers. Converting between the two views is called <em>packing</em> and <em>unpacking</em>. These are constant time (O(1)) operations:</p>
+<p>Writing numbers in this style quickly becomes impractical, however. In order to make it convenient (and efficient) to work with naturals, the compiler internally represents values of type <code>nat</code> as ordinary integers. Converting between the two views is called <em>packing</em> and <em>unpacking</em>. These are constant time (O(1)) operations:</p>
 <div class="highlight"><pre><span></span><code>pack   : int32 -&gt; nat
 unpack : nat -&gt; int32
 </code></pre></div>
@@ -2235,7 +2270,7 @@ unpack : nat -&gt; int32
   in
     x + 5
 </code></pre></div>
-<p>Keep in mind that this only works with <code>unit</code>. For non-empty tuples, you still need the extra parentheses:</p>
+<p>Note that this only works with <code>unit</code>. For non-empty tuples, you still need the extra parentheses:</p>
 <div class="highlight"><pre><span></span><code>fun fst4((fst, _, _, _)) = fst
 </code></pre></div>
 <h3 id="string">String</h3>
@@ -3065,28 +3100,13 @@ Non-exhaustive patterns
 </code></pre></div>
 <p>Each <code>when</code> clause tests a condition in order. If none of the <code>when</code> conditions match, the <code>otherwise</code> clause serves as a fallback for that pattern. Guards are evaluated sequentially, and the first matching guard's expression is executed.</p>
 <h4 id="fallthrough-semantics">Fallthrough semantics</h4>
-<p>An important distinction between guards and <code>if-then-else</code> expressions is that guards can <em>fail</em> and allow the match to continue to the next clause. Unlike <code>if-then-else</code>, which requires both a <code>then</code> and <code>else</code> branch, a <code>when</code> guard without a matching condition will fall through to the next pattern in the <code>match</code> expression. For example:</p>
+<p>An important difference between guards and <code>if-then-else</code> expressions is that guards can <em>fail</em> and allow the match to continue to the next clause. Unlike <code>if-then-else</code>, which requires both a <code>then</code> and <code>else</code> branch, a <code>when</code> guard without a matching condition will fall through to the next pattern in the <code>match</code> expression. For example:</p>
 <div class="highlight"><pre><span></span><code>  match(opt) {
     | Some(n) when (n &gt; 0) =&gt; &quot;positive&quot;
-    | Some(n) =&gt; &quot;non-positive or zero&quot;
-    | None =&gt; &quot;no value&quot;
+    | _ =&gt; &quot;no value, zero, or negative&quot;
   }
 </code></pre></div>
-<p>Here, if <code>opt</code> is <code>Some(n)</code> but <code>n</code> is not greater than zero, the first clause's guard fails and matching continues with the second clause. This would be impossible to express cleanly with nested <code>if-then-else</code>, which would force you to handle all cases within the first <code>Some</code> branch or duplicate the pattern.</p>
-<h3 id="lambda-match">Lambda match</h3>
-<p>A lambda match is a special syntax that lets you get rid of the variable in a <code>match</code> expression. For example, this expression:</p>
-<div class="highlight"><pre><span></span><code>  match {
-    | [] =&gt; true
-    | _ =&gt; false 
-  }
-</code></pre></div>
-<p>is a shorthand version of this:</p>
-<div class="highlight"><pre><span></span><code>  fn(val) =&gt;
-    match(val) {
-      | [] =&gt; true
-      | _ =&gt; false
-    }
-</code></pre></div>
+<p>Here, if <code>opt</code> is <code>Some(n)</code> but <code>n</code> is not greater than zero, the first clause's guard fails and matching continues with the wildcard clause. The same wildcard also handles <code>None</code>. This allows values with different patterns to share a fallback clause without duplicating its result or handling every case within the first <code>Some</code> branch.</p>
 <h3 id="supported-patterns">Supported patterns</h3>
 <table>
 <thead>
@@ -3154,6 +3174,20 @@ Non-exhaustive patterns
 </tr>
 </tbody>
 </table>
+<h3 id="lambda-match">Lambda match</h3>
+<p>A lambda match is a special syntax that lets you get rid of the variable in a <code>match</code> expression. For example, this expression:</p>
+<div class="highlight"><pre><span></span><code>  match {
+    | [] =&gt; true
+    | _ =&gt; false 
+  }
+</code></pre></div>
+<p>is a shorthand version of this:</p>
+<div class="highlight"><pre><span></span><code>  fn(val) =&gt;
+    match(val) {
+      | [] =&gt; true
+      | _ =&gt; false
+    }
+</code></pre></div>
 <h2 id="traits">Traits</h2>
 <p>A <em>trait</em> describes a collection of functions that must be defined for a given type.</p>
 <div class="highlight"><pre><span></span><code>trait %Name(%type_parameter) {
@@ -3242,7 +3276,8 @@ We write the full type of <code>is_less_than</code> as: <code>t -&gt; t -&gt; bo
   }
 </code></pre></div>
 <h4 id="ordered">Ordered</h4>
-<p>The <code>Ordered</code> trait captures the notion of a <a href="https://en.wikipedia.org/wiki/Total_order">total order</a> on its parameterized type (similar to Haskell’s <code>Ord</code> type class). This makes it possible to compare two values using the comparison (<code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, and <code>&gt;=</code>) and equality (<code>==</code> and <code>!=</code>) operators.</p>
+<p>The <code>Ordered</code> trait captures the notion of a <a href="https://en.wikipedia.org/wiki/Total_order">total order</a> on its parameterized type (similar to Haskell’s <code>Ord</code> type class). This makes it possible to compare two values using the comparison (<code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, and <code>&gt;=</code>) operators.</p>
+<p>For boolean values we can define an instance:</p>
 <div class="highlight"><pre><span></span><code>  instance Ordered&lt;bool&gt; {
     fun compare
       | false, true  =&gt; LessThan
@@ -3251,13 +3286,10 @@ We write the full type of <code>is_less_than</code> as: <code>t -&gt; t -&gt; bo
   }
 </code></pre></div>
 <p>Here is how this instance can be used:</p>
-<div class="highlight"><pre><span></span><code>  let result = false &lt; true  // true
+<div class="highlight"><pre><span></span><code>  let result = false &lt; true  // evaluates to true
 </code></pre></div>
 <h3 id="higher-kinded-traits">Higher-kinded traits</h3>
-<p>So far, the traits we’ve looked at have all been of the form <code>T&lt;t&gt;</code>, where <code>t</code> is a placeholder for any ordinary type. Unlike these, a <em>type constructor</em> is a type-level function which takes one or more types as arguments and returns a type. That is, a type constructor on its own isn’t really a type, until it is provided with all necessary type arguments. For example, in the type <code>Option&lt;int32&gt;</code>, <code>Option</code> is a type constructor with <a href="https://en.wikipedia.org/wiki/Kind_(type_theory)">kind</a></p>
-<div class="highlight"><pre><span></span><code>* -&gt; *
-</code></pre></div>
-<p>where <code>*</code> denotes a <em>proper</em> type (i.e., a fully applied type with no parameters). We can read <code>Option : * -&gt; *</code> as:</p>
+<p>So far, the traits we’ve looked at have all been of the form <code>T&lt;t&gt;</code>, where <code>t</code> is a placeholder for any ordinary type. Unlike these, a <em>type constructor</em> is a type-level function which takes one or more types as arguments and returns a type. That is, a type constructor on its own isn’t really a type, until it is provided with all necessary type arguments. For example, in the type <code>Option&lt;int32&gt;</code>, <code>Option</code> is a type constructor with <a href="https://en.wikipedia.org/wiki/Kind_(type_theory)">kind</a> <code>* -&gt; *</code>, where <code>*</code> denotes a <em>proper</em> type (i.e., a fully applied type with no parameters). We can then read <code>Option : * -&gt; *</code> as:</p>
 <blockquote>
 <p>Option is a type constructor that takes a type as input and produces a type.</p>
 </blockquote>
@@ -3301,7 +3333,7 @@ map(times100, [1, 2, 3])  // ==&gt; [100, 200, 300]
     then 1
     else n * factorial(n - 1)
 </code></pre></div>
-<p>If we pass this function to the Coal compiler, it rejects the program with the following error:</p>
+<p>If we pass this function to the Coal compiler, then the program is rejected with the following error:</p>
 <div class="highlight"><pre><span></span><code>  |       else n * factorial(n - 1)
   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -3313,7 +3345,7 @@ map(times100, [1, 2, 3])  // ==&gt; [100, 200, 300]
 <blockquote>
 <p>Although similar to how folds work in many other programming langues, note that <code>fold</code> is a language keyword in Coal, and not an ordinary function. It is syntactically similar to a <code>match</code> expression (explained <a href="#pattern-matching">here</a>), but with the crucial difference that a <code>fold</code> carries built-in support for recursion. </p>
 </blockquote>
-<p>To implement the factorial function using a fold, we are going to use the <code>nat</code> data type, which <a href="#natural-numbers">defines the natural numbers</a> recursively:</p>
+<p>To implement the factorial function using a fold, we are going to use the <code>nat</code> data type, which <a href="#natural-numbers">enumerates the natural numbers</a> recursively:</p>
 <div class="highlight"><pre><span></span><code>Zero, Succ(Zero), Succ(Succ(Zero)), ...
 </code></pre></div>
 <p>It is defined as:</p>
@@ -3474,7 +3506,7 @@ For this situation, we need a different solution.</p>
 }
 </code></pre></div>
 <h3 id="codata-and-corecursion">Codata and corecursion</h3>
-<p>Recursion over ordinary data in Coal (or any language with well-founded recursion) is always guaranteed to terminate. This implies that all data is finite as well. In many cases, this is desirable &mdash; it makes reasoning about programs predictable and safe. However, there are situations where we want potentially infinite structures or non-terminating behavior. For example:</p>
+<p>Recursion over ordinary data in Coal (or any language with well-founded recursion) is always guaranteed to terminate. This means that all data is finite as well. In many cases, this is desirable &mdash; it makes reasoning about programs predictable and safe. However, there are situations where we want potentially infinite structures or non-terminating behavior. For example:</p>
 <ul>
 <li>Infinite sequences of numbers, like the natural numbers, are easy to describe in Haskell due to its lazy-by-default evaluation strategy:</li>
 </ul>
@@ -3508,7 +3540,7 @@ For this situation, we need a different solution.</p>
 <td><strong>Codata</strong></td>
 <td>Corecursion (<code>receive</code>, <code>observe</code>)</td>
 <td>Potentially infinite</td>
-<td>Lazy (non-strict)</td>
+<td>Observation-driven</td>
 <td>Productivity</td>
 </tr>
 </tbody>
@@ -3516,21 +3548,25 @@ For this situation, we need a different solution.</p>
 <p>Codata is ideal for representing streams, event sequences, or any ongoing process, where you only need to observe a finite part at a time. </p>
 <h4 id="streams">Streams</h4>
 <p>One of the most practical applications of codata is representing infinite streams — sequences of values that can be observed one at a time, without ever constructing the entire sequence in memory.</p>
-<p>A stream in Coal is defined as a process that produces values without requiring meaningful input:</p>
-<div class="highlight"><pre><span></span><code>type alias Stream&lt;a&gt; = Process&lt;a, unit&gt;
+<p>A stream in Coal is a <code>Machine</code> that produces values without requiring meaningful input:</p>
+<div class="highlight"><pre><span></span><code>type alias Stream&lt;a&gt; = Machine&lt;unit, a&gt;
+</code></pre></div>
+<p>The first type argument of <code>Machine</code> is its input type and the second is its output type. A stream accepts only <code>unit</code>, so advancing it requires no meaningful input. The alias and the stream operations in this section are provided by <code>Codata.Stream</code>:</p>
+<div class="highlight"><pre><span></span><code>import Codata.Stream(Stream, repeat, enum_from, nats, head, tail)
 </code></pre></div>
 <p>The simplest stream is one that repeats the same value indefinitely:</p>
 <div class="highlight"><pre><span></span><code>fun repeat(state : a) : Stream&lt;a&gt; =
   process(state, fn(_, _) =&gt; state)
 </code></pre></div>
-<p>Here, <code>process</code> creates a stream from an initial state and a step function. The step function receives the current input (which we ignore with <code>_</code>) and the current state, and returns the next state. Since we always return the same state, this stream repeats endlessly.</p>
+<p>The function <code>process</code> creates a stream from an initial state and a step function. The step function receives the current input (which we ignore with <code>_</code>) and the current state, and returns the next state. Since we always return the same state, this stream repeats endlessly.</p>
 <p>A more interesting example is a stream that counts upward from a starting number:</p>
 <div class="highlight"><pre><span></span><code>fun enum_from(n : int32) : Stream&lt;int32&gt; =
   process(n, fn(_, m) =&gt; m + 1)
 
-let nats : Stream&lt;int32&gt; = enum_from(0)  // The natural numbers: 0, 1, 2, 3, ...
+let nats : Stream&lt;int32&gt; = 
+  enum_from(0)  // The natural numbers: 0, 1, 2, 3, ...
 </code></pre></div>
-<p>Each time we observe the stream, the step function increments the state, producing the next number in the sequence.</p>
+<p>Calling <code>tail</code> runs the step function once, incrementing the state and producing the next stream. Merely observing a stream does not advance it.</p>
 <h5 id="observing-streams">Observing streams</h5>
 <p>To work with streams, we use two main operations:</p>
 <ul>
@@ -3545,8 +3581,15 @@ let nats : Stream&lt;int32&gt; = enum_from(0)  // The natural numbers: 0, 1, 2, 
   numbers |.tail |.tail |.head // 7
 </code></pre></div>
 <p>Each call to <code>tail</code> produces a new stream advanced by one step, leaving the original stream unchanged (streams are immutable, like all data in Coal).</p>
+<p>These operations are specializations of the general machine operations:</p>
+<div class="highlight"><pre><span></span><code>let head = observe
+let tail = receive()
+</code></pre></div>
+<p>In other words, <code>head</code> observes the current output, while <code>tail</code> supplies the only possible <code>unit</code> input and returns the resulting stream.</p>
 <p>Here is another example where <code>random_stream</code> is a function that takes a seed value and returns a stream of pseudo-random numbers:</p>
-<div class="highlight"><pre><span></span><code>  fun random_stream(seed : int32) : Stream&lt;int32&gt; =
+<div class="highlight"><pre><span></span><code>  import Codata.Machine(process)
+
+  fun random_stream(seed : int32) : Stream&lt;int32&gt; =
     process(seed, fn(_, state) =&gt;
       let a = 1664525;
           c = 1013904223;
@@ -3558,9 +3601,11 @@ let nats : Stream&lt;int32&gt; = enum_from(0)  // The natural numbers: 0, 1, 2, 
   let n = random_stream(42) |.tail |.tail |.tail |.head   
 </code></pre></div>
 <h5 id="transforming-streams">Transforming streams</h5>
-<p>Streams can be transformed using <code>map_process</code>:</p>
-<div class="highlight"><pre><span></span><code>  let evens =
-    enum_from(0) |.map_process(fn(n) =&gt; n * 2)
+<p>Streams can be transformed using <code>map_machine</code> from <code>Codata.Machine</code>:</p>
+<div class="highlight"><pre><span></span><code>  import Codata.Machine(map_machine)
+
+  let evens =
+    enum_from(0) |.map_machine(fn(n) =&gt; n * 2)
 
   evens |.head // 0
   evens |.tail |.head // 2
@@ -3568,50 +3613,120 @@ let nats : Stream&lt;int32&gt; = enum_from(0)  // The natural numbers: 0, 1, 2, 
 </code></pre></div>
 <p>This creates a new stream where each value is transformed by the given function.</p>
 <h4 id="codata-behind-the-scenes">Codata behind the scenes</h4>
-<p>Now that we've seen how to use streams, let's explore the underlying mechanism that makes codata work in Coal. Unlike ordinary data types that you construct with values, codata types are defined by how they can be <em>observed</em>. In Coal, all codata is built on top of the <code>Process</code> type, which is a special built-in type that represents stateful computations with observable behavior.</p>
-<h5 id="the-process-type">The <code>Process</code> type</h5>
-<p>The <code>Process&lt;a, v&gt;</code> type is Coal's built-in codata primitive. It represents a process with:</p>
+<p>Now that we've seen how to use streams, let's explore the underlying mechanism that makes codata work in Coal. Unlike ordinary data types, which are defined by how values are constructed, codata is defined by how it can be observed. Coal represents stateful codata with the built-in <code>Machine</code> type and the functions in <code>Codata.Machine</code>.</p>
+<h5 id="the-machine-type">The <code>Machine</code> type</h5>
+<p>A value of type <code>Machine&lt;i, o&gt;</code> represents a state machine that:</p>
 <ul>
-<li>A current state of type <code>a</code> (what you can observe)</li>
-<li>The ability to receive input of type <code>v</code> and transition to a new state</li>
+<li>accepts inputs of type <code>i</code>;</li>
+<li>produces observations of type <code>o</code>; and</li>
+<li>carries some internal state of a type known only to the machine.</li>
 </ul>
-<h5 id="creating-process-instances">Creating Process instances</h5>
-<p>To create a <code>Process</code>, you use the <code>process</code> function:</p>
-<div class="highlight"><pre><span></span><code>fun process(seed : a, f : v -&gt; a -&gt; a) : Process&lt;a, v&gt; = ...
-</code></pre></div>
-<p>The <code>process</code> function takes:</p>
+<p>The internal state type does not appear in <code>Machine&lt;i, o&gt;</code>. It is hidden so that machines with different state representations can expose the same input/output interface. Conceptually, a machine contains:</p>
 <ul>
-<li>An initial state (<code>seed : a</code>)</li>
-<li>A step function (<code>f : v -&gt; a -&gt; a</code>) that computes the next state given input and current state</li>
+<li>a current state <code>state : s</code>;</li>
+<li>a transition function <code>i -&gt; s -&gt; s</code>; and</li>
+<li>a view function <code>s -&gt; o</code>.</li>
 </ul>
-<p>For example, here's how you create a counter that increments on each observation:</p>
-<div class="highlight"><pre><span></span><code>fun counter(n : int32) : Stream&lt;int32&gt; =
-  process(n, fn(_, current) =&gt; current + 1)
+<p>Separating the internal state from its observable output allows a machine to retain detailed implementation state while exposing a smaller or entirely different output type.</p>
+<p>Two operations form the basic observation interface:</p>
+<div class="highlight"><pre><span></span><code>observe : Machine&lt;i, o&gt; -&gt; o
+receive : i -&gt; Machine&lt;i, o&gt; -&gt; Machine&lt;i, o&gt;
 </code></pre></div>
-<h5 id="transforming-processes">Transforming processes</h5>
-<p>The function <code>map_process</code> transforms the observable state of a <code>Process</code>:</p>
-<div class="highlight"><pre><span></span><code>fun map_process(f : a -&gt; b, process : Process&lt;a, v&gt;) : Process&lt;b, v&gt; = ...
+<p><code>observe</code> applies the machine's view to its current state. <code>receive</code> supplies one input, applies the transition, and returns a new machine containing the next state. Neither operation mutates the original machine, and repeated calls to <code>observe</code> return the same value unless the machine has first been advanced with <code>receive</code>.</p>
+<h5 id="creating-machines">Creating machines</h5>
+<p>The general machine constructor is:</p>
+<div class="highlight"><pre><span></span><code>machine : s -&gt; (i -&gt; s -&gt; s) -&gt; (s -&gt; o) -&gt; Machine&lt;i, o&gt;
 </code></pre></div>
-<p>This creates a new process where every observation of the state is transformed by the function <code>f</code>. The process continues to receive the same type of input (<code>v</code>), but its observable state becomes type <code>b</code> instead of <code>a</code>.</p>
-<p>Similarly, you can transform the input type:</p>
-<div class="highlight"><pre><span></span><code>fun contramap_input(f : w -&gt; v, process : Process&lt;a, v&gt;) : Process&lt;a, w&gt; = ...
+<p>Its arguments are an initial state, a transition function, and a view function. For example, this machine accumulates integer inputs internally but exposes twice the current total:</p>
+<div class="highlight"><pre><span></span><code>fun doubled_total(seed : int32) : Machine&lt;int32, int32&gt; =
+  machine(
+    seed,
+    fn(input, total) =&gt; total + input,
+    fn(total) =&gt; total * 2
+  )
+
+let m = doubled_total(10)
+
+m |.observe                 // 20
+m |.receive(5) |.observe    // 30
 </code></pre></div>
-<p>This creates a process that accepts input of type <code>w</code>, transforms it with <code>f</code>, and feeds the result to the original process.</p>
-<h5 id="composing-processes">Composing processes</h5>
-<p>Processes can be composed to create pipelines. The <code>compose</code> function connects two processes so that the output of the first feeds into the input of the second:</p>
-<div class="highlight"><pre><span></span><code>fun compose(p : Process&lt;b, a&gt;, q : Process&lt;c, b&gt;) : Process&lt;c, a&gt; = ...
+<p>When the internal state and observable output are the same type, <code>process</code> provides a convenient shorthand by using the identity function as the view:</p>
+<div class="highlight"><pre><span></span><code>process : s -&gt; (i -&gt; s -&gt; s) -&gt; Machine&lt;i, s&gt;
+
+fun process(seed, transition) =
+  machine(seed, transition, fn(state) =&gt; state)
 </code></pre></div>
-<p>This works by:</p>
+<p>This shorthand is why the stream definitions above still use <code>process</code>.</p>
+<h5 id="transforming-inputs-and-outputs">Transforming inputs and outputs</h5>
+<p><code>map_machine</code> transforms a machine's observations without changing the inputs it accepts:</p>
+<div class="highlight"><pre><span></span><code>map_machine : (o -&gt; p) -&gt; Machine&lt;i, o&gt; -&gt; Machine&lt;i, p&gt;
+</code></pre></div>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>let doubled =
+  process(0, fn(input : int32, total) =&gt; total + input)
+    |.map_machine(fn(total) =&gt; total * 2)
+
+doubled |.receive(3) |.observe  // 6
+</code></pre></div>
+<p>The underlying transition and state are retained; only the view is transformed. This is also the operation used to map over a <code>Stream</code>.</p>
+<p>Inputs can be transformed in the opposite direction with <code>contramap_input</code>:</p>
+<div class="highlight"><pre><span></span><code>contramap_input : (j -&gt; i) -&gt; Machine&lt;i, o&gt; -&gt; Machine&lt;j, o&gt;
+</code></pre></div>
+<p>Given a conversion from <code>j</code> to the machine's original input type <code>i</code>, it produces a machine that accepts <code>j</code> instead. For example, <code>contramap_input(Char.ord, m)</code> adapts a machine accepting integer character codes into one accepting <code>char</code> values.</p>
+<h5 id="composing-machines">Composing machines</h5>
+<p>Machines can be connected into pipelines with <code>compose</code>:</p>
+<div class="highlight"><pre><span></span><code>compose : Machine&lt;a, b&gt; -&gt; Machine&lt;b, c&gt; -&gt; Machine&lt;a, c&gt;
+</code></pre></div>
+<p>Whenever the composed machine receives an input of type <code>a</code>, it:</p>
 <ol>
-<li><code>zip_processes</code> creates a process that maintains both <code>p</code> and <code>q</code> as its state</li>
-<li>When input <code>v : a</code> arrives:<ul>
-<li>It's fed to process <code>p</code>, producing a new state <code>p'</code></li>
-<li>The observable state of <code>p'</code> (type <code>b</code>) is then fed to process <code>q</code></li>
-</ul>
-</li>
-<li><code>map_process</code> extracts just the observable state of <code>q</code> (type <code>c</code>)</li>
+<li>supplies the input to the first machine;</li>
+<li>observes the resulting output of type <code>b</code>;</li>
+<li>supplies that output to the second machine; and</li>
+<li>exposes the second machine's observation of type <code>c</code>.</li>
 </ol>
-<p>The result is a single process of type <code>Process&lt;c, a&gt;</code> that internally manages the pipeline.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>fun accumulator(seed : int32) : Machine&lt;int32, int32&gt; =
+  process(seed, fn(input, total) =&gt; total + input)
+
+fun doubler() : Machine&lt;int32, int32&gt; =
+  machine(0, fn(input, _) =&gt; input, fn(value) =&gt; value * 2)
+
+let pipeline = compose(accumulator(0), doubler())
+
+pipeline |.receive(3) |.observe              // 6
+pipeline |.receive(3) |.receive(4) |.observe // 14
+</code></pre></div>
+<p>The composed machine retains both component machines as its internal state.</p>
+<h5 id="combining-machines">Combining machines</h5>
+<p><code>zip</code> runs two machines side by side. Both machines receive every input, and their observations are returned as a pair:</p>
+<div class="highlight"><pre><span></span><code>zip : Machine&lt;i, o1&gt; -&gt; Machine&lt;i, o2&gt; -&gt; Machine&lt;i, (o1, o2)&gt;
+</code></pre></div>
+<p><code>duplicate</code> exposes the current machine itself as the observation. Advancing the duplicate advances the machine it exposes:</p>
+<div class="highlight"><pre><span></span><code>duplicate : Machine&lt;i, o&gt; -&gt; Machine&lt;i, Machine&lt;i, o&gt;&gt;
+</code></pre></div>
+<p>This is useful when a computation needs access not only to the current output, but also to the machine representing the remainder of the computation.</p>
+<p>For streams, <code>cons</code> prepends one observation. The first <code>tail</code> discards the prepended value and returns to the original stream:</p>
+<div class="highlight"><pre><span></span><code>let values = cons(3, cons(5, nats))
+
+values |.head               // 3
+values |.tail |.head        // 5
+values |.tail |.tail |.head // 0
+</code></pre></div>
+<h5 id="corecursive-machines">Corecursive machines</h5>
+<p><code>cofix</code> is the corecursive counterpart of a recursive <code>fold</code>. It ties a machine-producing function back to its own result:</p>
+<div class="highlight"><pre><span></span><code>cofix : (Machine&lt;i, o&gt; -&gt; Machine&lt;i, o&gt;) -&gt; Machine&lt;i, o&gt;
+</code></pre></div>
+<p>For example, an infinite stream of ones can be described as a value whose tail is the same stream:</p>
+<div class="highlight"><pre><span></span><code>let ones : Stream&lt;int32&gt; =
+  cofix(fn(self) =&gt; cons(1, self))
+</code></pre></div>
+<p>The function passed to <code>cofix</code> must be <em>productive</em>: it must make an observation available before asking for another observation from <code>self</code>. In the example, <code>cons</code> supplies <code>1</code> before referring to the rest of the stream. A non-productive definition can fail to produce a value.</p>
+<p><code>cofix</code> is useful for definitions such as recursive parser combinators, where the next machine layer must refer to the parser being defined.</p>
+<h5 id="running-ongoing-machines">Running ongoing machines</h5>
+<p>Most machine code advances a machine explicitly with <code>receive</code>. For event loops and other ongoing computations, <code>run_while</code> repeatedly advances a machine with <code>unit</code> input while a predicate remains true:</p>
+<div class="highlight"><pre><span></span><code>run_while : (unit -&gt; bool) -&gt; Machine&lt;unit, a&gt; -&gt; a
+</code></pre></div>
+<p>When the predicate becomes false, <code>run_while</code> stops and returns the machine's current observation. If the predicate never becomes false, the computation continues indefinitely. This provides the bridge from a pure description of an ongoing machine to programs such as event loops.</p>
 <h2 id="io">IO</h2>
 <p>Coal is a highly <a href="https://en.wikipedia.org/wiki/Expression-oriented_programming_language">expression-oriented</a> language: a program is, at its core, just an expression that evaluates to a value. In this programming model, all data is immutable and there are no observable side-effects. These properties make programs more predictable, easier to reason about, highly testable, and allows for code to be verified using formal mathematics. On the other hand, practical applications need to have the ability to interact with the outside world. Side-effects are what make them useful. </p>
 <p>To support interactions with the outside world while preserving the language’s pure semantics, Coal provides an <code>IO</code> type, similar to Haskell’s. Values of this type describe effectful operations — such as reading input, writing output, or accessing the file system. These computations are constructed as pure values and executed only by the runtime, allowing the code to remain referentially transparent.</p>
@@ -3652,7 +3767,7 @@ let nats : Stream&lt;int32&gt; = enum_from(0)  // The natural numbers: 0, 1, 2, 
 <div class="highlight"><pre><span></span><code>a -&gt; m&lt;b&gt;
 </code></pre></div>
 <p>The type constructor <code>m</code> determines the context or effect that underpins the computation. For example, <code>Option</code> represents computations that might fail, <code>List</code> represents non-deterministic computations with multiple results, and <code>IO</code> represents computations that perform side effects.</p>
-<p>In the case of <code>IO</code>, the type <code>IO&lt;a&gt;</code> represents a computation that, when executed, performs side effects and produces a value of type <code>a</code>. Unlike pure functions of type <code>a -&gt; b</code>, IO computations interact with the outside world.</p>
+<p>In the case of <code>IO</code>, the type <code>IO&lt;a&gt;</code> represents a computation that performs side effects and produces a value of type <code>a</code>. Unlike pure functions of type <code>a -&gt; b</code>, IO computations interact with the outside world.</p>
 <p>Given two monadic functions:</p>
 <div class="highlight"><pre><span></span><code>a -&gt; m&lt;b&gt;
 b -&gt; m&lt;c&gt;
@@ -3674,7 +3789,7 @@ b -&gt; m&lt;c&gt;
 </code></pre></div>
 <p>This pipeline first prints a prompt, then reads a line of input, and finally prints a greeting with the input.</p>
 <h3 id="do-notation">Do-notation</h3>
-<p>Monads allude to a way of structuring programs similar to imperative programming. Taking this a step further, <code>do</code>-notation was introduced in Haskell to allow a more readable syntax.</p>
+<p>Monads and the bind-operator allude to a way of structuring programs similar to imperative programming. Taking this a step further, <code>do</code>-notation was introduced in Haskell to allow a more readable syntax.</p>
 <p>Coal supports <code>do</code>-notation for sequencing monadic operations. The same example from above can be written more concisely as:</p>
 <div class="highlight"><pre><span></span><code>do {
   println_string(&quot;Enter your name&quot;);
@@ -3740,10 +3855,10 @@ b -&gt; m&lt;c&gt;
     
       
       
-      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":[],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":[],"search":"../assets/javascripts/workers/search.b6b7e04f.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.dbc0afdc.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7f30b55.min.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       

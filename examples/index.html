@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/logo.svg">
-      <meta name="generator" content="zensical-0.0.40">
+      <meta name="generator" content="zensical-0.0.51">
     
     
       
@@ -32,7 +32,7 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.fba56155.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.62c9b9cc.min.css">
       
         
           
@@ -714,18 +714,37 @@
 <h1 id="examples">Examples</h1>
 <h2 id="quicksort">Quicksort</h2>
 <h4 id="treecoal">Tree.coal</h4>
-<div class="highlight"><pre><span></span><code>module Tree {
+<div class="highlight"><pre><span></span><code>module Tree(Tree, insert, from_list, flatten) {
+
+  import List(reduce)
 
   type Tree&lt;a&gt;
-    = Node(a, Tree&lt;a&gt;, Tree&lt;a&gt;)
-    | Leaf
+    = Leaf
+    | Node(a, Tree&lt;a&gt;, Tree&lt;a&gt;)
 
-  fun flatten(tree) = 
+  fun insert(n : a, tree : Tree&lt;a&gt;) : Tree&lt;a&gt; with (Ordered&lt;a&gt;) =
     fold(tree) {
-      | Node(y, @lhs, @rhs) =&gt;
-          lhs ++ y :: rhs
-      | Leaf =&gt;
-          []
+      | Leaf =&gt; 
+          Node(n, Leaf, Leaf)
+      | Node(v, @left as left_tree, @right as right_tree) 
+          when (n &lt; v) =&gt; 
+            Node(v, left, right_tree)
+          when (n &gt; v) =&gt; 
+            Node(v, left_tree, right)
+          otherwise =&gt; 
+            Node(v, left_tree, right_tree)
+    }
+
+  fun from_list(xs : List&lt;a&gt;) : Tree&lt;a&gt; with (Ordered&lt;a&gt;) =
+    reduce(insert, Leaf, xs)
+
+  fun flatten(tree : Tree&lt;a&gt;) : List&lt;a&gt; =
+    fold(tree, []) {
+      | Leaf =&gt; 
+          fn(acc) =&gt; acc
+      | Node(v, @left, @right) =&gt;
+          fn(acc) =&gt;
+            left(v :: right(acc))
     }
 
 }
@@ -733,28 +752,10 @@
 <h4 id="qsortcoal">Qsort.coal</h4>
 <div class="highlight"><pre><span></span><code>module Qsort(sort) {
 
-  import Tree(Tree, flatten)
-  import Coal.Combinators(always)
-  import Number(_INT32_MAX)
+  import Tree(flatten, from_list)
 
-  fun binary_search_tree(list : List&lt;int32&gt;) : Tree&lt;int32&gt; =
-    fold(list, { min = 0, max = _INT32_MAX }) {
-      | (p :: @g) =&gt;
-          fn(range) =&gt;
-            if (p &gt; range.min &amp;&amp; p &lt;= range.max)
-              then 
-                Node
-                  ( p 
-                  , g({ min = range.min, max = p })
-                  , g({ min = p, max = range.max })
-                  )
-              else
-                g(range)
-      | [] =&gt;
-          always(Leaf)
-    }
-
-  let sort = flatten &lt;&lt; binary_search_tree
+  let sort : List&lt;a&gt; -&gt; List&lt;a&gt; with (Ordered&lt;a&gt;) =
+    flatten &lt;&lt; from_list
 
 }
 </code></pre></div>
@@ -762,23 +763,23 @@
 <div class="highlight"><pre><span></span><code>module Main {
 
   import Qsort(sort)
-  import Coal.Monad(Monad, and_eval)
   import IO(return)
+  import Coal.Monad(and_eval)
 
   import namespace IO
 
   fun print_all(ints : List&lt;int32&gt;) : IO&lt;unit&gt; =
     fold(ints) {
-      | [] =&gt; 
+      | [] =&gt;
           return()
       | m :: @next =&gt;
           IO.println_int32(m) |. and_eval(next)
     }
 
   fun main() = 
-    let xs = [105, 103, 234, 109, 107, 55, 102, 999, 101, 8, 106, 104]
-    in
-    print_all(sort(xs))
+    let sorted = sort([ 4, 34, 8, 99, 5, 102, 42, 7, 2, 1, 103, 3, 6 ]) 
+    in 
+    print_all(sorted) 
 
 }
 </code></pre></div>
@@ -909,18 +910,15 @@ TODO
   }
 
   instance Monad&lt;Reader&lt;r&gt;&gt; {
-    fun bind(reader : Reader&lt;r, a&gt;, next : a -&gt; Reader&lt;r, b&gt;) : Reader&lt;r, b&gt; = 
-      match(reader) {
-        | Reader(f) =&gt;
-            Reader(fn(env) =&gt;
-              let a = 
-                f(env) 
-              in
-              match(next(a)) {
-                | Reader(g) =&gt; g(env)
-              }
-            )
-      }
+    fun bind(Reader(f) : Reader&lt;r, a&gt;, next : a -&gt; Reader&lt;r, b&gt;) : Reader&lt;r, b&gt; = 
+      Reader(fn(env) =&gt;
+        let a = 
+          f(env) 
+        in
+        match(next(a)) {
+          | Reader(g) =&gt; g(env)
+        }
+      )
   }
 
   fun local(transform, Reader(f)) = 
@@ -1256,7 +1254,7 @@ TODO
     | Map({ left = delete_min_node(@left) | _ } as m) =&gt;
         let (k, v, new_left) = left 
         in
-        (Some(k), Some(v), rebalance(make_node(m.key, m.value, new_left, m.right)))
+        (k, v, rebalance(make_node(m.key, m.value, new_left, m.right)))
   }
 
   fun delete(key, map) =
@@ -1332,10 +1330,10 @@ TODO
     
       
       
-      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":[],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":[],"search":"../assets/javascripts/workers/search.b6b7e04f.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.dbc0afdc.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7f30b55.min.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       
