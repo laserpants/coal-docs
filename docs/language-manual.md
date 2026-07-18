@@ -565,7 +565,7 @@ The compiler resolves the concrete type based on how the value is used, ensuring
       ...
     ```
 
-    Passing an instance such as `Numeric<int32>` or `Numeric<nat>` specializes `do_stuff` to that type.
+    Passing an instance such as `Numeric<int32>` or `Numeric<nat>` specializes `do_stuff` to that type. This is also done by the compiler implicitly, based on the resolved type in the context where the function is used.
 
     See **[Traits](#traits)** for more about trait constraints and instances.
 
