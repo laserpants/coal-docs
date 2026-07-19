@@ -611,17 +611,7 @@ unpack : nat -> int32
 
 ### Unit
 
-The `unit` type has only a single value, written as an empty pair of parentheses: `()`. At first glance this type may appear to serve no purpose, but it has several practical uses. For example, it is often useful to indicate that a function doesn't take any meaningful input. In C, we might write the following function:
-
-```
-int five() {
-  /* ... */
-  
-  return 5;
-}
-```
-
-This is where the `unit` type comes in handy:
+The `unit` type has only a single value, written as an empty pair of parentheses: `()`. At first glance this type may appear to serve no purpose, but it has several practical uses. It is very commonly used to indicate that a function doesn't take any meaningful input: 
 
 ```
 fun five(() : unit) : int32 = 5
