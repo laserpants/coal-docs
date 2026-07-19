@@ -5,10 +5,350 @@
 
 /* Dark mode: invert the logo in the header */
 [data-md-color-scheme="slate"] .md-header__button.md-logo img {
-  filter: invert(1);
+  filter: invert(0.956);
 }
 
 /* Dark mode image adjustments - opt-in via .dark-invert class */
 [data-md-color-scheme="slate"] .dark-invert {
-  filter: invert(1);
+  filter: invert(0.956);
+}
+
+/* =========================================================================
+   Shiki Syntax Highlighting for Coal
+   ========================================================================= */
+
+/* --- Light/Dark Mode Toggle for Dual-<code> Output --- */
+
+/* Default (light mode): show light, hide dark */
+.language-coal-light {
+  display: block;
+}
+.language-coal-dark {
+  display: none;
+}
+
+/* Dark mode: show dark, hide light */
+[data-md-color-scheme="slate"] .language-coal-light {
+  display: none;
+}
+[data-md-color-scheme="slate"] .language-coal-dark {
+  display: block;
+}
+
+/* --- Base Code Block Styling --- */
+
+pre.language-coal {
+  background: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+[data-md-color-scheme="slate"] pre.language-coal {
+  background: #0d1117;
+  border-color: #30363d;
+}
+
+/* --- Light Mode Colors (github-light theme) --- */
+
+/* Comments */
+.language-coal-light .comment.line.double-slash.coal,
+.language-coal-light .comment.block.coal,
+.language-coal-light .comment.block.documentation.coal {
+  color: #6a737d;
+  font-style: italic;
+}
+.language-coal-light .keyword.other.todo.coal {
+  color: #d73a49;
+  font-weight: bold;
+}
+
+/* Strings */
+.language-coal-light .string.quoted.double.coal {
+  color: #032f62;
+}
+.language-coal-light .constant.character.escape.coal {
+  color: #005cc5;
+}
+
+/* Characters */
+.language-coal-light .constant.character.char.coal {
+  color: #032f62;
+}
+
+/* Numbers */
+.language-coal-light .constant.numeric.integer.coal,
+.language-coal-light .constant.numeric.float.coal {
+  color: #005cc5;
+}
+
+/* Keywords */
+.language-coal-light .keyword.control.coal {
+  color: #d73a49;
+  font-weight: 600;
+}
+.language-coal-light .keyword.operator.arrow.coal,
+.language-coal-light .keyword.operator.bind.coal,
+.language-coal-light .keyword.operator.coal,
+.language-coal-light .keyword.operator.backtick.coal,
+.language-coal-light .keyword.operator.at.coal,
+.language-coal-light .keyword.operator.assignment.coal,
+.language-coal-light .keyword.operator.type-annotation.coal,
+.language-coal-light .keyword.operator.pattern-separator.coal,
+.language-coal-light .keyword.operator.cons.coal,
+.language-coal-light .keyword.operator.type-separator.coal,
+.language-coal-light .keyword.operator.record-extension.coal {
+  color: #d73a49;
+}
+
+/* Built-in types */
+.language-coal-light .support.type.builtin.coal {
+  color: #005cc5;
+  font-weight: 500;
+}
+
+/* Boolean and unit constants */
+.language-coal-light .constant.language.boolean.coal,
+.language-coal-light .constant.language.unit.coal {
+  color: #005cc5;
+}
+
+/* Type constructors (capitalized identifiers) */
+.language-coal-light .entity.name.type.constructor.coal,
+.language-coal-light .support.type.constructor.coal {
+  color: #e36209;
+  font-weight: 500;
+}
+
+/* Type names */
+.language-coal-light .entity.name.type.coal {
+  color: #005cc5;
+  font-weight: 500;
+}
+
+/* Functions */
+.language-coal-light .entity.name.function.coal {
+  color: #6f42c1;
+  font-weight: 600;
+}
+
+/* FFI */
+.language-coal-light .entity.name.function.ffi.coal {
+  color: #6f42c1;
+}
+.language-coal-light .meta.ffi-call.coal {
+  color: #6f42c1;
+}
+.language-coal-light .punctuation.definition.ffi.begin.coal,
+.language-coal-light .punctuation.definition.ffi.end.coal {
+  color: #d73a49;
+}
+
+/* Module / Namespace */
+.language-coal-light .entity.name.namespace.coal,
+.language-coal-light .entity.name.namespace.module.coal {
+  color: #24292e;
+  font-weight: 600;
+}
+
+/* Trait names */
+.language-coal-light .entity.name.type.trait.coal {
+  color: #005cc5;
+  font-weight: 600;
+}
+
+/* Variables and parameters */
+.language-coal-light .variable.other.coal {
+  color: #24292e;
+}
+.language-coal-light .variable.parameter.coal {
+  color: #6f42c1;
+  font-style: italic;
+}
+.language-coal-light .variable.other.field.coal {
+  color: #6f42c1;
+}
+.language-coal-light .variable.other.type-parameter.coal {
+  color: #6f42c1;
+  font-style: italic;
+}
+
+/* Wildcard */
+.language-coal-light .constant.language.wildcard.coal {
+  color: #6a737d;
+  font-weight: 600;
+}
+
+/* Punctuation */
+.language-coal-light .punctuation.definition.comment.coal,
+.language-coal-light .punctuation.definition.string.begin.coal,
+.language-coal-light .punctuation.definition.string.end.coal,
+.language-coal-light .punctuation.definition.char.coal,
+.language-coal-light .punctuation.definition.record.begin.coal,
+.language-coal-light .punctuation.definition.record.end.coal,
+.language-coal-light .punctuation.definition.match.end.coal,
+.language-coal-light .punctuation.definition.trait.end.coal,
+.language-coal-light .punctuation.definition.instance.end.coal,
+.language-coal-light .punctuation.definition.fold.end.coal,
+.language-coal-light .punctuation.definition.do.end.coal,
+.language-coal-light .punctuation.definition.parameters.coal,
+.language-coal-light .punctuation.definition.import.coal,
+.language-coal-light .punctuation.section.module.begin.coal,
+.language-coal-light .punctuation.separator.coal,
+.language-coal-light .punctuation.separator.parameter.coal,
+.language-coal-light .punctuation.separator.statement.coal {
+  color: #24292e;
+}
+
+/* --- Dark Mode Colors (github-dark theme) --- */
+
+[data-md-color-scheme="slate"] .language-coal-dark .comment.line.double-slash.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .comment.block.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .comment.block.documentation.coal {
+  color: #8b949e;
+  font-style: italic;
+}
+[data-md-color-scheme="slate"] .language-coal-dark .keyword.other.todo.coal {
+  color: #ff7b72;
+  font-weight: bold;
+}
+
+/* Strings */
+[data-md-color-scheme="slate"] .language-coal-dark .string.quoted.double.coal {
+  color: #a5d6ff;
+}
+[data-md-color-scheme="slate"] .language-coal-dark .constant.character.escape.coal {
+  color: #79c0ff;
+}
+
+/* Characters */
+[data-md-color-scheme="slate"] .language-coal-dark .constant.character.char.coal {
+  color: #a5d6ff;
+}
+
+/* Numbers */
+[data-md-color-scheme="slate"] .language-coal-dark .constant.numeric.integer.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .constant.numeric.float.coal {
+  color: #79c0ff;
+}
+
+/* Keywords */
+[data-md-color-scheme="slate"] .language-coal-dark .keyword.control.coal {
+  color: #ff7b72;
+  font-weight: 600;
+}
+[data-md-color-scheme="slate"] .language-coal-dark .keyword.operator.arrow.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .keyword.operator.bind.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .keyword.operator.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .keyword.operator.backtick.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .keyword.operator.at.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .keyword.operator.assignment.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .keyword.operator.type-annotation.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .keyword.operator.pattern-separator.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .keyword.operator.cons.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .keyword.operator.type-separator.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .keyword.operator.record-extension.coal {
+  color: #ff7b72;
+}
+
+/* Built-in types */
+[data-md-color-scheme="slate"] .language-coal-dark .support.type.builtin.coal {
+  color: #79c0ff;
+  font-weight: 500;
+}
+
+/* Boolean and unit constants */
+[data-md-color-scheme="slate"] .language-coal-dark .constant.language.boolean.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .constant.language.unit.coal {
+  color: #79c0ff;
+}
+
+/* Type constructors (capitalized identifiers) */
+[data-md-color-scheme="slate"] .language-coal-dark .entity.name.type.constructor.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .support.type.constructor.coal {
+  color: #ffa657;
+  font-weight: 500;
+}
+
+/* Type names */
+[data-md-color-scheme="slate"] .language-coal-dark .entity.name.type.coal {
+  color: #79c0ff;
+  font-weight: 500;
+}
+
+/* Functions */
+[data-md-color-scheme="slate"] .language-coal-dark .entity.name.function.coal {
+  color: #d2a8ff;
+  font-weight: 600;
+}
+
+/* FFI */
+[data-md-color-scheme="slate"] .language-coal-dark .entity.name.function.ffi.coal {
+  color: #d2a8ff;
+}
+[data-md-color-scheme="slate"] .language-coal-dark .meta.ffi-call.coal {
+  color: #d2a8ff;
+}
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.ffi.begin.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.ffi.end.coal {
+  color: #ff7b72;
+}
+
+/* Module / Namespace */
+[data-md-color-scheme="slate"] .language-coal-dark .entity.name.namespace.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .entity.name.namespace.module.coal {
+  color: #c9d1d9;
+  font-weight: 600;
+}
+
+/* Trait names */
+[data-md-color-scheme="slate"] .language-coal-dark .entity.name.type.trait.coal {
+  color: #79c0ff;
+  font-weight: 600;
+}
+
+/* Variables and parameters */
+[data-md-color-scheme="slate"] .language-coal-dark .variable.other.coal {
+  color: #c9d1d9;
+}
+[data-md-color-scheme="slate"] .language-coal-dark .variable.parameter.coal {
+  color: #d2a8ff;
+  font-style: italic;
+}
+[data-md-color-scheme="slate"] .language-coal-dark .variable.other.field.coal {
+  color: #d2a8ff;
+}
+[data-md-color-scheme="slate"] .language-coal-dark .variable.other.type-parameter.coal {
+  color: #d2a8ff;
+  font-style: italic;
+}
+
+/* Wildcard */
+[data-md-color-scheme="slate"] .language-coal-dark .constant.language.wildcard.coal {
+  color: #8b949e;
+  font-weight: 600;
+}
+
+/* Punctuation */
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.comment.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.string.begin.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.string.end.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.char.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.record.begin.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.record.end.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.match.end.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.trait.end.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.instance.end.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.fold.end.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.do.end.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.parameters.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.definition.import.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.section.module.begin.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.separator.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.separator.parameter.coal,
+[data-md-color-scheme="slate"] .language-coal-dark .punctuation.separator.statement.coal {
+  color: #c9d1d9;
 }

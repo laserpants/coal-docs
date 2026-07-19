@@ -29,6 +29,7 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - coal_shiki:CoalShikiExtension
   - pymdownx.arithmatex:
       generic: true
   - toc:

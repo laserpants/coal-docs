@@ -1,0 +1,407 @@
+{
+  "name": "Coal",
+  "scopeName": "source.coal",
+  "fileTypes": ["coal"],
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#chars" },
+    { "include": "#numbers" },
+    { "include": "#keywords" },
+    { "include": "#builtins" },
+    { "include": "#operators" },
+    { "include": "#ffi-call" },
+    { "include": "#record-literal" },
+    { "include": "#do-notation" },
+    { "include": "#lambda-expression" },
+    { "include": "#let-expression" },
+    { "include": "#fold-expression" },
+    { "include": "#at-symbol" },
+    { "include": "#function-definition" },
+    { "include": "#trait-definition" },
+    { "include": "#instance-definition" },
+    { "include": "#type-definition" },
+    { "include": "#module-decl" },
+    { "include": "#import-statement" },
+    { "include": "#pattern-match" },
+    { "include": "#identifiers" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.coal",
+          "begin": "//",
+          "beginCaptures": { "0": { "name": "punctuation.definition.comment.coal" } },
+          "end": "\\n",
+          "patterns": []
+        },
+        {
+          "name": "comment.block.documentation.coal",
+          "begin": "/\\*\\*",
+          "beginCaptures": { "0": { "name": "punctuation.definition.comment.coal" } },
+          "end": "\\*/",
+          "endCaptures": { "0": { "name": "punctuation.definition.comment.coal" } },
+          "patterns": [
+            { "match": "\\b(TODO|FIXME|NOTE|BUG)\\b", "name": "keyword.other.todo.coal" }
+          ]
+        },
+        {
+          "name": "comment.block.coal",
+          "begin": "/\\*",
+          "beginCaptures": { "0": { "name": "punctuation.definition.comment.coal" } },
+          "end": "\\*/",
+          "endCaptures": { "0": { "name": "punctuation.definition.comment.coal" } },
+          "patterns": [
+            { "match": "\\b(TODO|FIXME|NOTE|BUG)\\b", "name": "keyword.other.todo.coal" }
+          ]
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.coal",
+          "begin": "\"",
+          "beginCaptures": { "0": { "name": "punctuation.definition.string.begin.coal" } },
+          "end": "\"",
+          "endCaptures": { "0": { "name": "punctuation.definition.string.end.coal" } },
+          "patterns": [
+            { "match": "\\\\.", "name": "constant.character.escape.coal" }
+          ]
+        }
+      ]
+    },
+    "chars": {
+      "patterns": [
+        {
+          "name": "constant.character.char.coal",
+          "match": "'(\\\\.|[^'\\\\])'",
+          "captures": { "0": { "name": "punctuation.definition.char.coal" } }
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        { "name": "constant.numeric.float.coal", "match": "-?\\b\\d+\\.\\d+f\\b" },
+        { "name": "constant.numeric.float.coal", "match": "-?\\b\\d+\\.\\d+([eE][+-]?\\d+)?\\b" },
+        { "name": "constant.numeric.integer.coal", "match": "-?\\b\\d+\\b" }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.coal",
+          "match": "\\b(?:alias|as|do|else|fold|fun|fn|if|import|in|instance|module|match|namespace|or|otherwise|then|trait|type|when|where|with|let)\\b"
+        },
+        { "name": "keyword.operator.arrow.coal", "match": "=>" },
+        { "name": "keyword.operator.arrow.coal", "match": "->" },
+        { "name": "keyword.operator.bind.coal", "match": "<-" }
+      ]
+    },
+    "builtins": {
+      "patterns": [
+        { "name": "support.type.builtin.coal", "match": "\\b(?:bool|char|float|double|int32|int64|bignum|string|unit|nat|void)\\b" },
+        { "name": "constant.language.boolean.coal", "match": "\\b(?:true|false)\\b" },
+        { "name": "constant.language.unit.coal", "match": "\\(\\)" },
+        { "name": "support.type.constructor.coal", "match": "\\b(?:Some|None|Ok|Err|Zero|Succ|Cons|Nil)\\b" }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        { "name": "keyword.operator.backtick.coal", "match": "`[A-Za-z_][A-Za-z0-9_]*`" },
+        {
+          "name": "keyword.operator.coal",
+          "match": "(?:\\+\\+\\+|\\+\\+|=>|==|!=|<=|>=|&&|\\|\\||<>|\\+|\\-|\\*|/|%|\\^|::|<<|>>|\\|\\.|\\.\\||<|>|!|\\||\\.|:)"
+        }
+      ]
+    },
+    "at-symbol": {
+      "patterns": [
+        { "name": "keyword.operator.at.coal", "match": "@" }
+      ]
+    },
+    "ffi-call": {
+      "patterns": [
+        {
+          "name": "meta.ffi-call.coal",
+          "begin": "#\\{",
+          "beginCaptures": { "0": { "name": "punctuation.definition.ffi.begin.coal" } },
+          "end": "\\}",
+          "endCaptures": { "0": { "name": "punctuation.definition.ffi.end.coal" } },
+          "patterns": [
+            { "name": "entity.name.function.ffi.coal", "match": "[A-Za-z_][A-Za-z0-9_]*" },
+            { "name": "keyword.operator.type-annotation.coal", "match": ":" },
+            { "include": "#type-annotation" }
+          ]
+        }
+      ]
+    },
+    "record-literal": {
+      "patterns": [
+        {
+          "name": "meta.record.coal",
+          "begin": "\\{",
+          "beginCaptures": { "0": { "name": "punctuation.definition.record.begin.coal" } },
+          "end": "\\}",
+          "endCaptures": { "0": { "name": "punctuation.definition.record.end.coal" } },
+          "patterns": [
+            { "name": "keyword.operator.record-extension.coal", "match": "\\|" },
+            { "name": "keyword.operator.assignment.coal", "match": "=(?!>)" },
+            { "name": "punctuation.separator.coal", "match": "," },
+            { "name": "variable.other.field.coal", "match": "[a-z_][A-Za-z0-9_]*(?=\\s*=)" },
+            { "include": "#comments" },
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#keywords" },
+            { "include": "#operators" },
+            { "include": "#identifiers" }
+          ]
+        }
+      ]
+    },
+    "do-notation": {
+      "patterns": [
+        {
+          "name": "meta.do-notation.coal",
+          "begin": "\\bdo\\b\\s*\\{",
+          "beginCaptures": { "0": { "name": "keyword.control.do.coal" } },
+          "end": "\\}",
+          "endCaptures": { "0": { "name": "punctuation.definition.do.end.coal" } },
+          "patterns": [
+            { "name": "keyword.operator.bind.coal", "match": "<-" },
+            { "name": "punctuation.separator.statement.coal", "match": ";" },
+            { "include": "#comments" },
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#keywords" },
+            { "include": "#operators" },
+            { "include": "#identifiers" }
+          ]
+        }
+      ]
+    },
+    "lambda-expression": {
+      "patterns": [
+        {
+          "name": "meta.lambda.coal",
+          "begin": "\\bfn\\b\\s*\\(",
+          "beginCaptures": { "0": { "name": "keyword.control.fn.coal" } },
+          "end": "=>",
+          "endCaptures": { "0": { "name": "keyword.operator.arrow.coal" } },
+          "patterns": [
+            { "name": "variable.parameter.coal", "match": "[a-z_][A-Za-z0-9_]*" },
+            { "name": "punctuation.separator.parameter.coal", "match": "," },
+            { "name": "punctuation.definition.parameters.coal", "match": "[\\(\\)]" }
+          ]
+        }
+      ]
+    },
+    "let-expression": {
+      "patterns": [
+        {
+          "name": "meta.let-expression.coal",
+          "begin": "\\blet\\b",
+          "beginCaptures": { "0": { "name": "keyword.control.let.coal" } },
+          "end": "\\bin\\b",
+          "endCaptures": { "0": { "name": "keyword.control.in.coal" } },
+          "patterns": [
+            { "name": "keyword.operator.assignment.coal", "match": "=(?!>)" },
+            { "name": "punctuation.separator.coal", "match": ";" },
+            { "name": "keyword.operator.type-annotation.coal", "match": ":" },
+            { "include": "#comments" },
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#identifiers" }
+          ]
+        }
+      ]
+    },
+    "fold-expression": {
+      "patterns": [
+        {
+          "name": "meta.fold-expression.coal",
+          "begin": "\\bfold\\b\\s*\\(",
+          "beginCaptures": { "0": { "name": "keyword.control.fold.coal" } },
+          "end": "\\}",
+          "endCaptures": { "0": { "name": "punctuation.definition.fold.end.coal" } },
+          "patterns": [
+            { "name": "keyword.operator.at.coal", "match": "@" },
+            { "include": "#pattern-match" },
+            { "include": "#comments" },
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#keywords" },
+            { "include": "#operators" },
+            { "include": "#identifiers" }
+          ]
+        }
+      ]
+    },
+    "pattern-match": {
+      "patterns": [
+        {
+          "name": "meta.pattern-match.coal",
+          "begin": "\\bmatch\\b\\s*\\(",
+          "beginCaptures": { "0": { "name": "keyword.control.match.coal" } },
+          "end": "\\}",
+          "endCaptures": { "0": { "name": "punctuation.definition.match.end.coal" } },
+          "patterns": [
+            { "name": "keyword.operator.pattern-separator.coal", "match": "\\|" },
+            { "name": "keyword.operator.arrow.coal", "match": "=>" },
+            { "name": "keyword.control.when.coal", "match": "\\bwhen\\b" },
+            { "name": "keyword.control.otherwise.coal", "match": "\\botherwise\\b" },
+            { "name": "keyword.control.as.coal", "match": "\\bas\\b" },
+            { "name": "keyword.operator.cons.coal", "match": "::" },
+            { "name": "keyword.operator.at.coal", "match": "@" },
+            { "name": "constant.language.wildcard.coal", "match": "\\b_\\b" },
+            { "include": "#comments" },
+            { "include": "#strings" },
+            { "include": "#chars" },
+            { "include": "#numbers" },
+            { "include": "#builtins" },
+            { "include": "#identifiers" }
+          ]
+        }
+      ]
+    },
+    "trait-definition": {
+      "patterns": [
+        {
+          "name": "meta.trait.coal",
+          "begin": "\\btrait\\b\\s+([A-Z][A-Za-z0-9_]*)",
+          "beginCaptures": {
+            "0": { "name": "meta.trait-header.coal" },
+            "1": { "name": "entity.name.type.trait.coal" }
+          },
+          "end": "\\}",
+          "endCaptures": { "0": { "name": "punctuation.definition.trait.end.coal" } },
+          "patterns": [
+            { "name": "keyword.control.with.coal", "match": "\\bwith\\b" },
+            { "name": "keyword.operator.type-annotation.coal", "match": ":" },
+            { "include": "#function-definition" },
+            { "include": "#let-expression" },
+            { "include": "#comments" },
+            { "include": "#identifiers" }
+          ]
+        }
+      ]
+    },
+    "instance-definition": {
+      "patterns": [
+        {
+          "name": "meta.instance.coal",
+          "begin": "\\binstance\\b\\s+([A-Z][A-Za-z0-9_]*)",
+          "beginCaptures": {
+            "0": { "name": "meta.instance-header.coal" },
+            "1": { "name": "entity.name.type.trait.coal" }
+          },
+          "end": "\\}",
+          "endCaptures": { "0": { "name": "punctuation.definition.instance.end.coal" } },
+          "patterns": [
+            { "name": "keyword.control.with.coal", "match": "\\bwith\\b" },
+            { "include": "#function-definition" },
+            { "include": "#let-expression" },
+            { "include": "#comments" },
+            { "include": "#identifiers" }
+          ]
+        }
+      ]
+    },
+    "type-definition": {
+      "patterns": [
+        {
+          "name": "meta.type-definition.coal",
+          "begin": "\\btype\\b\\s+(?:(alias)\\s+)?([A-Z][A-Za-z0-9_]*)",
+          "beginCaptures": {
+            "0": { "name": "meta.type-header.coal" },
+            "1": { "name": "keyword.control.alias.coal" },
+            "2": { "name": "entity.name.type.coal" }
+          },
+          "end": "(?=(\\bfun\\b|\\btype\\b|\\btrait\\b|\\binstance\\b|\\bmodule\\b|\\bimport\\b|\\blet\\b))",
+          "patterns": [
+            { "name": "keyword.operator.assignment.coal", "match": "=(?!>)" },
+            { "name": "keyword.operator.type-separator.coal", "match": "\\|" },
+            { "name": "entity.name.type.constructor.coal", "match": "\\b[A-Z][A-Za-z0-9_]*\\b" },
+            { "include": "#type-annotation" },
+            { "include": "#comments" }
+          ]
+        }
+      ]
+    },
+    "type-annotation": {
+      "patterns": [
+        { "name": "keyword.operator.arrow.coal", "match": "->" },
+        { "name": "support.type.builtin.coal", "match": "\\b(?:bool|char|float|double|int32|int64|bignum|string|unit|nat|void)\\b" },
+        { "name": "entity.name.type.coal", "match": "\\b[A-Z][A-Za-z0-9_]*\\b" },
+        { "name": "variable.other.type-parameter.coal", "match": "\\b[a-z][A-Za-z0-9_]*\\b" }
+      ]
+    },
+    "import-statement": {
+      "patterns": [
+        {
+          "name": "meta.import.coal",
+          "begin": "\\bimport\\b",
+          "beginCaptures": { "0": { "name": "keyword.control.import.coal" } },
+          "end": "(?=\\n|;|//|/\\*)",
+          "patterns": [
+            { "name": "keyword.control.namespace.coal", "match": "\\bnamespace\\b" },
+            { "name": "keyword.control.trait.coal", "match": "\\btrait\\b" },
+            { "name": "entity.name.namespace.coal", "match": "\\b[A-Z][A-Za-z0-9_]*(?:\\.[A-Z][A-Za-z0-9_]*)*\\b" },
+            { "name": "punctuation.definition.import.coal", "match": "[\\(\\),]" }
+          ]
+        }
+      ]
+    },
+    "function-definition": {
+      "patterns": [
+        {
+          "name": "meta.function.definition.coal",
+          "begin": "(fun)\\s+([A-Za-z_`][A-Za-z0-9_`]*)",
+          "beginCaptures": {
+            "1": { "name": "keyword.control.fun.coal" },
+            "2": { "name": "entity.name.function.coal" }
+          },
+          "end": "(?=(\\bfun\\b|\\btype\\b|\\btrait\\b|\\binstance\\b|\\bmodule\\b|\\bimport\\b|\\blet\\b))",
+          "patterns": [
+            { "name": "keyword.operator.assignment.coal", "match": "=(?!>)" },
+            { "name": "keyword.operator.type-annotation.coal", "match": ":" },
+            { "name": "keyword.operator.arrow.coal", "match": "->" },
+            { "name": "keyword.operator.pattern-separator.coal", "match": "\\|" },
+            { "name": "keyword.control.when.coal", "match": "\\bwhen\\b" },
+            { "name": "keyword.control.otherwise.coal", "match": "\\botherwise\\b" },
+            { "name": "keyword.operator.arrow.coal", "match": "=>" },
+            { "name": "keyword.operator.at.coal", "match": "@" },
+            { "include": "#type-annotation" },
+            { "include": "#comments" },
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#builtins" },
+            { "include": "#identifiers" }
+          ]
+        }
+      ]
+    },
+    "module-decl": {
+      "patterns": [
+        {
+          "name": "meta.module.coal",
+          "begin": "^\\s*module\\b",
+          "beginCaptures": { "0": { "name": "keyword.control.module.coal" } },
+          "end": "\\{",
+          "endCaptures": { "0": { "name": "punctuation.section.module.begin.coal" } },
+          "patterns": [
+            { "name": "entity.name.namespace.module.coal", "match": "\\b([A-Z][A-Za-z0-9_]*(?:\\.[A-Z][A-Za-z0-9_]*)*)\\b" }
+          ]
+        }
+      ]
+    },
+    "identifiers": {
+      "patterns": [
+        { "name": "entity.name.type.constructor.coal", "match": "\\b[A-Z][A-Za-z0-9_]*\\b" },
+        { "name": "variable.other.coal", "match": "\\b[a-z_][A-Za-z0-9_']*\\b" },
+        { "name": "constant.language.wildcard.coal", "match": "\\b_\\b" }
+      ]
+    }
+  }
+}
