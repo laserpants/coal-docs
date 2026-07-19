@@ -3,7 +3,12 @@
   height: 1.7rem;
 }
 
-/* Dark mode image adjustments */
-[data-md-color-scheme="slate"] img[alt="Coal"] {
-  filter: brightness(0) invert(1);
+/* Dark mode: invert the logo in the header */
+[data-md-color-scheme="slate"] .md-header__button.md-logo img {
+  filter: invert(1);
+}
+
+/* Dark mode image adjustments - opt-in via .dark-invert class */
+[data-md-color-scheme="slate"] .dark-invert {
+  filter: invert(1);
 }
