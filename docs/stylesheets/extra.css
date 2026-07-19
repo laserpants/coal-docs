@@ -2,3 +2,8 @@
   margin-top: -2px;
   height: 1.7rem;
 }
+
+/* Dark mode image adjustments */
+[data-md-color-scheme="slate"] img[alt="Coal"] {
+  filter: brightness(0) invert(1);
+}
