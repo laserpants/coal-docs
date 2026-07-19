@@ -2,3 +2,13 @@
   margin-top: -2px;
   height: 1.7rem;
 }
+
+/* Dark mode: invert the logo in the header */
+[data-md-color-scheme="slate"] .md-header__button.md-logo img {
+  filter: invert(1);
+}
+
+/* Dark mode image adjustments - opt-in via .dark-invert class */
+[data-md-color-scheme="slate"] .dark-invert {
+  filter: invert(1);
+}
