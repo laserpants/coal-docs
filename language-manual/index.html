@@ -2263,14 +2263,7 @@ Numeric literals are translated by the compiler to a function call, in this case
 unpack : nat -&gt; int32
 </code></pre></div>
 <h3 id="unit">Unit</h3>
-<p>The <code>unit</code> type has only a single value, written as an empty pair of parentheses: <code>()</code>. At first glance this type may appear to serve no purpose, but it has several practical uses. For example, it is often useful to indicate that a function doesn't take any meaningful input. In C, we might write the following function:</p>
-<div class="highlight"><pre><span></span><code>int five() {
-  /* ... */
-
-  return 5;
-}
-</code></pre></div>
-<p>This is where the <code>unit</code> type comes in handy:</p>
+<p>The <code>unit</code> type has only a single value, written as an empty pair of parentheses: <code>()</code>. At first glance this type may appear to serve no purpose, but it has several practical uses. It is very commonly used to indicate that a function doesn't take any meaningful input: </p>
 <div class="highlight"><pre><span></span><code>fun five(() : unit) : int32 = 5
 </code></pre></div>
 <h4 id="two-pairs-of-parentheses-for-the-price-of-one">Two pairs of parentheses for the price of one</h4>

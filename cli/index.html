@@ -385,10 +385,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#coal-build" class="md-nav__link">
+  <a href="#coal-init" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        coal build
+        coal init
       </span>
     </span>
   </a>
@@ -783,10 +783,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#coal-build" class="md-nav__link">
+  <a href="#coal-init" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        coal build
+        coal init
       </span>
     </span>
   </a>
@@ -1040,6 +1040,7 @@
 <ul>
 <li><strong>Compiling</strong> individual Coal source files into executables</li>
 <li><strong>Building</strong> projects defined by <code>coal.json</code> manifests</li>
+<li><strong>Initializing</strong> new projects with <code>coal init</code></li>
 <li><strong>Managing dependencies</strong> from Git repositories</li>
 <li><strong>Cleaning</strong> build artifacts</li>
 </ul>
@@ -1061,14 +1062,10 @@ coal<span class="w"> </span>compile<span class="w"> </span>-I.<span class="w"> <
 ./hello
 </code></pre></div>
 <p>For project-based development with dependencies:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Create a project manifest</span>
-cat<span class="w"> </span>&gt;<span class="w"> </span>coal.json<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
-<span class="s">{</span>
-<span class="s">  &quot;name&quot;: &quot;my-project&quot;,</span>
-<span class="s">  &quot;version&quot;: &quot;0.1.0&quot;,</span>
-<span class="s">  &quot;modules&quot;: [&quot;Main&quot;]</span>
-<span class="s">}</span>
-<span class="s">EOF</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a new project</span>
+mkdir<span class="w"> </span>my-project
+<span class="nb">cd</span><span class="w"> </span>my-project
+coal<span class="w"> </span>init
 
 <span class="c1"># Install dependencies (if any)</span>
 coal<span class="w"> </span>install
@@ -1176,14 +1173,72 @@ coal<span class="w"> </span>build
 <p><strong>Compile with custom entry point:</strong></p>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>compile<span class="w"> </span>-I.<span class="w"> </span>Main.coal<span class="w"> </span>-o<span class="w"> </span>myprogram<span class="w"> </span>--entry-point<span class="w"> </span>Main.main
 </code></pre></div>
-<h3 id="coal-build">coal build</h3>
-<p>Builds a Coal project using configuration from a <code>coal.json</code> manifest file.</p>
+<h3 id="coal-init">coal init</h3>
+<p>Initializes a new Coal project with a <code>coal.json</code> manifest and a basic <code>Main.coal</code> module.</p>
 <h4 id="usage_1">Usage</h4>
-<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>build
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>init<span class="w"> </span><span class="o">[</span>--name<span class="w"> </span>NAME<span class="o">]</span><span class="w"> </span><span class="o">[</span>--force<span class="o">]</span>
 </code></pre></div>
 <h4 id="options_1">Options</h4>
-<p>None. All configuration is read from <code>coal.json</code> in the current directory.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--name NAME</code></td>
+<td>Optional</td>
+<td>Project name (defaults to the current directory name)</td>
+</tr>
+<tr>
+<td><code>--force</code></td>
+<td>Flag</td>
+<td>Overwrite existing <code>coal.json</code> file if it exists</td>
+</tr>
+</tbody>
+</table>
 <h4 id="behavior_1">Behavior</h4>
+<ol>
+<li>Checks if <code>coal.json</code> already exists in the current directory</li>
+<li>If it exists and <code>--force</code> is not provided, the command fails with an error</li>
+<li>Creates a <code>src/</code> directory if it doesn't exist</li>
+<li>Creates <code>src/Main.coal</code> with a basic "Hello, world!" template</li>
+<li>Creates <code>coal.json</code> with the project configuration:</li>
+<li><code>name</code>: The project name (from <code>--name</code> or current directory)</li>
+<li><code>modules</code>: <code>["Main"]</code></li>
+<li><code>source_dirs</code>: <code>["src"]</code></li>
+<li><code>entry_point</code>: <code>"Main.main"</code></li>
+</ol>
+<h4 id="example">Example</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Initialize a new project with the current directory name</span>
+mkdir<span class="w"> </span>my-project
+<span class="nb">cd</span><span class="w"> </span>my-project
+coal<span class="w"> </span>init
+
+<span class="c1"># Or with a custom name</span>
+coal<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>my-project
+</code></pre></div>
+<p>This creates:</p>
+<div class="highlight"><pre><span></span><code>my-project/
+├── coal.json
+└── src/
+    └── Main.coal
+
+### coal build
+
+Builds a Coal project using configuration from a `coal.json` manifest file.
+
+#### Usage
+
+```bash
+coal build
+</code></pre></div>
+<h4 id="options_2">Options</h4>
+<p>None. All configuration is read from <code>coal.json</code> in the current directory.</p>
+<h4 id="behavior_2">Behavior</h4>
 <ol>
 <li>Reads project configuration from <code>coal.json</code> in the current directory</li>
 <li>Requires <code>coal.lock.json</code> to be present (run <code>coal install</code> first if missing)</li>
@@ -1200,7 +1255,7 @@ coal<span class="w"> </span>build
 <li>Any dependency manifests are missing from <code>.coal/packages/</code></li>
 <li>Module names in the manifest are invalid</li>
 </ul>
-<h4 id="example">Example</h4>
+<h4 id="example_1">Example</h4>
 <div class="highlight"><pre><span></span><code><span class="c1"># After setting up coal.json and running coal install</span>
 coal<span class="w"> </span>build
 </code></pre></div>
@@ -1210,9 +1265,9 @@ coal<span class="w"> </span>build
 <h4 id="usage_2">Usage</h4>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>install
 </code></pre></div>
-<h4 id="options_2">Options</h4>
+<h4 id="options_3">Options</h4>
 <p>None. Dependencies are read from <code>coal.json</code> in the current directory.</p>
-<h4 id="behavior_2">Behavior</h4>
+<h4 id="behavior_3">Behavior</h4>
 <ol>
 <li>Reads dependencies from <code>coal.json</code></li>
 <li>For each dependency:</li>
@@ -1243,7 +1298,7 @@ coal<span class="w"> </span>build
 <li>No version matches the constraint</li>
 <li>Git operations fail (clone, ls-remote, checkout)</li>
 </ul>
-<h4 id="example_1">Example</h4>
+<h4 id="example_2">Example</h4>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>install
 </code></pre></div>
 <p>See <a href="#adding-dependencies">Adding dependencies</a> for a complete workflow example.</p>
@@ -1252,9 +1307,9 @@ coal<span class="w"> </span>build
 <h4 id="usage_3">Usage</h4>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>clean
 </code></pre></div>
-<h4 id="options_3">Options</h4>
+<h4 id="options_4">Options</h4>
 <p>None.</p>
-<h4 id="behavior_3">Behavior</h4>
+<h4 id="behavior_4">Behavior</h4>
 <ul>
 <li>Recursively deletes the <code>.build/</code> directory</li>
 <li>Silently succeeds if the directory doesn't exist</li>
@@ -1263,7 +1318,7 @@ coal<span class="w"> </span>build
 <p>To remove dependencies, manually delete the <code>.coal/</code> directory:</p>
 <div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span>.coal
 </code></pre></div>
-<h4 id="example_2">Example</h4>
+<h4 id="example_3">Example</h4>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>clean
 </code></pre></div>
 <h3 id="coal-version">coal --version</h3>
@@ -1279,7 +1334,7 @@ coal<span class="w"> </span>-V
 <li><code>v0.1.0-3-g1234abc</code> (3 commits after v0.1.0)</li>
 <li><code>v1.2.3-dirty</code> (uncommitted changes)</li>
 </ul>
-<h4 id="example_3">Example</h4>
+<h4 id="example_4">Example</h4>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>coal<span class="w"> </span>--version
 v0.1.0-5-g9a8b7c6
 </code></pre></div>
@@ -1518,7 +1573,7 @@ v0.1.0-5-g9a8b7c6
 </tr>
 </tbody>
 </table>
-<h4 id="example_4">Example</h4>
+<h4 id="example_5">Example</h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;packages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;hello-world&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -1534,7 +1589,7 @@ v0.1.0-5-g9a8b7c6
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h4 id="behavior_4">Behavior</h4>
+<h4 id="behavior_5">Behavior</h4>
 <p><strong>Generation:</strong></p>
 <ul>
 <li>Created/updated by <code>coal install</code> command</li>
@@ -1659,7 +1714,7 @@ v0.1.0-5-g9a8b7c6
             │   └── (source files)
             └── (other package files)
 </code></pre></div>
-<h4 id="example_5">Example</h4>
+<h4 id="example_6">Example</h4>
 <p>For a package named <code>hello-world</code> at commit <code>05c8b6e2...</code>:</p>
 <div class="highlight"><pre><span></span><code>.coal/packages/hello-world/05c8b6e2c7b1ad49db83a9d035e131163482606c/
 ├── coal.json
@@ -1682,8 +1737,17 @@ v0.1.0-5-g9a8b7c6
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>my-project
 <span class="nb">cd</span><span class="w"> </span>my-project
 </code></pre></div>
-<h4 id="step-2-create-coaljson">Step 2: Create coal.json</h4>
-<p>Create a manifest file with your project metadata:</p>
+<h4 id="step-2-initialize-the-project">Step 2: Initialize the project</h4>
+<p>Use <code>coal init</code> to create the project structure:</p>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>init
+</code></pre></div>
+<p>This creates:</p>
+<ul>
+<li><code>src/</code> directory</li>
+<li><code>src/Main.coal</code> with a basic "Hello, world!" template</li>
+<li><code>coal.json</code> with the project configuration</li>
+</ul>
+<p>Alternatively, you can manually create the files for more control:</p>
 <div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>coal.json<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
 <span class="s">{</span>
 <span class="s">  &quot;name&quot;: &quot;my-project&quot;,</span>
@@ -1691,9 +1755,8 @@ v0.1.0-5-g9a8b7c6
 <span class="s">  &quot;modules&quot;: [&quot;Main&quot;]</span>
 <span class="s">}</span>
 <span class="s">EOF</span>
-</code></pre></div>
-<h4 id="step-3-create-source-directory-and-main-module">Step 3: Create source directory and Main module</h4>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>src
+
+mkdir<span class="w"> </span>-p<span class="w"> </span>src
 cat<span class="w"> </span>&gt;<span class="w"> </span>src/Main.coal<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
 <span class="s">module Main {</span>
 <span class="s">  import IO(println_string)</span>
@@ -1702,7 +1765,7 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>src/Main.coal<span class=
 <span class="s">}</span>
 <span class="s">EOF</span>
 </code></pre></div>
-<h4 id="step-4-install-dependencies">Step 4: Install dependencies</h4>
+<h4 id="step-3-install-dependencies">Step 3: Install dependencies</h4>
 <p>Even if you have no dependencies, run <code>coal install</code> to generate the lock file:</p>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>install
 </code></pre></div>
@@ -1711,11 +1774,11 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>src/Main.coal<span class=
 <span class="w">  </span><span class="nt">&quot;packages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h4 id="step-5-build">Step 5: Build</h4>
+<h4 id="step-4-build">Step 4: Build</h4>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>build
 </code></pre></div>
 <p>This compiles your project and generates an executable (the name depends on your project name and version).</p>
-<h4 id="step-6-run">Step 6: Run</h4>
+<h4 id="step-5-run">Step 5: Run</h4>
 <div class="highlight"><pre><span></span><code>./my-project-0.1.0<span class="w">  </span><span class="c1"># Or whatever executable name was generated</span>
 </code></pre></div>
 <p>Output:
