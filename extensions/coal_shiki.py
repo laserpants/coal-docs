@@ -71,7 +71,7 @@ def highlight_coal_code(code: str, lang: str = "coal") -> str:
     Returns:
         Highlighted HTML string, or a fallback if Shiki is unavailable.
     """
-    # Check if Node.js and the Shiki script are available
+    # Check if the Shiki script exists
     if not os.path.exists(_SHIKI_SCRIPT):
         return f'<pre><code class="language-coal">{code}</code></pre>'
 
@@ -116,6 +116,9 @@ def coal_fence_format(
     Returns:
         Highlighted HTML for the code block.
     """
+    import sys
+    print(f"[DEBUG] coal_fence_format called with language={language!r}", file=sys.stderr)
+    
     if language == "coal":
         return highlight_coal_code(source, language)
     # For non-coal languages, return None to let Pygments handle it
@@ -137,6 +140,8 @@ def coal_fence_validator(
     Returns:
         True if the language is "coal", False otherwise.
     """
+    import sys
+    print(f"[DEBUG] coal_fence_validator called with language={language!r}", file=sys.stderr)
     return language == "coal"
 
 
@@ -167,21 +172,26 @@ class CoalShikiExtension(Extension):
         if not self._enabled:
             return
 
-        # Get the superfences configuration, creating it if needed
-        if "pymdownx.superfences" not in md.mdx_configs:
-            md.mdx_configs["pymdownx.superfences"] = {}
-
-        superfences = md.mdx_configs["pymdownx.superfences"]
-        if "custom_fences" not in superfences:
-            superfences["custom_fences"] = []
-
-        # Add the Coal custom fence
-        superfences["custom_fences"].append({
-            "name": "coal",
-            "class": "language-coal",
-            "format": coal_fence_format,
-            "validator": coal_fence_validator,
-        })
+        # Register the custom fence directly on the Markdown instance
+        # This is the correct way to add custom fences to superfences
+        if hasattr(md, "superfences_custom_fences"):
+            md.superfences_custom_fences.append({
+                "name": "coal",
+                "class": "language-coal",
+                "format": coal_fence_format,
+                "validator": coal_fence_validator,
+            })
+        else:
+            # If superfences hasn't been loaded yet, we need to use a different approach
+            # Store for later use when superfences is loaded
+            if not hasattr(md, "_coal_shiki_fences"):
+                md._coal_shiki_fences = []
+            md._coal_shiki_fences.append({
+                "name": "coal",
+                "class": "language-coal",
+                "format": coal_fence_format,
+                "validator": coal_fence_validator,
+            })
 
 
 # -----------------------------------------------------------------------------

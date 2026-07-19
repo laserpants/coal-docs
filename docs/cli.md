@@ -1,9 +1,11 @@
 # CLI reference
 
+
 The Coal CLI is the primary tool for compiling Coal programs and managing Coal projects. It provides commands for:
 
 - **Compiling** individual Coal source files into executables
 - **Building** projects defined by `coal.json` manifests
+- **Initializing** new projects with `coal init`
 - **Managing dependencies** from Git repositories
 - **Cleaning** build artifacts
 
@@ -29,17 +31,14 @@ coal compile -I. Main.coal -o hello
 ./hello
 ```
 
+
 For project-based development with dependencies:
 
 ```bash
-# Create a project manifest
-cat > coal.json << 'EOF'
-{
-  "name": "my-project",
-  "version": "0.1.0",
-  "modules": ["Main"]
-}
-EOF
+# Create a new project
+mkdir my-project
+cd my-project
+coal init
 
 # Install dependencies (if any)
 coal install
@@ -119,11 +118,61 @@ coal compile -I. Main.coal --extra-c helpers.c --extra-c utils.c -o myapp
 coal compile -s --no-cache -I. Main.coal -o dist
 ```
 
+
 **Compile with custom entry point:**
 
 ```bash
 coal compile -I. Main.coal -o myprogram --entry-point Main.main
 ```
+
+### coal init
+
+Initializes a new Coal project with a `coal.json` manifest and a basic `Main.coal` module.
+
+#### Usage
+
+```bash
+coal init [--name NAME] [--force]
+```
+
+#### Options
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `--name NAME` | Optional | Project name (defaults to the current directory name) |
+| `--force` | Flag | Overwrite existing `coal.json` file if it exists |
+
+#### Behavior
+
+1. Checks if `coal.json` already exists in the current directory
+2. If it exists and `--force` is not provided, the command fails with an error
+3. Creates a `src/` directory if it doesn't exist
+4. Creates `src/Main.coal` with a basic "Hello, world!" template
+5. Creates `coal.json` with the project configuration:
+   - `name`: The project name (from `--name` or current directory)
+   - `modules`: `["Main"]`
+   - `source_dirs`: `["src"]`
+   - `entry_point`: `"Main.main"`
+
+#### Example
+
+```bash
+# Initialize a new project with the current directory name
+mkdir my-project
+cd my-project
+coal init
+
+# Or with a custom name
+coal init --name my-project
+```
+
+This creates:
+
+```
+my-project/
+├── coal.json
+└── src/
+    └── Main.coal
 
 ### coal build
 
@@ -628,6 +677,7 @@ The `src` directory is always included by default.
 
 ## Workflows and tutorials
 
+
 ### Creating a new project
 
 This tutorial walks through creating a new Coal project from scratch.
@@ -639,9 +689,21 @@ mkdir my-project
 cd my-project
 ```
 
-#### Step 2: Create coal.json
+#### Step 2: Initialize the project
 
-Create a manifest file with your project metadata:
+Use `coal init` to create the project structure:
+
+```bash
+coal init
+```
+
+This creates:
+
+- `src/` directory
+- `src/Main.coal` with a basic "Hello, world!" template
+- `coal.json` with the project configuration
+
+Alternatively, you can manually create the files for more control:
 
 ```bash
 cat > coal.json << 'EOF'
@@ -651,11 +713,7 @@ cat > coal.json << 'EOF'
   "modules": ["Main"]
 }
 EOF
-```
 
-#### Step 3: Create source directory and Main module
-
-```bash
 mkdir -p src
 cat > src/Main.coal << 'EOF'
 module Main {
@@ -666,7 +724,9 @@ module Main {
 EOF
 ```
 
-#### Step 4: Install dependencies
+
+
+#### Step 3: Install dependencies
 
 Even if you have no dependencies, run `coal install` to generate the lock file:
 
@@ -682,7 +742,8 @@ This creates an empty `coal.lock.json`:
 }
 ```
 
-#### Step 5: Build
+
+#### Step 4: Build
 
 ```bash
 coal build
@@ -690,7 +751,7 @@ coal build
 
 This compiles your project and generates an executable (the name depends on your project name and version).
 
-#### Step 6: Run
+#### Step 5: Run
 
 ```bash
 ./my-project-0.1.0  # Or whatever executable name was generated
