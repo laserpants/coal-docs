@@ -40,9 +40,9 @@
 pre.language-coal {
   background: var(--md-code-bg-color);
   border-radius: 0.1rem;
-  padding: .7612756em 1.1724138em;
+  padding: .5em .75em;
   overflow-x: auto;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   line-height: 1.45;
 }
 
