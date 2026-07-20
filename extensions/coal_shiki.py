@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 from typing import TYPE_CHECKING, Any
@@ -51,6 +52,23 @@ if TYPE_CHECKING:
 # -----------------------------------------------------------------------------
 
 _SHIKI_SCRIPT = os.path.join(_project_root, "shiki", "highlight.mjs")
+
+
+def _find_node() -> str:
+    """Locate the node executable, checking PATH then common nvm locations."""
+    node = shutil.which("node")
+    if node:
+        return node
+    nvm_dir = os.path.expanduser("~/.nvm/versions/node")
+    if os.path.isdir(nvm_dir):
+        for version in sorted(os.listdir(nvm_dir), reverse=True):
+            candidate = os.path.join(nvm_dir, version, "bin", "node")
+            if os.path.isfile(candidate) and os.access(candidate, os.X_OK):
+                return candidate
+    return "node"
+
+
+_NODE = _find_node()
 
 
 # -----------------------------------------------------------------------------
@@ -74,7 +92,7 @@ def highlight_coal_code(code: str, lang: str = "coal") -> str:
     try:
         # Run the Shiki highlighter script
         result = subprocess.run(
-            ["node", _SHIKI_SCRIPT],
+            [_NODE, _SHIKI_SCRIPT],
             input=json.dumps({"code": code, "lang": lang}),
             capture_output=True,
             text=True,
