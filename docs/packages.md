@@ -89,15 +89,13 @@ Repository: [codeberg.org/laserpants/coal-micro-test](https://codeberg.org/laser
 
 This library provides a simple and elegant way to write and run tests in Coal. It offers a functional approach to testing with assertion functions, test composition, and pretty-printed test results.
 
-## Features
-
 - **Simple assertions**: `assert` and `assert_eq` for common test cases
 - **Composable tests**: Build complex test suites from simple test cases
 - **Clear output**: Color-coded test results with pass/fail summaries
 - **Functional design**: Leverages Coal's functional programming features
 - **Lightweight**: Minimal dependencies and straightforward API
 
-### Installation
+#### Installation
 
 Add `coal-micro-test` to your `coal.json` dependencies:
 
