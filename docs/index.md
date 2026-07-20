@@ -2,6 +2,8 @@
 
 <img alt="Coal" src="assets/mine.jpg" />
 
+<a href="https://codeberg.org/laserpants/coal"><img src="https://badgen.net/codeberg/stars/laserpants/coal" /></a>
+
 This is the official documentation for the Coal programming language. 
 
 ## About
