@@ -44,7 +44,7 @@ false           int32           trait
 
 *Shadowing* occurs when a variable declared in an inner scope has the same name as a variable from an outer scope. 
 
-```
+```coal
 fun go(x) =
   let x = 3 in x + 3
 ```
@@ -61,14 +61,14 @@ A *literal* is an expression that directly represents a fixed value. It is eithe
 
 Integer literals introduced in code without an explicit type annotation, such as
 
-```
+```coal
 let answer = 42
 ```
 
 are *overloaded*. The inferred type of this expression is `n with (Numeric<n>)`, which means that `n` can be *any* type, as long as it implements the `Numeric` trait (see **[Traits](#traits)**). This includes the built-in `int32`, `int64`, `float`, `double`, `bignum`, and `nat` types. All `Numeric` types support the basic arithmetic operations of addition, subtraction, and multiplication.
 For example:
 
-```
+```coal
 fun sum_of(x, y, z) = 
   x + y + z 
 
@@ -76,13 +76,13 @@ fun sum_of(x, y, z) =
 
 In this example, the function `sum_of` is polymorphic: it can operate on any type that implements `Numeric`.  With explicit type annotations:
 
-```
+```coal
 fun sum_of(x : a, y : a, z : a) : a with (Numeric<a>) = 
 ```
 
 We can then use `sum_of` in the following way:
 
-```
+```coal
 let n : int32  = sum_of(1, 2, 3)
 let d : double = sum_of(0.5, 1.0, 1.5)
 ```
@@ -93,7 +93,7 @@ The expected types of `n` and `d` specialize the first call to `int32` and the s
 
 Unlike Haskell, ML, and OCaml, Coal uses parentheses and commas to separate arguments in function applications — a syntax more akin to languages like C, Java, or Python. For example:
 
-```
+```coal
 concat("one", "two")
 ```
 
@@ -101,26 +101,26 @@ This applies the function `concat` to the arguments `"one"` and `"two"`.
 
 By default, functions are *curried*. There is a difference between a function that takes multiple arguments, and one that takes a single tuple as its argument. Consider the following two type signatures:
 
-```
+```coal
 f : a -> b -> c
 g : (a, b) -> c
 ```
 
 The first of these is in curried form, which is usually more convenient to work with. Curried functions can be partially applied. This is useful, for example, when working with higher-order functions. Suppose we define an addition function:
 
-```
+```coal
 fun add(x, y) = x + y
 ```
 
 Using partial application, we can create a new function `increment` by supplying just one argument to `add`:
 
-```
+```coal
 let increment = add(1)
 ```
 
 Partially applied functions can also be passed directly to a higher-order function like `map`:
 
-```
+```coal
 map(add(1), [1, 2, 3, 4])   // which yields the same result as map(increment, [1, 2, 3, 4])
 ```
 
@@ -128,13 +128,13 @@ map(add(1), [1, 2, 3, 4])   // which yields the same result as map(increment, [1
 
 If-expressions in Coal are similar to those found in many programming languages, especially other functional languages. Both the `then` and `else` clauses must be present, and they must produce values of the same type:
 
-```
+```coal
   if (%e_1 : bool) then %e_2 : %t else %e_3 : %t
 ```
 
 For example:
 
-```
+```coal
   if (temperature > 20) then wear("shorts") else go_home()
 ```
 
@@ -148,17 +148,17 @@ let %pattern = %e_1 in %e_2
 
 Variables form the simplest form of pattern, namely one that matches any value and binds it to a name:
 
-```
+```coal
 let name = "Zlatan" 
 ```
 
 The pattern used on the left-hand side must be such that it is guaranteed to match the result of the expression `%e_1`. For example:
 
-```
--- Destructuring with a tuple
+```coal
+// Destructuring with a tuple
 let (x, y) = (1, 2) in x + y
 
--- Matching nested records
+// Matching nested records
 let { tidbits = { f = a | _ } } = compute(4)
 ```
 
@@ -167,7 +167,7 @@ let { tidbits = { f = a | _ } } = compute(4)
     Let-bindings are in some ways similar to lambda functions. For example, writing `let x = 1 in increment(x)` yields the same result as `(fn(x) => increment(x))(1)`.
     But besides being more readable, the let-binding also serves another purpose; in [Hindley-Milner](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system) languages, it is `let` that introduces polymorphism. Consider the following expression, which doesn’t type check:
 
-    ```
+    ```coal
       (fn(f) => (f(3 : int32), f("three")))(fn(x) => x)
     ```
 
@@ -175,7 +175,7 @@ let { tidbits = { f = a | _ } } = compute(4)
     If we instead bind the anonymous function to a new identifier, then its type is *generalized* and obtains the quantified type `∀a : a -> a` (known as a *type scheme*).
     We can now apply this function to both elements of the tuple, even though they have different types:
 
-    ```
+    ```coal
       let id = fn(x) => x 
         in 
           (id(3 : int32), id("three"))
@@ -187,13 +187,13 @@ A subtle but important detail that makes let-bindings in Coal different from tho
 This prevents non-well-founded expressions, such as `let f = f in f`, but more generally, makes it impossible for any function to refer to itself. 
 The restriction also applies to top-level definitions. For example, as far as the compiler is concerned, the function
 
-```
+```coal
 fun fib(n) = if (n == 0 || n == 1) then n else fib(n - 1) + fib(n - 2)
 ```
 
 translates into:
 
-```
+```coal
 let fib = fn(n) => if (n == 0 || n == 1) then n else fib(n - 1) + fib(n - 2)
                                                      ^^^
 Error: Name "fib" not in scope
@@ -201,7 +201,7 @@ Error: Name "fib" not in scope
 
 In fact, one can think of a module as one big let-binding, only laid out in a more readable way:
 
-```
+```coal
   let
     some_function = fn(...) => ...
       in
@@ -225,7 +225,7 @@ An anonymous (lambda) function is declared with the `fn` keyword and the “fat�
 
 Function expressions are first-class objects; they can be passed as arguments to other functions, assigned and stored inside data structures, etc.
 
-```
+```coal
   fun apply_fst(xs, x : int32) =
      match(xs) {
        | f :: _ => f(x)
@@ -244,7 +244,7 @@ Function expressions are first-class objects; they can be passed as arguments to
 
 Just like with let-bindings, the arguments in a lambda-function are patterns:
 
-```
+```coal
   fn((lhs, rhs)) => lhs
 ```
 
@@ -252,7 +252,7 @@ Just like with let-bindings, the arguments in a lambda-function are patterns:
 
 In addition to ordinary value bindings, let-expressions support a convenient function binding syntax. A definition of the form
 
-```
+```coal
   let
     add(x, y) =
       x + y
@@ -262,7 +262,7 @@ In addition to ordinary value bindings, let-expressions support a convenient fun
 
 is syntactic sugar for binding `add` to a lambda expression:
 
-```
+```coal
   let
     add =
       fn(x, y) =>
@@ -350,14 +350,14 @@ Coal supports the standard logical operators for working with boolean values.
 
 The operator `|.` is the reversed version of ordinary function application. For example, instead of:
 
-```
+```coal
 let my_list = [1, 2, 3] in
   map(fn(x) => 2 ^ x, [1, 2, 3])
 ```
 
 we can write:
 
-```
+```coal
 let my_list = [1, 2, 3] in
   my_list |.map(fn(x) => 2 ^ x)
 ```

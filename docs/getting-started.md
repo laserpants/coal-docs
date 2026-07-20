@@ -98,7 +98,7 @@ coal --version
 
 ### Hello, world!
 
-```
+```coal
 module Main {
 
   import IO(println_string)

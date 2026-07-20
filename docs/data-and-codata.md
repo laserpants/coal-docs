@@ -24,7 +24,7 @@ An algebraic data type can be understood as the [initial algebra](https://en.wik
 
 Data types are built from constructors. Consider the `List` type, for example:
 
-```
+```coal
 type List<t> 
   = Nil
   | Cons(t, List<t>)
@@ -32,7 +32,7 @@ type List<t>
 
 The *pattern functor* for a data type abstracts recursion by isolating one layer of the data structure, leaving the recursive portion as a parameter. For `List`, the corresponding pattern functor is:
 
-```
+```coal
 type ListF<t, a> 
   = NilF
   | ConsF(t, a)
@@ -59,7 +59,7 @@ $$
 
 An *algebra* for a functor $F$ is a type $A$ (the *carrier*) together with an arrow $F(A) \rightarrow A$. This function (or *morphism* to be more accurate) is called the *structure map* and it is precisely what the pattern matching clauses (along with the `@`-pattern syntax) in `fold` expressions describe:
 
-```
+```coal
 fold(xs) {
   Nil           => 0
   Cons(x, @acc) => x + acc
