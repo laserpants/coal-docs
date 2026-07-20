@@ -24,7 +24,6 @@ nav:
   - Examples: examples.md
   #  - C function interface: ffi.md
   - Data and codata: data-and-codata.md
-  - Test Syntax Highlighting for Coal: test_coal.md
   - License: license.md
 markdown_extensions:
   - admonition
