@@ -38,18 +38,12 @@
 /* --- Base Code Block Styling --- */
 
 pre.language-coal {
-  background: #ffffff;
-  border: 1px solid #e1e4e8;
-  border-radius: 6px;
-  padding: 16px;
+  background: var(--md-code-bg-color);
+  border-radius: 0.1rem;
+  padding: .7612756em 1.1724138em;
   overflow-x: auto;
   font-size: 0.85rem;
   line-height: 1.45;
-}
-
-[data-md-color-scheme="slate"] pre.language-coal {
-  background: #0d1117;
-  border-color: #30363d;
 }
 
 /* --- Light Mode Colors (github-light theme) --- */
