@@ -20,18 +20,18 @@
 /* --- Light/Dark Mode Toggle for Dual-<code> Output --- */
 
 /* Default (light mode): show light, hide dark */
-.language-coal-light {
+pre.language-coal > .language-coal-light {
   display: block;
 }
-.language-coal-dark {
+pre.language-coal > .language-coal-dark {
   display: none;
 }
 
 /* Dark mode: show dark, hide light */
-[data-md-color-scheme="slate"] .language-coal-light {
+[data-md-color-scheme="slate"] pre.language-coal > .language-coal-light {
   display: none;
 }
-[data-md-color-scheme="slate"] .language-coal-dark {
+[data-md-color-scheme="slate"] pre.language-coal > .language-coal-dark {
   display: block;
 }
 
