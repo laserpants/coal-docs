@@ -29,15 +29,15 @@ Variable names are subject to the following rules:
 Reserved language keywords cannot be used as variable names. They are:
 
 ```
-alias           float           int64           true         
-as              fn              let             type
-bignum          fold            match           unit 
-bool            fun             module          when       
-char            if              nat             where
-double          import          or              with
-do              in              string          
-else            instance        then            
-false           int32           trait          
+alias           float           int64           trait
+as              fn              let             true         
+bignum          fold            match           type
+bool            fun             module          unit 
+char            if              nat             when       
+double          import          or              where
+do              in              otherwise       with            
+else            instance        string          
+false           int32           then           
 ```
 
 #### Shadowing considered harmful
