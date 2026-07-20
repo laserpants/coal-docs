@@ -1826,9 +1826,9 @@ import Utilities(Countable)
 Alternatively, you can import the individual methods of a trait directly. For example, if `Countable` is defined as:
 
 ```coal
-  trait Countable<a> {
-    count :: a -> nat
-  }
+trait Countable<a> {
+  count :: a -> nat
+}
 ```
 
 Then `count` can be imported like any regular function:
