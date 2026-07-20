@@ -4,7 +4,7 @@
 
 #### Tree.coal
 
-```
+```coal
 module Tree(Tree, insert, from_list, flatten) {
 
   import List(reduce)
@@ -43,7 +43,7 @@ module Tree(Tree, insert, from_list, flatten) {
 
 #### Qsort.coal
 
-```
+```coal
 module Qsort(sort) {
 
   import Tree(flatten, from_list)
@@ -56,7 +56,7 @@ module Qsort(sort) {
 
 #### Main.coal
 
-```
+```coal
 module Main {
 
   import Qsort(sort)
@@ -86,7 +86,7 @@ module Main {
 This program demonstrates how to combine parsing and monadic pipelining to build a small interactive console application.
 Using `IO` operations composed through monadic combinators, the program asks the user for their name and then runs a simple number-guessing game
 
-```
+```coal
 module Main {
 
   import Char(digit_to_int32)
@@ -150,7 +150,7 @@ module Main {
 Using `do`-notation, we can refactor `main` in the above program, so that it
 instead becomes:
 
-```
+```coal
   fun main() = do {
     println_string("Enter your name");
     name <- readln();
@@ -172,19 +172,13 @@ instead becomes:
   }
 ```
 
-<!--
-## JSON
-
-TODO
--->
-
 ## Monads
 
 These examples reimplement Haskell’s Reader, Writer, and State monads.
 
 ### Reader
 
-```
+```coal
 module Main {
 
   import namespace IO
@@ -248,7 +242,7 @@ module Main {
 
 ### Writer
 
-```
+```coal
 module Main {
 
   import namespace IO
@@ -324,7 +318,7 @@ module Main {
 
 ### State
 
-```
+```coal
 module Main {
 
   import namespace IO
@@ -410,7 +404,7 @@ module Main {
 
 ### AVL-Tree Map
 
-```
+```coal
 module Map {
 
   import Number(max)

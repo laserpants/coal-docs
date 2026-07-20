@@ -24,11 +24,18 @@ nav:
   - Examples: examples.md
   #  - C function interface: ffi.md
   - Data and codata: data-and-codata.md
+  - Test Syntax Highlighting for Coal: test_coal.md
   - License: license.md
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: coal
+          class: coal
+          format: extensions.coal_shiki.coal_fence_format
+          validator: extensions.coal_shiki.coal_fence_validator
+  - extensions.coal_shiki
   - pymdownx.arithmatex:
       generic: true
   - toc:

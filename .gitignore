@@ -30,3 +30,7 @@ build/
 *.swp
 *.swo
 *~
+
+# Development scripts
+_test_*.py
+_test_*.mjs
