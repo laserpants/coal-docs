@@ -426,6 +426,32 @@
   
   
     <li class="md-nav__item">
+      <a href="./test_coal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Test Syntax Highlighting for Coal
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="./license/" class="md-nav__link">
         
   
@@ -525,12 +551,15 @@
 </ul>
 <p>among other features. Coal’s type system, like Haskell’s and ML’s, supports type inference and parametric polymorphism, drawing on the <a href="https://en.wikipedia.org/wiki/System_F">System-F</a> lambda calculus. The Coal compiler is implemented in Haskell and targets <a href="https://llvm.org/">LLVM</a> for code generation. </p>
 <p>As a <a href="https://en.wikipedia.org/wiki/Total_functional_programming">total</a> language, Coal takes a different approach to recursion, following the motto that "<a href="https://www.semanticscholar.org/paper/Functional-Programming-with-Bananas%2C-Lenses%2C-and-Meijer-Fokkinga/5db3c6793c07285bf0f5e95fe5a25f53e7488051">recursion is the <code>goto</code> of functional programming</a>." To guarantee that programs are provably terminating, recursion is only available in a restricted form, known as <em>structural recursion</em>. </p>
-<div class="highlight"><pre><span></span><code>  fun sum(numbers : List&lt;int32&gt;) : int32 =
-    fold(numbers) {
-      | [] =&gt; 0
-      | x :: @tot =&gt; x + tot
-    }
-</code></pre></div>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> sum(numbers </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">int32</span><span style="color:#D73A49">></span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#D73A49">  fold</span><span style="color:#24292E">(numbers) {</span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#24292E"> [] </span><span style="color:#D73A49">=></span><span style="color:#005CC5"> 0</span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#24292E"> x </span><span style="color:#D73A49">::</span><span style="color:#24292E"> @tot </span><span style="color:#D73A49">=></span><span style="color:#24292E"> x </span><span style="color:#D73A49">+</span><span style="color:#24292E"> tot</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> sum(numbers </span><span style="color:#F97583">:</span><span style="color:#B392F0"> List</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">int32</span><span style="color:#F97583">></span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#F97583">  fold</span><span style="color:#E1E4E8">(numbers) {</span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#E1E4E8"> [] </span><span style="color:#F97583">=></span><span style="color:#79B8FF"> 0</span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">::</span><span style="color:#E1E4E8"> @tot </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> tot</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span></code></pre>
 <p>The language finds inspiration in ideas from the field of Mathematics of Program Construction, where streams and other infinite data types are described as <a href="https://coal-lang.org/data-and-codata/">coalgebras</a> — hence the name <em>Coal</em>. </p>
 <p>This project is licensed under the terms of the MIT license. The source code is hosted at <a href="https://codeberg.org/laserpants/coal">codeberg.org/laserpants/coal</a>.</p>
 

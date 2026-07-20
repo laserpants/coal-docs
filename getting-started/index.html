@@ -473,6 +473,32 @@
   
   
     <li class="md-nav__item">
+      <a href="../test_coal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Test Syntax Highlighting for Coal
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../license/" class="md-nav__link">
         
   
@@ -669,15 +695,21 @@ sudo apt install libgc-dev libgmp-dev build-essential
 <div class="highlight"><pre><span></span><code>coal --version
 </code></pre></div>
 <h3 id="hello-world">Hello, world!</h3>
-<div class="highlight"><pre><span></span><code>module Main {
-
-  import IO(println_string)
-
-  fun main() =
-    println_string(&quot;Hello, world!&quot;)
-
-}
-</code></pre></div>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">module</span><span style="color:#6F42C1"> Main</span><span style="color:#24292E"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> IO</span><span style="color:#24292E">(println_string)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> main() </span><span style="color:#D73A49">=</span></span>
+<span class="line"><span style="color:#24292E">    println_string(</span><span style="color:#032F62">"Hello, world!"</span><span style="color:#24292E">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E">}</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">module</span><span style="color:#B392F0"> Main</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> IO</span><span style="color:#E1E4E8">(println_string)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> main() </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#E1E4E8">    println_string(</span><span style="color:#9ECBFF">"Hello, world!"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
 <p>Save this program as "Main.coal". Compile the program with the command:</p>
 <div class="highlight"><pre><span></span><code>coal compile -I. Main.coal -o dist
 </code></pre></div>

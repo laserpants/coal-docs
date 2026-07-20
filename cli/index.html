@@ -689,6 +689,32 @@
   
   
     <li class="md-nav__item">
+      <a href="../test_coal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Test Syntax Highlighting for Coal
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../license/" class="md-nav__link">
         
   
@@ -1812,12 +1838,15 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>src/Main.coal<span class=
 </ol>
 <h4 id="step-3-use-the-dependency">Step 3: Use the dependency</h4>
 <p>Update your <code>src/Main.coal</code> to import from the dependency:</p>
-<div class="highlight"><pre><span></span><code>module Main {
-  import HelloWorld(greet)
-
-  fun main() = greet()
-}
-</code></pre></div>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">module</span><span style="color:#6F42C1"> Main</span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> HelloWorld</span><span style="color:#24292E">(greet)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> main() </span><span style="color:#D73A49">=</span><span style="color:#24292E"> greet()</span></span>
+<span class="line"><span style="color:#24292E">}</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">module</span><span style="color:#B392F0"> Main</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> HelloWorld</span><span style="color:#E1E4E8">(greet)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> main() </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> greet()</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
 <p>(Note: The actual modules and functions available depend on the dependency's implementation.)</p>
 <h4 id="step-4-rebuild">Step 4: Rebuild</h4>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>build
@@ -1852,25 +1881,33 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>src/Main.coal<span class=
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="srcmaincoal">src/Main.coal</h4>
-<div class="highlight"><pre><span></span><code>module Main {
-  import IO(println_string)
-  import Utils.Helpers(format_message)
-  import Data.Types(User)
-
-  fun main() = println_string(format_message(&quot;Hello!&quot;))
-}
-</code></pre></div>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">module</span><span style="color:#6F42C1"> Main</span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> IO</span><span style="color:#24292E">(println_string)</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Utils</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Helpers</span><span style="color:#24292E">(format_message)</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Data</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Types</span><span style="color:#24292E">(</span><span style="color:#6F42C1">User</span><span style="color:#24292E">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> main() </span><span style="color:#D73A49">=</span><span style="color:#24292E"> println_string(format_message(</span><span style="color:#032F62">"Hello!"</span><span style="color:#24292E">))</span></span>
+<span class="line"><span style="color:#24292E">}</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">module</span><span style="color:#B392F0"> Main</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> IO</span><span style="color:#E1E4E8">(println_string)</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Utils</span><span style="color:#F97583">.</span><span style="color:#B392F0">Helpers</span><span style="color:#E1E4E8">(format_message)</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Data</span><span style="color:#F97583">.</span><span style="color:#B392F0">Types</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">User</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> main() </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> println_string(format_message(</span><span style="color:#9ECBFF">"Hello!"</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
 <h4 id="srcutilshelperscoal">src/Utils/Helpers.coal</h4>
-<div class="highlight"><pre><span></span><code>module Utils.Helpers {
-  fun format_message(msg: String): String = 
-    &quot;[INFO] &quot; ++ msg
-}
-</code></pre></div>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">module</span><span style="color:#6F42C1"> Utils</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Helpers</span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> format_message(msg</span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> String</span><span style="color:#24292E">)</span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> String</span><span style="color:#D73A49"> =</span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#032F62">    "[INFO] "</span><span style="color:#D73A49"> ++</span><span style="color:#24292E"> msg</span></span>
+<span class="line"><span style="color:#24292E">}</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">module</span><span style="color:#B392F0"> Utils</span><span style="color:#F97583">.</span><span style="color:#B392F0">Helpers</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> format_message(msg</span><span style="color:#F97583">:</span><span style="color:#B392F0"> String</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> String</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#9ECBFF">    "[INFO] "</span><span style="color:#F97583"> ++</span><span style="color:#E1E4E8"> msg</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
 <h4 id="libdatatypescoal">lib/Data/Types.coal</h4>
-<div class="highlight"><pre><span></span><code>module Data.Types {
-  data User = User { name: String, age: Nat }
-}
-</code></pre></div>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">module</span><span style="color:#6F42C1"> Data</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Types</span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#24292E">  data </span><span style="color:#6F42C1">User</span><span style="color:#D73A49"> =</span><span style="color:#6F42C1"> User</span><span style="color:#24292E"> { name</span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> String</span><span style="color:#24292E">, age</span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Nat</span><span style="color:#24292E"> }</span></span>
+<span class="line"><span style="color:#24292E">}</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">module</span><span style="color:#B392F0"> Data</span><span style="color:#F97583">.</span><span style="color:#B392F0">Types</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  data </span><span style="color:#B392F0">User</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> User</span><span style="color:#E1E4E8"> { name</span><span style="color:#F97583">:</span><span style="color:#B392F0"> String</span><span style="color:#E1E4E8">, age</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Nat</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
 <h4 id="building">Building</h4>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>install
 coal<span class="w"> </span>build
