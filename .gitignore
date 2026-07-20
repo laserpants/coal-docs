@@ -12,6 +12,15 @@ __pycache__/
 *$py.class
 *.so
 
+# Node.js
+node_modules/
+package-lock.json
+
+# Python packaging
+*.egg-info/
+dist/
+build/
+
 # macOS
 .DS_Store
 
