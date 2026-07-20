@@ -1,7 +1,7 @@
 {
   "name": "coal-docs",
   "version": "1.0.0",
-  "description": "Coal language documentation with Shiki syntax highlighting",
+  "description": "Coal language documentation",
   "private": true,
   "scripts": {
     "highlight": "node shiki/highlight.mjs"

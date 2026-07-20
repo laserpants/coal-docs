@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "coal-docs"
 version = "1.0.0"
-description = "Coal language documentation with Shiki syntax highlighting"
+description = "Coal language documentation"
 requires-python = ">=3.10"
 
 [tool.setuptools.packages.find]
