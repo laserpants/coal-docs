@@ -23,6 +23,7 @@ nav:
   - CLI reference: cli.md
   - Examples: examples.md
   #  - C function interface: ffi.md
+  - Packages: packages.md
   - Data and codata: data-and-codata.md
   - License: license.md
 markdown_extensions:
