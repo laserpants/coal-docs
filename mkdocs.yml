@@ -32,9 +32,10 @@ markdown_extensions:
   - pymdownx.superfences:
       custom_fences:
         - name: coal
-          class: language-coal
-          format: !!python/name:extensions.coal_shiki.coal_fence_format ""
-          validator: !!python/name:extensions.coal_shiki.coal_fence_validator ""
+          class: coal
+          format: !!python/name:extensions.coal_shiki.coal_fence_format
+          validator: !!python/name:extensions.coal_shiki.coal_fence_validator
+  - extensions.coal_shiki
   - pymdownx.arithmatex:
       generic: true
   - toc:

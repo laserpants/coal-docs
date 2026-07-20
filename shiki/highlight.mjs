@@ -46,6 +46,6 @@ const codeContent = extractCode(htmlLight);
 
 // Output both light and dark versions with CSS variables for theme switching
 // The Material theme uses [data-md-color-scheme="slate"] for dark mode
-const output = `<pre class="language-coal"><code class="language-coal language-coal-light">${codeContent}</code><code class="language-coal language-coal-dark" style="display:none">${extractCode(htmlDark)}</code></pre>`;
+const output = `<pre class="language-coal"><code class="language-coal language-coal-light">${codeContent}</code><code class="language-coal language-coal-dark">${extractCode(htmlDark)}</code></pre>`;
 
 console.log(JSON.stringify({ html: output }));

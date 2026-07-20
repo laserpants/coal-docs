@@ -1,6 +1,9 @@
 # Test Syntax Highlighting for Coal
 
 ```coal
-def main():
-    print("Hello, Coal!")
+module Main {
+  import IO(println_string)
+
+  fun main() = println_string("Hello, Coal!")
+}
 ```

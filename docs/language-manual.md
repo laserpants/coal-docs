@@ -348,7 +348,7 @@ Coal supports the standard logical operators for working with boolean values.
 
 ### Reverse application pipelining
 
-The operator `|.` is a reversed version of ordinary function application. For example, instead of:
+The operator `|.` is the reversed version of ordinary function application. For example, instead of:
 
 ```
 let my_list = [1, 2, 3] in
@@ -388,7 +388,7 @@ circle({ radius = 5.0f })
 
 ### Type annotations
 
-Type annotations explicitly specify the type of an expression or pattern. While Coal's type inference system can usually determine types automatically, annotations are useful for documentation, catching errors early, and disambiguating when multiple types are possible.
+Type annotations explicitly specify the type of an expression or pattern. While Coal's type inference can usually determine types automatically, annotations are useful for documentation, catching errors early, and disambiguating when multiple types are possible.
 Annotations can appear in many contexts: let-bindings, function parameters, lambda arguments, match patterns, and standalone expressions. 
 
 A type annotation is written in postfix form, as a colon (`:`) followed by the type:

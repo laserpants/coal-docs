@@ -50,11 +50,7 @@ if TYPE_CHECKING:
 # Constants
 # -----------------------------------------------------------------------------
 
-_SHIKI_SCRIPT = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    "shiki",
-    "highlight.mjs"
-)
+_SHIKI_SCRIPT = os.path.join(_project_root, "shiki", "highlight.mjs")
 
 
 # -----------------------------------------------------------------------------
@@ -71,7 +67,7 @@ def highlight_coal_code(code: str, lang: str = "coal") -> str:
     Returns:
         Highlighted HTML string, or a fallback if Shiki is unavailable.
     """
-    # Check if the Shiki script exists
+    # Check if Node.js and the Shiki script are available
     if not os.path.exists(_SHIKI_SCRIPT):
         return f'<pre><code class="language-coal">{code}</code></pre>'
 
@@ -93,11 +89,11 @@ def highlight_coal_code(code: str, lang: str = "coal") -> str:
 
 
 def coal_fence_format(
-    source: str,
-    language: str,
-    css_class: str,
-    options: dict[str, Any],
-    md: Markdown,
+    src: str = "",
+    language: str = "",
+    css_class: str = "",
+    options: dict[str, Any] | None = None,
+    md: Markdown | None = None,
     **kwargs: Any,
 ) -> str:
     """Format a Coal fenced code block using Shiki.
@@ -106,7 +102,7 @@ def coal_fence_format(
     pymdownx.superfences. It highlights Coal code using Shiki.
 
     Args:
-        source: The code content.
+        src: The code content.
         language: The language identifier.
         css_class: The CSS class for the code block.
         options: Additional options (unused).
@@ -116,32 +112,33 @@ def coal_fence_format(
     Returns:
         Highlighted HTML for the code block.
     """
-    import sys
-    print(f"[DEBUG] coal_fence_format called with language={language!r}", file=sys.stderr)
-    
     if language == "coal":
-        return highlight_coal_code(source, language)
+        return highlight_coal_code(src, language)
     # For non-coal languages, return None to let Pygments handle it
     return None
 
 
 def coal_fence_validator(
     language: str,
-    _options: dict[str, Any],
+    inputs: dict[str, Any],
+    options: dict[str, Any],
+    attrs: dict[str, Any],
+    md: Markdown,
     **kwargs: Any,
 ) -> bool:
     """Validate whether a language should use the Coal Shiki highlighter.
 
     Args:
         language: The language identifier.
-        _options: Additional options (unused).
+        inputs: Raw parsed key/value pairs from the fence header.
+        options: Dictionary to assign valid options into.
+        attrs: Dictionary to assign valid attributes into.
+        md: The Markdown instance.
         **kwargs: Additional keyword arguments.
 
     Returns:
         True if the language is "coal", False otherwise.
     """
-    import sys
-    print(f"[DEBUG] coal_fence_validator called with language={language!r}", file=sys.stderr)
     return language == "coal"
 
 
@@ -172,26 +169,15 @@ class CoalShikiExtension(Extension):
         if not self._enabled:
             return
 
-        # Register the custom fence directly on the Markdown instance
-        # This is the correct way to add custom fences to superfences
-        if hasattr(md, "superfences_custom_fences"):
-            md.superfences_custom_fences.append({
-                "name": "coal",
-                "class": "language-coal",
-                "format": coal_fence_format,
-                "validator": coal_fence_validator,
-            })
-        else:
-            # If superfences hasn't been loaded yet, we need to use a different approach
-            # Store for later use when superfences is loaded
-            if not hasattr(md, "_coal_shiki_fences"):
-                md._coal_shiki_fences = []
-            md._coal_shiki_fences.append({
-                "name": "coal",
-                "class": "language-coal",
-                "format": coal_fence_format,
-                "validator": coal_fence_validator,
-            })
+        # Find the superfences extension instance and register the custom fence
+        for ext in md.registeredExtensions:
+            if ext.__class__.__name__ == "SuperFencesCodeExtension":
+                ext.extend_super_fences(
+                    "coal",
+                    coal_fence_format,
+                    coal_fence_validator,
+                )
+                break
 
 
 # -----------------------------------------------------------------------------
