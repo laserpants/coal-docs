@@ -2505,7 +2505,7 @@ type alias Stream<a> = Machine<unit, a>
 The first type argument of `Machine` is its input type and the second is its output type. A stream accepts only `unit`, so advancing it requires no meaningful input. The alias and the stream operations in this section are provided by `Codata.Stream`:
 
 ```coal
-import Codata.Stream(Stream, repeat, enum_from, nats, head, tail)
+import Codata.Stream(Stream, repeat, enum_from, nats, head, tail, map_stream)
 ```
 
 The simplest stream is one that repeats the same value indefinitely:
@@ -2576,20 +2576,20 @@ let n = random_stream(42) |.tail |.tail |.tail |.head
 
 ##### Transforming streams
 
-Streams can be transformed using `map_machine` from `Codata.Machine`:
+Streams can be transformed using `map_stream` from `Codata.Stream`:
 
 ```coal
-import Codata.Machine(map_machine)
+import Codata.Stream(map_stream)
 
 let evens =
-  enum_from(0) |.map_machine(fn(n) => n * 2)
+  enum_from(0) |.map_stream(fn(n) => n * 2)
 
 evens |.head // 0
 evens |.tail |.head // 2
 evens |.tail |.tail |.head // 4
 ```
 
-This creates a new stream where each value is transformed by the given function.
+This creates a new stream where each value is transformed by the given function. 
 
 #### Codata behind the scenes
 
@@ -2673,7 +2673,7 @@ let doubled =
 doubled |.receive(3) |.observe  // 6
 ```
 
-The underlying transition and state are retained; only the view is transformed. This is also the operation used to map over a `Stream`.
+The underlying transition and state are retained; only the view is transformed. This is the underlying operation used by `map_stream` to map over a `Stream`.
 
 Inputs can be transformed in the opposite direction with `contramap_input`:
 
