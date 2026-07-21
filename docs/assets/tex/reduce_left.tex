@@ -1,0 +1,45 @@
+\documentclass{standalone}
+\usepackage{amsmath}
+\usepackage{tikz-cd}
+\usetikzlibrary{positioning}
+\pagecolor{white}
+\begin{document}
+
+\tikzset{
+  value/.style={},
+  fun/.style={draw,circle,inner sep=1pt,minimum size=5mm},
+}
+
+\begin{tikzpicture}[
+    level distance=12mm,
+    sibling distance=18mm,
+    every node/.style={font=\small}
+]
+
+\node[fun] {$f$}
+  child {
+    node[fun] {$f$}
+      child {
+        node[fun] {$f$}
+          child {
+            node[fun] {$f$}
+              child {
+                node[fun] {$f$}
+                  child { node[value] {$0$} }
+                  child { node[value] {$1$} }
+              }
+              child { node[value] {$2$} }
+          }
+          child { node[value] {$3$} }
+      }
+      child { node[value] {$4$} }
+  }
+  child {
+    node[value] {$5$}
+  };
+
+\end{tikzpicture}
+
+\end{document}
+\end{tikzpicture}
+\end{document}

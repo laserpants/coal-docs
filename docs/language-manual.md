@@ -1145,11 +1145,41 @@ let number_of_evens = reduce(fn(n, a) => if n % 2 == 0 then a + 1 else a, 0, num
 // number_of_evens = 2
 ```
 
-<!--
-##### Left vs. right folds
+!!! note "Left vs. right folding"
 
-TODO
--->
+    bla bla
+
+    ```coal
+    reduce(f, 0, [1, 2, 3, 4, 5])
+    ```
+
+    expands to something like...
+
+    ```coal
+    f(1, f(2, f(3, f(4, f(5, 0)))))
+    ```
+
+    The following diagram describes
+
+    ![reduce](../assets/tex/png/reduce.png)
+
+    A left fold on the other hand, ...
+
+    ```coal
+    reduce_left(f, 0, [1, 2, 3, 4, 5])
+    ```
+
+    afd
+
+    ```coal
+    f(f(f(f(f(0, 1), 2), 3), 4), 5)
+    ```
+
+    Visually, this can be ..
+
+    ![reduce left](../assets/tex/png/reduce_left.png)
+
+
 
 #### List predicates
 
