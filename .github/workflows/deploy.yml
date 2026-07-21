@@ -34,6 +34,9 @@ jobs:
       - name: Build site
         run: zensical build
 
+      - name: Add CNAME
+        run: echo "coal-lang.org" > site/CNAME
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
