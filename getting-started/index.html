@@ -689,7 +689,7 @@ sudo apt install libgc-dev libgmp-dev build-essential
 <p>Clone the repository:</p>
 <div class="highlight"><pre><span></span><code>git clone ssh://git@codeberg.org/laserpants/coal.git
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>cd coal &amp;&amp; stack install
+<div class="highlight"><pre><span></span><code>cd coal &amp;&amp; chmod +x project &amp;&amp; ./project install
 </code></pre></div>
 <p>Restart or refresh your shell, using e.g., <code>exec $SHELL -l</code>. To verify that the executable is installed, run:</p>
 <div class="highlight"><pre><span></span><code>coal --version
