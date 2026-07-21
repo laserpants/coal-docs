@@ -1147,7 +1147,7 @@ let number_of_evens = reduce(fn(n, a) => if n % 2 == 0 then a + 1 else a, 0, num
 
 !!! note "Left vs. right folding"
 
-    bla bla
+    The key difference between `reduce` and `reduce_left` is the order in which the function is applied. In a right fold (`reduce`), the seed value starts on the right and "travels" leftward through the list. Each element is combined with the result of folding the remaining elements.
 
     ```coal
     reduce(f, 0, [1, 2, 3, 4, 5])
@@ -1156,30 +1156,37 @@ let number_of_evens = reduce(fn(n, a) => if n % 2 == 0 then a + 1 else a, 0, num
     expands to something like...
 
     ```coal
-    f(1, f(2, f(3, f(4, f(5, 0)))))
+    f(1, f(2, f(3, f(4, f(5, 0))))
     ```
 
-    The following diagram describes
+    The following diagram shows how the function applications are nested:
 
     ![reduce](../assets/tex/png/reduce.png)
 
-    A left fold on the other hand, ...
+    A left fold (`reduce_left`) works in the opposite direction. The seed value starts on the left and "travels" rightward, combining each element in sequence. This means the function is applied in the same order as the elements appear in the list.
 
     ```coal
     reduce_left(f, 0, [1, 2, 3, 4, 5])
     ```
 
-    afd
+    expands to...
 
     ```coal
     f(f(f(f(f(0, 1), 2), 3), 4), 5)
     ```
 
-    Visually, this can be ..
+    Visually, this can be seen as:
 
     ![reduce left](../assets/tex/png/reduce_left.png)
 
+    In a strict language like Coal, this difference matters for operations that are not associative. For example, subtracting the elements:
 
+    ```coal
+    reduce(fn(x, acc) => x - acc, 0, [1, 2, 3])      // 1 - (2 - (3 - 0)) = 1 - 2 - 3 = -4
+    reduce_left(fn(acc, x) => acc - x, 0, [1, 2, 3]) // ((0 - 1) - 2) - 3 = -6
+    ```
+
+    For associative operations like addition, both produce the same result.
 
 #### List predicates
 
