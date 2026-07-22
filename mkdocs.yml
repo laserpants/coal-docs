@@ -21,8 +21,12 @@ nav:
   - Getting started: getting-started.md
   - Language manual: language-manual.md
   - CLI reference: cli.md
-  - Standard library: standard-library.md
-  - Examples: examples.md
+  - Standard library: /standard-library/
+  - Examples:
+      - Quicksort: examples/quicksort.md
+      - Basic I/O: examples/basic-io.md
+      - Monads: examples/monads.md
+      - Data structures: examples/data-structures.md
   - Packages: packages.md
   - Data and codata: data-and-codata.md
   - License: license.md
