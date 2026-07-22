@@ -13,7 +13,16 @@
         <loc>https://coal-lang.org/cli/</loc>
       </url>
       <url>
-        <loc>https://coal-lang.org/examples/</loc>
+        <loc>https://coal-lang.org/examples/quicksort/</loc>
+      </url>
+      <url>
+        <loc>https://coal-lang.org/examples/basic-io/</loc>
+      </url>
+      <url>
+        <loc>https://coal-lang.org/examples/monads/</loc>
+      </url>
+      <url>
+        <loc>https://coal-lang.org/examples/data-structures/</loc>
       </url>
       <url>
         <loc>https://coal-lang.org/packages/</loc>

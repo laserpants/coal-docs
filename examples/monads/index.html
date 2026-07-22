@@ -1,0 +1,1283 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://coal-lang.org/examples/monads/">
+      
+      
+        <link rel="prev" href="../basic-io/">
+      
+      
+        <link rel="next" href="../data-structures/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo.svg">
+      <meta name="generator" content="zensical-0.0.51">
+    
+    
+      
+        <title>Monads - Coal</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.62c9b9cc.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#monads" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Coal" class="md-header__button md-logo" aria-label="Coal" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="Coal">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Coal
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Monads
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Coal" class="md-nav__button md-logo" aria-label="Coal" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="Coal">
+
+    </a>
+    Coal
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../language-manual/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Language manual
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  CLI reference
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/standard-library/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Standard library
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Examples
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Examples
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Quicksort
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic-io/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Basic I/O
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Monads
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Monads
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reader" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reader
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Writer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        State
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data structures
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../packages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Packages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Background
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Background
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-and-codata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data and codata
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  License
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reader" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reader
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Writer
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        State
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="monads">Monads</h1>
+<p>These examples reimplement Haskell’s Reader, Writer, and State monads.</p>
+<h3 id="reader">Reader</h3>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">module</span><span style="color:#6F42C1"> Main</span><span style="color:#24292E"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#D73A49"> namespace</span><span style="color:#6F42C1"> IO</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Monad</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Monad</span><span style="color:#24292E">, and_then)</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Functor</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Functor</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Applicative</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Applicative</span><span style="color:#24292E">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  type</span><span style="color:#6F42C1"> Reader</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">r, a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> =</span><span style="color:#6F42C1"> Reader</span><span style="color:#24292E">(r </span><span style="color:#D73A49">-></span><span style="color:#24292E"> a)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> run_reader(reader, env) </span><span style="color:#D73A49">=</span></span>
+<span class="line"><span style="color:#D73A49">    match</span><span style="color:#24292E">(reader) {</span></span>
+<span class="line"><span style="color:#D73A49">      |</span><span style="color:#6F42C1"> Reader</span><span style="color:#24292E">(f) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> f(env)</span></span>
+<span class="line"><span style="color:#24292E">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> ask</span><span style="color:#005CC5">()</span><span style="color:#24292E"> = </span></span>
+<span class="line"><span style="color:#6F42C1">    Reader</span><span style="color:#24292E">(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(env) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> env)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  instance</span><span style="color:#6F42C1"> Functor</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Reader</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">r</span><span style="color:#D73A49">>></span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#D73A49">    fun</span><span style="color:#24292E"> map(f, </span><span style="color:#6F42C1">Reader</span><span style="color:#24292E">(g)) </span><span style="color:#D73A49">=</span></span>
+<span class="line"><span style="color:#6F42C1">      Reader</span><span style="color:#24292E">(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(r) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> f(g(r)))</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  instance</span><span style="color:#6F42C1"> Applicative</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Reader</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">r</span><span style="color:#D73A49">>></span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#D73A49">    fun</span><span style="color:#24292E"> pure(r) </span><span style="color:#D73A49">=</span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#6F42C1">      Reader</span><span style="color:#24292E">(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(_) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> r)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">    fun</span><span style="color:#24292E"> ap(</span><span style="color:#6F42C1">Reader</span><span style="color:#24292E">(f), </span><span style="color:#6F42C1">Reader</span><span style="color:#24292E">(g)) </span><span style="color:#D73A49">=</span></span>
+<span class="line"><span style="color:#6F42C1">      Reader</span><span style="color:#24292E">(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(r) </span><span style="color:#D73A49">=></span></span>
+<span class="line"><span style="color:#D73A49">        let</span><span style="color:#24292E"> func </span><span style="color:#D73A49">=</span><span style="color:#24292E"> f(r) </span><span style="color:#D73A49">in</span></span>
+<span class="line"><span style="color:#D73A49">        let</span><span style="color:#24292E"> a    </span><span style="color:#D73A49">=</span><span style="color:#24292E"> g(r) </span><span style="color:#D73A49">in</span></span>
+<span class="line"><span style="color:#24292E">        func(a)</span></span>
+<span class="line"><span style="color:#24292E">      )</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  instance</span><span style="color:#6F42C1"> Monad</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Reader</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">r</span><span style="color:#D73A49">>></span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#D73A49">    fun</span><span style="color:#24292E"> bind(</span><span style="color:#6F42C1">Reader</span><span style="color:#24292E">(f) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Reader</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">r, a</span><span style="color:#D73A49">></span><span style="color:#24292E">, next </span><span style="color:#D73A49">:</span><span style="color:#24292E"> a </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> Reader</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">r, b</span><span style="color:#D73A49">></span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Reader</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">r, b</span><span style="color:#D73A49">></span><span style="color:#D73A49"> =</span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#6F42C1">      Reader</span><span style="color:#24292E">(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(env) </span><span style="color:#D73A49">=></span></span>
+<span class="line"><span style="color:#D73A49">        let</span><span style="color:#24292E"> a </span><span style="color:#D73A49">=</span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#24292E">          f(env) </span></span>
+<span class="line"><span style="color:#D73A49">        in</span></span>
+<span class="line"><span style="color:#D73A49">        match</span><span style="color:#24292E">(next(a)) {</span></span>
+<span class="line"><span style="color:#D73A49">          |</span><span style="color:#6F42C1"> Reader</span><span style="color:#24292E">(g) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> g(env)</span></span>
+<span class="line"><span style="color:#24292E">        }</span></span>
+<span class="line"><span style="color:#24292E">      )</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> local(transform, </span><span style="color:#6F42C1">Reader</span><span style="color:#24292E">(f)) = </span></span>
+<span class="line"><span style="color:#6F42C1">    Reader</span><span style="color:#24292E">(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(env) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> f(transform(env)))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // Example use:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> test_reader(val </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Reader</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#D73A49">></span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#24292E">    ask</span><span style="color:#005CC5">()</span></span>
+<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E"> and_then(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(r) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> pure(val </span><span style="color:#D73A49">+</span><span style="color:#24292E"> r))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> main</span><span style="color:#005CC5">()</span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#6F42C1">    IO</span><span style="color:#D73A49">.</span><span style="color:#24292E">println_int32(run_reader(test_reader(</span><span style="color:#005CC5">5</span><span style="color:#24292E">), </span><span style="color:#005CC5">5</span><span style="color:#24292E">))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E">}</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">module</span><span style="color:#B392F0"> Main</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#F97583"> namespace</span><span style="color:#B392F0"> IO</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Monad</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Monad</span><span style="color:#E1E4E8">, and_then)</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Functor</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Functor</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Applicative</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Applicative</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  type</span><span style="color:#B392F0"> Reader</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">r, a</span><span style="color:#F97583">></span><span style="color:#F97583"> =</span><span style="color:#B392F0"> Reader</span><span style="color:#E1E4E8">(r </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> a)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> run_reader(reader, env) </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#F97583">    match</span><span style="color:#E1E4E8">(reader) {</span></span>
+<span class="line"><span style="color:#F97583">      |</span><span style="color:#B392F0"> Reader</span><span style="color:#E1E4E8">(f) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> f(env)</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> ask</span><span style="color:#79B8FF">()</span><span style="color:#E1E4E8"> = </span></span>
+<span class="line"><span style="color:#B392F0">    Reader</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(env) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> env)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  instance</span><span style="color:#B392F0"> Functor</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Reader</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">r</span><span style="color:#F97583">>></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    fun</span><span style="color:#E1E4E8"> map(f, </span><span style="color:#B392F0">Reader</span><span style="color:#E1E4E8">(g)) </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#B392F0">      Reader</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(r) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> f(g(r)))</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  instance</span><span style="color:#B392F0"> Applicative</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Reader</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">r</span><span style="color:#F97583">>></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    fun</span><span style="color:#E1E4E8"> pure(r) </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#B392F0">      Reader</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(_) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> r)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    fun</span><span style="color:#E1E4E8"> ap(</span><span style="color:#B392F0">Reader</span><span style="color:#E1E4E8">(f), </span><span style="color:#B392F0">Reader</span><span style="color:#E1E4E8">(g)) </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#B392F0">      Reader</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(r) </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#F97583">        let</span><span style="color:#E1E4E8"> func </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> f(r) </span><span style="color:#F97583">in</span></span>
+<span class="line"><span style="color:#F97583">        let</span><span style="color:#E1E4E8"> a    </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> g(r) </span><span style="color:#F97583">in</span></span>
+<span class="line"><span style="color:#E1E4E8">        func(a)</span></span>
+<span class="line"><span style="color:#E1E4E8">      )</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  instance</span><span style="color:#B392F0"> Monad</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Reader</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">r</span><span style="color:#F97583">>></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    fun</span><span style="color:#E1E4E8"> bind(</span><span style="color:#B392F0">Reader</span><span style="color:#E1E4E8">(f) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Reader</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">r, a</span><span style="color:#F97583">></span><span style="color:#E1E4E8">, next </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">-></span><span style="color:#B392F0"> Reader</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">r, b</span><span style="color:#F97583">></span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Reader</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">r, b</span><span style="color:#F97583">></span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#B392F0">      Reader</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(env) </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#F97583">        let</span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#E1E4E8">          f(env) </span></span>
+<span class="line"><span style="color:#F97583">        in</span></span>
+<span class="line"><span style="color:#F97583">        match</span><span style="color:#E1E4E8">(next(a)) {</span></span>
+<span class="line"><span style="color:#F97583">          |</span><span style="color:#B392F0"> Reader</span><span style="color:#E1E4E8">(g) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> g(env)</span></span>
+<span class="line"><span style="color:#E1E4E8">        }</span></span>
+<span class="line"><span style="color:#E1E4E8">      )</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> local(transform, </span><span style="color:#B392F0">Reader</span><span style="color:#E1E4E8">(f)) = </span></span>
+<span class="line"><span style="color:#B392F0">    Reader</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(env) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> f(transform(env)))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // Example use:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> test_reader(val </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Reader</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#E1E4E8">    ask</span><span style="color:#79B8FF">()</span></span>
+<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8"> and_then(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(r) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> pure(val </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> r))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> main</span><span style="color:#79B8FF">()</span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#B392F0">    IO</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">println_int32(run_reader(test_reader(</span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">), </span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="writer">Writer</h3>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">module</span><span style="color:#6F42C1"> Main</span><span style="color:#24292E"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#D73A49"> namespace</span><span style="color:#6F42C1"> IO</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#D73A49"> namespace</span><span style="color:#6F42C1"> List</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Monad</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Monad</span><span style="color:#24292E">, and_then, and_eval)</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Functor</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Functor</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Applicative</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Applicative</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Monoid</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Monoid</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> IO</span><span style="color:#24292E">(return)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  type</span><span style="color:#6F42C1"> Writer</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">w, a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> =</span><span style="color:#6F42C1"> Writer</span><span style="color:#24292E">(a, w)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> run_writer(writer) </span><span style="color:#D73A49">=</span></span>
+<span class="line"><span style="color:#D73A49">    match</span><span style="color:#24292E">(writer) {</span></span>
+<span class="line"><span style="color:#D73A49">      |</span><span style="color:#6F42C1"> Writer</span><span style="color:#24292E">(a, w) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> (a, w)</span></span>
+<span class="line"><span style="color:#24292E">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  instance</span><span style="color:#6F42C1"> Functor</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Writer</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">w</span><span style="color:#D73A49">>></span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#D73A49">    fun</span><span style="color:#24292E"> map(f, </span><span style="color:#6F42C1">Writer</span><span style="color:#24292E">(a, w)) </span><span style="color:#D73A49">=</span></span>
+<span class="line"><span style="color:#6F42C1">      Writer</span><span style="color:#24292E">(f(a), w)</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  instance</span><span style="color:#6F42C1"> Applicative</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Writer</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">w</span><span style="color:#D73A49">>></span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#D73A49">    fun</span><span style="color:#24292E"> pure(w) </span><span style="color:#D73A49">=</span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#6F42C1">      Writer</span><span style="color:#24292E">(w, id)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">    fun</span><span style="color:#24292E"> ap(</span><span style="color:#6F42C1">Writer</span><span style="color:#24292E">(f, w1), </span><span style="color:#6F42C1">Writer</span><span style="color:#24292E">(a, w2)) </span><span style="color:#D73A49">=</span></span>
+<span class="line"><span style="color:#6F42C1">      Writer</span><span style="color:#24292E">(f(a), w1 </span><span style="color:#D73A49">&#x3C;></span><span style="color:#24292E"> w2)</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  instance</span><span style="color:#6F42C1"> Monad</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Writer</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">w</span><span style="color:#D73A49">>></span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#D73A49">    fun</span><span style="color:#24292E"> bind(writer, k) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Writer</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">w, b</span><span style="color:#D73A49">></span><span style="color:#D73A49"> =</span></span>
+<span class="line"><span style="color:#D73A49">      match</span><span style="color:#24292E">(writer) {</span></span>
+<span class="line"><span style="color:#D73A49">        |</span><span style="color:#6F42C1"> Writer</span><span style="color:#24292E">(a, w1) </span><span style="color:#D73A49">=></span></span>
+<span class="line"><span style="color:#D73A49">            match</span><span style="color:#24292E">(k(a)) {</span></span>
+<span class="line"><span style="color:#D73A49">              |</span><span style="color:#6F42C1"> Writer</span><span style="color:#24292E">(b, w2) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#6F42C1">                  Writer</span><span style="color:#24292E">(b, w1 </span><span style="color:#D73A49">&#x3C;></span><span style="color:#24292E"> w2)</span></span>
+<span class="line"><span style="color:#24292E">            }</span></span>
+<span class="line"><span style="color:#24292E">      }</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> tell(w) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Writer</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">w, </span><span style="color:#005CC5">unit</span><span style="color:#D73A49">></span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#6F42C1">    Writer</span><span style="color:#24292E">(</span><span style="color:#005CC5">()</span><span style="color:#24292E">, w)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> listen(m) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Writer</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">w,(a, w)</span><span style="color:#D73A49">></span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#D73A49">    match</span><span style="color:#24292E">(m) {</span></span>
+<span class="line"><span style="color:#D73A49">      |</span><span style="color:#6F42C1"> Writer</span><span style="color:#24292E">(a, w) </span><span style="color:#D73A49">=></span><span style="color:#6F42C1"> Writer</span><span style="color:#24292E">((a, w), w)</span></span>
+<span class="line"><span style="color:#24292E">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // Example use:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> test_writer</span><span style="color:#005CC5">()</span><span style="color:#D73A49"> :</span><span style="color:#6F42C1"> Writer</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">string</span><span style="color:#D73A49">></span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#D73A49">></span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#24292E">    tell([</span><span style="color:#032F62">"one"</span><span style="color:#24292E">])</span></span>
+<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E"> and_eval(tell([</span><span style="color:#032F62">"two"</span><span style="color:#24292E">]))</span></span>
+<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E"> and_eval(tell([</span><span style="color:#032F62">"three"</span><span style="color:#24292E">]))</span></span>
+<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E"> and_eval(pure(</span><span style="color:#005CC5">100</span><span style="color:#24292E">))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> print_msgs(msgs </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">string</span><span style="color:#D73A49">></span><span style="color:#24292E">) =</span></span>
+<span class="line"><span style="color:#D73A49">    fold</span><span style="color:#24292E">(msgs) {</span></span>
+<span class="line"><span style="color:#D73A49">      |</span><span style="color:#24292E"> [] </span><span style="color:#D73A49">=></span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#24292E">          return()</span></span>
+<span class="line"><span style="color:#D73A49">      |</span><span style="color:#24292E"> m </span><span style="color:#D73A49">::</span><span style="color:#24292E"> @next </span><span style="color:#D73A49">=></span></span>
+<span class="line"><span style="color:#6F42C1">          IO</span><span style="color:#D73A49">.</span><span style="color:#24292E">println_string(m) </span><span style="color:#D73A49">|.</span><span style="color:#24292E"> and_eval(next)</span></span>
+<span class="line"><span style="color:#24292E">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> main</span><span style="color:#005CC5">()</span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#D73A49">    match</span><span style="color:#24292E">(run_writer(test_writer</span><span style="color:#005CC5">()</span><span style="color:#24292E">)) {</span></span>
+<span class="line"><span style="color:#D73A49">      |</span><span style="color:#24292E"> ((_, w)) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> print_msgs(w)</span></span>
+<span class="line"><span style="color:#24292E">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E">}</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">module</span><span style="color:#B392F0"> Main</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#F97583"> namespace</span><span style="color:#B392F0"> IO</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#F97583"> namespace</span><span style="color:#B392F0"> List</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Monad</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Monad</span><span style="color:#E1E4E8">, and_then, and_eval)</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Functor</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Functor</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Applicative</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Applicative</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Monoid</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Monoid</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> IO</span><span style="color:#E1E4E8">(return)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  type</span><span style="color:#B392F0"> Writer</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">w, a</span><span style="color:#F97583">></span><span style="color:#F97583"> =</span><span style="color:#B392F0"> Writer</span><span style="color:#E1E4E8">(a, w)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> run_writer(writer) </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#F97583">    match</span><span style="color:#E1E4E8">(writer) {</span></span>
+<span class="line"><span style="color:#F97583">      |</span><span style="color:#B392F0"> Writer</span><span style="color:#E1E4E8">(a, w) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> (a, w)</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  instance</span><span style="color:#B392F0"> Functor</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Writer</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">w</span><span style="color:#F97583">>></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    fun</span><span style="color:#E1E4E8"> map(f, </span><span style="color:#B392F0">Writer</span><span style="color:#E1E4E8">(a, w)) </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#B392F0">      Writer</span><span style="color:#E1E4E8">(f(a), w)</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  instance</span><span style="color:#B392F0"> Applicative</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Writer</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">w</span><span style="color:#F97583">>></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    fun</span><span style="color:#E1E4E8"> pure(w) </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#B392F0">      Writer</span><span style="color:#E1E4E8">(w, id)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    fun</span><span style="color:#E1E4E8"> ap(</span><span style="color:#B392F0">Writer</span><span style="color:#E1E4E8">(f, w1), </span><span style="color:#B392F0">Writer</span><span style="color:#E1E4E8">(a, w2)) </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#B392F0">      Writer</span><span style="color:#E1E4E8">(f(a), w1 </span><span style="color:#F97583">&#x3C;></span><span style="color:#E1E4E8"> w2)</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  instance</span><span style="color:#B392F0"> Monad</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Writer</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">w</span><span style="color:#F97583">>></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    fun</span><span style="color:#E1E4E8"> bind(writer, k) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Writer</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">w, b</span><span style="color:#F97583">></span><span style="color:#F97583"> =</span></span>
+<span class="line"><span style="color:#F97583">      match</span><span style="color:#E1E4E8">(writer) {</span></span>
+<span class="line"><span style="color:#F97583">        |</span><span style="color:#B392F0"> Writer</span><span style="color:#E1E4E8">(a, w1) </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#F97583">            match</span><span style="color:#E1E4E8">(k(a)) {</span></span>
+<span class="line"><span style="color:#F97583">              |</span><span style="color:#B392F0"> Writer</span><span style="color:#E1E4E8">(b, w2) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#B392F0">                  Writer</span><span style="color:#E1E4E8">(b, w1 </span><span style="color:#F97583">&#x3C;></span><span style="color:#E1E4E8"> w2)</span></span>
+<span class="line"><span style="color:#E1E4E8">            }</span></span>
+<span class="line"><span style="color:#E1E4E8">      }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> tell(w) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Writer</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">w, </span><span style="color:#79B8FF">unit</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#B392F0">    Writer</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">()</span><span style="color:#E1E4E8">, w)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> listen(m) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Writer</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">w,(a, w)</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#F97583">    match</span><span style="color:#E1E4E8">(m) {</span></span>
+<span class="line"><span style="color:#F97583">      |</span><span style="color:#B392F0"> Writer</span><span style="color:#E1E4E8">(a, w) </span><span style="color:#F97583">=></span><span style="color:#B392F0"> Writer</span><span style="color:#E1E4E8">((a, w), w)</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // Example use:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> test_writer</span><span style="color:#79B8FF">()</span><span style="color:#F97583"> :</span><span style="color:#B392F0"> Writer</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">List</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#F97583">></span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#E1E4E8">    tell([</span><span style="color:#9ECBFF">"one"</span><span style="color:#E1E4E8">])</span></span>
+<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8"> and_eval(tell([</span><span style="color:#9ECBFF">"two"</span><span style="color:#E1E4E8">]))</span></span>
+<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8"> and_eval(tell([</span><span style="color:#9ECBFF">"three"</span><span style="color:#E1E4E8">]))</span></span>
+<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8"> and_eval(pure(</span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> print_msgs(msgs </span><span style="color:#F97583">:</span><span style="color:#B392F0"> List</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#F97583">></span><span style="color:#E1E4E8">) =</span></span>
+<span class="line"><span style="color:#F97583">    fold</span><span style="color:#E1E4E8">(msgs) {</span></span>
+<span class="line"><span style="color:#F97583">      |</span><span style="color:#E1E4E8"> [] </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#E1E4E8">          return()</span></span>
+<span class="line"><span style="color:#F97583">      |</span><span style="color:#E1E4E8"> m </span><span style="color:#F97583">::</span><span style="color:#E1E4E8"> @next </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#B392F0">          IO</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">println_string(m) </span><span style="color:#F97583">|.</span><span style="color:#E1E4E8"> and_eval(next)</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> main</span><span style="color:#79B8FF">()</span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#F97583">    match</span><span style="color:#E1E4E8">(run_writer(test_writer</span><span style="color:#79B8FF">()</span><span style="color:#E1E4E8">)) {</span></span>
+<span class="line"><span style="color:#F97583">      |</span><span style="color:#E1E4E8"> ((_, w)) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> print_msgs(w)</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="state">State</h3>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">module</span><span style="color:#6F42C1"> Main</span><span style="color:#24292E"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#D73A49"> namespace</span><span style="color:#6F42C1"> IO</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Functor</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Functor</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Monad</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Monad</span><span style="color:#24292E">, and_then)</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Applicative</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Applicative</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Combinators</span><span style="color:#24292E">(fst)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  type</span><span style="color:#6F42C1"> State</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">s, a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> =</span><span style="color:#6F42C1"> State</span><span style="color:#24292E">(s </span><span style="color:#D73A49">-></span><span style="color:#24292E"> (a, s))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> run_state(</span><span style="color:#6F42C1">State</span><span style="color:#24292E">(f), s) </span><span style="color:#D73A49">=</span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#24292E">    f(s)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> eval_state(st, s0) </span><span style="color:#D73A49">=</span></span>
+<span class="line"><span style="color:#24292E">    fst(run_state(st, s0))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  instance</span><span style="color:#6F42C1"> Functor</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">State</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">s</span><span style="color:#D73A49">>></span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#D73A49">    fun</span><span style="color:#24292E"> map(f, </span><span style="color:#6F42C1">State</span><span style="color:#24292E">(g)) </span><span style="color:#D73A49">=</span></span>
+<span class="line"><span style="color:#6F42C1">      State</span><span style="color:#24292E">(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(s) </span><span style="color:#D73A49">=></span></span>
+<span class="line"><span style="color:#D73A49">        let</span><span style="color:#24292E"> (a, s1) </span><span style="color:#D73A49">=</span><span style="color:#24292E"> g(s) </span></span>
+<span class="line"><span style="color:#D73A49">        in</span></span>
+<span class="line"><span style="color:#24292E">        (f(a), s1)</span></span>
+<span class="line"><span style="color:#24292E">      )</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  instance</span><span style="color:#6F42C1"> Applicative</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">State</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">s</span><span style="color:#D73A49">>></span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#D73A49">    fun</span><span style="color:#24292E"> pure(x) </span><span style="color:#D73A49">=</span></span>
+<span class="line"><span style="color:#6F42C1">      State</span><span style="color:#24292E">(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(s) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> (x, s))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">    fun</span><span style="color:#24292E"> ap(</span><span style="color:#6F42C1">State</span><span style="color:#24292E">(sf), </span><span style="color:#6F42C1">State</span><span style="color:#24292E">(sa)) </span><span style="color:#D73A49">=</span></span>
+<span class="line"><span style="color:#6F42C1">      State</span><span style="color:#24292E">(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(s0) </span><span style="color:#D73A49">=></span></span>
+<span class="line"><span style="color:#D73A49">        let</span><span style="color:#24292E"> (f, s1) </span><span style="color:#D73A49">=</span><span style="color:#24292E"> sf(s0) </span><span style="color:#D73A49">in</span></span>
+<span class="line"><span style="color:#D73A49">        let</span><span style="color:#24292E"> (a, s2) </span><span style="color:#D73A49">=</span><span style="color:#24292E"> sa(s1) </span><span style="color:#D73A49">in</span></span>
+<span class="line"><span style="color:#24292E">        (f(a), s2)</span></span>
+<span class="line"><span style="color:#24292E">      )</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  instance</span><span style="color:#6F42C1"> Monad</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">State</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">s</span><span style="color:#D73A49">>></span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#D73A49">    fun</span><span style="color:#24292E"> bind(m, k) </span><span style="color:#D73A49">=</span></span>
+<span class="line"><span style="color:#6F42C1">      State</span><span style="color:#24292E">(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(s0) </span><span style="color:#D73A49">=></span></span>
+<span class="line"><span style="color:#D73A49">        let</span><span style="color:#24292E"> (a, s1) </span><span style="color:#D73A49">=</span><span style="color:#24292E"> run_state(m, s0) </span></span>
+<span class="line"><span style="color:#D73A49">        in</span></span>
+<span class="line"><span style="color:#24292E">        run_state(k(a), s1)</span></span>
+<span class="line"><span style="color:#24292E">      )</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> get</span><span style="color:#005CC5">()</span><span style="color:#24292E"> = </span></span>
+<span class="line"><span style="color:#6F42C1">    State</span><span style="color:#24292E">(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(s) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> (s, s))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> put(s) = </span></span>
+<span class="line"><span style="color:#6F42C1">    State</span><span style="color:#24292E">(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(_) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> (</span><span style="color:#005CC5">()</span><span style="color:#24292E">, s))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> modify(f) = </span></span>
+<span class="line"><span style="color:#6F42C1">    State</span><span style="color:#24292E">(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(s) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> (</span><span style="color:#005CC5">()</span><span style="color:#24292E">, f(s)))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // Example use:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> authenticate</span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#032F62"> "password123"</span><span style="color:#D73A49"> =></span><span style="color:#24292E"> put(</span><span style="color:#005CC5">true</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#24292E"> _             </span><span style="color:#D73A49">=></span><span style="color:#24292E"> put(</span><span style="color:#005CC5">false</span><span style="color:#24292E">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">   fun</span><span style="color:#24292E"> msg(success </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> bool</span><span style="color:#24292E">) =</span></span>
+<span class="line"><span style="color:#D73A49">     if</span><span style="color:#24292E"> (success) </span><span style="color:#D73A49">then</span><span style="color:#032F62"> "Logged in"</span><span style="color:#D73A49"> else</span><span style="color:#032F62"> "Authentication failed"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> state_example(pw </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> string</span><span style="color:#24292E">) =</span></span>
+<span class="line"><span style="color:#24292E">    get</span><span style="color:#005CC5">()</span></span>
+<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E"> and_then(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(logged_in) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#D73A49">           if</span><span style="color:#24292E"> (logged_in) </span></span>
+<span class="line"><span style="color:#D73A49">             then</span><span style="color:#24292E"> pure(</span><span style="color:#032F62">"Already logged in"</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#D73A49">             else</span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#24292E">               authenticate(pw) </span></span>
+<span class="line"><span style="color:#D73A49">                 |.</span><span style="color:#24292E"> and_then(get) </span></span>
+<span class="line"><span style="color:#D73A49">                 |.</span><span style="color:#24292E"> and_then(pure </span><span style="color:#D73A49">&#x3C;&#x3C;</span><span style="color:#24292E"> msg)</span></span>
+<span class="line"><span style="color:#24292E">      )</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> main</span><span style="color:#005CC5">()</span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#6F42C1">    IO</span><span style="color:#D73A49">.</span><span style="color:#24292E">println_string(eval_state(state_example(</span><span style="color:#032F62">"abc123"</span><span style="color:#24292E">), </span><span style="color:#005CC5">false</span><span style="color:#24292E">))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E">}</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">module</span><span style="color:#B392F0"> Main</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#F97583"> namespace</span><span style="color:#B392F0"> IO</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Functor</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Functor</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Monad</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Monad</span><span style="color:#E1E4E8">, and_then)</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Applicative</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Applicative</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Combinators</span><span style="color:#E1E4E8">(fst)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  type</span><span style="color:#B392F0"> State</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">s, a</span><span style="color:#F97583">></span><span style="color:#F97583"> =</span><span style="color:#B392F0"> State</span><span style="color:#E1E4E8">(s </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> (a, s))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> run_state(</span><span style="color:#B392F0">State</span><span style="color:#E1E4E8">(f), s) </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#E1E4E8">    f(s)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> eval_state(st, s0) </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#E1E4E8">    fst(run_state(st, s0))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  instance</span><span style="color:#B392F0"> Functor</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">State</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">s</span><span style="color:#F97583">>></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    fun</span><span style="color:#E1E4E8"> map(f, </span><span style="color:#B392F0">State</span><span style="color:#E1E4E8">(g)) </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#B392F0">      State</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(s) </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#F97583">        let</span><span style="color:#E1E4E8"> (a, s1) </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> g(s) </span></span>
+<span class="line"><span style="color:#F97583">        in</span></span>
+<span class="line"><span style="color:#E1E4E8">        (f(a), s1)</span></span>
+<span class="line"><span style="color:#E1E4E8">      )</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  instance</span><span style="color:#B392F0"> Applicative</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">State</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">s</span><span style="color:#F97583">>></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    fun</span><span style="color:#E1E4E8"> pure(x) </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#B392F0">      State</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(s) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> (x, s))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    fun</span><span style="color:#E1E4E8"> ap(</span><span style="color:#B392F0">State</span><span style="color:#E1E4E8">(sf), </span><span style="color:#B392F0">State</span><span style="color:#E1E4E8">(sa)) </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#B392F0">      State</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(s0) </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#F97583">        let</span><span style="color:#E1E4E8"> (f, s1) </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> sf(s0) </span><span style="color:#F97583">in</span></span>
+<span class="line"><span style="color:#F97583">        let</span><span style="color:#E1E4E8"> (a, s2) </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> sa(s1) </span><span style="color:#F97583">in</span></span>
+<span class="line"><span style="color:#E1E4E8">        (f(a), s2)</span></span>
+<span class="line"><span style="color:#E1E4E8">      )</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  instance</span><span style="color:#B392F0"> Monad</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">State</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">s</span><span style="color:#F97583">>></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    fun</span><span style="color:#E1E4E8"> bind(m, k) </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#B392F0">      State</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(s0) </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#F97583">        let</span><span style="color:#E1E4E8"> (a, s1) </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> run_state(m, s0) </span></span>
+<span class="line"><span style="color:#F97583">        in</span></span>
+<span class="line"><span style="color:#E1E4E8">        run_state(k(a), s1)</span></span>
+<span class="line"><span style="color:#E1E4E8">      )</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> get</span><span style="color:#79B8FF">()</span><span style="color:#E1E4E8"> = </span></span>
+<span class="line"><span style="color:#B392F0">    State</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(s) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> (s, s))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> put(s) = </span></span>
+<span class="line"><span style="color:#B392F0">    State</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(_) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">()</span><span style="color:#E1E4E8">, s))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> modify(f) = </span></span>
+<span class="line"><span style="color:#B392F0">    State</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(s) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">()</span><span style="color:#E1E4E8">, f(s)))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // Example use:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> authenticate</span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#9ECBFF"> "password123"</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> put(</span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#E1E4E8"> _             </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> put(</span><span style="color:#79B8FF">false</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">   fun</span><span style="color:#E1E4E8"> msg(success </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> bool</span><span style="color:#E1E4E8">) =</span></span>
+<span class="line"><span style="color:#F97583">     if</span><span style="color:#E1E4E8"> (success) </span><span style="color:#F97583">then</span><span style="color:#9ECBFF"> "Logged in"</span><span style="color:#F97583"> else</span><span style="color:#9ECBFF"> "Authentication failed"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> state_example(pw </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) =</span></span>
+<span class="line"><span style="color:#E1E4E8">    get</span><span style="color:#79B8FF">()</span></span>
+<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8"> and_then(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(logged_in) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#F97583">           if</span><span style="color:#E1E4E8"> (logged_in) </span></span>
+<span class="line"><span style="color:#F97583">             then</span><span style="color:#E1E4E8"> pure(</span><span style="color:#9ECBFF">"Already logged in"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">             else</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#E1E4E8">               authenticate(pw) </span></span>
+<span class="line"><span style="color:#F97583">                 |.</span><span style="color:#E1E4E8"> and_then(get) </span></span>
+<span class="line"><span style="color:#F97583">                 |.</span><span style="color:#E1E4E8"> and_then(pure </span><span style="color:#F97583">&#x3C;&#x3C;</span><span style="color:#E1E4E8"> msg)</span></span>
+<span class="line"><span style="color:#E1E4E8">      )</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> main</span><span style="color:#79B8FF">()</span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#B392F0">    IO</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">println_string(eval_state(state_example(</span><span style="color:#9ECBFF">"abc123"</span><span style="color:#E1E4E8">), </span><span style="color:#79B8FF">false</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":[],"search":"../../assets/javascripts/workers/search.b6b7e04f.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7f30b55.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

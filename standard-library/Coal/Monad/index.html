@@ -8,36 +8,32 @@
       
       
       
-        <link rel="canonical" href="https://coal-lang.org/packages/">
+        <link rel="canonical" href="https://coal-lang.org/standard-library/Coal/Monad/">
       
       
-        <link rel="prev" href="../examples/data-structures/">
-      
-      
-        <link rel="next" href="../data-and-codata/">
       
       
         
       
       
-      <link rel="icon" href="../assets/logo.svg">
+      <link rel="icon" href="../../../assets/logo.svg">
       <meta name="generator" content="zensical-0.0.51">
     
     
       
-        <title>Packages - Coal</title>
+        <title>Coal.Monad - Coal</title>
       
     
     
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.62c9b9cc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.62c9b9cc.min.css">
       
         
           
         
-        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
       
       
 
@@ -56,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    <script>__md_scope=new URL("../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
     
       
 
@@ -83,7 +79,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#packages" class="md-skip">
+        <a href="#coalmonad" class="md-skip">
           Skip to content
         </a>
       
@@ -99,9 +95,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="./.." title="Coal" class="md-header__button md-logo" aria-label="Coal" data-md-component="logo">
+    <a href="../../.." title="Coal" class="md-header__button md-logo" aria-label="Coal" data-md-component="logo">
       
-  <img src="../assets/logo.svg" alt="Coal">
+  <img src="../../../assets/logo.svg" alt="Coal">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
@@ -118,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Packages
+              Coal.Monad
             
           </span>
         </div>
@@ -197,9 +193,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="./.." title="Coal" class="md-nav__button md-logo" aria-label="Coal" data-md-component="logo">
+    <a href="../../.." title="Coal" class="md-nav__button md-logo" aria-label="Coal" data-md-component="logo">
       
-  <img src="../assets/logo.svg" alt="Coal">
+  <img src="../../../assets/logo.svg" alt="Coal">
 
     </a>
     Coal
@@ -214,7 +210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="./.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -240,7 +236,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/" class="md-nav__link">
+      <a href="../../../getting-started/" class="md-nav__link">
         
   
   
@@ -266,7 +262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../language-manual/" class="md-nav__link">
+      <a href="../../../language-manual/" class="md-nav__link">
         
   
   
@@ -292,7 +288,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cli/" class="md-nav__link">
+      <a href="../../../cli/" class="md-nav__link">
         
   
   
@@ -389,7 +385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/quicksort/" class="md-nav__link">
+      <a href="../../../examples/quicksort/" class="md-nav__link">
         
   
   
@@ -416,7 +412,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/basic-io/" class="md-nav__link">
+      <a href="../../../examples/basic-io/" class="md-nav__link">
         
   
   
@@ -443,7 +439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/monads/" class="md-nav__link">
+      <a href="../../../examples/monads/" class="md-nav__link">
         
   
   
@@ -470,7 +466,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/data-structures/" class="md-nav__link">
+      <a href="../../../examples/data-structures/" class="md-nav__link">
         
   
   
@@ -501,36 +497,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Packages
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="././" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../packages/" class="md-nav__link">
         
   
   
@@ -545,71 +515,6 @@
   
 
       </a>
-      
-        
-
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#coal-containers" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        coal-containers
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#coal-monads" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        coal-monads
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#coal-json" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        coal-json
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#coal-micro-test" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        coal-micro-test
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -666,7 +571,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-and-codata/" class="md-nav__link">
+      <a href="../../../data-and-codata/" class="md-nav__link">
         
   
   
@@ -700,7 +605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../license/" class="md-nav__link">
+      <a href="../../../license/" class="md-nav__link">
         
   
   
@@ -760,10 +665,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coal-containers" class="md-nav__link">
+  <a href="#monad" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        coal-containers
+        <code>Monad</code>
       </span>
     </span>
   </a>
@@ -771,10 +676,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#coal-monads" class="md-nav__link">
+  <a href="#then_do" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        coal-monads
+        <code>then_do</code>
       </span>
     </span>
   </a>
@@ -782,10 +687,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#coal-json" class="md-nav__link">
+  <a href="#and_then" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        coal-json
+        <code>and_then</code>
       </span>
     </span>
   </a>
@@ -793,10 +698,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#coal-micro-test" class="md-nav__link">
+  <a href="#and_eval" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        coal-micro-test
+        <code>and_eval</code>
       </span>
     </span>
   </a>
@@ -818,95 +723,31 @@
                 
                   
 
-<h1 id="packages">Packages</h1>
-<h2 id="coal-containers">coal-containers</h2>
-<p>Repository: <a href="https://codeberg.org/laserpants/coal-containers">codeberg.org/laserpants/coal-containers</a></p>
-<p>A collection of functional data structures for the Coal programming language, providing efficient implementations of common container types.</p>
-<ul>
-<li><strong>Map</strong> — An AVL tree-based associative map with automatic balancing</li>
-<li><strong>Set</strong> — A set implementation built on top of Map</li>
-<li><strong>Tree</strong> — General-purpose tree structure (rose tree) with arbitrary children</li>
-<li><strong>NonEmpty.List</strong> — Type-safe non-empty list with guaranteed head element</li>
-</ul>
-<h4 id="installation">Installation</h4>
-<p>Add <strong>coal-containers</strong> as a dependency in your <code>coal.json</code> file:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;coal-containers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;git&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh://git@codeberg.org/laserpants/coal-containers.git&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<h1 id="coalmonad"><code>Coal.Monad</code></h1>
+<p>Monads extend applicative functors with sequential composition, allowing effectful computations to be chained where each step depends on the result of the previous one.</p>
 <hr />
-<h2 id="coal-monads">coal-monads</h2>
-<p>Repository: <a href="https://codeberg.org/laserpants/coal-monads">codeberg.org/laserpants/coal-monads</a></p>
-<p>A collection of common monad implementations for the Coal programming language.</p>
+<h3 id="monad"><code>Monad</code></h3>
+<p><span class="badge badge-primary">trait</span></p>
+<p>Trait that extends <code>Applicative</code> with <code>bind</code> (also known as flat-map), 
+enabling sequential composition of effectful computations.</p>
 <ul>
-<li><strong>Reader</strong> &ndash; For shared environment access</li>
-<li><strong>State</strong> &ndash; For stateful computations</li>
-<li><strong>Writer</strong> &ndash; For computations that produce a log alongside a result</li>
+<li><code>bind : m&lt;a&gt; -&gt; (a -&gt; m&lt;b&gt;) -&gt; m&lt;b&gt;</code></li>
 </ul>
-<h4 id="installation_1">Installation</h4>
-<p>Add this repository as a dependency in your project's <code>coal.json</code> config-file:</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;coal-monads&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;git&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh://git@codeberg.org/laserpants/coal-monads.git&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-</code></pre></div>
 <hr />
-<h2 id="coal-json">coal-json</h2>
-<p>Repository: <a href="https://codeberg.org/laserpants/coal-json">codeberg.org/laserpants/coal-json</a></p>
-<p>A JSON library for the Coal programming language, providing encoding, decoding, and pretty-printing of JSON values with composable decoder combinators and typeclass-based serialization.</p>
-<ul>
-<li><strong>JsonValue type</strong> — A sum type representing all JSON primitives and compound values</li>
-<li><strong>Tokenizer/Parser</strong> — A two-phase parser (lexer + stack machine) with proper error handling</li>
-<li><strong>Encoder</strong> — Compact JSON encoding from <code>JsonValue</code> to string</li>
-<li><strong>Pretty-printer</strong> — Human-readable JSON output with configurable indentation</li>
-<li><strong>Decoder combinators</strong> — Composable decoders with combinators like <code>field</code>, <code>array_decoder</code>, <code>map</code>, and <code>map2</code></li>
-<li><strong>Typeclass support</strong> — <code>ToJson</code> and <code>FromJson</code> traits for automatic serialization/deserialization</li>
-</ul>
-<h4 id="installation_2">Installation</h4>
-<p>Add <strong>coal-json</strong> as a dependency in your project's <code>coal.json</code> config-file:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;coal-json&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;git&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh://git@codeberg.org/laserpants/coal-json.git&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<h3 id="then_do"><code>then_do</code></h3>
+<p><code>then_do</code> sequences two monadic actions, discarding the result of the
+first and returning the second.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">then_do </span><span style="color:#D73A49">:</span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">b</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">b</span><span style="color:#D73A49">></span><span style="color:#D73A49"> with</span><span style="color:#24292E"> (</span><span style="color:#6F42C1">Monad</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">m</span><span style="color:#D73A49">></span><span style="color:#24292E">)</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">then_do </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">b</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">b</span><span style="color:#F97583">></span><span style="color:#F97583"> with</span><span style="color:#E1E4E8"> (</span><span style="color:#B392F0">Monad</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">m</span><span style="color:#F97583">></span><span style="color:#E1E4E8">)</span></span></code></pre>
 <hr />
-<h2 id="coal-micro-test">coal-micro-test</h2>
-<p>Repository: <a href="https://codeberg.org/laserpants/coal-micro-test">codeberg.org/laserpants/coal-micro-test</a></p>
-<p>This library provides a simple and elegant way to write and run tests in Coal. It offers a functional approach to testing with assertion functions, test composition, and pretty-printed test results.</p>
-<ul>
-<li><strong>Simple assertions</strong>: <code>assert</code> and <code>assert_eq</code> for common test cases</li>
-<li><strong>Composable tests</strong>: Build complex test suites from simple test cases</li>
-<li><strong>Clear output</strong>: Color-coded test results with pass/fail summaries</li>
-<li><strong>Functional design</strong>: Leverages Coal's functional programming features</li>
-<li><strong>Lightweight</strong>: Minimal dependencies and straightforward API</li>
-</ul>
-<h4 id="installation_3">Installation</h4>
-<p>Add <code>coal-micro-test</code> to your <code>coal.json</code> dependencies:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-project&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="s2">&quot;YourModule&quot;</span>
-<span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;coal-micro-test&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;git&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh://git@codeberg.org/laserpants/coal-micro-test.git&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<h3 id="and_then"><code>and_then</code></h3>
+<p><code>and_then</code> is <code>bind</code> with its arguments flipped: the continuation comes
+first, making it read like "and then do this with the result".</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">and_then </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (a </span><span style="color:#D73A49">-></span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">b</span><span style="color:#D73A49">></span><span style="color:#24292E">) </span><span style="color:#D73A49">-></span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">b</span><span style="color:#D73A49">></span><span style="color:#D73A49"> with</span><span style="color:#24292E"> (</span><span style="color:#6F42C1">Monad</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">m</span><span style="color:#D73A49">></span><span style="color:#24292E">)</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">and_then </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (a </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">b</span><span style="color:#F97583">></span><span style="color:#E1E4E8">) </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">b</span><span style="color:#F97583">></span><span style="color:#F97583"> with</span><span style="color:#E1E4E8"> (</span><span style="color:#B392F0">Monad</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">m</span><span style="color:#F97583">></span><span style="color:#E1E4E8">)</span></span></code></pre>
+<hr />
+<h3 id="and_eval"><code>and_eval</code></h3>
+<p><code>and_eval</code> is <code>then_do</code> with its arguments flipped: the second action is
+evaluated first, and the first is returned.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">and_eval </span><span style="color:#D73A49">:</span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">b</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> with</span><span style="color:#24292E"> (</span><span style="color:#6F42C1">Monad</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">m</span><span style="color:#D73A49">></span><span style="color:#24292E">)</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">and_eval </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">b</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#F97583"> with</span><span style="color:#E1E4E8"> (</span><span style="color:#B392F0">Monad</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">m</span><span style="color:#F97583">></span><span style="color:#E1E4E8">)</span></span></code></pre>
 
 
 
@@ -958,12 +799,12 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":[],"search":"../assets/javascripts/workers/search.b6b7e04f.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":[],"search":"../../../assets/javascripts/workers/search.b6b7e04f.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7f30b55.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7f30b55.min.js"></script>
       
-        <script src="../javascripts/mathjax.js"></script>
+        <script src="../../../javascripts/mathjax.js"></script>
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
