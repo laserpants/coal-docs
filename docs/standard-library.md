@@ -1,6 +1,6 @@
 # Standard library
 
-This documentation is automatically generated from docblocks in the standard library source code.
+This documentation is automatically generated from the source code.
 
 - [`Char`](#char)
 - [`Coal.Applicative`](#coalapplicative)

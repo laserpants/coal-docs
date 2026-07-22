@@ -23,7 +23,6 @@ nav:
   - CLI reference: cli.md
   - Standard library: standard-library.md
   - Examples: examples.md
-  #  - C function interface: ffi.md
   - Packages: packages.md
   - Data and codata: data-and-codata.md
   - License: license.md
