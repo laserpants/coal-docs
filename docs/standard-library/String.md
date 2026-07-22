@@ -1,6 +1,8 @@
 # `String`
 
-Functions for working with the built-in `String` type.
+Functions for working with the built-in `string` type.
+
+---
 
 ### `char_to_string`
 
@@ -192,5 +194,3 @@ If the string is shorter than `n`, return an empty string.
 ```coal
 drop : nat -> string -> string
 ```
-
----

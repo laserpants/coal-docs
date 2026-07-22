@@ -2,6 +2,8 @@
 
 Functions for input/output operations. This module provides primitive I/O actions that interact with the external environment, such as printing to standard output, reading from standard input, and reading/writing files. All I/O operations are wrapped in the `IO` type to maintain purity in the language.
 
+---
+
 ### `println_string`
 
 Print a string followed by a newline.
@@ -246,7 +248,7 @@ __eval_io : IO<v> -> v
 
 ---
 
-### `__return_io`
+### `return`
 
 Lift a pure value into the IO type.
 
@@ -254,12 +256,14 @@ Wrap the given value in an IO action that, when evaluated, produces
 that value. This is the introduction form for the `IO` type.
 
 ```coal
-__return_io : v -> IO<v>
+return : v -> IO<v>
 ```
 
 ---
 
 ### `FileIOResult`
+
+<span class="badge badge-primary">type</span>
 
 Opaque type representing the result of a file I/O operation.
 
@@ -270,6 +274,8 @@ runtime back to Coal code.
 ---
 
 ### `FileIOError`
+
+<span class="badge badge-primary">type</span>
 
 Errors that can occur during file I/O operations.
 
@@ -336,8 +342,6 @@ random : unit -> IO<double>
 
 ---
 
-### `return`
+### `__return_io`
 
 No documentation available.
-
----

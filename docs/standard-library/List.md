@@ -2,6 +2,8 @@
 
 Common operations for working with lists.
 
+---
+
 ### `head`
 
 Return the first element of the list wrapped in `Some`, or `None` if the
@@ -303,5 +305,3 @@ Return the list [start, start + 1, ..., start + count - 1].
 ```coal
 range : n -> nat -> List<n>
 ```
-
----

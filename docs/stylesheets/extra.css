@@ -346,3 +346,21 @@ pre.language-coal {
 [data-md-color-scheme="slate"] .language-coal-dark .punctuation.separator.statement.coal {
   color: #c9d1d9;
 }
+
+.badge {
+    display: inline-block;
+    padding: .35em .65em;
+    font-size: .75em;
+    font-weight: 700;
+    line-height: 1;
+    border-radius: .375rem;
+}
+
+.badge-primary   { background: #0d6efd; }
+.badge-secondary { background: #6c757d; }
+.badge-success   { background: #198754; }
+.badge-danger    { background: #dc3545; }
+.badge-warning   { background: #ffc107; color: #212529; }
+.badge-info      { background: #0dcaf0; color: #212529; }
+.badge-light     { background: #f8f9fa; color: #212529; }
+.badge-dark      { background: #212529; }

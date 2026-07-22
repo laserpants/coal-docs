@@ -2,6 +2,8 @@
 
 Utilities for working with the built-in `Option` type, which represents optional values — values that may or may not be present.
 
+---
+
 ### `with_default`
 
 Extract a value of type `a` from an `Option<a>` by providing a default 
@@ -77,5 +79,3 @@ containing the value if it is `Some`, or the empty list if it is `None`.
 ```coal
 option_to_list : Option<a> -> List<a>
 ```
-
----

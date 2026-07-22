@@ -2,6 +2,8 @@
 
 Combinators and tuple operations for functional programming.
 
+---
+
 ### `identity`
 
 The identity function.
@@ -142,5 +144,3 @@ Apply the function `f` to the value `x`, `n` times.
 ```coal
 iterate : nat -> (a -> a) -> a -> a
 ```
-
----

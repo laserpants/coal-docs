@@ -1,6 +1,10 @@
 # `Codata.Stream`
 
+---
+
 ### `Stream`
+
+<span class="badge badge-primary">type</span>
 
 No documentation available.
 
@@ -75,5 +79,3 @@ No documentation available.
 ### `scan`
 
 No documentation available.
-
----

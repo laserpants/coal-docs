@@ -2,6 +2,8 @@
 
 Numeric utilities and conversions.
 
+---
+
 ### `_INT32_MAX`
 
 Maximum value representable by a 32-bit signed integer.
@@ -143,7 +145,7 @@ bignum_to_double : bignum -> double
 Return the greater of two comparable values.
 
 ```coal
-max : a -> a -> a
+max : a -> a -> a with (Ordered<a>)
 ```
 
 ---
@@ -155,7 +157,7 @@ Compute the maximum element of a list.
 Returns `None` for an empty list.
 
 ```coal
-maximum : List<a> -> Option<a>
+maximum : List<a> -> Option<a> with (Ordered<a>)
 ```
 
 ---
@@ -165,7 +167,7 @@ maximum : List<a> -> Option<a>
 Test whether a number is even.
 
 ```coal
-is_even : a -> bool
+is_even : a -> bool with (Modulo<a>)
 ```
 
 ---
@@ -175,7 +177,5 @@ is_even : a -> bool
 Test whether a number is odd.
 
 ```coal
-is_odd : a -> bool
+is_odd : a -> bool with (Modulo<a>)
 ```
-
----

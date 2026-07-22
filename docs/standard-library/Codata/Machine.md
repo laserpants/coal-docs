@@ -1,5 +1,7 @@
 # `Codata.Machine`
 
+---
+
 ### `observe`
 
 No documentation available.
@@ -105,5 +107,3 @@ No documentation available.
 ### `run_while`
 
 No documentation available.
-
----

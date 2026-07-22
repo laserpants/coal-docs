@@ -1,6 +1,8 @@
 # `Char`
 
-Functions for working with the built-in `Char` type.
+Functions for working with the built-in `char` type.
+
+---
 
 ### `digit_to_int32`
 
@@ -71,5 +73,3 @@ Check if character is a letter (a-z, A-Z)
 ```coal
 is_alpha : char -> bool
 ```
-
----
