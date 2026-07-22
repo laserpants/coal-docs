@@ -1,5 +1,7 @@
 # `Coal.Combinators`
 
+Combinators and tuple operations for functional programming.
+
 ### `identity`
 
 The identity function.
