@@ -186,6 +186,7 @@ is_prefix_of : string -> string -> bool
 ### `drop`
 
 Remove the first `n` characters from the string.
+
 If the string is shorter than `n`, return an empty string.
 
 ```coal

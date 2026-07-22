@@ -47,6 +47,7 @@ length : List<a> -> nat
 ### `reduce`
 
 Right-associative fold.
+
 Apply the function to each element and an accumulator, starting from the
 end of the list.
 
@@ -120,6 +121,7 @@ concat : List<List<a>> -> List<a>
 ### `take`
 
 Return the first `n` elements of the list.
+
 If the list is shorter than `n`, return the whole list.
 
 ```coal
@@ -131,6 +133,7 @@ take : nat -> List<a> -> List<a>
 ### `drop`
 
 Remove the first `n` elements from the list.
+
 If the list is shorter than `n`, return an empty list.
 
 ```coal
@@ -142,6 +145,7 @@ drop : nat -> List<a> -> List<a>
 ### `slice`
 
 Extract a range of elements from the list.
+
 slice(m, n, xs) = xs |. drop(m) |. take(n - m)
 
 ```coal
@@ -205,6 +209,7 @@ reverse : List<a> -> List<a>
 ### `unzip`
 
 Convert a list of pairs into a pair of lists, in the natural way.
+
 E.g., unzip([(1, "one"), (2, "two")]) returns:
 ([1, 2], ["one", "two"])
 
@@ -217,6 +222,7 @@ unzip : List<(a, b)> -> (List<a>, List<b>)
 ### `zip`
 
 Convert two lists into a list of pairs, in the natural way.
+
 E.g., zip([1, 2], ["one", "two"]) returns:
 [(1, "one"), (2, "two")]
 

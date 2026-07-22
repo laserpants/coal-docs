@@ -3,6 +3,7 @@
 ### `identity`
 
 The identity function.
+
 Returns the value unchanged.
 
 ```coal

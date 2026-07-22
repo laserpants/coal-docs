@@ -109,6 +109,7 @@ double_to_int64 : double -> int64
 ### `parse_bignum`
 
 Parse a decimal string into a bignum.
+
 Returns `None` if parsing fails, otherwise `Some(bignum)`.
 
 ```coal
@@ -150,6 +151,7 @@ max : a -> a -> a
 ### `maximum`
 
 Compute the maximum element of a list.
+
 Returns `None` for an empty list.
 
 ```coal

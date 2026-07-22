@@ -5,9 +5,11 @@ Functions for working with the built-in `Char` type.
 ### `digit_to_int32`
 
 Convert a numeric character ('0'-'9') into its corresponding `int32` value.
+
 If the input character is a valid decimal digit, the function returns
 `Some(n)`, where `n` is the integer value of that digit. For example,
 `'3'` produces `Some(3)`.
+
 If the character is not a digit, the function returns `None`.
 
 ```coal
@@ -19,6 +21,7 @@ digit_to_int32 : char -> Option<int32>
 ### `ord`
 
 Return the Unicode code point of a character.
+
 Convert the given character into its numeric Unicode scalar value
 and return it as an `int32`. This is the inverse of `chr`.
 
@@ -31,6 +34,7 @@ ord : char -> int32
 ### `chr`
 
 Construct a character from a Unicode code point.
+
 Convert the given numeric Unicode scalar value into the corresponding
 character. This is the inverse of `ord`.
 

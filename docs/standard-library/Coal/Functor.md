@@ -11,4 +11,8 @@ structured context via the `map` operation.
 
 `void` discards the value inside a functor, replacing it with unit.
 
+```coal
+void : f<a> -> f<unit> with (Functor<f>)
+```
+
 ---
