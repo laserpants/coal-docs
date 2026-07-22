@@ -21,6 +21,7 @@ nav:
   - Getting started: getting-started.md
   - Language manual: language-manual.md
   - CLI reference: cli.md
+  - Core modules: core-modules.md
   - Examples: examples.md
   #  - C function interface: ffi.md
   - Packages: packages.md
