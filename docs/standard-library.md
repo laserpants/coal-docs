@@ -1,6 +1,23 @@
-# Core modules
+# Standard library
 
 This documentation is automatically generated from docblocks in the standard library source code.
+
+- [`Char`](#char)
+- [`Coal.Applicative`](#coalapplicative)
+- [`Coal.Combinators`](#coalcombinators)
+- [`Coal.Functor`](#coalfunctor)
+- [`Coal.Monad`](#coalmonad)
+- [`Coal.Monoid`](#coalmonoid)
+- [`Codata.Machine`](#codatamachine)
+- [`Codata.Stream`](#codatastream)
+- [`IO`](#io)
+- [`List`](#list)
+- [`Nat`](#nat)
+- [`Number`](#number)
+- [`Option`](#option)
+- [`String`](#string)
+
+---
 
 ## `Char`
 
@@ -12,6 +29,10 @@ If the input character is a valid decimal digit, the function returns
 `'3'` produces `Some(3)`.
 If the character is not a digit, the function returns `None`.
 
+```coal
+digit_to_int32 : char -> Option<int32>
+```
+
 ---
 
 ### `ord`
@@ -19,6 +40,10 @@ If the character is not a digit, the function returns `None`.
 Return the Unicode code point of a character.
 Convert the given character into its numeric Unicode scalar value
 and return it as an `int32`. This is the inverse of `chr`.
+
+```coal
+ord : char -> int32
+```
 
 ---
 
@@ -28,11 +53,19 @@ Construct a character from a Unicode code point.
 Convert the given numeric Unicode scalar value into the corresponding
 character. This is the inverse of `ord`.
 
+```coal
+chr : int32 -> char
+```
+
 ---
 
 ### `is_digit`
 
 Check if character is a digit (0-9)
+
+```coal
+is_digit : char -> bool
+```
 
 ---
 
@@ -40,11 +73,19 @@ Check if character is a digit (0-9)
 
 Check if character is whitespace
 
+```coal
+is_whitespace : char -> bool
+```
+
 ---
 
 ### `is_alpha`
 
 Check if character is a letter (a-z, A-Z)
+
+```coal
+is_alpha : char -> bool
+```
 
 ---
 
@@ -593,11 +634,19 @@ No documentation available.
 Return the first element of the list wrapped in `Some`, or `None` if the
 list is empty.
 
+```coal
+head : List<a> -> Option<a>
+```
+
 ---
 
 ### `tail`
 
 Return the list without its first element, or `None` if the list is empty.
+
+```coal
+tail : List<a> -> Option<List<a>>
+```
 
 ---
 
@@ -606,11 +655,19 @@ Return the list without its first element, or `None` if the list is empty.
 Return a pair (head, tail) wrapped in `Some`, or `None` if the list is 
 empty.
 
+```coal
+uncons : List<a> -> Option<(a, List<a>)>
+```
+
 ---
 
 ### `length`
 
 Return the length of the list as a natural number.
+
+```coal
+length : List<a> -> nat
+```
 
 ---
 
@@ -620,11 +677,19 @@ Right-associative fold.
 Apply the function to each element and an accumulator, starting from the
 end of the list.
 
+```coal
+reduce : (a -> b -> b) -> b -> List<a> -> b
+```
+
 ---
 
 ### `reduce_left`
 
 Left-associative fold.
+
+```coal
+reduce_left : (b -> a -> b) -> b -> List<a> -> b
+```
 
 ---
 
@@ -632,17 +697,29 @@ Left-associative fold.
 
 Return a list containing exactly one element.
 
+```coal
+singleton : a -> List<a>
+```
+
 ---
 
 ### `is_empty`
 
 Return `true` if the list is empty, or `false` otherwise.
 
+```coal
+is_empty : List<a> -> bool
+```
+
 ---
 
 ### `is_nonempty`
 
 Return `true` if the list contains any elements, or `false` otherwise.
+
+```coal
+is_nonempty : List<a> -> bool
+```
 
 ---
 
@@ -651,11 +728,19 @@ Return `true` if the list contains any elements, or `false` otherwise.
 Return `true` if the list contains precisely one element, or `false` 
 otherwise.
 
+```coal
+is_singleton : List<a> -> bool
+```
+
 ---
 
 ### `concat`
 
 Flatten a list of lists into a single list.
+
+```coal
+concat : List<List<a>> -> List<a>
+```
 
 ---
 
@@ -664,12 +749,20 @@ Flatten a list of lists into a single list.
 Return the first `n` elements of the list.
 If the list is shorter than `n`, return the whole list.
 
+```coal
+take : nat -> List<a> -> List<a>
+```
+
 ---
 
 ### `drop`
 
 Remove the first `n` elements from the list.
 If the list is shorter than `n`, return an empty list.
+
+```coal
+drop : nat -> List<a> -> List<a>
+```
 
 ---
 
@@ -678,17 +771,29 @@ If the list is shorter than `n`, return an empty list.
 Extract a range of elements from the list.
 slice(m, n, xs) = xs |. drop(m) |. take(n - m)
 
+```coal
+slice : nat -> nat -> List<a> -> List<a>
+```
+
 ---
 
 ### `element_at`
 
 Return the element at index `n`, or `None` if out of bounds.
 
+```coal
+element_at : nat -> List<a> -> Option<a>
+```
+
 ---
 
 ### `map`
 
 Transform each element of a list using the given function.
+
+```coal
+map : (a -> b) -> List<a> -> List<b>
+```
 
 ---
 
@@ -698,17 +803,29 @@ Apply a function to every element of a list, where that function must
 return a list, and then concatenate the resulting lists into a single, 
 flattened list.
 
+```coal
+concat_map : (a -> List<b>) -> List<a> -> List<b>
+```
+
 ---
 
 ### `filter`
 
 Keep only the elements for which the predicate returns `true`.
 
+```coal
+filter : (a -> bool) -> List<a> -> List<a>
+```
+
 ---
 
 ### `reverse`
 
 Return a new list with the elements in reverse order.
+
+```coal
+reverse : List<a> -> List<a>
+```
 
 ---
 
@@ -718,6 +835,10 @@ Convert a list of pairs into a pair of lists, in the natural way.
 E.g., unzip([(1, "one"), (2, "two")]) returns:
 ([1, 2], ["one", "two"])
 
+```coal
+unzip : List<(a, b)> -> (List<a>, List<b>)
+```
+
 ---
 
 ### `zip`
@@ -726,12 +847,20 @@ Convert two lists into a list of pairs, in the natural way.
 E.g., zip([1, 2], ["one", "two"]) returns:
 [(1, "one"), (2, "two")]
 
+```coal
+zip : List<a> -> List<b> -> List<(a, b)>
+```
+
 ---
 
 ### `any`
 
 Return `true` if and only if any element of the list satisfies the given 
 predicate.
+
+```coal
+any : (a -> bool) -> List<a> -> bool
+```
 
 ---
 
@@ -740,17 +869,29 @@ predicate.
 Return `true` if and only if all element of the list satisfy the given 
 predicate.
 
+```coal
+all : (a -> bool) -> List<a> -> bool
+```
+
 ---
 
 ### `all_true`
 
 Return the conjunction of a list of bools.
 
+```coal
+all_true : List<bool> -> bool
+```
+
 ---
 
 ### `any_true`
 
 Return the disjunction of a list of bools.
+
+```coal
+any_true : List<bool> -> bool
+```
 
 ---
 
@@ -759,6 +900,10 @@ Return the disjunction of a list of bools.
 Return the first element of the list that satisfies the given predicate, 
 or `None`, if there is no such element.
 
+```coal
+find : (a -> bool) -> List<a> -> Option<a>
+```
+
 ---
 
 ### `is_prefix_of`
@@ -766,11 +911,19 @@ or `None`, if there is no such element.
 Return a boolean indicating whether the first list is a prefix of the 
 second.
 
+```coal
+is_prefix_of : List<a> -> List<a> -> bool
+```
+
 ---
 
 ### `range`
 
 Return the list [start, start + 1, ..., start + count - 1].
+
+```coal
+range : n -> nat -> List<n>
+```
 
 ---
 
@@ -783,12 +936,20 @@ Interpret the given integer as a natural number and return the
 corresponding `nat` value. If the input is negative, the function
 will return `Zero`.
 
+```coal
+pack : int32 -> nat
+```
+
 ---
 
 ### `unpack`
 
 Convert a natural number into an `int32` value.
 Return the integer representation of the given value as an `int32`.
+
+```coal
+unpack : nat -> int32
+```
 
 ---
 
@@ -822,11 +983,19 @@ Minimum value representable by a 64-bit signed integer.
 
 Convert a 32-bit integer to a float.
 
+```coal
+int32_to_float : int32 -> float
+```
+
 ---
 
 ### `int32_to_double`
 
 Convert a 32-bit integer to a double.
+
+```coal
+int32_to_double : int32 -> double
+```
 
 ---
 
@@ -834,11 +1003,19 @@ Convert a 32-bit integer to a double.
 
 Convert a 64-bit integer to a float.
 
+```coal
+int64_to_float : int64 -> float
+```
+
 ---
 
 ### `int64_to_double`
 
 Convert a 64-bit integer to a double.
+
+```coal
+int64_to_double : int64 -> double
+```
 
 ---
 
@@ -846,11 +1023,19 @@ Convert a 64-bit integer to a double.
 
 Convert a float to a 32-bit integer.
 
+```coal
+float_to_int32 : float -> int32
+```
+
 ---
 
 ### `double_to_int32`
 
 Convert a double to a 32-bit integer.
+
+```coal
+double_to_int32 : double -> int32
+```
 
 ---
 
@@ -858,11 +1043,19 @@ Convert a double to a 32-bit integer.
 
 Convert a float to a 64-bit integer.
 
+```coal
+float_to_int64 : float -> int64
+```
+
 ---
 
 ### `double_to_int64`
 
 Convert a double to a 64-bit integer.
+
+```coal
+double_to_int64 : double -> int64
+```
 
 ---
 
@@ -871,11 +1064,19 @@ Convert a double to a 64-bit integer.
 Parse a decimal string into a bignum.
 Returns `None` if parsing fails, otherwise `Some(bignum)`.
 
+```coal
+parse_bignum : string -> Option<bignum>
+```
+
 ---
 
 ### `bignum_to_float`
 
 Convert a bignum to a float.
+
+```coal
+bignum_to_float : bignum -> float
+```
 
 ---
 
@@ -883,11 +1084,19 @@ Convert a bignum to a float.
 
 Convert a bignum to a double.
 
+```coal
+bignum_to_double : bignum -> double
+```
+
 ---
 
 ### `max`
 
 Return the greater of two comparable values.
+
+```coal
+max : a -> a -> a
+```
 
 ---
 
@@ -896,17 +1105,29 @@ Return the greater of two comparable values.
 Compute the maximum element of a list.
 Returns `None` for an empty list.
 
+```coal
+maximum : List<a> -> Option<a>
+```
+
 ---
 
 ### `is_even`
 
 Test whether a number is even.
 
+```coal
+is_even : a -> bool
+```
+
 ---
 
 ### `is_odd`
 
 Test whether a number is odd.
+
+```coal
+is_odd : a -> bool
+```
 
 ---
 
@@ -917,6 +1138,10 @@ Test whether a number is odd.
 Extract a value of type `a` from an `Option<a>` by providing a default 
 value for the case when the input is `None`.
 
+```coal
+with_default : a -> Option<a> -> a
+```
+
 ---
 
 ### `is_some`
@@ -924,11 +1149,19 @@ value for the case when the input is `None`.
 Return `true` if the given value is constructed with `Some`, and `false` 
 otherwise.
 
+```coal
+is_some : Option<a> -> bool
+```
+
 ---
 
 ### `is_none`
 
 Return `true` if the given value is `None`, and `false` otherwise.
+
+```coal
+is_none : Option<a> -> bool
+```
 
 ---
 
@@ -939,12 +1172,20 @@ From a default value of type `b`, a function of type `a -> b`, and an
 constructor and return the result, or if the value is `None`, return
 the default value.
 
+```coal
+option : b -> (a -> b) -> Option<a> -> b
+```
+
 ---
 
 ### `cat_options`
 
 Collect all values contained in `Some` constructors from a list of
 `Option<a>` values, discarding occurrences of `None`.
+
+```coal
+cat_options : List<Option<a>> -> List<a>
+```
 
 ---
 
@@ -953,12 +1194,20 @@ Collect all values contained in `Some` constructors from a list of
 Convert a list to an `Option<a>` by returning `Some` applied to the first
 element of the list, or `None` if the list is empty.
 
+```coal
+list_to_option : List<a> -> Option<a>
+```
+
 ---
 
 ### `option_to_list`
 
 Convert an `Option<a>` value to a list by returning a singleton list
 containing the value if it is `Some`, or the empty list if it is `None`.
+
+```coal
+option_to_list : Option<a> -> List<a>
+```
 
 ---
 
@@ -968,11 +1217,19 @@ containing the value if it is `Some`, or the empty list if it is `None`.
 
 Convert a character to a one-character string.
 
+```coal
+char_to_string : char -> string
+```
+
 ---
 
 ### `bool_to_string`
 
 Convert a boolean to a string, i.e., either "true" or "false".
+
+```coal
+bool_to_string : bool -> string
+```
 
 ---
 
@@ -980,11 +1237,19 @@ Convert a boolean to a string, i.e., either "true" or "false".
 
 Convert an int32 value to its string representation.
 
+```coal
+int32_to_string : int32 -> string
+```
+
 ---
 
 ### `float_to_string`
 
 Convert a floating-point value to its string representation.
+
+```coal
+float_to_string : float -> string
+```
 
 ---
 
@@ -992,11 +1257,19 @@ Convert a floating-point value to its string representation.
 
 Convert a double-precision value to its string representation.
 
+```coal
+double_to_string : double -> string
+```
+
 ---
 
 ### `to_list`
 
 Convert a string into a list of its characters.
+
+```coal
+to_list : string -> List<char>
+```
 
 ---
 
@@ -1004,11 +1277,19 @@ Convert a string into a list of its characters.
 
 Build a string from a list of characters.
 
+```coal
+from_list : List<char> -> string
+```
+
 ---
 
 ### `length`
 
 Return the number of characters in the string.
+
+```coal
+length : string -> nat
+```
 
 ---
 
@@ -1016,11 +1297,19 @@ Return the number of characters in the string.
 
 Determine whether the string is empty.
 
+```coal
+is_empty : string -> bool
+```
+
 ---
 
 ### `head`
 
 Return the first character of the string, or `None` if empty.
+
+```coal
+head : string -> Option<char>
+```
 
 ---
 
@@ -1028,11 +1317,19 @@ Return the first character of the string, or `None` if empty.
 
 Return the string without its first character.
 
+```coal
+tail : string -> string
+```
+
 ---
 
 ### `cons`
 
 Prepend a character to the front of a string.
+
+```coal
+cons : char -> string -> string
+```
 
 ---
 
@@ -1040,11 +1337,19 @@ Prepend a character to the front of a string.
 
 Return the head and tail of a string, as a pair.
 
+```coal
+uncons : string -> (Option<char>, string)
+```
+
 ---
 
 ### `reverse`
 
 Reverse the characters in the string.
+
+```coal
+reverse : string -> string
+```
 
 ---
 
@@ -1052,17 +1357,29 @@ Reverse the characters in the string.
 
 Remove all whitespace characters from the string.
 
+```coal
+remove_whitespace : string -> string
+```
+
 ---
 
 ### `intercalate`
 
 Insert a separator between the strings in a list and concatenate them.
 
+```coal
+intercalate : string -> List<string> -> string
+```
+
 ---
 
 ### `concat`
 
 Take a list of strings and concatenate them into a single string.
+
+```coal
+concat : List<string> -> string
+```
 
 ---
 
@@ -1071,11 +1388,19 @@ Take a list of strings and concatenate them into a single string.
 Return a boolean indicating whether the first string is a prefix of the 
 second.
 
+```coal
+is_prefix_of : string -> string -> bool
+```
+
 ---
 
 ### `drop`
 
 Remove the first `n` characters from the string.
 If the string is shorter than `n`, return an empty string.
+
+```coal
+drop : nat -> string -> string
+```
 
 ---
