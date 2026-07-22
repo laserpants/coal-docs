@@ -1,5 +1,7 @@
 # `Char`
 
+Functions for working with the built-in `Char` type.
+
 ### `digit_to_int32`
 
 Convert a numeric character ('0'-'9') into its corresponding `int32` value.

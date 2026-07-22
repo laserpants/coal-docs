@@ -1,5 +1,7 @@
 # `Nat`
 
+Functions for converting between `nat` values and ordinary integer representations of non-negative integers.
+
 ### `pack`
 
 Convert an `int32` value into a natural number.

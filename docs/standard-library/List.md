@@ -1,5 +1,7 @@
 # `List`
 
+Common operations for working with lists.
+
 ### `head`
 
 Return the first element of the list wrapped in `Some`, or `None` if the
@@ -248,7 +250,7 @@ all : (a -> bool) -> List<a> -> bool
 
 ### `all_true`
 
-Return the conjunction of a list of bools.
+Return the conjunction of a list of booleans.
 
 ```coal
 all_true : List<bool> -> bool
@@ -258,7 +260,7 @@ all_true : List<bool> -> bool
 
 ### `any_true`
 
-Return the disjunction of a list of bools.
+Return the disjunction of a list of booleans.
 
 ```coal
 any_true : List<bool> -> bool

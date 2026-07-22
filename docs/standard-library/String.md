@@ -1,5 +1,7 @@
 # `String`
 
+Functions for working with the built-in `String` type.
+
 ### `char_to_string`
 
 Convert a character to a one-character string.
