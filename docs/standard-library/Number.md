@@ -1,5 +1,7 @@
 # `Number`
 
+Numeric utilities and conversions.
+
 ### `_INT32_MAX`
 
 Maximum value representable by a 32-bit signed integer.
