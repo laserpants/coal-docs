@@ -2056,7 +2056,7 @@ Here, if `opt` is `Some(n)` but `n` is not greater than zero, the first clause's
 
 ### Lambda match 
 
-A lambda match is a special syntax that lets you get rid of the variable in a `match` expression. For example, this expression:
+A lambda match is a special syntax that lets you hide the variable in a `match` expression. For example, this expression:
 
 ```coal
 match {
