@@ -2559,7 +2559,7 @@ fun repeat(state : a) : Stream<a> =
   process(state, fn(_, _) => state)
 ```
 
-The function `process` creates a stream from an initial state and a step function. The step function receives the current input (which we ignore with `_`) and the current state, and returns the next state. Since we always return the same state, this stream repeats endlessly.
+The function `process` creates a stream from an initial state and a step function. The step function receives the current input (which we ignore with `_`) and the current state, and returns the next state. Since we always return the same state, this stream simply repeats endlessly.
 
 A more interesting example is a stream that counts upward from a starting number:
 
