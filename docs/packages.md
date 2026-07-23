@@ -95,7 +95,7 @@ This library provides a simple and elegant way to write and run tests in Coal. I
 - **Functional design**: Leverages Coal's functional programming features
 - **Lightweight**: Minimal dependencies and straightforward API
 
-#### Installation
+#### installation
 
 Add `coal-micro-test` to your `coal.json` dependencies:
 
@@ -113,4 +113,47 @@ Add `coal-micro-test` to your `coal.json` dependencies:
     }
   }
 }
+```
+
+---
+
+## coal-pretty
+
+Repository: [codeberg.org/laserpants/coal-pretty](https://codeberg.org/laserpants/coal-pretty)
+
+A pretty-printing library for the Coal programming language, providing a `Pretty` trait with instances for common built-in and composite types.
+
+#### installation
+
+Add `coal-pretty` as a dependency in your project's `coal.json` config-file:
+
+```json
+{
+  "dependencies": {
+    "coal-pretty": {
+      "version": "*",
+      "git": "ssh://git@codeberg.org/laserpants/coal-pretty.git"
+    }
+  }
+}
+```
+
+#### Usage
+
+Import the `Pretty` trait and call `pretty` on any value with a `Pretty` instance:
+
+```coal
+import Pretty(Pretty, pretty)
+
+let s = pretty("hello world")
+// "hello world"
+
+let n = pretty(42)
+// "42"
+
+let xs = pretty([1, 2, 3])
+// "[1,2,3]"
+
+let opt = pretty(Some(42))
+// "Some(42)"
 ```
