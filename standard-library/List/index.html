@@ -1051,7 +1051,8 @@ otherwise.</p>
 <hr />
 <h3 id="slice"><code>slice</code></h3>
 <p>Extract a range of elements from the list.</p>
-<p>slice(m, n, xs) = xs |. drop(m) |. take(n - m)</p>
+<div class="highlight"><pre><span></span><code>slice(m, n, xs) = xs |. drop(m) |. take(n - m)
+</code></pre></div>
 <pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">slice </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> nat</span><span style="color:#D73A49"> -></span><span style="color:#005CC5"> nat</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">slice </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> nat</span><span style="color:#F97583"> -></span><span style="color:#79B8FF"> nat</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="element_at"><code>element_at</code></h3>
