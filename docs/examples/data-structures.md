@@ -15,7 +15,9 @@ module Map {
     , right  : Map<key, val> 
     }
 
-  type Map<key, val> = Empty | Map(MapFields<key, val>)
+  type Map<key, val> 
+    = Empty 
+    | Map(MapFields<key, val>)
 
   // Helpers
 
