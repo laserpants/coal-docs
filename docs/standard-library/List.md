@@ -148,7 +148,9 @@ drop : nat -> List<a> -> List<a>
 
 Extract a range of elements from the list.
 
+```
 slice(m, n, xs) = xs |. drop(m) |. take(n - m)
+```
 
 ```coal
 slice : nat -> nat -> List<a> -> List<a>
