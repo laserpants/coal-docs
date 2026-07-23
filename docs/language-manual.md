@@ -475,6 +475,13 @@ Coal provides the following built-in types:
 
 Coal has six distinct numeric types.
 
+1. `int32`
+1. `int64`
+1. `float`
+1. `double`
+1. `bignum`
+1. `nat`
+
 #### Integer types
 
 The fixed-size integer types `int32` and `int64` provide efficient arithmetic for most common use cases. Use `int32` for typical counting and indexing operations, and `int64` when you need a larger range.
