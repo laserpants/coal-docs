@@ -606,6 +606,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#coal-pretty" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        coal-pretty
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -803,6 +814,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#coal-pretty" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        coal-pretty
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -891,7 +913,7 @@
 <li><strong>Functional design</strong>: Leverages Coal's functional programming features</li>
 <li><strong>Lightweight</strong>: Minimal dependencies and straightforward API</li>
 </ul>
-<h4 id="installation_3">Installation</h4>
+<h4 id="installation_3">installation</h4>
 <p>Add <code>coal-micro-test</code> to your <code>coal.json</code> dependencies:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-project&quot;</span><span class="p">,</span>
@@ -907,6 +929,48 @@
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<hr />
+<h2 id="coal-pretty">coal-pretty</h2>
+<p>Repository: <a href="https://codeberg.org/laserpants/coal-pretty">codeberg.org/laserpants/coal-pretty</a></p>
+<p>A pretty-printing library for the Coal programming language, providing a <code>Pretty</code> trait with instances for common built-in and composite types.</p>
+<h4 id="installation_4">installation</h4>
+<p>Add <code>coal-pretty</code> as a dependency in your project's <code>coal.json</code> config-file:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;coal-pretty&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;git&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh://git@codeberg.org/laserpants/coal-pretty.git&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="usage">Usage</h4>
+<p>Import the <code>Pretty</code> trait and call <code>pretty</code> on any value with a <code>Pretty</code> instance:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">import</span><span style="color:#6F42C1"> Pretty</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Pretty</span><span style="color:#24292E">, pretty)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">let</span><span style="color:#24292E"> s = pretty(</span><span style="color:#032F62">"hello world"</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#6A737D">// "hello world"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">let</span><span style="color:#24292E"> n = pretty(</span><span style="color:#005CC5">42</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#6A737D">// "42"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">let</span><span style="color:#24292E"> xs = pretty([</span><span style="color:#005CC5">1</span><span style="color:#24292E">, </span><span style="color:#005CC5">2</span><span style="color:#24292E">, </span><span style="color:#005CC5">3</span><span style="color:#24292E">])</span></span>
+<span class="line"><span style="color:#6A737D">// "[1,2,3]"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">let</span><span style="color:#24292E"> opt = pretty(</span><span style="color:#005CC5">Some</span><span style="color:#24292E">(</span><span style="color:#005CC5">42</span><span style="color:#24292E">))</span></span>
+<span class="line"><span style="color:#6A737D">// "Some(42)"</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">import</span><span style="color:#B392F0"> Pretty</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Pretty</span><span style="color:#E1E4E8">, pretty)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> s = pretty(</span><span style="color:#9ECBFF">"hello world"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#6A737D">// "hello world"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> n = pretty(</span><span style="color:#79B8FF">42</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#6A737D">// "42"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> xs = pretty([</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">])</span></span>
+<span class="line"><span style="color:#6A737D">// "[1,2,3]"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> opt = pretty(</span><span style="color:#79B8FF">Some</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">42</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#6A737D">// "Some(42)"</span></span></code></pre>
 
 
 
