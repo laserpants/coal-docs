@@ -143,7 +143,7 @@ Add `coal-pretty` as a dependency in your project's `coal.json` config-file:
 Import the `Pretty` trait and call `pretty` on any value with a `Pretty` instance:
 
 ```coal
-import Pretty(Pretty, pretty)
+import Pretty(Pretty)
 
 let s = pretty("hello world")
 // "hello world"
