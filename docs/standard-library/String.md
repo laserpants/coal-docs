@@ -34,6 +34,16 @@ int32_to_string : int32 -> string
 
 ---
 
+### `int64_to_string`
+
+Convert an int64 value to its string representation.
+
+```coal
+int64_to_string : int64 -> string
+```
+
+---
+
 ### `float_to_string`
 
 Convert a floating-point value to its string representation.

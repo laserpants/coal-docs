@@ -140,6 +140,16 @@ bignum_to_double : bignum -> double
 
 ---
 
+### `bignum_to_string`
+
+Convert a bignum to its string representation.
+
+```coal
+bignum_to_string : bignum -> string
+```
+
+---
+
 ### `max`
 
 Return the greater of two comparable values.
