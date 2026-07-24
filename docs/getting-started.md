@@ -43,7 +43,9 @@ See [Getting Started with the LLVM System](https://llvm.org/docs/GettingStarted.
 brew install llvm
 ```
 
-**Note:** If you use Homebrew to install LLVM, you may need to add the binaries to your `PATH` manually. 
+!!! note 
+
+    If you use Homebrew to install LLVM, you may need to add the binaries to your `PATH` manually. 
 
 #### Additional dependencies
 
@@ -190,7 +192,9 @@ docker run --rm \
 | `-w /src` | Set the working directory inside the container |
 | `--entrypoint bash` | Start a bash shell (instead of the default `coal` command) |
 
-**Important:** the `-v "$pwd:/src"` flag makes your local files accessible inside the container. any changes you make inside `/src` are immediately reflected in your local directory.
+!!! warning "Important!"
+
+    The `-v "$pwd:/src"` flag makes your local files accessible inside the container. any changes you make inside `/src` are immediately reflected in your local directory.
 
 Once inside the container, the `coal` command is ready to use:
 
