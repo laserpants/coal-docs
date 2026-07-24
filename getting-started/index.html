@@ -971,7 +971,10 @@ sudo apt install llvm clang
 <p>See <a href="https://llvm.org/docs/GettingStarted.html">Getting Started with the LLVM System</a>, or install using Homebrew:</p>
 <div class="highlight"><pre><span></span><code>brew install llvm
 </code></pre></div>
-<p><strong>Note:</strong> If you use Homebrew to install LLVM, you may need to add the binaries to your <code>PATH</code> manually. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you use Homebrew to install LLVM, you may need to add the binaries to your <code>PATH</code> manually. </p>
+</div>
 <h4 id="additional-dependencies">Additional dependencies</h4>
 <ul>
 <li>GCC (probably not needed on Mac)</li>
@@ -1104,7 +1107,10 @@ sudo apt install libgc-dev libgmp-dev build-essential
 </tr>
 </tbody>
 </table>
-<p><strong>Important:</strong> the <code>-v "$pwd:/src"</code> flag makes your local files accessible inside the container. any changes you make inside <code>/src</code> are immediately reflected in your local directory.</p>
+<div class="admonition warning">
+<p class="admonition-title">Important!</p>
+<p>The <code>-v "$pwd:/src"</code> flag makes your local files accessible inside the container. any changes you make inside <code>/src</code> are immediately reflected in your local directory.</p>
+</div>
 <p>Once inside the container, the <code>coal</code> command is ready to use:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Compile your program</span>
 coal<span class="w"> </span>compile<span class="w"> </span>-I.<span class="w"> </span>Main.coal<span class="w"> </span>-o<span class="w"> </span>dist
