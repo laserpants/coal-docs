@@ -1292,7 +1292,7 @@ the `IO`-package to handle errors when reading a file from the file system.
 ```coal
 module Main {
 
-  import IO(println_string, read_file, type FileIOError)
+  import IO(println_string, read_file, FileIOError)
   import Coal.Monad(and_then)
 
   fun show_error(error : FileIOError) =
