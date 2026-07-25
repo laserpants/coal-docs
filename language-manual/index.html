@@ -2932,7 +2932,7 @@ Therefore, if the input list is empty, then we have nothing to look at. <code>Op
 the <code>IO</code>-package to handle errors when reading a file from the file system.</p>
 <pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">module</span><span style="color:#6F42C1"> Main</span><span style="color:#24292E"> {</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> IO</span><span style="color:#24292E">(println_string, read_file, </span><span style="color:#D73A49">type</span><span style="color:#6F42C1"> FileIOError</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> IO</span><span style="color:#24292E">(println_string, read_file, </span><span style="color:#6F42C1">FileIOError</span><span style="color:#24292E">)</span></span>
 <span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Monad</span><span style="color:#24292E">(and_then)</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> show_error(error </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> FileIOError</span><span style="color:#24292E">) </span><span style="color:#D73A49">=</span></span>
@@ -2953,7 +2953,7 @@ the <code>IO</code>-package to handle errors when reading a file from the file s
 <span class="line"></span>
 <span class="line"><span style="color:#24292E">}</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">module</span><span style="color:#B392F0"> Main</span><span style="color:#E1E4E8"> {</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> IO</span><span style="color:#E1E4E8">(println_string, read_file, </span><span style="color:#F97583">type</span><span style="color:#B392F0"> FileIOError</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> IO</span><span style="color:#E1E4E8">(println_string, read_file, </span><span style="color:#B392F0">FileIOError</span><span style="color:#E1E4E8">)</span></span>
 <span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Monad</span><span style="color:#E1E4E8">(and_then)</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> show_error(error </span><span style="color:#F97583">:</span><span style="color:#B392F0"> FileIOError</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=</span></span>
