@@ -45,3 +45,15 @@ evaluated first, and the first is returned.
 ```coal
 and_eval : m<b> -> m<a> -> m<a> with (Monad<m>)
 ```
+
+---
+
+### `join`
+
+`join` flattens a nested monadic value by one level, transforming
+`m<m<a>>` into `m<a>`. It is equivalent to `bind` with the identity
+function.
+
+```coal
+join : m<m<a>> -> m<a> with (Monad<m>)
+```
