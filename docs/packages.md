@@ -101,11 +101,6 @@ Add `coal-micro-test` to your `coal.json` dependencies:
 
 ```json
 {
-  "name": "your-project",
-  "version": "0.1.0",
-  "modules": [
-    "YourModule"
-  ],
   "dependencies": {
     "coal-micro-test": {
       "version": "*",
@@ -138,22 +133,25 @@ Add `coal-pretty` as a dependency in your project's `coal.json` config-file:
 }
 ```
 
-#### Usage
+---
 
-Import the `Pretty` trait and call `pretty` on any value with a `Pretty` instance:
+## coal-parsers
 
-```coal
-import Pretty(Pretty)
+Repository: [codeberg.org/laserpants/coal-parsers](https://codeberg.org/laserpants/coal-parsers)
 
-let s = pretty("hello world")
-// "hello world"
+A parser combinator library  with modular, composable parsers for text processing, language implementation, and data format parsing.
 
-let n = pretty(42)
-// "42"
+#### Installation
 
-let xs = pretty([1, 2, 3])
-// "[1,2,3]"
+Add **coal-parsers** as a dependency in your project's `coal.json` config-file:
 
-let opt = pretty(Some(42))
-// "Some(42)"
+```json
+{
+  "dependencies": {
+    "coal-parsers": {
+      "version": "*",
+      "git": "ssh://git@codeberg.org/laserpants/coal-parsers.git"
+    }
+  }
+}
 ```
