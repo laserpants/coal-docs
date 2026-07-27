@@ -797,6 +797,50 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#parse_int32" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>parse_int32</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parse_int64" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>parse_int64</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parse_float" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>parse_float</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parse_double" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>parse_double</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#parse_bignum" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -945,6 +989,30 @@
 <h3 id="double_to_int64"><code>double_to_int64</code></h3>
 <p>Convert a double to a 64-bit integer.</p>
 <pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">double_to_int64 </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> double</span><span style="color:#D73A49"> -></span><span style="color:#005CC5"> int64</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">double_to_int64 </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> double</span><span style="color:#F97583"> -></span><span style="color:#79B8FF"> int64</span></span></code></pre>
+<hr />
+<h3 id="parse_int32"><code>parse_int32</code></h3>
+<p>Parse a decimal string into a 32-bit integer.</p>
+<p>Returns <code>None</code> if parsing fails (invalid format or overflow), 
+otherwise <code>Some(int32)</code>.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">parse_int32 </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> string</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Option</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">int32</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">parse_int32 </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Option</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">int32</span><span style="color:#F97583">></span></span></code></pre>
+<hr />
+<h3 id="parse_int64"><code>parse_int64</code></h3>
+<p>Parse a decimal string into a 64-bit integer.</p>
+<p>Returns <code>None</code> if parsing fails (invalid format or overflow), 
+otherwise <code>Some(int64)</code>.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">parse_int64 </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> string</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Option</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">int64</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">parse_int64 </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Option</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">int64</span><span style="color:#F97583">></span></span></code></pre>
+<hr />
+<h3 id="parse_float"><code>parse_float</code></h3>
+<p>Parse a decimal string into a float.</p>
+<p>Returns <code>None</code> if parsing fails (invalid format), 
+otherwise <code>Some(float)</code>.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">parse_float </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> string</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Option</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">float</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">parse_float </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Option</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">float</span><span style="color:#F97583">></span></span></code></pre>
+<hr />
+<h3 id="parse_double"><code>parse_double</code></h3>
+<p>Parse a decimal string into a double.</p>
+<p>Returns <code>None</code> if parsing fails (invalid format), 
+otherwise <code>Some(double)</code>.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">parse_double </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> string</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Option</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">double</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">parse_double </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Option</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">double</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="parse_bignum"><code>parse_bignum</code></h3>
 <p>Parse a decimal string into a bignum.</p>
