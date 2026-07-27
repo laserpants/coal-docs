@@ -108,6 +108,58 @@ double_to_int64 : double -> int64
 
 ---
 
+### `parse_int32`
+
+Parse a decimal string into a 32-bit integer.
+
+Returns `None` if parsing fails (invalid format or overflow), 
+otherwise `Some(int32)`.
+
+```coal
+parse_int32 : string -> Option<int32>
+```
+
+---
+
+### `parse_int64`
+
+Parse a decimal string into a 64-bit integer.
+
+Returns `None` if parsing fails (invalid format or overflow), 
+otherwise `Some(int64)`.
+
+```coal
+parse_int64 : string -> Option<int64>
+```
+
+---
+
+### `parse_float`
+
+Parse a decimal string into a float.
+
+Returns `None` if parsing fails (invalid format), 
+otherwise `Some(float)`.
+
+```coal
+parse_float : string -> Option<float>
+```
+
+---
+
+### `parse_double`
+
+Parse a decimal string into a double.
+
+Returns `None` if parsing fails (invalid format), 
+otherwise `Some(double)`.
+
+```coal
+parse_double : string -> Option<double>
+```
+
+---
+
 ### `parse_bignum`
 
 Parse a decimal string into a bignum.
