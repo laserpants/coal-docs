@@ -356,7 +356,7 @@ The operator `|.` is the reversed version of ordinary function application. For 
 
 ```coal
 let my_list = [1, 2, 3] in
-  map(fn(x) => 2 ^ x, [1, 2, 3])
+  map(fn(x) => 2 ^ x, my_list)
 ```
 
 we can write:
