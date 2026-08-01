@@ -304,13 +304,13 @@ The basic arithmetic operators are overloaded and work with all types for which 
 
 #### Logical
 
-Coal supports the standard logical operators for working with boolean values.
+Coal supports the standard boolean logic operators.
 
-|               | Description            | Arity      | Type                   |                                                               |         
-| ------------- | ---------------------- | ---------- | ---------------------- | ------------------------------------------------------------- |        
-| `&&`          | AND                    | 2          | `bool -> bool -> bool` | Evaluates to `true` only if both of its operands are `true`   |                                                               
-| `||`          | OR                     | 2          | `bool -> bool -> bool` | Evaluates to `true` if at least one of its operands is `true` |        
-| `!`           | NOT                    | 1          | `bool -> bool`         | Inverts a boolean value, turning `true` into `false` and vice versa |        
+|               | Description            | Arity      |                                                               |         
+| ------------- | ---------------------- | ---------- | ------------------------------------------------------------- |        
+| `&&`          | AND                    | 2          | Evaluates to `true` only if both of its operands are `true`   |                                                               
+| `||`          | OR                     | 2          | Evaluates to `true` if at least one of its operands is `true` |        
+| `!`           | NOT                    | 1          | Inverts a boolean value, turning `true` into `false` and vice versa |        
 
 !!! note 
 
