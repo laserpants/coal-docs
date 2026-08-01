@@ -1,6 +1,6 @@
 # Language manual
 
-This manual serves as an introduction to and reference for the syntax, semantics, type system, and core concepts of Coal. Although many parts of the language will feel familiar to programmers coming from other languages and backgrounds, Coal also introduces concepts that may feel unusual compared to mainstream programming languages.
+This manual serves as an introduction to and reference for the Coal language. While Coal is familiar in many ways, it also introduces concepts that may seem unusual compared to mainstream languages.
 
 Coal is a pure language that encourages a more declarative style of programming, where programs are expressed in terms of values and transformations rather than changes to state. The language features static typing with full type inference, allowing programs to be written without explicit type annotations. 
 
