@@ -1,8 +1,8 @@
 # Language manual
 
-Coal's syntax is designed to be familiar to programmers coming from a variety of language backgrounds, while introducing concepts that encourage a more declarative style of programming. This means that programs in Coal are built by composing expressions, rather than by describing sequences of state changes.
+This manual serves as a reference for the syntax, semantics, type system, and core concepts of Coal. Although many parts of the language will feel familiar to programmers coming from other languages and backgrounds, Coal also introduces concepts that may feel unusual compared to mainstream programming languages.
 
-Although many parts of the language will feel familiar, the language also includes features that may be unusual compared to many mainstream programming languages. This manual serves as a reference for the syntax, semantics, and core concepts of Coal.
+Coal is a pure language that encourages a more declarative style of programming, where programs are expressed in terms of values and transformations rather than changes to state. The language features static typing with full type inference, allowing programs to be written without explicit type annotations. 
 
 ## Expression syntax
 
