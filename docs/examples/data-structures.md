@@ -158,7 +158,7 @@ module Map {
  
   // Deletion
 
-  fold delete_min_node : Map<k, v> -> (Option<k>, Option<v>, Map<k, v>) {
+  fold delete_min_node : Map<k, v> -> (Option<k>, Option<v>, Map<k, v>) 
     | Empty =>
         (None, None, Empty)
 
@@ -169,7 +169,6 @@ module Map {
         let (k, v, new_left) = left 
         in
         (k, v, rebalance(make_node(m.key, m.value, new_left, m.right)))
-  }
 
   fun delete(key, map) =
     fold(map) {
