@@ -1,5 +1,9 @@
 # Language manual
 
+Coal's syntax is designed to be familiar to programmers coming from a variety of language backgrounds, while introducing concepts that encourage a more declarative style of programming. This means that programs in Coal are built by composing expressions, rather than by describing sequences of state changes.
+
+Although many parts of the language will feel familiar, the language also includes features that may be unusual compared to many mainstream programming languages. This manual serves as a reference for the syntax, semantics, and core concepts of Coal.
+
 ## Expression syntax
 
 Expressions are the core building blocks of programs in Coal. They include variables, literals, let-bindings, operators, and control structures like `if-then-else`. An expression can often be composed of other, smaller expressions. For example, a binary operator consists of two sub-expressions: its left-hand side and right-hand side operands:
