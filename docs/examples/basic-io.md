@@ -1,5 +1,7 @@
 # Basic I/O
 
+> The examples are available here: [codeberg.org/laserpants/coal-examples](https://codeberg.org/laserpants/coal-examples)
+
 This program demonstrates how to combine parsing and monadic pipelining to build a small interactive console application.
 Using `IO` operations composed through monadic combinators, the program asks the user for their name and then runs a simple number-guessing game
 
