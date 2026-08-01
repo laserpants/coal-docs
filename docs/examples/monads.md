@@ -1,5 +1,7 @@
 # Monads
 
+> The examples are available here: [codeberg.org/laserpants/coal-examples](https://codeberg.org/laserpants/coal-examples)
+
 These examples reimplement Haskell’s Reader, Writer, and State monads.
 
 ### Reader

@@ -1,5 +1,7 @@
 # Quicksort
 
+> The examples are available here: [codeberg.org/laserpants/coal-examples](https://codeberg.org/laserpants/coal-examples)
+
 #### Tree.coal
 
 ```coal
