@@ -2161,14 +2161,13 @@ The restriction also applies to top-level definitions. For example, as far as th
 </tbody>
 </table>
 <h4 id="logical">Logical</h4>
-<p>Coal supports the standard logical operators for working with boolean values.</p>
+<p>Coal supports the standard boolean logic operators.</p>
 <table>
 <thead>
 <tr>
 <th></th>
 <th>Description</th>
 <th>Arity</th>
-<th>Type</th>
 <th></th>
 </tr>
 </thead>
@@ -2177,21 +2176,18 @@ The restriction also applies to top-level definitions. For example, as far as th
 <td><code>&amp;&amp;</code></td>
 <td>AND</td>
 <td>2</td>
-<td><code>bool -&gt; bool -&gt; bool</code></td>
 <td>Evaluates to <code>true</code> only if both of its operands are <code>true</code></td>
 </tr>
 <tr>
 <td><code>||</code></td>
 <td>OR</td>
 <td>2</td>
-<td><code>bool -&gt; bool -&gt; bool</code></td>
 <td>Evaluates to <code>true</code> if at least one of its operands is <code>true</code></td>
 </tr>
 <tr>
 <td><code>!</code></td>
 <td>NOT</td>
 <td>1</td>
-<td><code>bool -&gt; bool</code></td>
 <td>Inverts a boolean value, turning <code>true</code> into <code>false</code> and vice versa</td>
 </tr>
 </tbody>
