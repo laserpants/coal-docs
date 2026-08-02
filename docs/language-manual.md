@@ -413,7 +413,7 @@ For example, you can specify the exact type of a numeric expression:
 
 Or annotate a pattern in a function parameter:
 
-```
+```coal
 fun process(value : string) = ...
 ```
 
