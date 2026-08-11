@@ -15,4 +15,5 @@ This documentation is automatically generated from the source code.
 - [`Nat`](Nat.md)
 - [`Number`](Number.md)
 - [`Option`](Option.md)
+- [`Runtime`](Runtime.md)
 - [`String`](String.md)
