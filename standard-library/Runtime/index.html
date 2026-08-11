@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://coal-lang.org/ffi/">
+        <link rel="canonical" href="https://coal-lang.org/standard-library/Runtime/">
       
       
       
@@ -16,24 +16,24 @@
         
       
       
-      <link rel="icon" href="../assets/logo.svg">
+      <link rel="icon" href="../../assets/logo.svg">
       <meta name="generator" content="zensical-0.0.53">
     
     
       
-        <title>C function interface - Coal</title>
+        <title>Runtime - Coal</title>
       
     
     
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.20815dad.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.20815dad.min.css">
       
         
           
         
-        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.dfe2e883.min.css">
       
       
 
@@ -52,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
     
       
 
@@ -79,7 +79,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#c-function-interface" class="md-skip">
+        <a href="#runtime" class="md-skip">
           Skip to content
         </a>
       
@@ -95,9 +95,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="./.." title="Coal" class="md-header__button md-logo" aria-label="Coal" data-md-component="logo">
+    <a href="../.." title="Coal" class="md-header__button md-logo" aria-label="Coal" data-md-component="logo">
       
-  <img src="../assets/logo.svg" alt="Coal">
+  <img src="../../assets/logo.svg" alt="Coal">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              C function interface
+              Runtime
             
           </span>
         </div>
@@ -193,9 +193,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="./.." title="Coal" class="md-nav__button md-logo" aria-label="Coal" data-md-component="logo">
+    <a href="../.." title="Coal" class="md-nav__button md-logo" aria-label="Coal" data-md-component="logo">
       
-  <img src="../assets/logo.svg" alt="Coal">
+  <img src="../../assets/logo.svg" alt="Coal">
 
     </a>
     Coal
@@ -210,7 +210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="./.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -236,7 +236,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/" class="md-nav__link">
+      <a href="../../getting-started/" class="md-nav__link">
         
   
   
@@ -262,7 +262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../language-manual/" class="md-nav__link">
+      <a href="../../language-manual/" class="md-nav__link">
         
   
   
@@ -288,7 +288,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cli/" class="md-nav__link">
+      <a href="../../cli/" class="md-nav__link">
         
   
   
@@ -385,7 +385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/quicksort/" class="md-nav__link">
+      <a href="../../examples/quicksort/" class="md-nav__link">
         
   
   
@@ -412,7 +412,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/basic-io/" class="md-nav__link">
+      <a href="../../examples/basic-io/" class="md-nav__link">
         
   
   
@@ -439,7 +439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/monads/" class="md-nav__link">
+      <a href="../../examples/monads/" class="md-nav__link">
         
   
   
@@ -466,7 +466,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/data-structures/" class="md-nav__link">
+      <a href="../../examples/data-structures/" class="md-nav__link">
         
   
   
@@ -500,7 +500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../packages/" class="md-nav__link">
+      <a href="../../packages/" class="md-nav__link">
         
   
   
@@ -571,7 +571,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-and-codata/" class="md-nav__link">
+      <a href="../../data-and-codata/" class="md-nav__link">
         
   
   
@@ -605,7 +605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../license/" class="md-nav__link">
+      <a href="../../license/" class="md-nav__link">
         
   
   
@@ -641,6 +641,11 @@
                       
                     
                     
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
                   
                   <div class="md-sidebar__inner">
                     
@@ -652,6 +657,36 @@
   
     
   
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#event_loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>event_loop</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blocking_poll" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>blocking_poll</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -666,77 +701,19 @@
                 
                   
 
-<h1 id="c-function-interface">C function interface</h1>
-<p>When developing applications or libraries that perform network access, disk I/O, or other tasks that interact with low-level system APIs, it is often necessary to interface with code written in C.
-This can be achieved in Coal through the C function interface:</p>
-<div class="highlight"><pre><span></span><code>  #{&lt;c_function_name : t&gt;}(&lt;arg_0&gt;, &lt;arg_1&gt;, ..., &lt;arg_n&gt;)(&lt;continuation&gt;)
-</code></pre></div>
-<p>This expression consists of three components. The first </p>
-<div class="highlight"><pre><span></span><code>#{c_function_name : t}
-</code></pre></div>
-<p>Function calls of this type cannot be type-checked by the compiler.
-The programmer is responsible for making sure that the types
-attention is needed to make sure that </p>
-<p>The compiler automatically performs the following type conversions when moving between native code and C:</p>
-<table>
-<thead>
-<tr>
-<th>Coal primitive</th>
-<th>C type</th>
-<th>Remarks</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>bool</code></td>
-<td><code>bool</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>char</code></td>
-<td><code>int32_t</code></td>
-<td>A unicode code point</td>
-</tr>
-<tr>
-<td><code>float</code></td>
-<td><code>float</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>double</code></td>
-<td><code>double</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>int32</code></td>
-<td><code>int32_t</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>int64</code></td>
-<td><code>int64_t</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>bignum</code></td>
-<td><code>mpz_t*</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>string</code></td>
-<td><code>char*</code></td>
-<td>UTF-8 encoded</td>
-</tr>
-</tbody>
-</table>
-<p>The second part is a list of arguments to pass to the C function:</p>
-<div class="highlight"><pre><span></span><code>(&lt;arg_0&gt;, &lt;arg_1&gt;, ..., &lt;arg_n&gt;)
-</code></pre></div>
-<p>(<continuation>)</p>
-<p>The last </p>
-<p>When compiling your program, pass each C file as an <code>--extra-c</code> command line argument. For example:</p>
-<div class="highlight"><pre><span></span><code>coal Main.coal --extra-c my_c_lib.c -o dist
-</code></pre></div>
+<h1 id="runtime"><code>Runtime</code></h1>
+<hr />
+<h3 id="event_loop"><code>event_loop</code></h3>
+<p>Co-recursive event loop.</p>
+<p>Calls <code>step_fn</code> repeatedly with the current state. Continues as long
+as <code>step_fn</code> returns <code>Some(next_state)</code>. Stops and returns the current
+state when <code>step_fn</code> returns <code>None</code>.</p>
+<hr />
+<h3 id="blocking_poll"><code>blocking_poll</code></h3>
+<p>Blocking poll loop.</p>
+<p>Calls <code>try_fn(state)</code>. If it returns <code>Some(result)</code>, returns <code>result</code>.
+Otherwise calls <code>block_fn(state)</code> to wait for data, then retries
+<code>try_fn</code> with the same state.</p>
 
 
 
@@ -788,12 +765,12 @@ attention is needed to make sure that </p>
     
       
       
-      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":[],"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":[],"search":"../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.69c251d7.min.js"></script>
+      <script src="../../assets/javascripts/bundle.69c251d7.min.js"></script>
       
-        <script src="../javascripts/mathjax.js"></script>
+        <script src="../../javascripts/mathjax.js"></script>
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
