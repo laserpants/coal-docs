@@ -155,3 +155,26 @@ Add **coal-parsers** as a dependency in your project's `coal.json` config-file:
   }
 }
 ```
+
+---
+
+## coal-event-source
+
+Repository: [codeberg.org/laserpants/coal-event-source](https://codeberg.org/laserpants/coal-event-source)
+
+An event source library providing composable, blocking event sources with file descriptor and timer-based I/O multiplexing via `select()`.
+
+#### Installation
+
+Add **coal-event-source** as a dependency in your project's `coal.json` config-file:
+
+```json
+{
+  "dependencies": {
+    "coal-event-source": {
+      "version": "*",
+      "git": "ssh://git@codeberg.org/laserpants/coal-event-source.git"
+    }
+  }
+}
+```
