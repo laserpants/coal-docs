@@ -70,6 +70,7 @@ coal compile [OPTIONS] FILES...
 | `--debug-llvm-ir` | | Flag | Output intermediate LLVM IR |
 | `--silent` | `-s` | Flag | Suppress terminal output |
 | `--no-cache` | | Flag | Disable caching |
+| `--sanitize` | | Flag | Enable AddressSanitizer for debugging |
 | `--entry-point MODULE.FUNCTION` | | Optional | Entry point module and function (e.g., `Main.main`) |
 
 #### Behavior
@@ -191,7 +192,7 @@ None. All configuration is read from `coal.json` in the current directory.
 #### Behavior
 
 1. Reads project configuration from `coal.json` in the current directory
-2. Requires `coal.lock.json` to be present (run `coal install` first if missing)
+2. Uses `coal.lock.json` if present; projects without dependencies do not require a lock file
 3. Loads all dependency manifests from `.coal/packages/`
 4. Combines local source paths with dependency source paths
 5. Compiles all modules listed in the manifest
@@ -202,7 +203,7 @@ None. All configuration is read from `coal.json` in the current directory.
 The command will fail if:
 
 - `coal.json` is missing or invalid
-- `coal.lock.json` is missing (run `coal install` first)
+- `coal.lock.json` is missing and the project has dependencies (run `coal install`)
 - Any dependency manifests are missing from `.coal/packages/`
 - Module names in the manifest are invalid
 
@@ -364,6 +365,7 @@ The project manifest file defines package metadata, modules, dependencies, and b
 | `modules` | `Array[String]` | Yes | List of module paths to compile |
 | `source_dirs` | `Array[String]` | No | Source directories to search (defaults to `["src"]`) |
 | `entry_point` | `String` | No | Entry point module and function (e.g., `"Main.main"`) |
+| `c_sources` | `Array[String]` | No | Extra C source files to compile and link |
 | `dependencies` | `Object` | No | Map of package dependencies |
 
 #### Module paths
