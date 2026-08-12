@@ -396,6 +396,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#coal-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        coal add
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#coal-install" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -1033,6 +1044,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#coal-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        coal add
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#coal-install" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -1280,7 +1302,7 @@
 <li><strong>Compiling</strong> individual Coal source files into executables</li>
 <li><strong>Building</strong> projects defined by <code>coal.json</code> manifests</li>
 <li><strong>Initializing</strong> new projects with <code>coal init</code></li>
-<li><strong>Managing dependencies</strong> from Git repositories</li>
+<li><strong>Adding and managing dependencies</strong> from Git repositories (<code>coal add</code>, <code>coal install</code>)</li>
 <li><strong>Cleaning</strong> build artifacts</li>
 </ul>
 <p>The CLI is invoked using the <code>coal</code> command, followed by a subcommand and options.</p>
@@ -1370,6 +1392,12 @@ coal<span class="w"> </span>build
 <td></td>
 <td>Flag</td>
 <td>Disable caching</td>
+</tr>
+<tr>
+<td><code>--sanitize</code></td>
+<td></td>
+<td>Flag</td>
+<td>Enable AddressSanitizer for debugging</td>
 </tr>
 <tr>
 <td><code>--entry-point MODULE.FUNCTION</code></td>
@@ -1480,7 +1508,7 @@ coal build
 <h4 id="behavior_2">Behavior</h4>
 <ol>
 <li>Reads project configuration from <code>coal.json</code> in the current directory</li>
-<li>Requires <code>coal.lock.json</code> to be present (run <code>coal install</code> first if missing)</li>
+<li>Uses <code>coal.lock.json</code> if present; projects without dependencies do not require a lock file</li>
 <li>Loads all dependency manifests from <code>.coal/packages/</code></li>
 <li>Combines local source paths with dependency source paths</li>
 <li>Compiles all modules listed in the manifest</li>
@@ -1490,7 +1518,7 @@ coal build
 <p>The command will fail if:</p>
 <ul>
 <li><code>coal.json</code> is missing or invalid</li>
-<li><code>coal.lock.json</code> is missing (run <code>coal install</code> first)</li>
+<li><code>coal.lock.json</code> is missing and the project has dependencies (run <code>coal install</code>)</li>
 <li>Any dependency manifests are missing from <code>.coal/packages/</code></li>
 <li>Module names in the manifest are invalid</li>
 </ul>
@@ -1499,14 +1527,80 @@ coal build
 coal<span class="w"> </span>build
 </code></pre></div>
 <p>See <a href="#creating-a-new-project">Creating a new project</a> for a complete workflow example.</p>
-<h3 id="coal-install">coal install</h3>
-<p>Installs packages specified in <code>coal.json</code> and generates/updates <code>coal.lock.json</code>.</p>
+<h3 id="coal-add">coal add</h3>
+<p>Adds a dependency to <code>coal.json</code> and installs it in one step.</p>
 <h4 id="usage_2">Usage</h4>
-<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>install
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>GIT_URL
 </code></pre></div>
 <h4 id="options_3">Options</h4>
-<p>None. Dependencies are read from <code>coal.json</code> in the current directory.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Short</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GIT_URL</code></td>
+<td></td>
+<td>Required</td>
+<td>Git repository URL (positional argument)</td>
+</tr>
+<tr>
+<td><code>--version CONSTRAINT</code></td>
+<td></td>
+<td>Optional</td>
+<td>SemVer constraint for the dependency (defaults to <code>*</code>)</td>
+</tr>
+<tr>
+<td><code>--name NAME</code></td>
+<td></td>
+<td>Optional</td>
+<td>Package name for the dependency (defaults to the name from the package's <code>coal.json</code>)</td>
+</tr>
+</tbody>
+</table>
 <h4 id="behavior_3">Behavior</h4>
+<ol>
+<li>Reads the current <code>coal.json</code> from the working directory</li>
+<li>If <code>--name</code> is not provided, clones the repository and derives the package name from its <code>coal.json</code> manifest</li>
+<li>If <code>--version</code> is not provided, defaults to the wildcard constraint <code>*</code> (latest version)</li>
+<li>Adds or updates the dependency in <code>coal.json</code> with the specified Git URL, version constraint, and package name</li>
+<li>Automatically runs <code>coal install</code> to clone the dependency and generate/update <code>coal.lock.json</code></li>
+</ol>
+<h4 id="examples_1">Examples</h4>
+<p><strong>Add a dependency with default name and version:</strong></p>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>ssh://git@codeberg.org/laserpants/coal-hello-world.git
+</code></pre></div>
+<p>This clones the repository temporarily to read its <code>coal.json</code> and derive the package name, adds it to <code>coal.json</code> with the <code>*</code> version constraint, and runs <code>coal install</code>.</p>
+<p><strong>Add a dependency with a specific version constraint:</strong></p>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>--version<span class="w"> </span><span class="s2">&quot;^1.0.0&quot;</span><span class="w"> </span>https://github.com/example/coal-core.git
+</code></pre></div>
+<p><strong>Add a dependency with a custom name:</strong></p>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>--name<span class="w"> </span>my-utils<span class="w"> </span>ssh://git@example.com/utils-repo.git
+</code></pre></div>
+<p><strong>Add a dependency with both name and version:</strong></p>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>--name<span class="w"> </span>core-lib<span class="w"> </span>--version<span class="w"> </span><span class="s2">&quot;~2.1.0&quot;</span><span class="w"> </span>https://github.com/example/coal-core.git
+</code></pre></div>
+<h4 id="error-handling_1">Error handling</h4>
+<p>The command will fail if:</p>
+<ul>
+<li><code>coal.json</code> is missing or invalid</li>
+<li>The Git repository cannot be cloned (when deriving the package name)</li>
+<li>The cloned repository has no <code>coal.json</code> (when <code>--name</code> is not provided)</li>
+<li>Any step in <code>coal install</code> fails (e.g., no matching version found)</li>
+</ul>
+<h3 id="coal-install">coal install</h3>
+<p>Installs packages specified in <code>coal.json</code> and generates/updates <code>coal.lock.json</code>.</p>
+<h4 id="usage_3">Usage</h4>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>install
+</code></pre></div>
+<h4 id="options_4">Options</h4>
+<p>None. Dependencies are read from <code>coal.json</code> in the current directory.</p>
+<h4 id="behavior_4">Behavior</h4>
 <ol>
 <li>Reads dependencies from <code>coal.json</code></li>
 <li>For each dependency:</li>
@@ -1530,7 +1624,7 @@ coal<span class="w"> </span>build
 <li>Supports specific version constraints (e.g., <code>"1.2.3"</code>, <code>"^1.0.0"</code>, <code>"~2.1.0"</code>)</li>
 <li>Tags in Git repositories must follow SemVer format (e.g., <code>v1.0.0</code>, <code>v2.3.1</code>)</li>
 </ul>
-<h4 id="error-handling_1">Error handling</h4>
+<h4 id="error-handling_2">Error handling</h4>
 <p>The command will fail if:</p>
 <ul>
 <li><code>coal.json</code> is missing or invalid</li>
@@ -1543,12 +1637,12 @@ coal<span class="w"> </span>build
 <p>See <a href="#adding-dependencies">Adding dependencies</a> for a complete workflow example.</p>
 <h3 id="coal-clean">coal clean</h3>
 <p>Removes the <code>.build</code> directory containing build artifacts.</p>
-<h4 id="usage_3">Usage</h4>
+<h4 id="usage_4">Usage</h4>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>clean
 </code></pre></div>
-<h4 id="options_4">Options</h4>
+<h4 id="options_5">Options</h4>
 <p>None.</p>
-<h4 id="behavior_4">Behavior</h4>
+<h4 id="behavior_5">Behavior</h4>
 <ul>
 <li>Recursively deletes the <code>.build/</code> directory</li>
 <li>Silently succeeds if the directory doesn't exist</li>
@@ -1562,7 +1656,7 @@ coal<span class="w"> </span>build
 </code></pre></div>
 <h3 id="coal-version">coal --version</h3>
 <p>Displays the Coal compiler version.</p>
-<h4 id="usage_4">Usage</h4>
+<h4 id="usage_5">Usage</h4>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>--version
 coal<span class="w"> </span>-V
 </code></pre></div>
@@ -1637,6 +1731,12 @@ v0.1.0-5-g9a8b7c6
 <td>Entry point module and function (e.g., <code>"Main.main"</code>)</td>
 </tr>
 <tr>
+<td><code>c_sources</code></td>
+<td><code>Array[String]</code></td>
+<td>No</td>
+<td>Extra C source files to compile and link</td>
+</tr>
+<tr>
 <td><code>dependencies</code></td>
 <td><code>Object</code></td>
 <td>No</td>
@@ -1700,7 +1800,7 @@ v0.1.0-5-g9a8b7c6
 <li><code>"^1.2.0"</code> — Compatible with 1.2.0 (SemVer caret range)</li>
 <li><code>"~1.2.3"</code> — Approximately 1.2.3 (SemVer tilde range)</li>
 </ul>
-<h4 id="examples_1">Examples</h4>
+<h4 id="examples_2">Examples</h4>
 <p><strong>Minimal manifest:</strong></p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-app&quot;</span><span class="p">,</span>
@@ -1828,7 +1928,7 @@ v0.1.0-5-g9a8b7c6
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h4 id="behavior_5">Behavior</h4>
+<h4 id="behavior_6">Behavior</h4>
 <p><strong>Generation:</strong></p>
 <ul>
 <li>Created/updated by <code>coal install</code> command</li>
@@ -2025,6 +2125,13 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>src/Main.coal<span class=
 </code></pre></div></p>
 <h3 id="adding-dependencies">Adding dependencies</h3>
 <p>This tutorial shows how to add and use a Git-based dependency.</p>
+<p>You can use <code>coal add</code> as a shortcut to add a dependency and install it in one step:</p>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>ssh://git@codeberg.org/laserpants/coal-hello-world.git
+</code></pre></div>
+<p>This automatically updates <code>coal.json</code> and runs <code>coal install</code>. If you need more control (e.g., specifying a custom name or version constraint), you can use the <code>--name</code> and <code>--version</code> options:</p>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>--name<span class="w"> </span>hello-world<span class="w"> </span>--version<span class="w"> </span><span class="s2">&quot;^0.1.0&quot;</span><span class="w"> </span>ssh://git@codeberg.org/laserpants/coal-hello-world.git
+</code></pre></div>
+<p>Alternatively, you can manually edit <code>coal.json</code> and run <code>coal install</code>:</p>
 <h4 id="step-1-update-coaljson">Step 1: Update coal.json</h4>
 <p>Add a dependency to your <code>coal.json</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
