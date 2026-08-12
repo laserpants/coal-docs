@@ -6,7 +6,7 @@ The Coal CLI is the primary tool for compiling Coal programs and managing Coal p
 - **Compiling** individual Coal source files into executables
 - **Building** projects defined by `coal.json` manifests
 - **Initializing** new projects with `coal init`
-- **Managing dependencies** from Git repositories
+- **Adding and managing dependencies** from Git repositories (`coal add`, `coal install`)
 - **Cleaning** build artifacts
 
 The CLI is invoked using the `coal` command, followed by a subcommand and options.
@@ -70,6 +70,7 @@ coal compile [OPTIONS] FILES...
 | `--debug-llvm-ir` | | Flag | Output intermediate LLVM IR |
 | `--silent` | `-s` | Flag | Suppress terminal output |
 | `--no-cache` | | Flag | Disable caching |
+| `--sanitize` | | Flag | Enable AddressSanitizer for debugging |
 | `--entry-point MODULE.FUNCTION` | | Optional | Entry point module and function (e.g., `Main.main`) |
 
 #### Behavior
@@ -191,7 +192,7 @@ None. All configuration is read from `coal.json` in the current directory.
 #### Behavior
 
 1. Reads project configuration from `coal.json` in the current directory
-2. Requires `coal.lock.json` to be present (run `coal install` first if missing)
+2. Uses `coal.lock.json` if present; projects without dependencies do not require a lock file
 3. Loads all dependency manifests from `.coal/packages/`
 4. Combines local source paths with dependency source paths
 5. Compiles all modules listed in the manifest
@@ -202,7 +203,7 @@ None. All configuration is read from `coal.json` in the current directory.
 The command will fail if:
 
 - `coal.json` is missing or invalid
-- `coal.lock.json` is missing (run `coal install` first)
+- `coal.lock.json` is missing and the project has dependencies (run `coal install`)
 - Any dependency manifests are missing from `.coal/packages/`
 - Module names in the manifest are invalid
 
@@ -214,6 +215,69 @@ coal build
 ```
 
 See [Creating a new project](#creating-a-new-project) for a complete workflow example.
+
+### coal add
+
+Adds a dependency to `coal.json` and installs it in one step.
+
+#### Usage
+
+```bash
+coal add [OPTIONS] GIT_URL
+```
+
+#### Options
+
+| Option | Short | Type | Description |
+|--------|-------|------|-------------|
+| `GIT_URL` | | Required | Git repository URL (positional argument) |
+| `--version CONSTRAINT` | | Optional | SemVer constraint for the dependency (defaults to `*`) |
+| `--name NAME` | | Optional | Package name for the dependency (defaults to the name from the package's `coal.json`) |
+
+#### Behavior
+
+1. Reads the current `coal.json` from the working directory
+2. If `--name` is not provided, clones the repository and derives the package name from its `coal.json` manifest
+3. If `--version` is not provided, defaults to the wildcard constraint `*` (latest version)
+4. Adds or updates the dependency in `coal.json` with the specified Git URL, version constraint, and package name
+5. Automatically runs `coal install` to clone the dependency and generate/update `coal.lock.json`
+
+#### Examples
+
+**Add a dependency with default name and version:**
+
+```bash
+coal add ssh://git@codeberg.org/laserpants/coal-hello-world.git
+```
+
+This clones the repository temporarily to read its `coal.json` and derive the package name, adds it to `coal.json` with the `*` version constraint, and runs `coal install`.
+
+**Add a dependency with a specific version constraint:**
+
+```bash
+coal add --version "^1.0.0" https://github.com/example/coal-core.git
+```
+
+**Add a dependency with a custom name:**
+
+```bash
+coal add --name my-utils ssh://git@example.com/utils-repo.git
+```
+
+**Add a dependency with both name and version:**
+
+```bash
+coal add --name core-lib --version "~2.1.0" https://github.com/example/coal-core.git
+```
+
+#### Error handling
+
+The command will fail if:
+
+- `coal.json` is missing or invalid
+- The Git repository cannot be cloned (when deriving the package name)
+- The cloned repository has no `coal.json` (when `--name` is not provided)
+- Any step in `coal install` fails (e.g., no matching version found)
 
 ### coal install
 
@@ -364,6 +428,7 @@ The project manifest file defines package metadata, modules, dependencies, and b
 | `modules` | `Array[String]` | Yes | List of module paths to compile |
 | `source_dirs` | `Array[String]` | No | Source directories to search (defaults to `["src"]`) |
 | `entry_point` | `String` | No | Entry point module and function (e.g., `"Main.main"`) |
+| `c_sources` | `Array[String]` | No | Extra C source files to compile and link |
 | `dependencies` | `Object` | No | Map of package dependencies |
 
 #### Module paths
@@ -765,6 +830,20 @@ Hello, Coal!
 ### Adding dependencies
 
 This tutorial shows how to add and use a Git-based dependency.
+
+You can use `coal add` as a shortcut to add a dependency and install it in one step:
+
+```bash
+coal add ssh://git@codeberg.org/laserpants/coal-hello-world.git
+```
+
+This automatically updates `coal.json` and runs `coal install`. If you need more control (e.g., specifying a custom name or version constraint), you can use the `--name` and `--version` options:
+
+```bash
+coal add --name hello-world --version "^0.1.0" ssh://git@codeberg.org/laserpants/coal-hello-world.git
+```
+
+Alternatively, you can manually edit `coal.json` and run `coal install`:
 
 #### Step 1: Update coal.json
 
