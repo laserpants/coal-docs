@@ -174,6 +174,7 @@ my-project/
 ├── coal.json
 └── src/
     └── Main.coal
+```
 
 ### coal build
 
