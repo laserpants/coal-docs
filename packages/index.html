@@ -895,15 +895,7 @@
 <li><strong>NonEmpty.List</strong> — Type-safe non-empty list with guaranteed head element</li>
 </ul>
 <h4 id="installation">Installation</h4>
-<p>Add <strong>coal-containers</strong> as a dependency in your <code>coal.json</code> file:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;coal-containers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;git&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh://git@codeberg.org/laserpants/coal-containers.git&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>ssh://git@codeberg.org/laserpants/coal-containers.git
 </code></pre></div>
 <hr />
 <h2 id="coal-monads">coal-monads</h2>
@@ -915,13 +907,7 @@
 <li><strong>Writer</strong> &ndash; For computations that produce a log alongside a result</li>
 </ul>
 <h4 id="installation_1">Installation</h4>
-<p>Add this repository as a dependency in your project's <code>coal.json</code> config-file:</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;coal-monads&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;git&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh://git@codeberg.org/laserpants/coal-monads.git&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>ssh://git@codeberg.org/laserpants/coal-monads.git
 </code></pre></div>
 <hr />
 <h2 id="coal-json">coal-json</h2>
@@ -936,15 +922,7 @@
 <li><strong>Typeclass support</strong> — <code>ToJson</code> and <code>FromJson</code> traits for automatic serialization/deserialization</li>
 </ul>
 <h4 id="installation_2">Installation</h4>
-<p>Add <strong>coal-json</strong> as a dependency in your project's <code>coal.json</code> config-file:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;coal-json&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;git&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh://git@codeberg.org/laserpants/coal-json.git&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>ssh://git@codeberg.org/laserpants/coal-json.git
 </code></pre></div>
 <hr />
 <h2 id="coal-micro-test">coal-micro-test</h2>
@@ -957,61 +935,29 @@
 <li><strong>Functional design</strong>: Leverages Coal's functional programming features</li>
 <li><strong>Lightweight</strong>: Minimal dependencies and straightforward API</li>
 </ul>
-<h4 id="installation_3">installation</h4>
-<p>Add <code>coal-micro-test</code> to your <code>coal.json</code> dependencies:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;coal-micro-test&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;git&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh://git@codeberg.org/laserpants/coal-micro-test.git&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<h4 id="installation_3">Installation</h4>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>ssh://git@codeberg.org/laserpants/coal-micro-test.git
 </code></pre></div>
 <hr />
 <h2 id="coal-pretty">coal-pretty</h2>
 <p>Repository: <a href="https://codeberg.org/laserpants/coal-pretty">codeberg.org/laserpants/coal-pretty</a></p>
 <p>A pretty-printing library for the Coal programming language, providing a <code>Pretty</code> trait with instances for common built-in and composite types.</p>
-<h4 id="installation_4">installation</h4>
-<p>Add <code>coal-pretty</code> as a dependency in your project's <code>coal.json</code> config-file:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;coal-pretty&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;git&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh://git@codeberg.org/laserpants/coal-pretty.git&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<h4 id="installation_4">Installation</h4>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>ssh://git@codeberg.org/laserpants/coal-pretty.git
 </code></pre></div>
 <hr />
 <h2 id="coal-parsers">coal-parsers</h2>
 <p>Repository: <a href="https://codeberg.org/laserpants/coal-parsers">codeberg.org/laserpants/coal-parsers</a></p>
 <p>A parser combinator library  with modular, composable parsers for text processing, language implementation, and data format parsing.</p>
 <h4 id="installation_5">Installation</h4>
-<p>Add <strong>coal-parsers</strong> as a dependency in your project's <code>coal.json</code> config-file:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;coal-parsers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;git&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh://git@codeberg.org/laserpants/coal-parsers.git&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>ssh://git@codeberg.org/laserpants/coal-parsers.git
 </code></pre></div>
 <hr />
 <h2 id="coal-event-source">coal-event-source</h2>
 <p>Repository: <a href="https://codeberg.org/laserpants/coal-event-source">codeberg.org/laserpants/coal-event-source</a></p>
 <p>An event source library providing composable, blocking event sources with file descriptor and timer-based I/O multiplexing via <code>select()</code>.</p>
 <h4 id="installation_6">Installation</h4>
-<p>Add <strong>coal-event-source</strong> as a dependency in your project's <code>coal.json</code> config-file:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;coal-event-source&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;git&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh://git@codeberg.org/laserpants/coal-event-source.git&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>ssh://git@codeberg.org/laserpants/coal-event-source.git
 </code></pre></div>
 
 
