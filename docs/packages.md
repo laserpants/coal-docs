@@ -13,17 +13,8 @@ A collection of functional data structures for the Coal programming language, pr
 
 #### Installation
 
-Add **coal-containers** as a dependency in your `coal.json` file:
-
-```json
-{
-  "dependencies": {
-    "coal-containers": {
-      "version": "*",
-      "git": "ssh://git@codeberg.org/laserpants/coal-containers.git"
-    }
-  }
-}
+```bash
+coal add ssh://git@codeberg.org/laserpants/coal-containers.git
 ```
 
 ---
@@ -40,15 +31,8 @@ A collection of common monad implementations for the Coal programming language.
 
 #### Installation
 
-Add this repository as a dependency in your project's `coal.json` config-file:
-
-```json
-  "dependencies": {
-    "coal-monads": {
-      "version": "*",
-      "git": "ssh://git@codeberg.org/laserpants/coal-monads.git"
-    }
-  }
+```bash
+coal add ssh://git@codeberg.org/laserpants/coal-monads.git
 ```
 
 ---
@@ -68,17 +52,8 @@ A JSON library for the Coal programming language, providing encoding, decoding, 
 
 #### Installation
 
-Add **coal-json** as a dependency in your project's `coal.json` config-file:
-
-```json
-{
-  "dependencies": {
-    "coal-json": {
-      "version": "*",
-      "git": "ssh://git@codeberg.org/laserpants/coal-json.git"
-    }
-  }
-}
+```bash
+coal add ssh://git@codeberg.org/laserpants/coal-json.git
 ```
 
 ---
@@ -95,19 +70,10 @@ This library provides a simple and elegant way to write and run tests in Coal. I
 - **Functional design**: Leverages Coal's functional programming features
 - **Lightweight**: Minimal dependencies and straightforward API
 
-#### installation
+#### Installation
 
-Add `coal-micro-test` to your `coal.json` dependencies:
-
-```json
-{
-  "dependencies": {
-    "coal-micro-test": {
-      "version": "*",
-      "git": "ssh://git@codeberg.org/laserpants/coal-micro-test.git"
-    }
-  }
-}
+```bash
+coal add ssh://git@codeberg.org/laserpants/coal-micro-test.git
 ```
 
 ---
@@ -118,19 +84,10 @@ Repository: [codeberg.org/laserpants/coal-pretty](https://codeberg.org/laserpant
 
 A pretty-printing library for the Coal programming language, providing a `Pretty` trait with instances for common built-in and composite types.
 
-#### installation
+#### Installation
 
-Add `coal-pretty` as a dependency in your project's `coal.json` config-file:
-
-```json
-{
-  "dependencies": {
-    "coal-pretty": {
-      "version": "*",
-      "git": "ssh://git@codeberg.org/laserpants/coal-pretty.git"
-    }
-  }
-}
+```bash
+coal add ssh://git@codeberg.org/laserpants/coal-pretty.git
 ```
 
 ---
@@ -143,17 +100,8 @@ A parser combinator library  with modular, composable parsers for text processin
 
 #### Installation
 
-Add **coal-parsers** as a dependency in your project's `coal.json` config-file:
-
-```json
-{
-  "dependencies": {
-    "coal-parsers": {
-      "version": "*",
-      "git": "ssh://git@codeberg.org/laserpants/coal-parsers.git"
-    }
-  }
-}
+```bash
+coal add ssh://git@codeberg.org/laserpants/coal-parsers.git
 ```
 
 ---
@@ -166,15 +114,6 @@ An event source library providing composable, blocking event sources with file d
 
 #### Installation
 
-Add **coal-event-source** as a dependency in your project's `coal.json` config-file:
-
-```json
-{
-  "dependencies": {
-    "coal-event-source": {
-      "version": "*",
-      "git": "ssh://git@codeberg.org/laserpants/coal-event-source.git"
-    }
-  }
-}
+```bash
+coal add ssh://git@codeberg.org/laserpants/coal-event-source.git
 ```
