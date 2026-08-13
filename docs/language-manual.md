@@ -6,7 +6,7 @@ As a pure language, Coal encourages a declarative style of programming, where pr
 
 ## Expression syntax
 
-Expressions are the core building blocks of programs in Coal. They include variables, literals, let-bindings, operators, and control structures like `if-then-else`. An expression can often be composed of other, smaller expressions. For example, a binary operator consists of two sub-expressions: its left-hand side and right-hand side operands:
+Expressions are the building blocks of programs in Coal. They include variables, literals, let-bindings, operators, and control structures like `if-then-else`. An expression can often be composed of other, smaller expressions. For example, a binary operator consists of two sub-expressions: its left-hand side and right-hand side operands:
 
 ```
   (+)     
