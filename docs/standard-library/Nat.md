@@ -2,6 +2,14 @@
 
 Functions for converting between `nat` values and the ordinary integer representation of the natural numbers.
 
+The built-in `nat` type is defined as:
+
+```
+type nat
+  = Zero
+  | Succ(nat)
+```
+
 ---
 
 ### `pack`

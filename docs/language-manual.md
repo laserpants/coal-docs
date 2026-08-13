@@ -520,7 +520,7 @@ let pi_precise : double = 3.141592653589793
 
 #### Natural numbers
 
-Natural numbers (`nat`) are covered in detail under [Natural numbers](#natural-numbers). They provide a recursion-friendly representation of non-negative integers, based on the Peano construction.
+Natural numbers (`nat`) are covered in detail under [Natural numbers](#natural-numbers_1). They provide a recursion-friendly representation of non-negative integers, based on the Peano construction.
 
 #### Numeric literal overloading
 
