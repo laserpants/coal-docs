@@ -130,6 +130,8 @@ This section explains how to use Docker to compile and run Coal programs without
 
 Coal provides two official Docker images:
 
+---
+
 #### `ghcr.io/laserpants/coal:latest`
 
 The **recommended image for most users**. This image includes the complete Coal compiler toolchain with the `coal` binary pre-installed and ready to use. It's based on `coal-dev` and includes:
@@ -139,6 +141,8 @@ The **recommended image for most users**. This image includes the complete Coal 
 - Ubuntu 24.04 base system
 
 Use this image if you want to **compile and run Coal programs** without building the compiler yourself.
+
+---
 
 #### `ghcr.io/laserpants/coal-dev:latest`
 
