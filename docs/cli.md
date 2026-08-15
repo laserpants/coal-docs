@@ -197,7 +197,7 @@ None. All configuration is read from `coal.json` in the current directory.
 3. Loads all dependency manifests from `.coal/packages/`
 4. Combines local source paths with dependency source paths
 5. Compiles all modules listed in the manifest
-6. Outputs an executable using the project name and version from the manifest
+6. Outputs an executable using the `executable_name` field if set, otherwise the project name and version from the manifest
 
 #### Error handling
 
@@ -411,6 +411,7 @@ The project manifest file defines package metadata, modules, dependencies, and b
   "modules": ["<module-path>", ...],
   "source_dirs": ["<path>", ...],
   "entry_point": "Module.function",
+  "executable_name": "<executable-name>",
   "dependencies": {
     "<package-name>": {
       "version": "<version-constraint>",
@@ -429,6 +430,7 @@ The project manifest file defines package metadata, modules, dependencies, and b
 | `modules` | `Array[String]` | Yes | List of module paths to compile |
 | `source_dirs` | `Array[String]` | No | Source directories to search (defaults to `["src"]`) |
 | `entry_point` | `String` | No | Entry point module and function (e.g., `"Main.main"`) |
+| `executable_name` | `String` | No | Output executable name/path (overrides the default `<name>-<version>` naming; corresponds to `-o`/`--output` in `coal compile`) |
 | `c_sources` | `Array[String]` | No | Extra C source files to compile and link |
 | `dependencies` | `Object` | No | Map of package dependencies |
 
@@ -511,6 +513,17 @@ Each dependency entry has the following structure:
   "version": "0.1.0",
   "modules": ["Main", "Utils.Helpers"],
   "entry_point": "Main.main"
+}
+```
+
+**With custom executable name:**
+
+```json
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "modules": ["Main"],
+  "executable_name": "bin/my-app"
 }
 ```
 
