@@ -357,7 +357,7 @@ None.
 - Silently succeeds if the directory doesn't exist
 - Does **not** remove the dependency cache (`.coal/packages/`)
 
-To remove dependencies, manually delete the `.coal/` directory:
+To remove all dependencies in a project, manually delete the `.coal/` directory:
 
 ```bash
 rm -rf .coal
