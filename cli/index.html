@@ -1530,7 +1530,7 @@ coal<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> <
 <li>Loads all dependency manifests from <code>.coal/packages/</code></li>
 <li>Combines local source paths with dependency source paths</li>
 <li>Compiles all modules listed in the manifest</li>
-<li>Outputs an executable using the project name and version from the manifest</li>
+<li>Outputs an executable using the <code>executable_name</code> field if set, otherwise the project name and version from the manifest</li>
 </ol>
 <h4 id="error-handling">Error handling</h4>
 <p>The command will fail if:</p>
@@ -1699,6 +1699,7 @@ v0.1.0-5-g9a8b7c6
 <span class="w">  </span><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;&lt;module-path&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="p">],</span>
 <span class="w">  </span><span class="nt">&quot;source_dirs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;&lt;path&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="p">],</span>
 <span class="w">  </span><span class="nt">&quot;entry_point&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Module.function&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;executable_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;executable-name&gt;&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;&lt;package-name&gt;&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;version-constraint&gt;&quot;</span><span class="p">,</span>
@@ -1747,6 +1748,12 @@ v0.1.0-5-g9a8b7c6
 <td><code>String</code></td>
 <td>No</td>
 <td>Entry point module and function (e.g., <code>"Main.main"</code>)</td>
+</tr>
+<tr>
+<td><code>executable_name</code></td>
+<td><code>String</code></td>
+<td>No</td>
+<td>Output executable name/path (overrides the default <code>&lt;name&gt;-&lt;version&gt;</code> naming; corresponds to <code>-o</code>/<code>--output</code> in <code>coal compile</code>)</td>
 </tr>
 <tr>
 <td><code>c_sources</code></td>
@@ -1846,6 +1853,14 @@ v0.1.0-5-g9a8b7c6
 <span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Main&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Utils.Helpers&quot;</span><span class="p">],</span>
 <span class="w">  </span><span class="nt">&quot;entry_point&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Main.main&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>With custom executable name:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-app&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Main&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;executable_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bin/my-app&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><strong>Multiple modules and source directories:</strong></p>
