@@ -1,6 +1,5 @@
 # CLI reference
 
-
 The Coal CLI is the primary tool for compiling Coal programs and managing Coal projects. It provides commands for:
 
 - **Compiling** individual Coal source files into executables
@@ -248,7 +247,7 @@ coal add [OPTIONS] GIT_URL
 **Add a dependency with default name and version:**
 
 ```bash
-coal add ssh://git@codeberg.org/laserpants/coal-hello-world.git
+coal add https://git@codeberg.org/laserpants/coal-hello-world.git
 ```
 
 This clones the repository temporarily to read its `coal.json` and derive the package name, adds it to `coal.json` with the `*` version constraint, and runs `coal install`.
@@ -262,7 +261,7 @@ coal add --version "^1.0.0" https://github.com/example/coal-core.git
 **Add a dependency with a custom name:**
 
 ```bash
-coal add --name my-utils ssh://git@example.com/utils-repo.git
+coal add --name my-utils https://git@example.com/utils-repo.git
 ```
 
 **Add a dependency with both name and version:**
@@ -638,6 +637,11 @@ Coal supports any Git URL format recognized by your system's Git client:
 - **SSH:** `ssh://git@codeberg.org/user/repo.git`
 - **HTTPS:** `https://github.com/user/repo.git`
 - **Git protocol:** `git://example.com/repo.git`
+
+!!! warning "Important!"
+
+    TODO
+
 
 #### Version gagging requirements
 

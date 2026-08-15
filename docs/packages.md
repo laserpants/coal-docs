@@ -14,7 +14,7 @@ A collection of functional data structures for the Coal programming language, pr
 #### Installation
 
 ```bash
-coal add ssh://git@codeberg.org/laserpants/coal-containers.git
+coal add https://git@codeberg.org/laserpants/coal-containers.git
 ```
 
 ---
@@ -32,7 +32,7 @@ A collection of common monad implementations for the Coal programming language.
 #### Installation
 
 ```bash
-coal add ssh://git@codeberg.org/laserpants/coal-monads.git
+coal add https://git@codeberg.org/laserpants/coal-monads.git
 ```
 
 ---
@@ -53,7 +53,7 @@ A JSON library for the Coal programming language, providing encoding, decoding, 
 #### Installation
 
 ```bash
-coal add ssh://git@codeberg.org/laserpants/coal-json.git
+coal add https://git@codeberg.org/laserpants/coal-json.git
 ```
 
 ---
@@ -73,7 +73,7 @@ This library provides a simple and elegant way to write and run tests in Coal. I
 #### Installation
 
 ```bash
-coal add ssh://git@codeberg.org/laserpants/coal-micro-test.git
+coal add https://git@codeberg.org/laserpants/coal-micro-test.git
 ```
 
 ---
@@ -87,7 +87,7 @@ A pretty-printing library for the Coal programming language, providing a `Pretty
 #### Installation
 
 ```bash
-coal add ssh://git@codeberg.org/laserpants/coal-pretty.git
+coal add https://git@codeberg.org/laserpants/coal-pretty.git
 ```
 
 ---
@@ -101,7 +101,7 @@ A parser combinator library  with modular, composable parsers for text processin
 #### Installation
 
 ```bash
-coal add ssh://git@codeberg.org/laserpants/coal-parsers.git
+coal add https://git@codeberg.org/laserpants/coal-parsers.git
 ```
 
 ---
@@ -115,5 +115,5 @@ An event source library providing composable, blocking event sources with file d
 #### Installation
 
 ```bash
-coal add ssh://git@codeberg.org/laserpants/coal-event-source.git
+coal add https://git@codeberg.org/laserpants/coal-event-source.git
 ```
