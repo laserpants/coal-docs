@@ -261,7 +261,7 @@ coal add --version "^1.0.0" https://github.com/example/coal-core.git
 **Add a dependency with a custom name:**
 
 ```bash
-coal add --name my-utils https://git@example.com/utils-repo.git
+coal add --name my-utils ssh://git@example.com/utils-repo.git
 ```
 
 **Add a dependency with both name and version:**
@@ -498,7 +498,7 @@ Each dependency entry has the following structure:
   "dependencies": {
     "hello-world": {
       "version": "*",
-      "git": "ssh://git@codeberg.org/laserpants/coal-hello-world.git"
+      "git": "https://git@codeberg.org/laserpants/coal-hello-world.git"
     }
   }
 }
@@ -548,7 +548,7 @@ Each dependency entry has the following structure:
     },
     "utils": {
       "version": "~1.5.0",
-      "git": "ssh://git@codeberg.org/example/coal-utils.git"
+      "git": "https://git@codeberg.org/example/coal-utils.git"
     }
   }
 }
@@ -593,7 +593,7 @@ The lock file records exact versions and commit hashes of all installed dependen
   "packages": {
     "hello-world": {
       "commit": "05c8b6e2c7b1ad49db83a9d035e131163482606c",
-      "source": "ssh://git@codeberg.org/laserpants/coal-hello-world.git",
+      "source": "https://git@codeberg.org/laserpants/coal-hello-world.git",
       "version": "0.1.0"
     },
     "core-lib": {
@@ -642,7 +642,7 @@ Coal supports any Git URL format recognized by your system's Git client:
 
     Do not use SSH URLs (e.g., `ssh://git@github.com/user/repo.git`) for
     public packages: `coal install` will fail unless you have SSH access
-    to the repository (GitHub/Codeberg) where the package source is
+    to the repository (GitHub, Codeberg, etc.) where the package source is
     hosted. SSH is therefore only suitable for private repositories. For
     public packages, use an HTTPS URL instead (e.g.,
     `https://github.com/user/repo.git`).
@@ -857,13 +857,13 @@ This tutorial shows how to add and use a Git-based dependency.
 You can use `coal add` as a shortcut to add a dependency and install it in one step:
 
 ```bash
-coal add ssh://git@codeberg.org/laserpants/coal-hello-world.git
+coal add https://git@codeberg.org/laserpants/coal-hello-world.git
 ```
 
 This automatically updates `coal.json` and runs `coal install`. If you need more control (e.g., specifying a custom name or version constraint), you can use the `--name` and `--version` options:
 
 ```bash
-coal add --name hello-world --version "^0.1.0" ssh://git@codeberg.org/laserpants/coal-hello-world.git
+coal add --name hello-world --version "^0.1.0" https://git@codeberg.org/laserpants/coal-hello-world.git
 ```
 
 Alternatively, you can manually edit `coal.json` and run `coal install`:
@@ -880,7 +880,7 @@ Add a dependency to your `coal.json`:
   "dependencies": {
     "hello-world": {
       "version": "*",
-      "git": "ssh://git@codeberg.org/laserpants/coal-hello-world.git"
+      "git": "https://git@codeberg.org/laserpants/coal-hello-world.git"
     }
   }
 }
