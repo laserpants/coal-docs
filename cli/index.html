@@ -1591,14 +1591,14 @@ coal<span class="w"> </span>build
 </ol>
 <h4 id="examples_1">Examples</h4>
 <p><strong>Add a dependency with default name and version:</strong></p>
-<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>ssh://git@codeberg.org/laserpants/coal-hello-world.git
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>https://git@codeberg.org/laserpants/coal-hello-world.git
 </code></pre></div>
 <p>This clones the repository temporarily to read its <code>coal.json</code> and derive the package name, adds it to <code>coal.json</code> with the <code>*</code> version constraint, and runs <code>coal install</code>.</p>
 <p><strong>Add a dependency with a specific version constraint:</strong></p>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>--version<span class="w"> </span><span class="s2">&quot;^1.0.0&quot;</span><span class="w"> </span>https://github.com/example/coal-core.git
 </code></pre></div>
 <p><strong>Add a dependency with a custom name:</strong></p>
-<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>--name<span class="w"> </span>my-utils<span class="w"> </span>ssh://git@example.com/utils-repo.git
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>--name<span class="w"> </span>my-utils<span class="w"> </span>https://git@example.com/utils-repo.git
 </code></pre></div>
 <p><strong>Add a dependency with both name and version:</strong></p>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>add<span class="w"> </span>--name<span class="w"> </span>core-lib<span class="w"> </span>--version<span class="w"> </span><span class="s2">&quot;~2.1.0&quot;</span><span class="w"> </span>https://github.com/example/coal-core.git
@@ -1989,6 +1989,15 @@ v0.1.0-5-g9a8b7c6
 <li><strong>HTTPS:</strong> <code>https://github.com/user/repo.git</code></li>
 <li><strong>Git protocol:</strong> <code>git://example.com/repo.git</code></li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">Important!</p>
+<p>Do not use SSH URLs (e.g., <code>ssh://git@github.com/user/repo.git</code>) for
+public packages: <code>coal install</code> will fail unless you have SSH access
+to the repository (GitHub/Codeberg) where the package source is
+hosted. SSH is therefore only suitable for private repositories. For
+public packages, use an HTTPS URL instead (e.g.,
+<code>https://github.com/user/repo.git</code>).</p>
+</div>
 <h4 id="version-gagging-requirements">Version gagging requirements</h4>
 <p>For a Git repository to work as a Coal dependency, it must:</p>
 <ol>
