@@ -640,7 +640,12 @@ Coal supports any Git URL format recognized by your system's Git client:
 
 !!! warning "Important!"
 
-    TODO
+    Do not use SSH URLs (e.g., `ssh://git@github.com/user/repo.git`) for
+    public packages: `coal install` will fail unless you have SSH access
+    to the repository (GitHub/Codeberg) where the package source is
+    hosted. SSH is therefore only suitable for private repositories. For
+    public packages, use an HTTPS URL instead (e.g.,
+    `https://github.com/user/repo.git`).
 
 
 #### Version gagging requirements
