@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/logo.svg">
-      <meta name="generator" content="zensical-0.0.54">
+      <meta name="generator" content="zensical-0.0.55">
     
     
       
@@ -1064,7 +1064,7 @@ sudo apt install libgc-dev libgmp-dev build-essential
 <p>The fastest way to compile Coal programs is using the <code>coal:latest</code> image:</p>
 <p>Navigate to your Coal project directory and run:</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">:/src&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">:/src"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-w<span class="w"> </span>/src<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>ghcr.io/laserpants/coal:latest<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>compile<span class="w"> </span>-I.<span class="w"> </span>Main.coal<span class="w"> </span>-o<span class="w"> </span>dist
@@ -1073,7 +1073,7 @@ sudo apt install libgc-dev libgmp-dev build-essential
 <p>For an interactive development workflow:</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-it<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">:/src&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">:/src"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-w<span class="w"> </span>/src<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--entrypoint<span class="w"> </span>bash<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>ghcr.io/laserpants/coal:latest
