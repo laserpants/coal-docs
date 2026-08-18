@@ -2,7 +2,7 @@
 
 ## Installation and setup
 
-The compiler has been tested on Linux and Mac OS.
+The compiler currently supports Linux and Mac OS. Windows support is not yet available.
 
 ### Prerequisites
 
