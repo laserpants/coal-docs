@@ -213,17 +213,19 @@ coal compile -I. Main.coal -o dist
 coal --help
 ```
 
-## Visual Studio Code
+## Editor support
+
+### Visual Studio Code
 
 The [Coal VS Code extension](https://codeberg.org/laserpants/vscode-coal) provides TextMate-based syntax highlighting, code snippets and a basic language configuration for files with the `.coal` extension.
 
-### Features
+#### Features
 
 - **Syntax highlighting** for all Coal language constructs, including keywords, pattern matching with guards (`when`, `otherwise`) and as-patterns, do-notation with bind syntax (`<-`), lambda expressions (`fn`), FFI calls, record literals and extensions, type annotations and arrows, all operators, documentation comments, and built-in types and constructors.
 - **Code snippets** for common patterns such as function, module, import, type, trait and instance definitions, pattern matching, lambda expressions, let expressions, fold expressions and do-notation blocks.
 - **Language configuration** for auto-closing pairs, comment toggling, code folding and indentation rules.
 
-### Installation
+#### Installation
 
 The extension is distributed as source and must be packaged into a `.vsix` file before it can be installed. This requires Node.js and npm.
 
