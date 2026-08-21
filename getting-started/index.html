@@ -404,6 +404,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#visual-studio-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Visual Studio Code
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visual Studio Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Features
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Installation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -927,6 +966,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#visual-studio-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Visual Studio Code
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visual Studio Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Features
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Installation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1123,6 +1201,31 @@ coal<span class="w"> </span>compile<span class="w"> </span>-I.<span class="w"> <
 <span class="c1"># Show the help text</span>
 coal<span class="w"> </span>--help
 </code></pre></div>
+<h2 id="visual-studio-code">Visual Studio Code</h2>
+<p>The <a href="https://codeberg.org/laserpants/vscode-coal">Coal VS Code extension</a> provides TextMate-based syntax highlighting, code snippets and a basic language configuration for files with the <code>.coal</code> extension.</p>
+<h3 id="features">Features</h3>
+<ul>
+<li><strong>Syntax highlighting</strong> for all Coal language constructs, including keywords, pattern matching with guards (<code>when</code>, <code>otherwise</code>) and as-patterns, do-notation with bind syntax (<code>&lt;-</code>), lambda expressions (<code>fn</code>), FFI calls, record literals and extensions, type annotations and arrows, all operators, documentation comments, and built-in types and constructors.</li>
+<li><strong>Code snippets</strong> for common patterns such as function, module, import, type, trait and instance definitions, pattern matching, lambda expressions, let expressions, fold expressions and do-notation blocks.</li>
+<li><strong>Language configuration</strong> for auto-closing pairs, comment toggling, code folding and indentation rules.</li>
+</ul>
+<h3 id="installation">Installation</h3>
+<p>The extension is distributed as source and must be packaged into a <code>.vsix</code> file before it can be installed. This requires Node.js and npm.</p>
+<p>Clone the repository and build the extension:</p>
+<div class="highlight"><pre><span></span><code>git clone https://codeberg.org/laserpants/vscode-coal.git
+cd vscode-coal
+npm install --no-audit --no-fund
+npm run package
+</code></pre></div>
+<p>This produces a file such as <code>coal-0.2.0.vsix</code>. Install it into VS Code using the <code>code</code> CLI:</p>
+<div class="highlight"><pre><span></span><code>code --install-extension ./coal-0.2.0.vsix --force
+code --list-extensions | grep -i coal
+</code></pre></div>
+<p>Alternatively, you can install the <code>.vsix</code> file from the Extensions view in VS Code via <strong>"Install from VSIX..."</strong> (the <code>...</code> menu).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Packaging uses <a href="https://github.com/microsoft/vscode-vsce"><code>vsce</code></a>, which is provided in the project devDependencies and installed by <code>npm install</code>. If Node.js is not available in your environment, you can install a local Node LTS with <a href="https://github.com/nvm-sh/nvm"><code>nvm</code></a>.</p>
+</div>
 
 
 
