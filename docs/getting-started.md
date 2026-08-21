@@ -213,3 +213,39 @@ coal compile -I. Main.coal -o dist
 coal --help
 ```
 
+## Visual Studio Code
+
+The [Coal VS Code extension](https://codeberg.org/laserpants/vscode-coal) provides TextMate-based syntax highlighting, code snippets and a basic language configuration for files with the `.coal` extension.
+
+### Features
+
+- **Syntax highlighting** for all Coal language constructs, including keywords, pattern matching with guards (`when`, `otherwise`) and as-patterns, do-notation with bind syntax (`<-`), lambda expressions (`fn`), FFI calls, record literals and extensions, type annotations and arrows, all operators, documentation comments, and built-in types and constructors.
+- **Code snippets** for common patterns such as function, module, import, type, trait and instance definitions, pattern matching, lambda expressions, let expressions, fold expressions and do-notation blocks.
+- **Language configuration** for auto-closing pairs, comment toggling, code folding and indentation rules.
+
+### Installation
+
+The extension is distributed as source and must be packaged into a `.vsix` file before it can be installed. This requires Node.js and npm.
+
+Clone the repository and build the extension:
+
+```
+git clone https://codeberg.org/laserpants/vscode-coal.git
+cd vscode-coal
+npm install --no-audit --no-fund
+npm run package
+```
+
+This produces a file such as `coal-0.2.0.vsix`. Install it into VS Code using the `code` CLI:
+
+```
+code --install-extension ./coal-0.2.0.vsix --force
+code --list-extensions | grep -i coal
+```
+
+Alternatively, you can install the `.vsix` file from the Extensions view in VS Code via **"Install from VSIX..."** (the `...` menu).
+
+!!! note
+
+    Packaging uses [`vsce`](https://github.com/microsoft/vscode-vsce), which is provided in the project devDependencies and installed by `npm install`. If Node.js is not available in your environment, you can install a local Node LTS with [`nvm`](https://github.com/nvm-sh/nvm).
+
