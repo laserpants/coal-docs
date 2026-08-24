@@ -1,6 +1,8 @@
 # `Coal.Monad`
 
-Monads extend applicative functors with sequential composition, allowing effectful computations to be chained where each step depends on the result of the previous one.
+Monads extend applicative functors with sequential composition, allowing
+effectful computations to be chained where each step depends on the result
+of the previous one.
 
 ---
 

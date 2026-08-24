@@ -1,6 +1,7 @@
 # `Option`
 
-Utilities for working with the built-in `Option` type, which represents optional values — values that may or may not be present.
+Utilities for working with the built-in `Option` type, which represents
+optional values — values that may or may not be present.
 
 ---
 

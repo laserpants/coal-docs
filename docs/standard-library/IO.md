@@ -1,6 +1,11 @@
 # `IO`
 
-Functions for input/output operations. This module provides primitive I/O actions that interact with the external environment, such as printing to standard output, reading from standard input, and reading/writing files. All I/O operations are wrapped in the `IO` type to maintain purity in the language.
+Functions for input/output operations.
+
+This module provides primitive I/O actions that interact with the
+external environment, such as printing to standard output, reading
+from standard input, and reading/writing files. All I/O operations
+are wrapped in the `IO` type to maintain purity in the language.
 
 ---
 

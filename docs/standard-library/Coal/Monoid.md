@@ -1,6 +1,7 @@
 # `Coal.Monoid`
 
-A monoid is a semigroup with an identity element (`id`), providing a neutral value for the associative binary operation.
+A monoid is a semigroup with an identity element (`id`), providing a
+neutral value for the associative binary operation.
 
 ---
 
