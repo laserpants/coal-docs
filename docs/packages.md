@@ -124,7 +124,7 @@ coal add https://git@codeberg.org/laserpants/coal-event-source.git
 
 Repository: [codeberg.org/laserpants/coal-variant](https://codeberg.org/laserpants/coal-variant)
 
-A dynamically typed value type, providing a sum type that can represent primitives, strings, arrays, and objects.
+A dynamically typed value type that can represent primitives, strings, arrays, and objects.
 
 #### Installation
 
