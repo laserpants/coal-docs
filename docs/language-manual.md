@@ -219,6 +219,27 @@ In fact, one can think of a module as one big let-binding, only laid out in a mo
 
 This is why functions such as the fibonacci function above are rejected by the compiler. 
 
+#### Multiple bindings
+
+When a let-binding needs to introduce several new names, they can all be written in a single `let` block, separated by semicolons. Each binding is visible to the bindings that follow it within the same block, as well as to the body expression following `in`.
+
+```coal
+  let lhs = y.left;
+      rhs = y.right;
+      val = v1
+  in
+  val + combine(lhs, rhs)
+```
+
+This syntax is equivalent to nesting one single-binding `let` inside another:
+
+```coal
+  let lhs = y.left in
+  let rhs = y.right in
+  let val = v1 in
+  val + combine(lhs, rhs)
+```
+
 ### Lambda expressions
 
 An anonymous (lambda) function is declared with the `fn` keyword and the “fat” arrow (`=>`) symbol:
