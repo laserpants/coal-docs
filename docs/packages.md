@@ -132,3 +132,17 @@ A dynamically typed value type that can represent primitives, strings, arrays, a
 coal add https://git@codeberg.org/laserpants/coal-variant.git
 ```
 
+---
+
+## coal-uint8
+
+Repository: [codeberg.org/laserpants/coal-uint8](https://codeberg.org/laserpants/coal-uint8)
+
+Fixed-width unsigned 8-bit integers with wrapping arithmetic and bitwise operations implemented on top of a small C runtime.
+
+#### Installation
+
+```bash
+coal add https://git@codeberg.org/laserpants/coal-uint8.git
+```
+
