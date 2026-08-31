@@ -709,6 +709,14 @@ representation of the natural numbers.</p>
   = Zero
   | Succ(nat)
 </code></pre></div>
+<p>Note that it is not necessary to use <code>pack</code> explicitly when working with
+numeric literals. For example, you can write:</p>
+<div class="highlight"><pre><span></span><code>let
+  x : nat = 5
+  in
+</code></pre></div>
+<p>and the compiler will perform the conversion automatically. This works
+because numeric literals are overloaded.</p>
 <hr />
 <h3 id="pack"><code>pack</code></h3>
 <p>Convert an <code>int32</code> value into a natural number.</p>
