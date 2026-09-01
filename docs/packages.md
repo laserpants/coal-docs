@@ -146,3 +146,17 @@ Fixed-width unsigned 8-bit integers with wrapping arithmetic and bitwise operati
 coal add https://git@codeberg.org/laserpants/coal-uint8.git
 ```
 
+---
+
+## coal-datetime
+
+Repository: [codeberg.org/laserpants/coal-datetime](https://codeberg.org/laserpants/coal-datetime)
+
+Date and time library providing absolute instants, civil dates and times, durations, fixed offsets, and pretty-printing 
+
+#### Installation
+
+```bash
+coal add https://git@codeberg.org/laserpants/coal-datetime.git
+```
+
