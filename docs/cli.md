@@ -411,6 +411,14 @@ The project manifest file defines package metadata, modules, dependencies, and b
   "source_dirs": ["<path>", ...],
   "entry_point": "Module.function",
   "executable_name": "<executable-name>",
+  "build_config": {
+    "generate_debug_artifacts": false,
+    "debug_llvm_ir": false,
+    "silent": false,
+    "show_timing": false,
+    "no_cache": false,
+    "sanitize": false
+  },
   "dependencies": {
     "<package-name>": {
       "version": "<version-constraint>",
@@ -431,6 +439,7 @@ The project manifest file defines package metadata, modules, dependencies, and b
 | `entry_point` | `String` | No | Entry point module and function (e.g., `"Main.main"`) |
 | `executable_name` | `String` | No | Output executable name/path (overrides the default `<name>-<version>` naming; corresponds to `-o`/`--output` in `coal compile`) |
 | `c_sources` | `Array[String]` | No | Extra C source files to compile and link |
+| `build_config` | `Object` | No | Compiler build flags (all fields default to `false`) |
 | `dependencies` | `Object` | No | Map of package dependencies |
 
 #### Module paths
@@ -451,6 +460,32 @@ These are converted to file paths by the module system:
 - Paths are relative to the manifest file location
 - Default is `["src"]` if not specified
 - The `"src"` directory is always included automatically by `coal build`
+
+#### Build configuration
+
+The `build_config` section controls compiler behavior when using `coal build`. All fields are optional and default to `false`, so you only need to specify the flags you want to enable.
+
+```json
+{
+  "build_config": {
+    "generate_debug_artifacts": true,
+    "debug_llvm_ir": true,
+    "silent": false,
+    "show_timing": true,
+    "no_cache": false,
+    "sanitize": false
+  }
+}
+```
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `generate_debug_artifacts` | `Boolean` | `false` | Generate build info and Graphviz DOT files (corresponds to `--generate-debug-artifacts` in `coal compile`) |
+| `debug_llvm_ir` | `Boolean` | `false` | Output intermediate LLVM IR (corresponds to `--debug-llvm-ir` in `coal compile`) |
+| `silent` | `Boolean` | `false` | Suppress terminal output (corresponds to `--silent`/`-s` in `coal compile`) |
+| `show_timing` | `Boolean` | `false` | Show elapsed time for each compiler phase (corresponds to `--show-timing` in `coal compile`) |
+| `no_cache` | `Boolean` | `false` | Disable caching (corresponds to `--no-cache` in `coal compile`) |
+| `sanitize` | `Boolean` | `false` | Enable AddressSanitizer for debugging (corresponds to `--sanitize` in `coal compile`) |
 
 #### Dependency format
 
@@ -550,6 +585,21 @@ Each dependency entry has the following structure:
       "version": "~1.5.0",
       "git": "https://git@codeberg.org/example/coal-utils.git"
     }
+  }
+}
+```
+
+**With build configuration:**
+
+```json
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "modules": ["Main"],
+  "entry_point": "Main.main",
+  "build_config": {
+    "generate_debug_artifacts": true,
+    "show_timing": true
   }
 }
 ```
