@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/logo.svg">
-      <meta name="generator" content="zensical-0.0.57">
+      <meta name="generator" content="zensical-0.0.58">
     
     
       
@@ -1700,6 +1700,14 @@ v0.1.0-5-g9a8b7c6
 <span class="w">  </span><span class="nt">"source_dirs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;path&gt;"</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="p">],</span>
 <span class="w">  </span><span class="nt">"entry_point"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Module.function"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"executable_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;executable-name&gt;"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"build_config"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"generate_debug_artifacts"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"debug_llvm_ir"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"silent"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"show_timing"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"no_cache"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"sanitize"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"&lt;package-name&gt;"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;version-constraint&gt;"</span><span class="p">,</span>
@@ -1762,6 +1770,12 @@ v0.1.0-5-g9a8b7c6
 <td>Extra C source files to compile and link</td>
 </tr>
 <tr>
+<td><code>build_config</code></td>
+<td><code>Object</code></td>
+<td>No</td>
+<td>Compiler build flags (all fields default to <code>false</code>)</td>
+</tr>
+<tr>
 <td><code>dependencies</code></td>
 <td><code>Object</code></td>
 <td>No</td>
@@ -1787,6 +1801,67 @@ v0.1.0-5-g9a8b7c6
 <li>Default is <code>["src"]</code> if not specified</li>
 <li>The <code>"src"</code> directory is always included automatically by <code>coal build</code></li>
 </ul>
+<h4 id="build-configuration">Build configuration</h4>
+<p>The <code>build_config</code> section controls compiler behavior when using <code>coal build</code>. All fields are optional and default to <code>false</code>, so you only need to specify the flags you want to enable.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"build_config"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"generate_debug_artifacts"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"debug_llvm_ir"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"silent"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"show_timing"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"no_cache"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"sanitize"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>generate_debug_artifacts</code></td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Generate build info and Graphviz DOT files (corresponds to <code>--generate-debug-artifacts</code> in <code>coal compile</code>)</td>
+</tr>
+<tr>
+<td><code>debug_llvm_ir</code></td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Output intermediate LLVM IR (corresponds to <code>--debug-llvm-ir</code> in <code>coal compile</code>)</td>
+</tr>
+<tr>
+<td><code>silent</code></td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Suppress terminal output (corresponds to <code>--silent</code>/<code>-s</code> in <code>coal compile</code>)</td>
+</tr>
+<tr>
+<td><code>show_timing</code></td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Show elapsed time for each compiler phase (corresponds to <code>--show-timing</code> in <code>coal compile</code>)</td>
+</tr>
+<tr>
+<td><code>no_cache</code></td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Disable caching (corresponds to <code>--no-cache</code> in <code>coal compile</code>)</td>
+</tr>
+<tr>
+<td><code>sanitize</code></td>
+<td><code>Boolean</code></td>
+<td><code>false</code></td>
+<td>Enable AddressSanitizer for debugging (corresponds to <code>--sanitize</code> in <code>coal compile</code>)</td>
+</tr>
+</tbody>
+</table>
 <h4 id="dependency-format">Dependency format</h4>
 <p>Each dependency entry has the following structure:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -1885,6 +1960,18 @@ v0.1.0-5-g9a8b7c6
 <span class="w">      </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"~1.5.0"</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">"git"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://git@codeberg.org/example/coal-utils.git"</span>
 <span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>With build configuration:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-app"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1.0"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"modules"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Main"</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"entry_point"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Main.main"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"build_config"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"generate_debug_artifacts"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"show_timing"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -2440,7 +2527,7 @@ coal<span class="w"> </span>build
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":[],"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.49251538.min.js"></script>
+      <script src="../assets/javascripts/bundle.6970bfe9.min.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       
