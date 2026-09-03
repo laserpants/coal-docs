@@ -160,3 +160,17 @@ Date and time library providing absolute instants, civil dates and times, durati
 coal add https://git@codeberg.org/laserpants/coal-datetime.git
 ```
 
+---
+
+## coal-array
+
+Repository: [codeberg.org/laserpants/coal-array](https://codeberg.org/laserpants/coal-array)
+
+Contiguous, indexed arrays for the Coal programming language, implemented as an opaque heap-allocated type backed by a small C runtime 
+
+#### Installation
+
+```bash
+coal add https://git@codeberg.org/laserpants/coal-array.git
+```
+
