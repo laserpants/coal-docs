@@ -17,7 +17,7 @@
       
       
       <link rel="icon" href="../../assets/logo.svg">
-      <meta name="generator" content="zensical-0.0.58">
+      <meta name="generator" content="zensical-0.0.59">
     
     
       
@@ -719,16 +719,16 @@ numeric literals. For example, you can write:</p>
 because numeric literals are overloaded.</p>
 <hr />
 <h3 id="pack"><code>pack</code></h3>
-<p>Convert an <code>int32</code> value into a natural number.</p>
+<p>Convert an <code>int64</code> value into a natural number.</p>
 <p>Interpret the given integer as a natural number and return the
 corresponding <code>nat</code> value. If the input is negative, the function
 will return <code>Zero</code>.</p>
-<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">pack </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#D73A49"> -></span><span style="color:#005CC5"> nat</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">pack </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#F97583"> -></span><span style="color:#79B8FF"> nat</span></span></code></pre>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">pack </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int64</span><span style="color:#D73A49"> -></span><span style="color:#005CC5"> nat</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">pack </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int64</span><span style="color:#F97583"> -></span><span style="color:#79B8FF"> nat</span></span></code></pre>
 <hr />
 <h3 id="unpack"><code>unpack</code></h3>
-<p>Convert a natural number into an <code>int32</code> value.</p>
-<p>Return the integer representation of the given value as an <code>int32</code>.</p>
-<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">unpack </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> nat</span><span style="color:#D73A49"> -></span><span style="color:#005CC5"> int32</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">unpack </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> nat</span><span style="color:#F97583"> -></span><span style="color:#79B8FF"> int32</span></span></code></pre>
+<p>Convert a natural number into an <code>int64</code> value.</p>
+<p>Return the integer representation of the given value as an <code>int64</code>.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">unpack </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> nat</span><span style="color:#D73A49"> -></span><span style="color:#005CC5"> int64</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">unpack </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> nat</span><span style="color:#F97583"> -></span><span style="color:#79B8FF"> int64</span></span></code></pre>
 
 
 
