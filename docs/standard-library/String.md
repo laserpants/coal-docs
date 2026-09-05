@@ -64,6 +64,16 @@ double_to_string : double -> string
 
 ---
 
+### `nat_to_string`
+
+Convert a nat value to its string representation.
+
+```coal
+nat_to_string : nat -> string
+```
+
+---
+
 ### `to_list`
 
 Convert a string into a list of its characters.

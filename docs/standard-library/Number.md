@@ -108,6 +108,31 @@ double_to_int64 : double -> int64
 
 ---
 
+### `int32_to_int64`
+
+Convert a 32-bit integer to a 64-bit integer.
+
+The value is sign-extended.
+
+```coal
+int32_to_int64 : int32 -> int64
+```
+
+---
+
+### `int64_to_int32`
+
+Convert a 64-bit integer to a 32-bit integer.
+
+The value is truncated; the result is implementation-defined if
+the value does not fit in 32 bits.
+
+```coal
+int64_to_int32 : int64 -> int32
+```
+
+---
+
 ### `parse_int32`
 
 Parse a decimal string into a 32-bit integer.

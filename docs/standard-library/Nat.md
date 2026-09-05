@@ -27,24 +27,24 @@ because numeric literals are overloaded.
 
 ### `pack`
 
-Convert an `int32` value into a natural number.
+Convert an `int64` value into a natural number.
 
 Interpret the given integer as a natural number and return the
 corresponding `nat` value. If the input is negative, the function
 will return `Zero`.
 
 ```coal
-pack : int32 -> nat
+pack : int64 -> nat
 ```
 
 ---
 
 ### `unpack`
 
-Convert a natural number into an `int32` value.
+Convert a natural number into an `int64` value.
 
-Return the integer representation of the given value as an `int32`.
+Return the integer representation of the given value as an `int64`.
 
 ```coal
-unpack : nat -> int32
+unpack : nat -> int64
 ```
