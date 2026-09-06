@@ -48,3 +48,11 @@ Return the integer representation of the given value as an `int64`.
 ```coal
 unpack : nat -> int64
 ```
+
+---
+
+### `Natural`
+
+<span class="badge badge-primary">trait</span>
+
+Trait that comprises types that can be converted to `nat`.
