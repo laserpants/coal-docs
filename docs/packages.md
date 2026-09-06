@@ -152,7 +152,7 @@ coal add https://git@codeberg.org/laserpants/coal-uint8.git
 
 Repository: [codeberg.org/laserpants/coal-datetime](https://codeberg.org/laserpants/coal-datetime)
 
-Date and time library providing absolute instants, civil dates and times, durations, fixed offsets, and pretty-printing 
+Date and time library providing absolute instants, civil dates and times, durations, fixed offsets, and pretty-printing.
 
 #### Installation
 
@@ -166,7 +166,7 @@ coal add https://git@codeberg.org/laserpants/coal-datetime.git
 
 Repository: [codeberg.org/laserpants/coal-array](https://codeberg.org/laserpants/coal-array)
 
-Contiguous, indexed arrays for the Coal programming language, implemented as an opaque heap-allocated type backed by a small C runtime 
+Contiguous, indexed arrays for the Coal programming language, implemented as an opaque heap-allocated type backed by a small C runtime.
 
 #### Installation
 
