@@ -709,8 +709,8 @@
 <p>Applicative generalizes function application to effectful or structured contexts.</p>
 <p>An Applicative functor must support:</p>
 <ul>
-<li><code>pure</code>, which lifts a value into the context, and</li>
-<li><code>ap</code>, which applies a context-wrapped function to a context-wrapped value.</li>
+<li><code>pure : a -&gt; f&lt;a&gt;</code>, which lifts a value into the context, and</li>
+<li><code>ap : f&lt;a -&gt; b&gt; -&gt; f&lt;a&gt; -&gt; f&lt;b&gt;</code>, which applies a context-wrapped function to a context-wrapped value.</li>
 </ul>
 <hr />
 <h3 id="map2"><code>map2</code></h3>
