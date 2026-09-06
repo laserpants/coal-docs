@@ -55,4 +55,6 @@ unpack : nat -> int64
 
 <span class="badge badge-primary">trait</span>
 
-Trait that comprises types that can be converted to `nat`.
+Trait that comprises types that can be converted to `nat`, via:
+
+- `to_nat : n -> nat`
