@@ -1388,6 +1388,8 @@ The empty tuple *does* exist, and has special meaning. It is written `()` and is
 // ...
 ```
 
+The maximum number of elements a tuple can have is 16.
+
 As with other data types, tuples can be deconstructed through pattern matching:
 
 ```coal
