@@ -40,6 +40,12 @@ No documentation available.
 
 ---
 
+### `cons`
+
+No documentation available.
+
+---
+
 ### `map_stream`
 
 No documentation available.

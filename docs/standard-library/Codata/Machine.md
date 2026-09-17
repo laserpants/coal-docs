@@ -86,12 +86,6 @@ No documentation available.
 
 ---
 
-### `cons`
-
-No documentation available.
-
----
-
 ### `process`
 
 No documentation available.
