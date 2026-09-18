@@ -351,6 +351,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#global-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Global options
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -411,6 +422,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         coal add
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coal-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        coal install
       </span>
     </span>
   </a>
@@ -540,7 +562,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#package-storage_1" class="md-nav__link">
+  <a href="#package-storage_2" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
         Package storage
@@ -1010,6 +1032,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#global-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Global options
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -1070,6 +1103,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         coal add
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coal-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        coal install
       </span>
     </span>
   </a>
@@ -1199,7 +1243,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#package-storage_1" class="md-nav__link">
+  <a href="#package-storage_2" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
         Package storage
@@ -1328,6 +1372,35 @@
 <li><strong>Cleaning</strong> build artifacts</li>
 </ul>
 <p>The CLI is invoked using the <code>coal</code> command, followed by a subcommand and options. All commands exit with a non-zero status on failure.</p>
+<h2 id="global-options">Global options</h2>
+<p>These options are placed <strong>before</strong> the subcommand and apply uniformly to every
+project command (<code>install</code>, <code>update</code>, <code>build</code>, <code>add</code>, <code>clean</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Short</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--directory DIR</code></td>
+<td><code>-C</code></td>
+<td>Optional</td>
+<td>Run as if <code>coal</code> was started in <code>DIR</code>. Changes the working directory before the subcommand runs, so <code>coal.json</code>, <code>coal.lock.json</code>, <code>.coal/</code> and <code>.build/</code> are all resolved relative to <code>DIR</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>This is convenient for building or installing projects that live in a
+subdirectory, for example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Build a project that lives in a subdirectory</span>
+coal<span class="w"> </span>-C<span class="w"> </span>projects/my-app<span class="w"> </span>build
+
+<span class="c1"># Install dependencies from a different directory</span>
+coal<span class="w"> </span>--directory<span class="w"> </span>projects/my-app<span class="w"> </span>install
+</code></pre></div>
 <h2 id="quick-start">Quick start</h2>
 <p>Here's a minimal example to compile and run a Coal program:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Create a simple Coal program</span>
@@ -1610,69 +1683,20 @@ coal<span class="w"> </span>build
 <li>The cloned repository has no <code>coal.json</code> (when <code>--name</code> is not provided)</li>
 <li>Any step in <code>coal install</code> fails (e.g., no matching version found)</li>
 </ul>
-<h3 id="coal-update">coal update</h3>
-<p>Re-resolves dependencies and updates <code>coal.lock.json</code>. With no arguments, updates all dependencies; with one or more package names, updates only those packages plus their transitive dependencies (everything else stays pinned).</p>
+<h3 id="coal-install">coal install</h3>
+<p>Installs dependencies and generates/updates <code>coal.lock.json</code>. Reads existing locked entries when available and resolves fresh only what is missing or stale.</p>
 <h4 id="usage_3">Usage</h4>
-<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>update<span class="w"> </span><span class="o">[</span>PACKAGE...<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>install
 </code></pre></div>
 <h4 id="options_4">Options</h4>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>PACKAGE</code></td>
-<td>Optional (repeatable)</td>
-<td>Package name(s) to update. With no arguments, all dependencies are re-resolved.</td>
-</tr>
-</tbody>
-</table>
+<p>None.</p>
 <h4 id="behavior_4">Behavior</h4>
-<ol>
-<li>Reads the project lock file (<code>coal.lock.json</code>) if present; if absent, behaves like <code>coal install</code> (resolve everything fresh).</li>
-<li>For named packages (if any): re-fetches available versions from the Git remote and picks the newest version satisfying <strong>all</strong> constraints on that package across the entire dependency graph (the project manifest plus every installed package's manifest).</li>
-<li>For packages not named: keeps the locked version and commit, <strong>provided</strong> each entry still satisfies its constraint. If an entry no longer satisfies a constraint (e.g. because the manifest was tightened), the command fails with a stale-lock error.</li>
-<li>Resolves transitive dependencies of any package that was re-resolved, recursively, so a named update may pull in new transitive dependencies or drop outdated ones.</li>
-<li>Rewrites <code>coal.lock.json</code> only when something changed; otherwise reports that the lock file is up to date.</li>
-<li>Prints a summary to <strong>stdout</strong> of what changed: each bumped package as <code>&lt;name&gt; &lt;old-version&gt; → &lt;new-version&gt;</code>, each new package as <code>+ &lt;name&gt; &lt;version&gt;</code>, each removed package as <code>- &lt;name&gt; &lt;version&gt;</code>. If nothing changed, prints <code>No changes.</code>.</li>
-</ol>
-<h4 id="examples_2">Examples</h4>
-<p><strong>Update all dependencies:</strong></p>
-<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>update
-</code></pre></div>
-<p><strong>Update a single package (and its transitive dependencies):</strong></p>
-<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>update<span class="w"> </span>coal-micro-test
-</code></pre></div>
-<p><strong>Update multiple packages:</strong></p>
-<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>update<span class="w"> </span>coal-json<span class="w"> </span>coal-micro-test
-</code></pre></div>
-<h4 id="error-handling_2">Error handling</h4>
-<p>The command will fail if:</p>
-<ul>
-<li><code>coal.json</code> is missing or invalid.</li>
-<li>A named package is not part of the dependency graph (including the project's direct dependencies). The error lists the unknown name(s) and the known package names.</li>
-<li>A named update would move a package to a version that violates any pinned constraint elsewhere (for example, bumping <code>coal-micro-test</code> while another dependency pins exactly <code>0.9.0</code>). The error reports the conflict with attribution and suggests a full <code>coal update</code> or an edit to one of the conflicting declarations.</li>
-<li>A locked commit is no longer available in its Git repository (e.g. the tag was force-pushed or rewritten). The error suggests running <code>coal update</code>.</li>
-<li>Any other install-step failure (no version satisfying the constraint, Git clone failure, missing <code>coal.json</code> in a dependency).</li>
-</ul>
-<h4 id="notes">Notes</h4>
-<ul>
-<li><code>coal update</code> is the intended way to refresh stale lockfiles. <code>coal install</code> does <strong>not</strong> re-resolve packages whose locked entries are still valid.</li>
-<li>The summary output goes to stdout (so it can be captured in scripts); progress lines during installation go to stderr.</li>
-<li>One package name maps to exactly one version in a given build. Conflicting requirements across manifests are reported as errors rather than silently choosing one.</li>
-</ul>
-<h4 id="behavior_5">Behavior</h4>
 <ol>
 <li>Reads the project lock file (<code>coal.lock.json</code>) if present; if absent, resolves everything fresh.</li>
 <li>Reads dependencies from <code>coal.json</code> (direct dependencies).</li>
 <li>For each dependency in the dependency graph (direct and transitive, in the order they are discovered):</li>
-<li><strong>If a locked entry exists</strong> for that package with the <strong>same repository URL</strong> and the locked version <strong>satisfies the constraint</strong> declared for it (including a missing/omitted constraint, which is treated as unconstrained), the install reuses that entry: the package is taken at the locked version and commit, cloning <code>.coal/packages/&lt;name&gt;/&lt;commit&gt;/</code> only if it is missing locally.</li>
-<li><strong>If no locked entry exists, the repository URL differs, or the locked version no longer satisfies the constraint</strong>, the install fetches the available versions from the Git remote with <code>git ls-remote --tags</code>, picks the newest version that satisfies the constraint, and resolves that package together with its transitive dependencies (recursively).</li>
+<li><strong>Lock reuse:</strong> If a locked entry exists for the package with the <strong>same repository URL</strong> and the locked version <strong>satisfies the constraint</strong> declared for it (including a missing/omitted constraint, which is treated as unconstrained), the install reuses that entry: the package is taken at the locked version and commit, cloning <code>.coal/packages/&lt;name&gt;/&lt;commit&gt;/</code> only if it is missing locally.</li>
+<li><strong>Fresh resolution:</strong> If no locked entry exists, the repository URL differs, or the locked version no longer satisfies the constraint, the install fetches available versions from the Git remote with <code>git ls-remote --tags</code>, picks the newest version satisfying the constraint, and resolves that package together with its transitive dependencies (recursively).</li>
 <li>Validates the final resolved set: every package name maps to exactly one version, and every constraint on that name must be satisfied. If two manifests require incompatible versions, the install fails with a conflict report (see <a href="#version-constraints">Version constraints</a> and the troubleshooting entries below).</li>
 <li>Rewrites <code>coal.lock.json</code> only when the resolved set actually changed; otherwise reports <code>coal.lock.json is up to date</code>.</li>
 <li>Prunes lock entries for packages that are no longer reachable from the current dependency graph (their <code>.coal/packages/&lt;name&gt;/&lt;commit&gt;/</code> checkouts are left on disk and are removed manually if desired).</li>
@@ -1691,7 +1715,7 @@ coal<span class="w"> </span>build
 <li>A missing or omitted <code>version</code> field is treated as unconstrained (<code>*</code>).</li>
 <li>Tags in Git repositories must follow SemVer format (e.g. <code>v1.0.0</code>, <code>v2.3.1</code>). <code>git ls-remote --tags</code> is called once per dependency that needs fresh resolution; with a warm, consistent lock file, <code>coal install</code> can run with no network access.</li>
 </ul>
-<h4 id="error-handling_3">Error handling</h4>
+<h4 id="error-handling_2">Error handling</h4>
 <p>The command will fail if:</p>
 <ul>
 <li><code>coal.json</code> is missing or invalid.</li>
@@ -1707,14 +1731,111 @@ coal<span class="w"> </span>build
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>install
 </code></pre></div>
 <p>See <a href="#adding-dependencies">Adding dependencies</a> for a complete workflow example.</p>
-<h3 id="coal-clean">coal clean</h3>
-<p>Removes the <code>.build</code> directory containing build artifacts.</p>
+<h3 id="coal-update">coal update</h3>
+<p>Re-resolves dependencies and updates <code>coal.lock.json</code>. With no arguments, updates all dependencies; with one or more package names, updates only those packages plus their transitive dependencies (everything else stays pinned).</p>
 <h4 id="usage_4">Usage</h4>
-<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>clean
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>update<span class="w"> </span><span class="o">[</span>PACKAGE...<span class="o">]</span>
 </code></pre></div>
 <h4 id="options_5">Options</h4>
-<p>None.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PACKAGE</code></td>
+<td>Optional (repeatable)</td>
+<td>Package name(s) to update. With no arguments, all dependencies are re-resolved.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="behavior_5">Behavior</h4>
+<ol>
+<li>Reads the project lock file (<code>coal.lock.json</code>) if present; if absent, behaves like <code>coal install</code> (resolve everything fresh).</li>
+<li>For named packages (if any): re-fetches available versions from the Git remote and picks the newest version satisfying <strong>all</strong> constraints on that package across the entire dependency graph (the project manifest plus every installed package's manifest).</li>
+<li>For packages not named: keeps the locked version and commit, <strong>provided</strong> each entry still satisfies its constraint. If an entry no longer satisfies a constraint (e.g. because the manifest was tightened), the command fails with a stale-lock error.</li>
+<li>Resolves transitive dependencies of any package that was re-resolved, recursively, so a named update may pull in new transitive dependencies or drop outdated ones.</li>
+<li>Rewrites <code>coal.lock.json</code> only when something changed; otherwise reports that the lock file is up to date.</li>
+<li>Prints a summary to <strong>stdout</strong> of what changed: each bumped package as <code>&lt;name&gt; &lt;old-version&gt; → &lt;new-version&gt;</code>, each new package as <code>+ &lt;name&gt; &lt;version&gt;</code>, each removed package as <code>- &lt;name&gt; &lt;version&gt;</code>. If nothing changed, prints <code>No changes.</code>.</li>
+</ol>
+<h4 id="examples_2">Examples</h4>
+<p><strong>Update all dependencies:</strong></p>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>update
+</code></pre></div>
+<p><strong>Update a single package (and its transitive dependencies):</strong></p>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>update<span class="w"> </span>coal-micro-test
+</code></pre></div>
+<p><strong>Update multiple packages:</strong></p>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>update<span class="w"> </span>coal-json<span class="w"> </span>coal-micro-test
+</code></pre></div>
+<h4 id="error-handling_3">Error handling</h4>
+<p>The command will fail if:</p>
+<ul>
+<li><code>coal.json</code> is missing or invalid.</li>
+<li>A named package is not part of the dependency graph (including the project's direct dependencies). The error lists the unknown name(s) and the known package names.</li>
+<li>A named update would move a package to a version that violates any pinned constraint elsewhere (for example, bumping <code>coal-micro-test</code> while another dependency pins exactly <code>0.9.0</code>). The error reports the conflict with attribution and suggests a full <code>coal update</code> or an edit to one of the conflicting declarations.</li>
+<li>A locked commit is no longer available in its Git repository (e.g. the tag was force-pushed or rewritten). The error suggests running <code>coal update</code>.</li>
+<li>Any other install-step failure (no version satisfying the constraint, Git clone failure, missing <code>coal.json</code> in a dependency).</li>
+</ul>
+<h4 id="notes">Notes</h4>
+<ul>
+<li><code>coal update</code> is the intended way to refresh stale lockfiles. <code>coal install</code> does <strong>not</strong> re-resolve packages whose locked entries are still valid.</li>
+<li>The summary output goes to stdout (so it can be captured in scripts); progress lines during installation go to stderr.</li>
+<li>One package name maps to exactly one version in a given build. Conflicting requirements across manifests are reported as errors rather than silently choosing one.</li>
+</ul>
 <h4 id="behavior_6">Behavior</h4>
+<ol>
+<li>Reads the project lock file (<code>coal.lock.json</code>) if present; if absent, resolves everything fresh.</li>
+<li>Reads dependencies from <code>coal.json</code> (direct dependencies).</li>
+<li>For each dependency in the dependency graph (direct and transitive, in the order they are discovered):</li>
+<li><strong>If a locked entry exists</strong> for that package with the <strong>same repository URL</strong> and the locked version <strong>satisfies the constraint</strong> declared for it (including a missing/omitted constraint, which is treated as unconstrained), the install reuses that entry: the package is taken at the locked version and commit, cloning <code>.coal/packages/&lt;name&gt;/&lt;commit&gt;/</code> only if it is missing locally.</li>
+<li><strong>If no locked entry exists, the repository URL differs, or the locked version no longer satisfies the constraint</strong>, the install fetches the available versions from the Git remote with <code>git ls-remote --tags</code>, picks the newest version that satisfies the constraint, and resolves that package together with its transitive dependencies (recursively).</li>
+<li>Validates the final resolved set: every package name maps to exactly one version, and every constraint on that name must be satisfied. If two manifests require incompatible versions, the install fails with a conflict report (see <a href="#version-constraints">Version constraints</a> and the troubleshooting entries below).</li>
+<li>Rewrites <code>coal.lock.json</code> only when the resolved set actually changed; otherwise reports <code>coal.lock.json is up to date</code>.</li>
+<li>Prunes lock entries for packages that are no longer reachable from the current dependency graph (their <code>.coal/packages/&lt;name&gt;/&lt;commit&gt;/</code> checkouts are left on disk and are removed manually if desired).</li>
+<li>Uses depth-first traversal with cycle detection (a visited package-commit pair is skipped).</li>
+</ol>
+<h4 id="package-storage_1">Package storage</h4>
+<p>Packages are stored in: <code>.coal/packages/&lt;package-name&gt;/&lt;commit-hash&gt;/</code></p>
+<p>For example:
+<div class="highlight"><pre><span></span><code>.coal/packages/hello-world/05c8b6e2c7b1ad49db83a9d035e131163482606c/
+</code></pre></div></p>
+<h4 id="version-resolution_1">Version resolution</h4>
+<ul>
+<li>Uses semantic versioning (SemVer) for version constraints.</li>
+<li><strong>Supported constraint syntax (parsed by the underlying SemVer library):</strong> <code>*</code>; exact versions such as <code>"1.2.3"</code>; comparisons (<code>&gt;=</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&lt;</code>); space-separated conjunctions (AND); and <code>||</code> disjunctions (OR). Caret (<code>^</code>) and tilde (<code>~</code>) constraints are <strong>not</strong> supported.</li>
+<li>Wildcard <code>*</code> picks the newest available version.</li>
+<li>A missing or omitted <code>version</code> field is treated as unconstrained (<code>*</code>).</li>
+<li>Tags in Git repositories must follow SemVer format (e.g. <code>v1.0.0</code>, <code>v2.3.1</code>). <code>git ls-remote --tags</code> is called once per dependency that needs fresh resolution; with a warm, consistent lock file, <code>coal install</code> can run with no network access.</li>
+</ul>
+<h4 id="error-handling_4">Error handling</h4>
+<p>The command will fail if:</p>
+<ul>
+<li><code>coal.json</code> is missing or invalid.</li>
+<li><code>.coal/</code> exists but is not a directory (stale build artifact).</li>
+<li>No version matches a constraint (<code>No install candidate found for package '&lt;name&gt;'</code>).</li>
+<li>Two manifests require incompatible versions of the same package (conflict report).</li>
+<li>The manifest was changed incompatibly with an existing lock file (run <code>coal update</code>).</li>
+<li>A locked commit is no longer available in its Git repository (run <code>coal update</code>).</li>
+<li>Git operations fail (clone, ls-remote, checkout).</li>
+<li>Any transitive dependency is missing its <code>coal.json</code>.</li>
+</ul>
+<h4 id="example_3">Example</h4>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>install
+</code></pre></div>
+<p>See <a href="#adding-dependencies">Adding dependencies</a> for a complete workflow example.</p>
+<h3 id="coal-clean">coal clean</h3>
+<p>Removes the <code>.build</code> directory containing build artifacts.</p>
+<h4 id="usage_5">Usage</h4>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>clean
+</code></pre></div>
+<h4 id="options_6">Options</h4>
+<p>None.</p>
+<h4 id="behavior_7">Behavior</h4>
 <ul>
 <li>Recursively deletes the <code>.build/</code> directory</li>
 <li>Silently succeeds if the directory doesn't exist</li>
@@ -1723,12 +1844,12 @@ coal<span class="w"> </span>build
 <p>To remove all dependencies in a project, manually delete the <code>.coal/</code> directory:</p>
 <div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span>.coal
 </code></pre></div>
-<h4 id="example_3">Example</h4>
+<h4 id="example_4">Example</h4>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>clean
 </code></pre></div>
 <h3 id="coal-version">coal --version</h3>
 <p>Displays the Coal compiler version.</p>
-<h4 id="usage_5">Usage</h4>
+<h4 id="usage_6">Usage</h4>
 <div class="highlight"><pre><span></span><code>coal<span class="w"> </span>--version
 coal<span class="w"> </span>-V
 </code></pre></div>
@@ -1739,7 +1860,7 @@ coal<span class="w"> </span>-V
 <li><code>v0.1.0-3-g1234abc</code> (3 commits after v0.1.0)</li>
 <li><code>v1.2.3-dirty</code> (uncommitted changes)</li>
 </ul>
-<h4 id="example_4">Example</h4>
+<h4 id="example_5">Example</h4>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>coal<span class="w"> </span>--version
 v0.1.0-5-g9a8b7c6
 </code></pre></div>
@@ -2087,7 +2208,7 @@ v0.1.0-5-g9a8b7c6
 </tr>
 </tbody>
 </table>
-<h4 id="example_5">Example</h4>
+<h4 id="example_6">Example</h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"packages"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"hello-world"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -2103,7 +2224,7 @@ v0.1.0-5-g9a8b7c6
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h4 id="behavior_7">Behavior</h4>
+<h4 id="behavior_8">Behavior</h4>
 <p><strong>Generation:</strong></p>
 <ul>
 <li>Created/updated by <code>coal install</code> command</li>
@@ -2229,7 +2350,7 @@ public packages, use an HTTPS URL instead (e.g.,
 <li>After resolution, the installer validates that every constraint across all manifests (the project manifest plus every installed package manifest) is satisfied. If conflicts remain — for example, your project requires <code>coal-micro-test@&gt;=0.10.0</code> but another dependency requires <code>coal-micro-test@0.9.0</code> exactly — the install fails with a conflict report listing each requirement and its source.</li>
 </ul>
 <p>For updating dependencies, use <code>coal update</code> instead of re-running <code>coal install</code>. See <a href="#coal-update"><code>coal update</code></a> for details.</p>
-<h3 id="package-storage_1">Package storage</h3>
+<h3 id="package-storage_2">Package storage</h3>
 <p>Installed packages are stored in the <code>.coal/packages/</code> directory with the following structure:</p>
 <div class="highlight"><pre><span></span><code>.coal/
 └── packages/
@@ -2240,7 +2361,7 @@ public packages, use an HTTPS URL instead (e.g.,
             │   └── (source files)
             └── (other package files)
 </code></pre></div>
-<h4 id="example_6">Example</h4>
+<h4 id="example_7">Example</h4>
 <p>For a package named <code>hello-world</code> at commit <code>05c8b6e2...</code>:</p>
 <div class="highlight"><pre><span></span><code>.coal/packages/hello-world/05c8b6e2c7b1ad49db83a9d035e131163482606c/
 ├── coal.json
