@@ -5,10 +5,10 @@ The Coal CLI is the primary tool for compiling Coal programs and managing Coal p
 - **Compiling** individual Coal source files into executables
 - **Building** projects defined by `coal.json` manifests
 - **Initializing** new projects with `coal init`
-- **Adding and managing dependencies** from Git repositories (`coal add`, `coal install`)
+- **Adding and managing dependencies** from Git repositories (`coal add`, `coal install`, `coal update`)
 - **Cleaning** build artifacts
 
-The CLI is invoked using the `coal` command, followed by a subcommand and options.
+The CLI is invoked using the `coal` command, followed by a subcommand and options. All commands exit with a non-zero status on failure.
 
 ## Quick start
 
@@ -220,8 +220,6 @@ See [Creating a new project](#creating-a-new-project) for a complete workflow ex
 
 Adds a dependency to `coal.json` and installs it in one step.
 
-#### Usage
-
 ```bash
 coal add [OPTIONS] GIT_URL
 ```
@@ -279,31 +277,78 @@ The command will fail if:
 - The cloned repository has no `coal.json` (when `--name` is not provided)
 - Any step in `coal install` fails (e.g., no matching version found)
 
-### coal install
+### coal update
 
-Installs packages specified in `coal.json` and generates/updates `coal.lock.json`.
+Re-resolves dependencies and updates `coal.lock.json`. With no arguments, updates all dependencies; with one or more package names, updates only those packages plus their transitive dependencies (everything else stays pinned).
 
 #### Usage
 
 ```bash
-coal install
+coal update [PACKAGE...]
 ```
 
 #### Options
 
-None. Dependencies are read from `coal.json` in the current directory.
+| Option | Type | Description |
+|--------|------|-------------|
+| `PACKAGE` | Optional (repeatable) | Package name(s) to update. With no arguments, all dependencies are re-resolved. |
 
 #### Behavior
 
-1. Reads dependencies from `coal.json`
-2. For each dependency:
-   - Lists available Git tags/versions from the remote repository
-   - Selects the version matching the constraint (or latest if constraint is `*`)
-   - Clones the repository to `.coal/packages/<name>/<commit-hash>/`
-   - Checks out the specific commit corresponding to the selected version
-   - Recursively installs transitive dependencies
-3. Generates or updates `coal.lock.json` with exact versions and commit hashes
-4. Uses depth-first traversal with cycle detection
+1. Reads the project lock file (`coal.lock.json`) if present; if absent, behaves like `coal install` (resolve everything fresh).
+2. For named packages (if any): re-fetches available versions from the Git remote and picks the newest version satisfying **all** constraints on that package across the entire dependency graph (the project manifest plus every installed package's manifest).
+3. For packages not named: keeps the locked version and commit, **provided** each entry still satisfies its constraint. If an entry no longer satisfies a constraint (e.g. because the manifest was tightened), the command fails with a stale-lock error.
+4. Resolves transitive dependencies of any package that was re-resolved, recursively, so a named update may pull in new transitive dependencies or drop outdated ones.
+5. Rewrites `coal.lock.json` only when something changed; otherwise reports that the lock file is up to date.
+6. Prints a summary to **stdout** of what changed: each bumped package as `<name> <old-version> → <new-version>`, each new package as `+ <name> <version>`, each removed package as `- <name> <version>`. If nothing changed, prints `No changes.`.
+
+#### Examples
+
+**Update all dependencies:**
+
+```bash
+coal update
+```
+
+**Update a single package (and its transitive dependencies):**
+
+```bash
+coal update coal-micro-test
+```
+
+**Update multiple packages:**
+
+```bash
+coal update coal-json coal-micro-test
+```
+
+#### Error handling
+
+The command will fail if:
+
+- `coal.json` is missing or invalid.
+- A named package is not part of the dependency graph (including the project's direct dependencies). The error lists the unknown name(s) and the known package names.
+- A named update would move a package to a version that violates any pinned constraint elsewhere (for example, bumping `coal-micro-test` while another dependency pins exactly `0.9.0`). The error reports the conflict with attribution and suggests a full `coal update` or an edit to one of the conflicting declarations.
+- A locked commit is no longer available in its Git repository (e.g. the tag was force-pushed or rewritten). The error suggests running `coal update`.
+- Any other install-step failure (no version satisfying the constraint, Git clone failure, missing `coal.json` in a dependency).
+
+#### Notes
+
+- `coal update` is the intended way to refresh stale lockfiles. `coal install` does **not** re-resolve packages whose locked entries are still valid.
+- The summary output goes to stdout (so it can be captured in scripts); progress lines during installation go to stderr.
+- One package name maps to exactly one version in a given build. Conflicting requirements across manifests are reported as errors rather than silently choosing one.
+
+#### Behavior
+
+1. Reads the project lock file (`coal.lock.json`) if present; if absent, resolves everything fresh.
+2. Reads dependencies from `coal.json` (direct dependencies).
+3. For each dependency in the dependency graph (direct and transitive, in the order they are discovered):
+   - **If a locked entry exists** for that package with the **same repository URL** and the locked version **satisfies the constraint** declared for it (including a missing/omitted constraint, which is treated as unconstrained), the install reuses that entry: the package is taken at the locked version and commit, cloning `.coal/packages/<name>/<commit>/` only if it is missing locally.
+   - **If no locked entry exists, the repository URL differs, or the locked version no longer satisfies the constraint**, the install fetches the available versions from the Git remote with `git ls-remote --tags`, picks the newest version that satisfies the constraint, and resolves that package together with its transitive dependencies (recursively).
+4. Validates the final resolved set: every package name maps to exactly one version, and every constraint on that name must be satisfied. If two manifests require incompatible versions, the install fails with a conflict report (see [Version constraints](#version-constraints) and the troubleshooting entries below).
+5. Rewrites `coal.lock.json` only when the resolved set actually changed; otherwise reports `coal.lock.json is up to date`.
+6. Prunes lock entries for packages that are no longer reachable from the current dependency graph (their `.coal/packages/<name>/<commit>/` checkouts are left on disk and are removed manually if desired).
+7. Uses depth-first traversal with cycle detection (a visited package-commit pair is skipped).
 
 #### Package storage
 
@@ -316,18 +361,24 @@ For example:
 
 #### Version resolution
 
-- Uses semantic versioning (SemVer) for version constraints
-- Supports wildcard constraint `*` (picks latest version)
-- Supports specific version constraints (e.g., `"1.2.3"`, `"^1.0.0"`, `"~2.1.0"`)
-- Tags in Git repositories must follow SemVer format (e.g., `v1.0.0`, `v2.3.1`)
+- Uses semantic versioning (SemVer) for version constraints.
+- **Supported constraint syntax (parsed by the underlying SemVer library):** `*`; exact versions such as `"1.2.3"`; comparisons (`>=`, `>`, `<=`, `<`); space-separated conjunctions (AND); and `||` disjunctions (OR). Caret (`^`) and tilde (`~`) constraints are **not** supported.
+- Wildcard `*` picks the newest available version.
+- A missing or omitted `version` field is treated as unconstrained (`*`).
+- Tags in Git repositories must follow SemVer format (e.g. `v1.0.0`, `v2.3.1`). `git ls-remote --tags` is called once per dependency that needs fresh resolution; with a warm, consistent lock file, `coal install` can run with no network access.
 
 #### Error handling
 
 The command will fail if:
 
-- `coal.json` is missing or invalid
-- No version matches the constraint
-- Git operations fail (clone, ls-remote, checkout)
+- `coal.json` is missing or invalid.
+- `.coal/` exists but is not a directory (stale build artifact).
+- No version matches a constraint (`No install candidate found for package '<name>'`).
+- Two manifests require incompatible versions of the same package (conflict report).
+- The manifest was changed incompatibly with an existing lock file (run `coal update`).
+- A locked commit is no longer available in its Git repository (run `coal update`).
+- Git operations fail (clone, ls-remote, checkout).
+- Any transitive dependency is missing its `coal.json`.
 
 #### Example
 
@@ -500,15 +551,16 @@ Each dependency entry has the following structure:
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `version` | String | No | SemVer constraint. If omitted or `"*"`, picks latest version |
+| `version` | String | No | SemVer constraint. If omitted or `"*"`, picks latest version. Supported syntax: `*`; exact versions; `>=`, `>`, `<=`, `<`; space-separated AND; `||` OR. Caret (`^`) and tilde (`~`) are **not** supported. |
 | `git` | String | Yes | Git repository URL (supports SSH, HTTPS, etc.) |
 
 #### Version constraint examples
 
 - `"*"` — Any version (picks latest)
 - `"1.2.3"` — Exact version 1.2.3
-- `"^1.2.0"` — Compatible with 1.2.0 (SemVer caret range)
-- `"~1.2.3"` — Approximately 1.2.3 (SemVer tilde range)
+- `">=1.2.0"` — At least 1.2.0
+- `">=1.2.0 <2.0.0"` — At least 1.2.0 and below 2.0.0 (AND)
+- `">=1.0.0 || >=2.0.0"` — At least 1.0.0 or at least 2.0.0 (OR)
 
 #### Examples
 
@@ -578,11 +630,11 @@ Each dependency entry has the following structure:
   ],
   "dependencies": {
     "core-lib": {
-      "version": "^2.0.0",
+      "version": ">=2.0.0",
       "git": "https://github.com/example/coal-core.git"
     },
     "utils": {
-      "version": "~1.5.0",
+      "version": ">=1.5.0",
       "git": "https://git@codeberg.org/example/coal-utils.git"
     }
   }
@@ -671,8 +723,9 @@ The lock file records exact versions and commit hashes of all installed dependen
 
 **Updating:**
 
-- Re-run `coal install` to update dependencies
-- The lock file is completely regenerated (not incrementally updated)
+- Use `coal install` to reuse locked entries that still satisfy their constraints, resolving only what is missing or stale. The lock file is rewritten only when something changed.
+- Use `coal update` to re-resolve dependencies: with no arguments, update everything to the newest versions that satisfy all constraints; with one or more package names, update only those packages (and their transitive dependencies) while keeping every other package pinned.
+- Both commands validate the final resolved set: if two manifests require incompatible versions of the same package, the command fails with a conflict report.
 
 ## Dependency management
 
@@ -698,7 +751,7 @@ Coal supports any Git URL format recognized by your system's Git client:
     `https://github.com/user/repo.git`).
 
 
-#### Version gagging requirements
+#### Version tagging requirements
 
 For a Git repository to work as a Coal dependency, it must:
 
@@ -723,8 +776,11 @@ Coal supports semantic versioning (SemVer) constraints for specifying dependency
 |------------|---------|---------------|
 | `"*"` | Any version (latest) | `1.0.0`, `2.5.3`, `10.0.0` |
 | `"1.2.3"` | Exact version | `1.2.3` only |
-| `"^1.2.0"` | Compatible with 1.2.0 (caret) | `1.2.0`, `1.2.1`, `1.9.9` (not `2.0.0`) |
-| `"~1.2.3"` | Approximately 1.2.3 (tilde) | `1.2.3`, `1.2.4` (not `1.3.0`) |
+| `">=1.2.0"` | At least 1.2.0 | `1.2.0`, `1.2.1`, `2.0.0` |
+| `">=1.2.0 <2.0.0"` | At least 1.2.0 and below 2.0.0 (AND) | `1.2.0`, `1.9.9` (not `2.0.0`) |
+| `">=1.0.0 || >=2.0.0"` | At least 1.0.0 or at least 2.0.0 (OR) | `1.0.0`, `2.0.0`, `3.0.0` |
+
+Supported syntax: `*`; exact versions; comparisons (`>=`, `>`, `<=`, `<`); space-separated conjunctions (AND); `||` disjunctions (OR). Caret (`^`) and tilde (`~`) constraints are **not** supported.
 
 #### Wildcard (`*`)
 
@@ -741,32 +797,20 @@ The wildcard constraint selects the latest available version:
 }
 ```
 
-#### Caret (`^`)
-
-The caret constraint allows changes that do not modify the left-most non-zero digit:
-
-- `^1.2.3` matches `>=1.2.3` and `<2.0.0`
-- `^0.2.3` matches `>=0.2.3` and `<0.3.0`
-- `^0.0.3` matches `>=0.0.3` and `<0.0.4`
-
-#### Tilde (`~`)
-
-The tilde constraint allows patch-level changes:
-
-- `~1.2.3` matches `>=1.2.3` and `<1.3.0`
-- `~1.2` matches `>=1.2.0` and `<1.3.0`
-
 ### Resolution algorithm
 
 When you run `coal install`, the CLI performs dependency resolution using the following algorithm:
 
-1. **Parse Constraints:** Read version constraints from `coal.json`
-2. **Fetch Versions:** For each dependency, list available tags from the Git remote using `git ls-remote --tags`
-3. **Select Version:** Pick the highest version satisfying the constraint
-4. **Clone & Checkout:** Clone the repository and checkout the commit for the selected tag
-5. **Recursive Install:** Parse the dependency's `coal.json` and repeat the process for transitive dependencies
-6. **Cycle Detection:** Track visited (package, commit) pairs to avoid infinite loops
-7. **Generate Lock:** Write all installed packages to `coal.lock.json`
+1. **Load lock file:** Read the existing `coal.lock.json` if present.
+2. **Parse constraints:** Read version constraints from `coal.json` (direct dependencies).
+3. **Resolve each dependency:**
+   - **Lock reuse:** If a locked entry exists for the package with the **same repository URL** and the locked version **satisfies the constraint** declared for it, use the locked version and commit. Clone the package to `.coal/packages/<name>/<commit>/` only if the checkout is missing locally. (A missing/omitted `version` field is treated as unconstrained.)
+   - **Fresh resolution:** If no locked entry exists, the repository URL differs, or the locked version no longer satisfies the constraint, fetch available versions from the Git remote with `git ls-remote --tags`, pick the newest version satisfying the constraint, and resolve that package together with its transitive dependencies.
+   - **Conflict check:** After resolution, every package name maps to exactly one version, and every constraint on that name must be satisfied. If two manifests require incompatible versions, fail with a conflict report attributed to each requirement.
+4. **Recursive install:** For packages resolved fresh, parse their `coal.json` and repeat the resolution process for their transitive dependencies.
+5. **Cycle detection:** Track visited (package, commit) pairs to avoid infinite loops.
+6. **Rewrite lock:** Write `coal.lock.json` only when the resolved set actually changed. Remove lock entries for packages that are no longer reachable from the dependency graph.
+7. **Validate:** After resolution, check that every requirement across all manifests is satisfied. Fail with attribution if any conflict remains.
 
 #### Transitive dependencies
 
@@ -774,7 +818,13 @@ If package A depends on package B, and package B depends on package C, all three
 
 #### Conflict resolution
 
-Currently, Coal uses a simple depth-first approach. If multiple versions of the same package are required by different dependencies, the first version encountered is used. Future versions may implement more sophisticated conflict resolution.
+Coal uses a lock-first approach. When you run `coal install`:
+
+- Packages with valid locked entries (same URL, version satisfies constraint) are reused without any network access.
+- Packages without valid locked entries are resolved fresh to the newest version satisfying the constraint.
+- After resolution, the installer validates that every constraint across all manifests (the project manifest plus every installed package manifest) is satisfied. If conflicts remain — for example, your project requires `coal-micro-test@>=0.10.0` but another dependency requires `coal-micro-test@0.9.0` exactly — the install fails with a conflict report listing each requirement and its source.
+
+For updating dependencies, use `coal update` instead of re-running `coal install`. See [`coal update`](#coal-update) for details.
 
 ### Package storage
 
@@ -913,10 +963,10 @@ coal add https://git@codeberg.org/laserpants/coal-hello-world.git
 This automatically updates `coal.json` and runs `coal install`. If you need more control (e.g., specifying a custom name or version constraint), you can use the `--name` and `--version` options:
 
 ```bash
-coal add --name hello-world --version "^0.1.0" https://git@codeberg.org/laserpants/coal-hello-world.git
+coal add --name hello-world --version ">=0.1.0" https://git@codeberg.org/laserpants/coal-hello-world.git
 ```
 
-Alternatively, you can manually edit `coal.json` and run `coal install`:
+Note: caret (`^`) and tilde (`~`) version constraints are **not** supported. If you pass an unsupported constraint to `coal add --version`, it silently falls back to the wildcard `*`. For supported constraint syntax, see [Version constraints](#version-constraints).
 
 #### Step 1: Update coal.json
 
@@ -944,10 +994,11 @@ coal install
 
 This will:
 
-1. Clone the `hello-world` repository
-2. Select the latest version
-3. Store it in `.coal/packages/hello-world/<commit>/`
-4. Update `coal.lock.json` with the exact version and commit
+1. Resolve the `hello-world` dependency: since no locked entry exists, the installer fetches available versions from the Git remote with `git ls-remote --tags`, picks the newest version satisfying the constraint, and resolves its transitive dependencies.
+2. Store the package in `.coal/packages/hello-world/<commit>/`.
+3. Update `coal.lock.json` with the exact version and commit.
+
+For a subsequent run with a warm cache and an unchanged lock file, the same packages are reused straight from the lock (cloned only if the checkout is missing locally) without any network tag scan — and the installer reports `coal.lock.json is up to date` instead of rewriting the lock.
 
 #### Step 3: Use the dependency
 
@@ -1134,6 +1185,44 @@ Use a JSON validator or linter to check your file.
 - Contain only alphanumeric characters and dots
 
 Valid examples: `"Main"`, `"Utils.Helpers"`, `"Data.Types.User"`
+
+
+
+---
+
+> #### "The lockfile is out of date for package '<name>'"
+
+**Problem:** The `coal.json` manifest was changed incompatibly with an existing `coal.lock.json` — for example, a dependency constraint was tightened and no longer matches the locked version.
+
+**Solution:** Run `coal update` to re-resolve the dependencies and rewrite the lock file:
+
+```bash
+coal update
+```
+
+---
+
+> #### "Version conflict for package '<name>'"
+
+**Problem:** Two manifests in the dependency graph require incompatible versions of the same package. The error reports each requirement with its source and the version that was selected.
+
+**Solution:** Relax one of the conflicting declarations (for example, use `">=0.9.0"` instead of an exact version pin like `"0.9.0"`), or use `coal update` to re-resolve. If a specific package must pin an exact version, consider releasing a new version of the conflicting dependency with a compatible requirement.
+
+---
+
+> #### "Unknown update target '<name>'"
+
+**Problem:** `coal update <name>` was run with a package name that is not part of the dependency graph (neither a direct dependency nor a transitive dependency).
+
+**Solution:** Check the package names. The error lists the unknown name(s) and the known package names in the lock file.
+
+---
+
+> #### "The locked commit for package '<name>' is no longer available"
+
+**Problem:** The commit hash recorded in `coal.lock.json` for a package is no longer reachable in its Git repository — typically because the tag was force-pushed or the repository was rewritten.
+
+**Solution:** Run `coal update` to pick a current version for that package.
 
 ### Debug options
 
