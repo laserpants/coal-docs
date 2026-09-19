@@ -313,7 +313,7 @@ None.
 
 #### Behavior
 
-1. Reads the project lock file (`coal.lock.json`) if present; if absent, resolves everything fresh.
+1. Reads the project lock file (`coal.lock.json`) if present; or if missing, resolves everything fresh.
 2. Reads dependencies from `coal.json` (direct dependencies).
 3. For each dependency in the dependency graph (direct and transitive, in the order they are discovered):
    - **Lock reuse:** If a locked entry exists for the package with the **same repository URL** and the locked version **satisfies the constraint** declared for it (including a missing/omitted constraint, which is treated as unconstrained), the install reuses that entry: the package is taken at the locked version and commit, cloning `.coal/packages/<name>/<commit>/` only if it is missing locally.
