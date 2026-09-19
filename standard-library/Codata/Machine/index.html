@@ -17,7 +17,7 @@
       
       
       <link rel="icon" href="../../../assets/logo.svg">
-      <meta name="generator" content="zensical-0.0.62">
+      <meta name="generator" content="zensical-0.0.63">
     
     
       
@@ -28,7 +28,7 @@
       
         
       
-      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.ce62732f.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.10763589.min.css">
       
         
           
@@ -368,18 +368,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
   
   Examples
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -403,10 +404,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -430,10 +431,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -457,10 +458,10 @@
     </li>
   
 
-              
-            
+                
               
                 
+                  
   
   
   
@@ -484,10 +485,11 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
@@ -554,18 +556,19 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_8">
-            <span class="md-nav__icon md-icon"></span>
-            
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_8">
+              <span class="md-nav__icon md-icon"></span>
+              
   
   Background
 
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
               
                 
+                  
   
   
   
@@ -589,10 +592,11 @@
     </li>
   
 
+                
               
-            
-          </ul>
-        </nav>
+            </ul>
+          </nav>
+        
       
     </li>
   
@@ -867,57 +871,118 @@
                   
 
 <h1 id="codatamachine"><code>Codata.Machine</code></h1>
+<p>Mealy machines: stateful processes that consume a sequence of inputs and
+produce a sequence of outputs, one at a time.</p>
+<p>A machine is parameterised by its input type <code>i</code> and output type <code>o</code>, and
+is built from an internal state together with a transition function of
+type <code>i -&gt; s -&gt; s</code>, which determines the next state, and a view function
+of type <code>s -&gt; o</code>, which determines the output.</p>
+<p>The state type <code>s</code> is hidden (existentially quantified), so machines with
+different internal representations share the same <code>Machine&lt;i, o&gt;</code> type.
+<code>observe</code> returns the current output, and <code>receive</code> advances the machine
+to a new state, which is itself a machine. Machines are the basis of
+streams (<code>Stream&lt;a&gt; = Machine&lt;unit, a&gt;</code>), parsers and other stateful
+processes.</p>
 <hr />
 <h3 id="observe"><code>observe</code></h3>
-<p>No documentation available.</p>
+<p>Return the current output of a machine.</p>
+<p>The output is computed by applying the machine's view function to its
+current state. Observing a machine does not advance it.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">observe </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#24292E"> o</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">observe </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> o</span></span></code></pre>
 <hr />
 <h3 id="receive"><code>receive</code></h3>
-<p>No documentation available.</p>
+<p>Feed an input into a machine and return the resulting machine.</p>
+<p>The machine's step function is applied to the given input and its
+current state, giving a machine in a new state.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">receive </span><span style="color:#D73A49">:</span><span style="color:#24292E"> i </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">receive </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">-></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="machine"><code>machine</code></h3>
-<p>No documentation available.</p>
+<p>Construct a machine from an initial state, a transition function and a
+view function.</p>
+<p>The transition function determines the next state from an input and the
+current state, and the view function determines the output from the
+current state.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">machine </span><span style="color:#D73A49">:</span><span style="color:#24292E"> s </span><span style="color:#D73A49">-></span><span style="color:#24292E"> (i </span><span style="color:#D73A49">-></span><span style="color:#24292E"> s </span><span style="color:#D73A49">-></span><span style="color:#24292E"> s) </span><span style="color:#D73A49">-></span><span style="color:#24292E"> (s </span><span style="color:#D73A49">-></span><span style="color:#24292E"> o) </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">machine </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> s </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> (i </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> s </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> s) </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> (s </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> o) </span><span style="color:#F97583">-></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="map_machine"><code>map_machine</code></h3>
-<p>No documentation available.</p>
+<p>Transform the output of a machine using the given function.</p>
+<p>The state and transition function are untouched; the function is
+applied to the result of the view for each state.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">map_machine </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (o </span><span style="color:#D73A49">-></span><span style="color:#24292E"> p) </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, p</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">map_machine </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (o </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> p) </span><span style="color:#F97583">-></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, p</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="map2_machine"><code>map2_machine</code></h3>
-<p>No documentation available.</p>
+<p>Combine the outputs of two machines using the given function.</p>
+<p>The same input is fed to both machines.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">map2_machine </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (o </span><span style="color:#D73A49">-></span><span style="color:#24292E"> p </span><span style="color:#D73A49">-></span><span style="color:#24292E"> q) </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, p</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, q</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">map2_machine </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (o </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> p </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> q) </span><span style="color:#F97583">-></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, p</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, q</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="map3_machine"><code>map3_machine</code></h3>
-<p>No documentation available.</p>
+<p>Combine the outputs of three machines using the given function.</p>
+<p>The same input is fed to all three machines.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">map3_machine </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (o </span><span style="color:#D73A49">-></span><span style="color:#24292E"> p </span><span style="color:#D73A49">-></span><span style="color:#24292E"> q </span><span style="color:#D73A49">-></span><span style="color:#24292E"> r) </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, p</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, q</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, r</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">map3_machine </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (o </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> p </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> q </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> r) </span><span style="color:#F97583">-></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, p</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, q</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, r</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="map4_machine"><code>map4_machine</code></h3>
-<p>No documentation available.</p>
+<p>Combine the outputs of four machines using the given function.</p>
+<p>The same input is fed to all four machines.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">map4_machine </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (o </span><span style="color:#D73A49">-></span><span style="color:#24292E"> p </span><span style="color:#D73A49">-></span><span style="color:#24292E"> q </span><span style="color:#D73A49">-></span><span style="color:#24292E"> r </span><span style="color:#D73A49">-></span><span style="color:#24292E"> s) </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, p</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, q</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, r</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, s</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">map4_machine </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (o </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> p </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> q </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> r </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> s) </span><span style="color:#F97583">-></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, p</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, q</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, r</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, s</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="contramap_input"><code>contramap_input</code></h3>
-<p>No documentation available.</p>
+<p>Adapt the inputs of a machine using the given function.</p>
+<p>Each input is transformed before it is fed to the machine; the state
+and view function are untouched.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">contramap_input </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (j </span><span style="color:#D73A49">-></span><span style="color:#24292E"> i) </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">j, o</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">contramap_input </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (j </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> i) </span><span style="color:#F97583">-></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">j, o</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="compose"><code>compose</code></h3>
-<p>No documentation available.</p>
+<p>Compose two machines, feeding the output of the first into the second.</p>
+<p>When an input arrives, the first machine is stepped, its new output is
+fed as input to the second, and the resulting pair of machines is
+returned. The output of the composition is the output of the second
+machine.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">compose </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a, b</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">b, c</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a, c</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">compose </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a, b</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">b, c</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a, c</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="duplicate"><code>duplicate</code></h3>
-<p>No documentation available.</p>
+<p>Return a machine whose output is the machine itself.</p>
+<p>Receiving an input steps the inner machine, so that the successive
+versions of the machine are observed in turn.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">duplicate </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, </span><span style="color:#6F42C1">Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o</span><span style="color:#D73A49">>></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">duplicate </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, </span><span style="color:#B392F0">Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o</span><span style="color:#F97583">>></span></span></code></pre>
 <hr />
 <h3 id="zip"><code>zip</code></h3>
-<p>No documentation available.</p>
+<p>Combine the outputs of two machines into a pair.</p>
+<p>Shorthand for <code>zip2</code>.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">zip </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o1</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o2</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, (o1, o2)</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">zip </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o1</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o2</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, (o1, o2)</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="zip2"><code>zip2</code></h3>
-<p>No documentation available.</p>
+<p>Combine the outputs of two machines into a pair.</p>
+<p>The same input is fed to both machines.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">zip2 </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o1</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o2</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, (o1, o2)</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">zip2 </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o1</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o2</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, (o1, o2)</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="zip3"><code>zip3</code></h3>
-<p>No documentation available.</p>
+<p>Combine the outputs of three machines into a triple.</p>
+<p>The same input is fed to all three machines.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">zip3 </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o1</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o2</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o3</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, (o1, o2, o3)</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">zip3 </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o1</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o2</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o3</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, (o1, o2, o3)</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="zip4"><code>zip4</code></h3>
-<p>No documentation available.</p>
+<p>Combine the outputs of four machines into a quadruple.</p>
+<p>The same input is fed to all four machines.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">zip4 </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o1</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o2</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o3</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o4</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, (o1, o2, o3, o4)</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">zip4 </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o1</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o2</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o3</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o4</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, (o1, o2, o3, o4)</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="process"><code>process</code></h3>
-<p>No documentation available.</p>
+<p>Construct a machine whose state is also its output.</p>
+<p>Equivalent to <code>machine(seed, transition, identity)</code>.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">process </span><span style="color:#D73A49">:</span><span style="color:#24292E"> s </span><span style="color:#D73A49">-></span><span style="color:#24292E"> (i </span><span style="color:#D73A49">-></span><span style="color:#24292E"> s </span><span style="color:#D73A49">-></span><span style="color:#24292E"> s) </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, s</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">process </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> s </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> (i </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> s </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> s) </span><span style="color:#F97583">-></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, s</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="cofix"><code>cofix</code></h3>
-<p>No documentation available.</p>
+<p>Tie the recursive knot, constructing a machine from a function of the
+machine itself.</p>
+<p>The machine may use its argument to refer to itself; the unfolding is
+performed on demand, so recursive definitions need not be finitely
+constructed.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">cofix </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (</span><span style="color:#6F42C1">Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o</span><span style="color:#D73A49">></span><span style="color:#24292E">) </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">i, o</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">cofix </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#B392F0">Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o</span><span style="color:#F97583">></span><span style="color:#E1E4E8">) </span><span style="color:#F97583">-></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">i, o</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="run_while"><code>run_while</code></h3>
-<p>No documentation available.</p>
+<p>Repeatedly feed the unit input into a machine while the predicate
+holds, and return the output of the resulting machine.</p>
+<p>The predicate is checked before each step.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">run_while </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (</span><span style="color:#005CC5">unit</span><span style="color:#D73A49"> -></span><span style="color:#005CC5"> bool</span><span style="color:#24292E">) </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> Machine</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">unit</span><span style="color:#24292E">, a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#24292E"> a</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">run_while </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">unit</span><span style="color:#F97583"> -></span><span style="color:#79B8FF"> bool</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">-></span><span style="color:#B392F0"> Machine</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">unit</span><span style="color:#E1E4E8">, a</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> a</span></span></code></pre>
 
 
 
