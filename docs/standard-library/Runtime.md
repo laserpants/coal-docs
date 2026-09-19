@@ -1,5 +1,7 @@
 # `Runtime`
 
+Runtime support functions for event loops and blocking polls.
+
 ---
 
 ### `event_loop`

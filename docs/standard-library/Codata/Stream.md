@@ -1,87 +1,164 @@
 # `Codata.Stream`
 
+Potentially infinite sequences of values, represented as
+`Machine<unit, a>`, i.e., machines whose input is the `unit` value.
+
+Elements are produced on demand: `head` returns the current element, and
+`tail` advances the stream to the next one.
+
 ---
 
 ### `Stream`
 
 <span class="badge badge-primary">type</span>
 
-No documentation available.
+A stream is a machine whose input is the unit value, so that elements
+can be produced on demand.
+
+```coal
+Stream<a> = Machine<unit, a>
+```
 
 ---
 
 ### `repeat`
 
-No documentation available.
+Return a stream that repeats the given element indefinitely.
+
+```coal
+repeat : a -> Stream<a>
+```
 
 ---
 
 ### `enum_from`
 
-No documentation available.
+Return the stream of consecutive integers starting at `n`.
+
+```coal
+enum_from : int32 -> Stream<int32>
+```
 
 ---
 
 ### `nats`
 
-No documentation available.
+The stream of all natural numbers, starting at zero.
+
+Equivalently, `enum_from(0)`.
+
+```coal
+nats : Stream<int32>
+```
 
 ---
 
 ### `tail`
 
-No documentation available.
+Return the stream without its first element.
+
+```coal
+tail : Stream<a> -> Stream<a>
+```
 
 ---
 
 ### `head`
 
-No documentation available.
+Return the first element of the stream.
+
+```coal
+head : Stream<a> -> a
+```
 
 ---
 
 ### `cons`
 
-No documentation available.
+Return a stream whose first element is `state`, followed by the
+elements of the given stream.
+
+```coal
+cons : a -> Stream<a> -> Stream<a>
+```
 
 ---
 
 ### `map_stream`
 
-No documentation available.
+Transform each element of a stream using the given function.
+
+```coal
+map_stream : (a -> b) -> Stream<a> -> Stream<b>
+```
 
 ---
 
 ### `map2_stream`
 
-No documentation available.
+Combine two streams elementwise using the given function.
+
+```coal
+map2_stream : (a -> b -> c) -> Stream<a> -> Stream<b> -> Stream<c>
+```
 
 ---
 
 ### `map3_stream`
 
-No documentation available.
+Combine three streams elementwise using the given function.
+
+```coal
+map3_stream : (a -> b -> c -> d) -> Stream<a> -> Stream<b> -> Stream<c> -> Stream<d>
+```
 
 ---
 
 ### `map4_stream`
 
-No documentation available.
+Combine four streams elementwise using the given function.
+
+```coal
+map4_stream : (a -> b -> c -> d -> e) -> Stream<a> -> Stream<b> -> Stream<c> -> Stream<d> -> Stream<e>
+```
 
 ---
 
 ### `merge_with`
 
-No documentation available.
+Interleave two streams, applying `fa` to the elements of the first
+stream and `fb` to the elements of the second.
+
+The elements are drawn alternately from `s1` and `s2`, beginning with
+`s1`.
+
+```coal
+merge_with : (a -> c) -> (b -> c) -> Stream<a> -> Stream<b> -> Stream<c>
+```
 
 ---
 
 ### `merge`
 
-No documentation available.
+Interleave two streams, alternating between their elements.
+
+Equivalent to `merge_with(identity, identity, s1, s2)`.
+
+```coal
+merge : Stream<a> -> Stream<a> -> Stream<a>
+```
 
 ---
 
 ### `scan`
 
-No documentation available.
+Fold over a stream, returning a stream of successive accumulator
+values.
+
+The first element of the result is the initial value `seed`; each
+subsequent element is obtained by applying `transition` to the next
+element of the stream and the previous accumulator.
+
+```coal
+scan : (i -> o -> o) -> o -> Stream<i> -> Stream<o>
+```
