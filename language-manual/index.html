@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/logo.svg">
-      <meta name="generator" content="zensical-0.0.63">
+      <meta name="generator" content="zensical-0.0.65">
     
     
       
@@ -32,7 +32,7 @@
       
         
       
-      <link rel="stylesheet" href="../assets/stylesheets/modern/main.10763589.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.40d3fdbb.min.css">
       
         
           
@@ -2179,10 +2179,11 @@ The restriction also applies to top-level definitions. For example, as far as th
 <tr>
 <td><code>%</code></td>
 <td>Modulus</td>
-<td><code>∀m : m -&gt; m -&gt; m with (Modulo&lt;m&gt;)</code></td>
+<td><code>∀m : m -&gt; m -&gt; Option&lt;m&gt; with (Modulo&lt;m&gt;)</code></td>
 </tr>
 </tbody>
 </table>
+<p>The <code>%</code> operator returns an <code>Option</code>-value. The result is <code>None</code> precisely when the divisor is zero, since this would otherwise produce a runtime error.</p>
 <h4 id="logical">Logical</h4>
 <p>Coal supports the standard boolean logic operators.</p>
 <table>
@@ -3071,7 +3072,7 @@ the <code>IO</code>-package to handle errors when reading a file from the file s
 <span class="line"><span style="color:#D73A49">  in</span><span style="color:#24292E"> language</span><span style="color:#D73A49">.</span><span style="color:#24292E">name</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> language = { name </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "Java"</span><span style="color:#E1E4E8">, paradigm </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "OOP"</span><span style="color:#E1E4E8"> }</span></span>
 <span class="line"><span style="color:#F97583">  in</span><span style="color:#E1E4E8"> language</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">name</span></span></code></pre>
 <h4 id="extending-records">Extending records</h4>
-<p>Records in Coal are <em>extensible</em>, meaning that new fields can be added to a record at run time. For example:</p>
+<p>Records in Coal are <em>extensible</em>, meaning that new fields can be added to a record at runtime. For example:</p>
 <pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> tagged(rec, t </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> string</span><span style="color:#24292E">) = { tag </span><span style="color:#D73A49">=</span><span style="color:#24292E"> t </span><span style="color:#D73A49">|</span><span style="color:#24292E"> rec }  </span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> tagged(rec, t </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) = { tag </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> t </span><span style="color:#F97583">|</span><span style="color:#E1E4E8"> rec }  </span></span></code></pre>
 <p>This function accepts two arguments: an existing record <code>rec</code> and a string <code>t</code>. It returns a copy of <code>rec</code> augmented with a new field <code>tag</code> which assumes the value of <code>t</code>. The pipe symbol (<code>|</code>) is an infix operator that takes the record on the right-hand side and extends it with the fields on the left.</p>
 <p>For example, if we define a record <code>r = { day = "monday", humidity = 73.5 }</code> and apply <code>tagged(r, "wet")</code>, we obtain a new record:</p>
@@ -4489,7 +4490,7 @@ For this situation, we need a different solution.</p>
       <script id="__config" type="application/json">{"annotate":null,"base":"..","features":[],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../assets/javascripts/bundle.8dcc8e9c.min.js"></script>
+      <script src="../assets/javascripts/bundle.c04ba553.min.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       
