@@ -1,0 +1,5 @@
+# Pinned dependencies for reproducible CI builds.
+# Keep in sync with the CI install step in .github/workflows/deploy.yml.
+zensical==0.0.65
+Markdown==3.10.3
+pymdown-extensions==12.1

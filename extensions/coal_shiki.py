@@ -194,6 +194,7 @@ class CoalShikiExtension(Extension):
                     "coal",
                     coal_fence_format,
                     coal_fence_validator,
+                    reset=None,
                 )
                 break
 
