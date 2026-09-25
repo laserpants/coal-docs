@@ -321,7 +321,9 @@ The basic arithmetic operators are overloaded and work with all types for which 
 
 |               | Description            | Type                               |                                                                        
 | ------------- | ---------------------- | ---------------------------------- |                                                                        
-| `%`           | Modulus                | `∀m : m -> m -> m with (Modulo<m>)`  |                                                                        
+| `%`           | Modulus                | `∀m : m -> m -> Option<m> with (Modulo<m>)`  |                                                                        
+
+The `%` operator returns an `Option`-value. The result is `None` precisely when the divisor is zero, since this would otherwise produce a runtime error.
 
 #### Logical
 
@@ -1467,7 +1469,7 @@ let language = { name = "Java", paradigm = "OOP" }
 
 #### Extending records
 
-Records in Coal are *extensible*, meaning that new fields can be added to a record at run time. For example:
+Records in Coal are *extensible*, meaning that new fields can be added to a record at runtime. For example:
 
 ```coal
 fun tagged(rec, t : string) = { tag = t | rec }  
