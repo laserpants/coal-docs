@@ -2235,7 +2235,7 @@ Taken together, the two instances support the full set of arithmetic operators o
 
 ```coal
 let sum        = false + true * true  // true
-let difference = false - true           // false
+let difference = false - true         // false
 ```
 
 As another example, we can define a type `Complex` to represent complex numbers:
