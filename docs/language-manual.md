@@ -69,7 +69,7 @@ Integer literals introduced in code without an explicit type annotation, such as
 let answer = 42
 ```
 
-are *overloaded*. The inferred type of this expression is `n with (Numeric<n>)`, which means that `n` can be *any* type, as long as it implements the `Numeric` trait (see **[Traits](#traits)**). This includes the built-in `int32`, `int64`, `float`, `double`, `bignum`, and `nat` types. All `Numeric` types support the basic arithmetic operations of addition, subtraction, and multiplication.
+are *overloaded*. The inferred type of this expression is `n with (NumericBase<n>)`, which means that `n` can be *any* type, as long as it implements the `NumericBase` trait (see **[Traits](#traits)**). This includes the built-in `int32`, `int64`, `float`, `double`, `bignum`, and `nat` types. All `NumericBase` types support conversion from integer literals as well as the arithmetic operations of addition and multiplication. Subtraction and negation are provided by the `Numeric` trait, which extends `NumericBase`.
 For example:
 
 ```coal
@@ -78,10 +78,10 @@ fun sum_of(x, y, z) =
 
 ```
 
-In this example, the function `sum_of` is polymorphic: it can operate on any type that implements `Numeric`.  With explicit type annotations:
+In this example, the function `sum_of` is polymorphic: it can operate on any type that implements `NumericBase`.  With explicit type annotations:
 
 ```coal
-fun sum_of(x : a, y : a, z : a) : a with (Numeric<a>) = 
+fun sum_of(x : a, y : a, z : a) : a with (NumericBase<a>) = 
 ```
 
 We can then use `sum_of` in the following way:
@@ -304,11 +304,11 @@ The basic arithmetic operators are overloaded and work with all types for which 
 
 |               | Description            | Type                                 |                                                                        
 | ------------- | ---------------------- | ------------------------------------ |                                                                        
-| `+`           | Addition               | `∀n : n -> n -> n with (Numeric<n>)`   |                                                                        
+| `+`           | Addition               | `∀n : n -> n -> n with (NumericBase<n>)`   |                                                                        
 | `-`           | Subtraction            | `∀n : n -> n -> n with (Numeric<n>)`   |                                                                        
-| `*`           | Multiplication         | `∀n : n -> n -> n with (Numeric<n>)`   |                                           
+| `*`           | Multiplication         | `∀n : n -> n -> n with (NumericBase<n>)`   |                                           
 | `/`           | Division               | `∀q : q -> q -> q with (Divisible<q>)` |                                                                        
-| `^`           | Exponentiation         | `∀n : n -> nat -> n with (Numeric<n>)` |                                                                        
+| `^`           | Exponentiation         | `∀n : n -> nat -> n with (NumericBase<n>)` |                                                                        
 
 |               | Description            | Type                                  |                                                                        
 | ------------- | ---------------------- | ------------------------------------- |                                                                        
@@ -547,7 +547,7 @@ Natural numbers (`nat`) are covered in detail under [Natural numbers](#natural-n
 
 #### Numeric literal overloading
 
-Numeric literals in Coal are polymorphic — their type is inferred from context or can be explicitly annotated. When you write a literal like `42`, its inferred type is `n with (Numeric<n>)`, meaning it can be any type that implements the [`Numeric`](#numeric) trait.
+Numeric literals in Coal are polymorphic — their type is inferred from context or can be explicitly annotated. When you write a literal like `42`, its inferred type is `n with (NumericBase<n>)`, meaning it can be any type that implements the [`NumericBase`](#numericbase) trait. A negative literal such as `-42` is instead translated to a call to `from_negative_int32`, giving it the type `n with (Numeric<n>)`, which requires the [`Numeric`](#numeric) trait.
 
 ```coal
 let a : int32 = 100   // 100 inferred as int32
@@ -570,14 +570,14 @@ The compiler resolves the concrete type based on how the value is used, ensuring
 
 !!! note "Qualified types"
 
-    One way to think of types like `n with (Numeric<n>)` is as a form of placeholder. 
+    One way to think of types like `n with (NumericBase<n>)` is as a form of placeholder. 
     Numeric literals are translated by the compiler to a function call, in this case:
 
     ```coal
     from_int32(42)
     ```
 
-    The type of `from_int32` is `int32 -> n with (Numeric<n>)`. This is a qualified type. When you define an expression involving a qualified type, e.g.:
+    The type of `from_int32` is `int32 -> n with (NumericBase<n>)`. This is a qualified type. When you define an expression involving a qualified type, e.g.:
 
     ```coal
     fun do_stuff(x, y) =
@@ -591,7 +591,7 @@ The compiler resolves the concrete type based on how the value is used, ensuring
     the compiler adds a hidden parameter to the enclosing function to supply the instance of the trait in question. The final code generated by the compiler will then look something like this:
 
     ```coal
-    fun do_stuff(num_instance : Numeric<n>, x, y) =
+    fun do_stuff(num_instance : NumericBase<n>, x, y) =
       ...
         let x =
           num_instance.from_int32(42)
@@ -599,7 +599,7 @@ The compiler resolves the concrete type based on how the value is used, ensuring
       ...
     ```
 
-    Passing an instance such as `Numeric<int32>` or `Numeric<nat>` specializes `do_stuff` to that type. This is also done by the compiler implicitly, based on the resolved type in the context where the function is used.
+    Passing an instance such as `NumericBase<int32>` or `NumericBase<nat>` specializes `do_stuff` to that type. This is also done by the compiler implicitly, based on the resolved type in the context where the function is used.
 
     See **[Traits](#traits)** for more about trait constraints and instances.
 
@@ -2157,32 +2157,34 @@ We write the full type of `is_less_than` as: `t -> t -> bool with (Ordered<t>)`.
 
 Coal includes several built-in traits that enable operator overloading and provide common functionality across different types. *Operator overloading* means that the same operator symbol (such as `+` or `==`) can work with multiple types — for example, allowing `+` to add both integers and floating-point numbers. By implementing these traits for a type, you define how standard operators behave for that type.
 
-#### Numeric
+#### NumericBase
 
-The `Numeric` trait describes types that support basic arithmetic, like addition and multiplication. All built-in numeric types (`int32`, `int64`, `bignum`, `float`, `double`, and `nat`) have `Numeric` instances.
+The `NumericBase` trait describes types that can be constructed from integer literals and support the arithmetic operations of addition and multiplication. It declares the following interface functions:
 
-The following examples shows how to define a `Numeric` instance for `bool`.
+```coal
+from_int32  : int32 -> a
+from_int64  : int64 -> a
+from_bignum : bignum -> a
+(+)         : a -> a -> a
+(*)         : a -> a -> a
+```
+
+All built-in numeric types (`int32`, `int64`, `bignum`, `float`, `double`, and `nat`) have `NumericBase` instances.
+
+The following example shows how to define a `NumericBase` instance for `bool`.
 
 ```coal
 import Number(is_even)
 
-instance Numeric<bool> {
+instance NumericBase<bool> {
   fun from_int32(n : int32) = is_even(n)
   fun from_int64(n : int64) = is_even(n)
   fun from_bignum(n : bignum) = is_even(n)
-  fun negate
-    | false        => true
-    | _            => false
   fun `+`
     | false, false => false // 0 + 0 = 0
     | false, true  => true  // 0 + 1 = 1
     | true, false  => true  // 1 + 0 = 1
     | true, true   => false // 1 + 1 = 0
-  fun `-`
-    | false, false => true  // 0 - 0 = 0 + (-0) = 0 + 1 = 1
-    | false, true  => false // 0 - 1 = 0 + (-1) = 0 + 0 = 0
-    | true, false  => false // 1 - 0 = 1 + (-0) = 1 + 1 = 0
-    | true, true   => true  // 1 - 1 = 1 + (-1) = 1 + 0 = 1
   fun `*`
     | true, true   => true  // 1 * 1 = 1
     | _, _         => false // otherwise 0
@@ -2195,30 +2197,80 @@ Here is how this instance can be used:
 let result = false + true * true  // true
 ```
 
+#### Numeric
+
+The `Numeric` trait extends `NumericBase` and describes types that additionally support subtraction and negation. It declares the following interface functions:
+
+```coal
+from_negative_int32  : int32 -> a
+from_negative_int64  : int64 -> a
+from_negative_bignum : bignum -> a
+negate               : a -> a
+(-)                  : a -> a -> a
+```
+
+Negative integer literals are converted with `from_negative_int32`, `from_negative_int64`, or `from_negative_bignum`, so expressions involving them require a `Numeric` instance. The built-in types `int32`, `int64`, `bignum`, `float`, and `double` have `Numeric` instances.
+
+The following example shows how to define a `Numeric` instance for `bool`.
+
+```coal
+import Number(is_even)
+
+instance Numeric<bool> {
+  fun from_negative_int32(n : int32) = is_even(n)
+  fun from_negative_int64(n : int64) = is_even(n)
+  fun from_negative_bignum(n : bignum) = is_even(n)
+  fun negate
+    | false        => true
+    | _            => false
+  fun `-`
+    | false, false => true  // 0 - 0 = 0 + (-0) = 0 + 1 = 1
+    | false, true  => false // 0 - 1 = 0 + (-1) = 0 + 0 = 0
+    | true, false  => false // 1 - 0 = 1 + (-0) = 1 + 1 = 0
+    | true, true   => true  // 1 - 1 = 1 + (-1) = 1 + 0 = 1
+}
+```
+
+Taken together, the two instances support the full set of arithmetic operators on `bool` values:
+
+```coal
+let sum        = false + true * true  // true
+let difference = false - true           // false
+```
+
 As another example, we can define a type `Complex` to represent complex numbers:
 
 ```coal
 type Complex = Complex(double, double)
 ```
 
-The `Numeric` instance for this type could then be implemented as:
+To support the full set of arithmetic operators, `Complex` needs both a `NumericBase` and a `Numeric` instance:
 
 ```coal
-instance Numeric<Complex> {
-  fun from_int32(n : int32) = 
+instance NumericBase<Complex> {
+  fun from_int32(n : int32) =
     Complex(int32_to_double(n), 0)
-  fun from_int64(n : int64) = 
+  fun from_int64(n : int64) =
     Complex(int64_to_double(n), 0)
-  fun from_bignum(n : bignum) = 
+  fun from_bignum(n : bignum) =
+    Complex(bignum_to_double(n), 0)
+  fun `+`(Complex(r, i), Complex(q, j)) =
+    Complex(r + q, i + j)
+  fun `*`(Complex(r, i), Complex(q, j)) =
+    Complex(r * q - i * j, r * j + i * q)
+}
+
+instance Numeric<Complex> {
+  fun from_negative_int32(n : int32) =
+    Complex(int32_to_double(n), 0)
+  fun from_negative_int64(n : int64) =
+    Complex(int64_to_double(n), 0)
+  fun from_negative_bignum(n : bignum) =
     Complex(bignum_to_double(n), 0)
   fun negate(Complex(r, i)) =
     Complex(-r, -i)
-  fun `+`(Complex(r, i), Complex(q, j)) =
-    Complex(r + q, i + j)
   fun `-`(Complex(r, i), Complex(q, j)) =
     Complex(r - q, i - j)
-  fun `*`(Complex(r, i), Complex(q, j)) =
-    Complex(r * q - i * j, r * j + i * q)
 }
 ```
 
