@@ -1595,6 +1595,61 @@ fun set_tag(
 
 This function requires not only that the `tag` field is present, but also that it has the expected type. For example, `{ tag = false }` would be rejected, since `tag` is required to have type `string`.
 
+#### Partial record updates
+
+To make it possible to replace one or more existing fields while leaving the rest of a record unchanged, Coal provides a special shorthand syntax. Write the record expression first, followed immediately by a brace-enclosed list of replacement fields:
+
+```coal
+let
+  old_record =
+    { field_a = "a", field_b = "b", field_c = "old" }
+in
+let
+  new_record =
+    old_record{ field_c = "new value" }
+in
+new_record
+```
+
+Here, `new_record` still contains `field_a` and `field_b` with their original values, while `field_c` has been replaced:
+
+```coal
+{ field_a = "a", field_b = "b", field_c = "new value" }
+```
+
+This is equivalent to copying the unchanged fields explicitly and supplying the replacement value for the remaining field:
+
+```coal
+let
+  new_record =
+    { field_a = old_record.field_a
+    , field_b = old_record.field_b
+    , field_c = "new value"
+    }
+in
+new_record
+```
+
+The base expression is evaluated once, so if it is a function call or another compound expression, it is not repeated for every copied field. Several fields may be replaced in the same update:
+
+```coal
+old_record{ field_b = "B", field_c = "new value" }
+```
+
+Replacement values may themselves be expressions, and updates can be nested.
+Here the inner update replaces `value` with `2`, and the outer update stores
+that inner record back into the `outer` field:
+
+```coal
+outer{ outer = outer.outer{ value = 2 } }
+```
+
+An update cannot add a new field or remove an existing one. Each label must already be present, and its replacement must have the same type as the original field; or the compiler will report a type error. For example, if `old_record.field_c` is a `string`, the following is rejected:
+
+```coal
+old_record{ field_c = 42 }
+```
+
 ## Modules 
 
 Projects in Coal are organized as collections of *modules*. Modules make it possible to group related functionality into distinct namespaces. A module contains functions, type definitions and other language constructs, typically focused on a specific purpose within a library or application.
