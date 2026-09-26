@@ -3139,6 +3139,51 @@ For instance, all of the following are valid:</p>
 <span class="line"><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> { tag </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> string </span><span style="color:#F97583">|</span><span style="color:#E1E4E8"> r } = </span></span>
 <span class="line"><span style="color:#E1E4E8">  { tag </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> new_tag </span><span style="color:#F97583">|</span><span style="color:#E1E4E8"> fields }</span></span></code></pre>
 <p>This function requires not only that the <code>tag</code> field is present, but also that it has the expected type. For example, <code>{ tag = false }</code> would be rejected, since <code>tag</code> is required to have type <code>string</code>.</p>
+<h4 id="partial-record-updates">Partial record updates</h4>
+<p>To make it possible to replace one or more existing fields while leaving the rest of a record unchanged, Coal provides a special shorthand syntax. Write the record expression first, followed immediately by a brace-enclosed list of replacement fields:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">let</span></span>
+<span class="line"><span style="color:#24292E">  old_record =</span></span>
+<span class="line"><span style="color:#24292E">    { field_a </span><span style="color:#D73A49">=</span><span style="color:#032F62"> "a"</span><span style="color:#24292E">, field_b </span><span style="color:#D73A49">=</span><span style="color:#032F62"> "b"</span><span style="color:#24292E">, field_c </span><span style="color:#D73A49">=</span><span style="color:#032F62"> "old"</span><span style="color:#24292E"> }</span></span>
+<span class="line"><span style="color:#D73A49">in</span></span>
+<span class="line"><span style="color:#D73A49">let</span></span>
+<span class="line"><span style="color:#24292E">  new_record =</span></span>
+<span class="line"><span style="color:#24292E">    old_record{ field_c </span><span style="color:#D73A49">=</span><span style="color:#032F62"> "new value"</span><span style="color:#24292E"> }</span></span>
+<span class="line"><span style="color:#D73A49">in</span></span>
+<span class="line"><span style="color:#24292E">new_record</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">let</span></span>
+<span class="line"><span style="color:#E1E4E8">  old_record =</span></span>
+<span class="line"><span style="color:#E1E4E8">    { field_a </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "a"</span><span style="color:#E1E4E8">, field_b </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "b"</span><span style="color:#E1E4E8">, field_c </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "old"</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#F97583">in</span></span>
+<span class="line"><span style="color:#F97583">let</span></span>
+<span class="line"><span style="color:#E1E4E8">  new_record =</span></span>
+<span class="line"><span style="color:#E1E4E8">    old_record{ field_c </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "new value"</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#F97583">in</span></span>
+<span class="line"><span style="color:#E1E4E8">new_record</span></span></code></pre>
+<p>Here, <code>new_record</code> still contains <code>field_a</code> and <code>field_b</code> with their original values, while <code>field_c</code> has been replaced:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">{ field_a </span><span style="color:#D73A49">=</span><span style="color:#032F62"> "a"</span><span style="color:#24292E">, field_b </span><span style="color:#D73A49">=</span><span style="color:#032F62"> "b"</span><span style="color:#24292E">, field_c </span><span style="color:#D73A49">=</span><span style="color:#032F62"> "new value"</span><span style="color:#24292E"> }</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">{ field_a </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "a"</span><span style="color:#E1E4E8">, field_b </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "b"</span><span style="color:#E1E4E8">, field_c </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "new value"</span><span style="color:#E1E4E8"> }</span></span></code></pre>
+<p>This is equivalent to copying the unchanged fields explicitly and supplying the replacement value for the remaining field:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">let</span></span>
+<span class="line"><span style="color:#24292E">  new_record =</span></span>
+<span class="line"><span style="color:#24292E">    { field_a </span><span style="color:#D73A49">=</span><span style="color:#24292E"> old_record</span><span style="color:#D73A49">.</span><span style="color:#24292E">field_a</span></span>
+<span class="line"><span style="color:#24292E">    , field_b </span><span style="color:#D73A49">=</span><span style="color:#24292E"> old_record</span><span style="color:#D73A49">.</span><span style="color:#24292E">field_b</span></span>
+<span class="line"><span style="color:#24292E">    , field_c </span><span style="color:#D73A49">=</span><span style="color:#032F62"> "new value"</span></span>
+<span class="line"><span style="color:#24292E">    }</span></span>
+<span class="line"><span style="color:#D73A49">in</span></span>
+<span class="line"><span style="color:#24292E">new_record</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">let</span></span>
+<span class="line"><span style="color:#E1E4E8">  new_record =</span></span>
+<span class="line"><span style="color:#E1E4E8">    { field_a </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> old_record</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">field_a</span></span>
+<span class="line"><span style="color:#E1E4E8">    , field_b </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> old_record</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">field_b</span></span>
+<span class="line"><span style="color:#E1E4E8">    , field_c </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "new value"</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#F97583">in</span></span>
+<span class="line"><span style="color:#E1E4E8">new_record</span></span></code></pre>
+<p>The base expression is evaluated once, so if it is a function call or another compound expression, it is not repeated for every copied field. Several fields may be replaced in the same update:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">old_record{ field_b </span><span style="color:#D73A49">=</span><span style="color:#032F62"> "B"</span><span style="color:#24292E">, field_c </span><span style="color:#D73A49">=</span><span style="color:#032F62"> "new value"</span><span style="color:#24292E"> }</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">old_record{ field_b </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "B"</span><span style="color:#E1E4E8">, field_c </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "new value"</span><span style="color:#E1E4E8"> }</span></span></code></pre>
+<p>Replacement values may themselves be expressions, and updates can be nested.
+Here the inner update replaces <code>value</code> with <code>2</code>, and the outer update stores
+that inner record back into the <code>outer</code> field:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">outer{ outer </span><span style="color:#D73A49">=</span><span style="color:#24292E"> outer</span><span style="color:#D73A49">.</span><span style="color:#24292E">outer{ value </span><span style="color:#D73A49">=</span><span style="color:#005CC5"> 2</span><span style="color:#24292E"> } }</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">outer{ outer </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> outer</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">outer{ value </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8"> } }</span></span></code></pre>
+<p>An update cannot add a new field or remove an existing one. Each label must already be present, and its replacement must have the same type as the original field; or the compiler will report a type error. For example, if <code>old_record.field_c</code> is a <code>string</code>, the following is rejected:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">old_record{ field_c </span><span style="color:#D73A49">=</span><span style="color:#005CC5"> 42</span><span style="color:#24292E"> }</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">old_record{ field_c </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 42</span><span style="color:#E1E4E8"> }</span></span></code></pre>
 <h2 id="modules">Modules</h2>
 <p>Projects in Coal are organized as collections of <em>modules</em>. Modules make it possible to group related functionality into distinct namespaces. A module contains functions, type definitions and other language constructs, typically focused on a specific purpose within a library or application.</p>
 <div class="highlight"><pre><span></span><code>module %path(%export_list) {
