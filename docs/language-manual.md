@@ -1545,7 +1545,7 @@ In this type, the variable `r` captures all fields of the input record, so *n* i
 As with other data types, it is possible to pattern match on records. In this context, the right-hand side of a field acts as the binding pattern used to match the sub-expression. The simplest case is to bind a field directly to a variable:
 
 ```coal
-fun full_name({ first_name = fn, last_name = ln }) = fn +++ " " +++ ln 
+fun full_name({ first_name = fstn, last_name = lstn }) = fstn +++ " " +++ lstn 
 ```
 
 ##### Shorthand syntax
