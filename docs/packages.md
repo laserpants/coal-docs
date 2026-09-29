@@ -174,3 +174,17 @@ Contiguous, indexed arrays for the Coal programming language, implemented as an 
 coal add https://git@codeberg.org/laserpants/coal-array.git
 ```
 
+---
+
+## coal-bits
+
+Repository: [codeberg.org/laserpants/coal-bits](https://codeberg.org/laserpants/coal-bits)
+
+Bitwise operations for fixed-width and arbitrary-precision integers, implemented as a `Bits<b>` trait with instances for `int32`, `int64`, and `bignum`, backed by a small C runtime.
+
+#### Installation
+
+```bash
+coal add https://git@codeberg.org/laserpants/coal-bits.git
+```
+
