@@ -603,6 +603,14 @@ The compiler resolves the concrete type based on how the value is used, ensuring
 
     See **[Traits](#traits)** for more about trait constraints and instances.
 
+#### Hexadecimal integer literals
+
+Integer literals can also be written in hexadecimal (base 16) notation. A hexadecimal literal starts with either `0x` or `0X`, followed by the hexadecimal number itself, using the digits `0`–`9` and the letters `a`–`f` (or `A`–`F`). This syntax is the same as in many other languages.
+
+```coal
+let input = 0xc0ffee
+```
+
 ### Function types
 
 Function types are written in arrow notation, following the same convention as in Haskell. The type `a -> b` represents a function from `a` to `b`. Parentheses can be added to make grouping explicit, such as in `(a -> b) -> c`. The arrow operator is right-associative, which means that `a -> b -> c` is the same type as `a -> (b -> c)`.
