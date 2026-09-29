@@ -2549,6 +2549,9 @@ Numeric literals are translated by the compiler to a function call, in this case
 <p>Passing an instance such as <code>NumericBase&lt;int32&gt;</code> or <code>NumericBase&lt;nat&gt;</code> specializes <code>do_stuff</code> to that type. This is also done by the compiler implicitly, based on the resolved type in the context where the function is used.</p>
 <p>See <strong><a href="#traits">Traits</a></strong> for more about trait constraints and instances.</p>
 </div>
+<h4 id="hexadecimal-integer-literals">Hexadecimal integer literals</h4>
+<p>Integer literals can also be written in hexadecimal (base 16) notation. A hexadecimal literal starts with either <code>0x</code> or <code>0X</code>, followed by the hexadecimal number itself, using the digits <code>0</code>–<code>9</code> and the letters <code>a</code>–<code>f</code> (or <code>A</code>–<code>F</code>). This syntax is the same as in many other languages.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">let</span><span style="color:#24292E"> input = 0xc0ffee</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> input = 0xc0ffee</span></span></code></pre>
 <h3 id="function-types">Function types</h3>
 <p>Function types are written in arrow notation, following the same convention as in Haskell. The type <code>a -&gt; b</code> represents a function from <code>a</code> to <code>b</code>. Parentheses can be added to make grouping explicit, such as in <code>(a -&gt; b) -&gt; c</code>. The arrow operator is right-associative, which means that <code>a -&gt; b -&gt; c</code> is the same type as <code>a -&gt; (b -&gt; c)</code>.</p>
 <h3 id="natural-numbers_1">Natural numbers</h3>
