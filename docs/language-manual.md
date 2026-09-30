@@ -1762,7 +1762,7 @@ See **[Pattern matching](#pattern-matching)** for a more detailed discussion of 
 
 #### Main
 
-Just like in many other programming languages, the `main` function serves as the entry point of a program:
+As in most programming languages, a program must define an entry-point function. By default, this function is named `main` and appears in the project's `Main` module:
 
 ```coal
 module Main {
@@ -1771,7 +1771,19 @@ module Main {
     ...
 ```
 
-The type of `main` is `unit -> IO<unit>`. See [IO](#io) for an explanation of the `IO` type.
+The entry-point function must return either `IO<unit>` or `IO<int32>`. Returning `IO<unit>` always produces a zero exit code. To return a non-zero exit code, or to control the exit code explicitly, use `IO<int32>`:
+
+```coal
+module Main {
+
+  import IO(return)
+
+  fun main() : IO<int32> =
+    ...
+    if (! successful(task)) then return(1) else return(0)
+```
+
+See [IO](#io) for an explanation of the `IO` type.
 
 ### Let-expressions
 
