@@ -188,3 +188,17 @@ Bitwise operations for fixed-width and arbitrary-precision integers, implemented
 coal add https://git@codeberg.org/laserpants/coal-bits.git
 ```
 
+---
+
+## coal-random
+
+Repository: [codeberg.org/laserpants/coal-random](https://codeberg.org/laserpants/coal-random)
+
+Seeded streams of pseudorandom values with helpers for bounded ranges and random selection from a fixed set of alternatives.
+
+#### Installation
+
+```bash
+coal add https://git@codeberg.org/laserpants/coal-random.git
+```
+
