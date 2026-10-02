@@ -27,7 +27,7 @@ The compiler automatically performs the following type conversions when moving b
 | `double`           | `double`                |                          |
 | `int32`            | `int32_t`               |                          |
 | `int64`            | `int64_t`               |                          |
-| `bignum`           | `mpz_t*`                |                          |
+| `integer`          | `mpz_t*`                |                          |
 | `string`           | `char*`                 | UTF-8 encoded            |
 
 The second part is a list of arguments to pass to the C function:

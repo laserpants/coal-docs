@@ -180,7 +180,7 @@ coal add https://git@codeberg.org/laserpants/coal-array.git
 
 Repository: [codeberg.org/laserpants/coal-bits](https://codeberg.org/laserpants/coal-bits)
 
-Bitwise operations for fixed-width and arbitrary-precision integers, implemented as a `Bits<b>` trait with instances for `int32`, `int64`, and `bignum`, backed by a small C runtime.
+Bitwise operations for fixed-width and arbitrary-precision integers, implemented as a `Bits<b>` trait with instances for `int32`, `int64`, and `integer`, backed by a small C runtime.
 
 #### Installation
 
