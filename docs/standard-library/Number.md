@@ -185,44 +185,44 @@ parse_double : string -> Option<double>
 
 ---
 
-### `parse_bignum`
+### `parse_integer`
 
-Parse a decimal string into a bignum.
+Parse a decimal string into a integer.
 
-Returns `None` if parsing fails, otherwise `Some(bignum)`.
+Returns `None` if parsing fails, otherwise `Some(integer)`.
 
 ```coal
-parse_bignum : string -> Option<bignum>
+parse_integer : string -> Option<integer>
 ```
 
 ---
 
-### `bignum_to_float`
+### `integer_to_float`
 
-Convert a bignum to a float.
+Convert a integer to a float.
 
 ```coal
-bignum_to_float : bignum -> float
+integer_to_float : integer -> float
 ```
 
 ---
 
-### `bignum_to_double`
+### `integer_to_double`
 
-Convert a bignum to a double.
+Convert a integer to a double.
 
 ```coal
-bignum_to_double : bignum -> double
+integer_to_double : integer -> double
 ```
 
 ---
 
-### `bignum_to_string`
+### `integer_to_string`
 
-Convert a bignum to its string representation.
+Convert a integer to its string representation.
 
 ```coal
-bignum_to_string : bignum -> string
+integer_to_string : integer -> string
 ```
 
 ---

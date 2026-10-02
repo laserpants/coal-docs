@@ -86,28 +86,28 @@ print_int64 : int64 -> IO<unit>
 
 ---
 
-### `println_bignum`
+### `println_integer`
 
 Print an arbitrary-precision integer followed by a newline.
 
-Convert the given `bignum` value to its decimal text representation
+Convert the given `integer` value to its decimal text representation
 and output it to standard output, appending a newline.
 
 ```coal
-println_bignum : bignum -> IO<unit>
+println_integer : integer -> IO<unit>
 ```
 
 ---
 
-### `print_bignum`
+### `print_integer`
 
 Print an arbitrary-precision integer without a trailing newline.
 
-Convert the given `bignum` value to its decimal text representation
+Convert the given `integer` value to its decimal text representation
 and output it to standard output.
 
 ```coal
-print_bignum : bignum -> IO<unit>
+print_integer : integer -> IO<unit>
 ```
 
 ---

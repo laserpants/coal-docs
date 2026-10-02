@@ -35,7 +35,7 @@ Reserved language keywords cannot be used as variable names. They are:
 ```
 alias           float           int64           trait
 as              fn              let             true         
-bignum          fold            match           type
+integer         fold            match           type
 bool            fun             module          unit 
 char            if              nat             when       
 double          import          or              where
@@ -69,7 +69,7 @@ Integer literals introduced in code without an explicit type annotation, such as
 let answer = 42
 ```
 
-are *overloaded*. The inferred type of this expression is `n with (NumericBase<n>)`, which means that `n` can be *any* type, as long as it implements the `NumericBase` trait (see **[Traits](#traits)**). This includes the built-in `int32`, `int64`, `float`, `double`, `bignum`, and `nat` types. All `NumericBase` types support conversion from integer literals as well as the arithmetic operations of addition and multiplication. Subtraction and negation are provided by the `Numeric` trait, which extends `NumericBase`.
+are *overloaded*. The inferred type of this expression is `n with (NumericBase<n>)`, which means that `n` can be *any* type, as long as it implements the `NumericBase` trait (see **[Traits](#traits)**). This includes the built-in `int32`, `int64`, `float`, `double`, `integer`, and `nat` types. All `NumericBase` types support conversion from integer literals as well as the arithmetic operations of addition and multiplication. Subtraction and negation are provided by the `Numeric` trait, which extends `NumericBase`.
 For example:
 
 ```coal
@@ -492,7 +492,7 @@ Coal provides the following built-in types:
 | `double`           | Double precision floating point numbers | `3.141592653589793`           |                        
 | `int32`            | 32-bit integers                         | `0`, `1`, ..., `_INT32_MAX`   |                        
 | `int64`            | 64-bit integers                         | `0`, `1`, ..., `_INT64_MAX`   |                        
-| `bignum`           | Arbitrary precision integers            | `0`, `1`, `2`, `3`, ...       |                        
+| `integer`          | Arbitrary precision integers            | `0`, `1`, `2`, `3`, ...       |                        
 | `string`           | UTF-8 text                              |  `"Hello, ✨ world!"`         |                        
 | `unit`             | Singleton type                          | `()`                          |                        
 | `void`             | The uninhabited type                    |                               |                        
@@ -506,7 +506,7 @@ Coal has six distinct numeric types.
 1. `int64`
 1. `float`
 1. `double`
-1. `bignum`
+1. `integer`
 1. `nat`
 
 #### Integer types
@@ -518,10 +518,10 @@ let small : int32 = 42
 let large : int64 = 9000000000
 ```
 
-For computations requiring arbitrary precision — such as cryptography, number theory, or working with very large numbers — use `bignum`:
+For computations requiring arbitrary precision — such as cryptography, number theory, or working with very large numbers — use `integer`:
 
 ```coal
-let factorial_100 : bignum = 
+let factorial_100 : integer = 
   93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000
 ```
 
@@ -550,10 +550,10 @@ Natural numbers (`nat`) are covered in detail under [Natural numbers](#natural-n
 Numeric literals in Coal are polymorphic — their type is inferred from context or can be explicitly annotated. When you write a literal like `42`, its inferred type is `n with (NumericBase<n>)`, meaning it can be any type that implements the [`NumericBase`](#numericbase) trait. A negative literal such as `-42` is instead translated to a call to `from_negative_int32`, giving it the type `n with (Numeric<n>)`, which requires the [`Numeric`](#numeric) trait.
 
 ```coal
-let a : int32 = 100   // 100 inferred as int32
-let b : int64 = 100   // 100 inferred as int64
-let c : bignum = 100  // 100 inferred as bignum
-let d : double = 100  // 100 inferred as double (converted to 100.0)
+let a : int32  = 100   // 100 inferred as int32
+let b : int64  = 100   // 100 inferred as int64
+let c : integer = 100  // 100 inferred as integer
+let d : double  = 100  // 100 inferred as double (converted to 100.0)
 ```
 
 This polymorphism extends to arithmetic expressions:
@@ -2237,14 +2237,14 @@ Coal includes several built-in traits that enable operator overloading and provi
 The `NumericBase` trait describes types that can be constructed from integer literals and support the arithmetic operations of addition and multiplication. It declares the following interface functions:
 
 ```coal
-from_int32  : int32 -> a
-from_int64  : int64 -> a
-from_bignum : bignum -> a
-(+)         : a -> a -> a
-(*)         : a -> a -> a
+from_int32   : int32 -> a
+from_int64   : int64 -> a
+from_integer : integer -> a
+(+)          : a -> a -> a
+(*)          : a -> a -> a
 ```
 
-All built-in numeric types (`int32`, `int64`, `bignum`, `float`, `double`, and `nat`) have `NumericBase` instances.
+All built-in numeric types (`int32`, `int64`, `integer`, `float`, `double`, and `nat`) have `NumericBase` instances.
 
 The following example shows how to define a `NumericBase` instance for `bool`.
 
@@ -2254,7 +2254,7 @@ import Number(is_even)
 instance NumericBase<bool> {
   fun from_int32(n : int32) = is_even(n)
   fun from_int64(n : int64) = is_even(n)
-  fun from_bignum(n : bignum) = is_even(n)
+  fun from_integer(n : integer) = is_even(n)
   fun `+`
     | false, false => false // 0 + 0 = 0
     | false, true  => true  // 0 + 1 = 1
@@ -2277,14 +2277,14 @@ let result = false + true * true  // true
 The `Numeric` trait extends `NumericBase` and describes types that additionally support subtraction and negation. It declares the following interface functions:
 
 ```coal
-from_negative_int32  : int32 -> a
-from_negative_int64  : int64 -> a
-from_negative_bignum : bignum -> a
-negate               : a -> a
-(-)                  : a -> a -> a
+from_negative_int32   : int32 -> a
+from_negative_int64   : int64 -> a
+from_negative_integer : integer -> a
+negate                : a -> a
+(-)                   : a -> a -> a
 ```
 
-Negative integer literals are converted with `from_negative_int32`, `from_negative_int64`, or `from_negative_bignum`, so expressions involving them require a `Numeric` instance. The built-in types `int32`, `int64`, `bignum`, `float`, and `double` have `Numeric` instances.
+Negative integer literals are converted with `from_negative_int32`, `from_negative_int64`, or `from_negative_integer`, so expressions involving them require a `Numeric` instance. The built-in types `int32`, `int64`, `integer`, `float`, and `double` have `Numeric` instances.
 
 The following example shows how to define a `Numeric` instance for `bool`.
 
@@ -2294,7 +2294,7 @@ import Number(is_even)
 instance Numeric<bool> {
   fun from_negative_int32(n : int32) = is_even(n)
   fun from_negative_int64(n : int64) = is_even(n)
-  fun from_negative_bignum(n : bignum) = is_even(n)
+  fun from_negative_integer(n : integer) = is_even(n)
   fun negate
     | false        => true
     | _            => false
@@ -2327,8 +2327,8 @@ instance NumericBase<Complex> {
     Complex(int32_to_double(n), 0)
   fun from_int64(n : int64) =
     Complex(int64_to_double(n), 0)
-  fun from_bignum(n : bignum) =
-    Complex(bignum_to_double(n), 0)
+  fun from_integer(n : integer) =
+    Complex(integer_to_double(n), 0)
   fun `+`(Complex(r, i), Complex(q, j)) =
     Complex(r + q, i + j)
   fun `*`(Complex(r, i), Complex(q, j)) =
@@ -2340,8 +2340,8 @@ instance Numeric<Complex> {
     Complex(int32_to_double(n), 0)
   fun from_negative_int64(n : int64) =
     Complex(int64_to_double(n), 0)
-  fun from_negative_bignum(n : bignum) =
-    Complex(bignum_to_double(n), 0)
+  fun from_negative_integer(n : integer) =
+    Complex(integer_to_double(n), 0)
   fun negate(Complex(r, i)) =
     Complex(-r, -i)
   fun `-`(Complex(r, i), Complex(q, j)) =
@@ -2979,36 +2979,36 @@ To support interactions with the outside world while preserving the language’s
 The standard `IO` module provides many common operations for effectful actions, including functions for printing to the console and interacting with the environment.
 
 ```coal
-println_string : string -> IO<unit>
-print_string   : string -> IO<unit>
+println_string  : string -> IO<unit>
+print_string    : string -> IO<unit>
 
-println_int32  : int32 -> IO<unit>
-print_int32    : int32 -> IO<unit> 
+println_int32   : int32 -> IO<unit>
+print_int32     : int32 -> IO<unit> 
 
-println_int64  : int64 -> IO<unit>
-print_int64    : int64 -> IO<unit>
+println_int64   : int64 -> IO<unit>
+print_int64     : int64 -> IO<unit>
 
-println_bignum : bignum -> IO<unit>
-print_bignum   : bignum -> IO<unit>
+println_integer : integer -> IO<unit>
+print_integer   : integer -> IO<unit>
 
-println_bool   : bool -> IO<unit>
-print_bool     : bool -> IO<unit>
+println_bool    : bool -> IO<unit>
+print_bool      : bool -> IO<unit>
 
-println_char   : char -> IO<unit>
-print_char     : char -> IO<unit>
+println_char    : char -> IO<unit>
+print_char      : char -> IO<unit>
 
-println_float  : float -> IO<unit>
-print_float    : float -> IO<unit>
+println_float   : float -> IO<unit>
+print_float     : float -> IO<unit>
 
-println_double : double -> IO<unit>
-print_double   : double -> IO<unit>
+println_double  : double -> IO<unit>
+print_double    : double -> IO<unit>
 
-read_file      : string -> IO<Result<string, FileError>>
-write_file     : string -> string -> IO<unit>
+read_file       : string -> IO<Result<string, FileError>>
+write_file      : string -> string -> IO<unit>
 
-readln         : unit -> IO<string>
+readln          : unit -> IO<string>
 
-random         : unit -> IO<double>
+random          : unit -> IO<double>
 ```
 
 ### Monads and pipelining
