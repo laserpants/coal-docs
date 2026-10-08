@@ -734,9 +734,10 @@ current state (wrapped in <code>IO</code>) when it yields <code>None</code>.</p>
 <hr />
 <h3 id="blocking_poll"><code>blocking_poll</code></h3>
 <p>Blocking poll loop.</p>
-<p>Calls <code>try_fn(state)</code>. If it returns <code>Some(result)</code>, returns <code>result</code>.
-Otherwise calls <code>block_fn(state)</code> to wait for data, then retries
-<code>try_fn</code> with the same state.</p>
+<p>Runs the <code>IO</code> action <code>try_fn(state)</code>. If it yields <code>Some(result)</code>,
+returns <code>result</code> (wrapped in <code>IO</code>). Otherwise runs the <code>IO</code> action
+<code>block_fn(state)</code> to wait for data, then retries <code>try_fn</code> with the
+same state.</p>
 
 
 

@@ -790,6 +790,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#zip_streams" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>zip_streams</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zip3_streams" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>zip3_streams</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zip4_streams" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>zip4_streams</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#merge_with" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -890,6 +923,21 @@ elements of the given stream.</p>
 <h3 id="map4_stream"><code>map4_stream</code></h3>
 <p>Combine four streams elementwise using the given function.</p>
 <pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">map4_stream </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (a </span><span style="color:#D73A49">-></span><span style="color:#24292E"> b </span><span style="color:#D73A49">-></span><span style="color:#24292E"> c </span><span style="color:#D73A49">-></span><span style="color:#24292E"> d </span><span style="color:#D73A49">-></span><span style="color:#24292E"> e) </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">b</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">c</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">d</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">e</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">map4_stream </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (a </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> b </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> c </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> d </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> e) </span><span style="color:#F97583">-></span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">b</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">c</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">d</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">e</span><span style="color:#F97583">></span></span></code></pre>
+<hr />
+<h3 id="zip_streams"><code>zip_streams</code></h3>
+<p>Combine the elements of two streams into a stream of pairs.</p>
+<p>Equivalent to <code>map2_stream(fn(a, b) =&gt; (a, b), s1, s2)</code>.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">zip_streams </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">b</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(a, b)</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">zip_streams </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">b</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(a, b)</span><span style="color:#F97583">></span></span></code></pre>
+<hr />
+<h3 id="zip3_streams"><code>zip3_streams</code></h3>
+<p>Combine the elements of three streams into a stream of triples.</p>
+<p>Equivalent to <code>map3_stream(fn(a, b, c) =&gt; (a, b, c), s1, s2, s3)</code>.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">zip3_streams </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">b</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">c</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(a, b, c)</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">zip3_streams </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">b</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">c</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(a, b, c)</span><span style="color:#F97583">></span></span></code></pre>
+<hr />
+<h3 id="zip4_streams"><code>zip4_streams</code></h3>
+<p>Combine the elements of four streams into a stream of quadruples.</p>
+<p>Equivalent to <code>map4_stream(fn(a, b, c, d) =&gt; (a, b, c, d), s1, s2, s3, s4)</code>.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">zip4_streams </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">b</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">c</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">d</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(a, b, c, d)</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">zip4_streams </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">b</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">c</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">d</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(a, b, c, d)</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="merge_with"><code>merge_with</code></h3>
 <p>Interleave two streams, applying <code>fa</code> to the elements of the first

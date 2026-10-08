@@ -713,6 +713,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#and_return" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>and_return</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#join" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -765,6 +776,11 @@ first, making it read like "and then do this with the result".</p>
 <p><code>and_eval</code> is <code>then_do</code> with its arguments flipped: the second action is
 evaluated first, and the first is returned.</p>
 <pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">and_eval </span><span style="color:#D73A49">:</span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">b</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> with</span><span style="color:#24292E"> (</span><span style="color:#6F42C1">Monad</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">m</span><span style="color:#D73A49">></span><span style="color:#24292E">)</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">and_eval </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">b</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#F97583"> with</span><span style="color:#E1E4E8"> (</span><span style="color:#B392F0">Monad</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">m</span><span style="color:#F97583">></span><span style="color:#E1E4E8">)</span></span></code></pre>
+<hr />
+<h3 id="and_return"><code>and_return</code></h3>
+<p><code>and_return</code> is <code>and_eval</code> composed with <code>pure</code>: it runs the given monadic
+action, discarding its result, and returns the given pure value.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">and_return </span><span style="color:#D73A49">:</span><span style="color:#24292E"> a </span><span style="color:#D73A49">-></span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">b</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> with</span><span style="color:#24292E"> (</span><span style="color:#6F42C1">Monad</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">m</span><span style="color:#D73A49">></span><span style="color:#24292E">)</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">and_return </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">b</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#F97583"> with</span><span style="color:#E1E4E8"> (</span><span style="color:#B392F0">Monad</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">m</span><span style="color:#F97583">></span><span style="color:#E1E4E8">)</span></span></code></pre>
 <hr />
 <h3 id="join"><code>join</code></h3>
 <p><code>join</code> flattens a nested monadic value by one level, transforming
