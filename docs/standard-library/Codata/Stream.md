@@ -124,6 +124,42 @@ map4_stream : (a -> b -> c -> d -> e) -> Stream<a> -> Stream<b> -> Stream<c> -> 
 
 ---
 
+### `zip_streams`
+
+Combine the elements of two streams into a stream of pairs.
+
+Equivalent to `map2_stream(fn(a, b) => (a, b), s1, s2)`.
+
+```coal
+zip_streams : Stream<a> -> Stream<b> -> Stream<(a, b)>
+```
+
+---
+
+### `zip3_streams`
+
+Combine the elements of three streams into a stream of triples.
+
+Equivalent to `map3_stream(fn(a, b, c) => (a, b, c), s1, s2, s3)`.
+
+```coal
+zip3_streams : Stream<a> -> Stream<b> -> Stream<c> -> Stream<(a, b, c)>
+```
+
+---
+
+### `zip4_streams`
+
+Combine the elements of four streams into a stream of quadruples.
+
+Equivalent to `map4_stream(fn(a, b, c, d) => (a, b, c, d), s1, s2, s3, s4)`.
+
+```coal
+zip4_streams : Stream<a> -> Stream<b> -> Stream<c> -> Stream<d> -> Stream<(a, b, c, d)>
+```
+
+---
+
 ### `merge_with`
 
 Interleave two streams, applying `fa` to the elements of the first

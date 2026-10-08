@@ -50,6 +50,17 @@ and_eval : m<b> -> m<a> -> m<a> with (Monad<m>)
 
 ---
 
+### `and_return`
+
+`and_return` is `and_eval` composed with `pure`: it runs the given monadic
+action, discarding its result, and returns the given pure value.
+
+```coal
+and_return : a -> m<b> -> m<a> with (Monad<m>)
+```
+
+---
+
 ### `join`
 
 `join` flattens a nested monadic value by one level, transforming

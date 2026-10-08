@@ -187,7 +187,7 @@ parse_double : string -> Option<double>
 
 ### `parse_integer`
 
-Parse a decimal string into a integer.
+Parse a decimal string into an arbitrary-precision integer.
 
 Returns `None` if parsing fails, otherwise `Some(integer)`.
 
@@ -199,7 +199,7 @@ parse_integer : string -> Option<integer>
 
 ### `integer_to_float`
 
-Convert a integer to a float.
+Convert an integer to a float.
 
 ```coal
 integer_to_float : integer -> float
@@ -209,7 +209,7 @@ integer_to_float : integer -> float
 
 ### `integer_to_double`
 
-Convert a integer to a double.
+Convert an integer to a double.
 
 ```coal
 integer_to_double : integer -> double
@@ -219,7 +219,7 @@ integer_to_double : integer -> double
 
 ### `integer_to_string`
 
-Convert a integer to its string representation.
+Convert an integer to its string representation.
 
 ```coal
 integer_to_string : integer -> string
