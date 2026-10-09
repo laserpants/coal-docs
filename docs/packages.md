@@ -202,3 +202,17 @@ Seeded streams of pseudorandom values with helpers for bounded ranges and random
 coal add https://git@codeberg.org/laserpants/coal-random.git
 ```
 
+---
+
+## coal-math
+
+Repository: [codeberg.org/laserpants/coal-math](https://codeberg.org/laserpants/coal-math)
+
+Commonly used floating-point math functions and constants.
+
+#### Installation
+
+```bash
+coal add https://git@codeberg.org/laserpants/coal-math.git
+```
+
