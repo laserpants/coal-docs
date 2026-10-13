@@ -1,0 +1,2152 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://coal-lang.org/game-tutorial/">
+      
+      
+        <link rel="prev" href="../packages/">
+      
+      
+        <link rel="next" href="../data-and-codata/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/logo.svg">
+      <meta name="generator" content="zensical-0.0.65">
+    
+    
+      
+        <title>A tetroid game in Coal - Coal</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.40d3fdbb.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.812a03bb.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#a-tetroid-game-in-coal" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Coal" class="md-header__button md-logo" aria-label="Coal" data-md-component="logo">
+      
+  <img src="../assets/logo.svg" alt="Coal">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Coal
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              A tetroid game in Coal
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Coal" class="md-nav__button md-logo" aria-label="Coal" data-md-component="logo">
+      
+  <img src="../assets/logo.svg" alt="Coal">
+
+    </a>
+    Coal
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Getting started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-manual/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Language manual
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  CLI reference
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/standard-library/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Standard library
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Examples
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Examples
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/quicksort/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Quicksort
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/basic-io/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Basic I/O
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/monads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Monads
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/data-structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data structures
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Packages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Articles and tutorials
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_8">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Articles and tutorials
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  A tetroid game in Coal
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  A tetroid game in Coal
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#about-this-tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        About this tutorial
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Parts
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tetrominoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tetrominoes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orientations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Orientations
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pieces" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Pieces
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-board" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The board
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gamestate" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        GameState
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#piece-supply" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Piece supply
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Mechanics
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mechanics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-the-board" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Updating the board
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cells" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cells
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Collisions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#movements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Movements
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#piece-locking-and-drops" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Piece locking and drops
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Events
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Event handling
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Event handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Handlers
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-and-running-the-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Creating and running the loop
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#putting-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Putting it all together
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Putting it all together">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rendering
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Application entry point
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compiling-and-running-the-game" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Compiling and running the game
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Next steps
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feedback-ideas-and-suggestions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Feedback, ideas and suggestions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-and-codata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Data and codata
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  License
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#about-this-tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        About this tutorial
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Parts
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tetrominoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tetrominoes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orientations" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Orientations
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pieces" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Pieces
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-board" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The board
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gamestate" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        GameState
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#piece-supply" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Piece supply
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Mechanics
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mechanics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-the-board" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Updating the board
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cells" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cells
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Collisions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#movements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Movements
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#piece-locking-and-drops" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Piece locking and drops
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Events
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Event handling
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Event handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Handlers
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-and-running-the-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Creating and running the loop
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#putting-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Putting it all together
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Putting it all together">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rendering
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Application entry point
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compiling-and-running-the-game" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Compiling and running the game
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Next steps
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feedback-ideas-and-suggestions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Feedback, ideas and suggestions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="a-tetroid-game-in-coal">A tetroid game in Coal</h1>
+<h2 id="about-this-tutorial">About this tutorial</h2>
+<p>At first glance, Coal’s restrictions may seem to make it next to impossible to write any useful programs at all. 
+The goal of this tutorial is therefore to show how to do more interesting things than just compute factorials. 
+Here we will develop a minimal Tetris-like game in Coal.
+Through this concrete example, we will demonstrate how Coal’s programming model can be applied to something practical. (And what could be more practical than Tetris?)
+We will deal with several concepts found in “real” programs, including state management, user input, event handling, and interaction with the outside world (I/O). There are a few ideas that lead us to approach these concepts differently from how we would develop the game in other programming languages:</p>
+<ul>
+<li><strong>Declarativeness</strong>: Coal requires programs to be written in a declarative way: we describe what each part of the game <strong>is</strong>, rather than giving a sequence of instructions describing what the program <strong>does</strong>.</li>
+<li><strong>Purity</strong>: The code is mostly pure, with two exceptions: I/O is necessary to render the game in the terminal and to acquire a random seed from the underlying C runtime. The seed ensures that the sequence of pieces is different for each game.</li>
+<li><strong>Totality</strong>: Since every function must terminate and return a value for all possible inputs, infinite loops cannot be expressed in a trivial way in Coal. Instead, computations that continue indefinitely are modeled using <em>corecursion</em> and streams. This leads to the distinction between data and <em>codata</em>.</li>
+</ul>
+<p>The tutorial assumes that you are already somewhat familiar with the basic idea of <a href="https://en.wikipedia.org/wiki/Tetris">Tetris</a>; if not, you may want to research the game before continuing. Please note that we will try to follow the rules and terminology of the original game as closely as practically possible, but don't expect a genuine clone of any particular version of the game.</p>
+<p>In this first crude version, a small C runtime will be used to draw the game in the terminal. A future version could replace the terminal interface with a more polished desktop or browser-based UI.</p>
+<div style="background: #1e212fff; width: 100%; text-align: center;"><img src="../../assets/tutorials/img/animation.gif" style="margin: 30px; width: 200px;" alt="Animation of the Tetris-like game running in the terminal" /></div>
+
+<p>The source code of the game and this document are available <a href="https://codeberg.org/laserpants/coal-examples/src/branch/main/game">here</a>.</p>
+<h2 id="parts">Parts</h2>
+<p>Before we go ahead and create the actual game loop and the code that responds to user input and other events, let's look at the different building blocks that make up the game — the tetromino shapes, their rotations, the falling piece, the board, and the game state that ties it all together.
+In this section we will work out how to represent each of these in code. It makes sense to keep these representations as simple as possible, since every other part of the program will be written in terms of them.</p>
+<blockquote>
+<h5 id="numeric-types">Numeric types</h5>
+<p>Coal has several numeric types. In this example, we'll mostly use <code>int32</code> and <code>nat</code> to represent numeric values.</p>
+<ul>
+<li><code>int32</code> is Coal's fixed-width 32-bit integer type. In the game, it is used for coordinates and for values passed to or received from C functions.</li>
+<li><code>nat</code> is the type of natural numbers, used for sizes and indices (<code>List.length</code>, <code>range</code>, <code>remove_source</code>). See <a href="https://coal-lang.org/language-manual/#natural-numbers_1">Natural numbers</a> in the language manual for a more detailed explanation.</li>
+<li>Some functions convert between these two using <code>Nat.to_nat</code> and <code>Nat.pack</code>.</li>
+</ul>
+</blockquote>
+<h3 id="tetrominoes">Tetrominoes</h3>
+<p>The central element of the game is the <em>tetromino</em>. A tetromino is a geometric shape made up of four equally-sized squares connected edge-to-edge. There are seven distinct tetrominoes, conventionally named I, O, T, S, Z, J, and L.</p>
+<p><img src="../../assets/tutorials/img/shapes.png" alt="The seven tetrominoes: I, O, T, S, Z, J, and L" style="width: 600px;" /></p>
+<p>In code, we will represent a tetromino using the following data type:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">type</span><span style="color:#6F42C1"> Tetromino</span></span>
+<span class="line"><span style="color:#24292E">  = </span><span style="color:#6F42C1">ShapeI</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> ShapeO</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> ShapeT</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> ShapeS</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> ShapeZ</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> ShapeJ</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> ShapeL</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> Tetromino</span></span>
+<span class="line"><span style="color:#E1E4E8">  = </span><span style="color:#B392F0">ShapeI</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> ShapeO</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> ShapeT</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> ShapeS</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> ShapeZ</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> ShapeJ</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> ShapeL</span></span></code></pre>
+<blockquote>
+<h5 id="explainer">Explainer</h5>
+<p>The <code>type</code> keyword in Coal introduces a new algebraic data type. Algebraic data types can be constructed in two ways: using products and sums. A <em>sum</em> is a choice between alternatives: a value belongs to exactly one of the specified constructors.
+See the <a href="https://coal-lang.org/language-manual/#data-types">Data types</a> section of the language manual for a more detailed explanation.</p>
+</blockquote>
+<h3 id="orientations">Orientations</h3>
+<p>A tetromino can have one of four rotation states, or <em>orientations</em>: 0°, 90°, 180°, or 270°. Here is what the L tetromino looks like in each of these states:</p>
+<p><img src="../../assets/tutorials/img/L-rotations.png" style="width: 600px;" /></p>
+<p>Orientation is also straightforward to represent as a sum-type:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">type</span><span style="color:#6F42C1"> Orientation</span></span>
+<span class="line"><span style="color:#24292E">  = </span><span style="color:#6F42C1">R0</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> R90</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> R180</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> R270</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> Orientation</span></span>
+<span class="line"><span style="color:#E1E4E8">  = </span><span style="color:#B392F0">R0</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> R90</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> R180</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> R270</span></span></code></pre>
+<p>Some tetrominoes have rotational symmetry. For example, rotating the O doesn't change its shape. In the game, however, we still represent the four states explicitly, since the orientation of a piece determines which cells of the board it occupies.</p>
+<p>We need a function to change the orientation stepwise when the <em>up</em> key is pressed:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> rotate</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> R0</span><span style="color:#D73A49">   =></span><span style="color:#6F42C1"> R90</span><span style="color:#24292E">  </span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> R90</span><span style="color:#D73A49">  =></span><span style="color:#6F42C1"> R180</span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> R180</span><span style="color:#D73A49"> =></span><span style="color:#6F42C1"> R270</span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> R270</span><span style="color:#D73A49"> =></span><span style="color:#6F42C1"> R0</span><span style="color:#24292E">   </span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> rotate</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> R0</span><span style="color:#F97583">   =></span><span style="color:#B392F0"> R90</span><span style="color:#E1E4E8">  </span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> R90</span><span style="color:#F97583">  =></span><span style="color:#B392F0"> R180</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> R180</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> R270</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> R270</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> R0</span><span style="color:#E1E4E8">   </span></span></code></pre>
+<blockquote>
+<h5 id="explainer_1">Explainer</h5>
+<p>This syntax defines a top-level function using a list of patterns and the corresponding expressions, without explicitly naming the function argument. It is equivalent to a <code>match</code> expression:</p>
+<p><pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> rotate(orientation </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Orientation</span><span style="color:#24292E">) =</span></span>
+<span class="line"><span style="color:#D73A49">  match</span><span style="color:#24292E">(orientation) {</span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#6F42C1"> R0</span><span style="color:#D73A49">   =></span><span style="color:#6F42C1"> R90</span><span style="color:#24292E">  </span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#6F42C1"> R90</span><span style="color:#D73A49">  =></span><span style="color:#6F42C1"> R180</span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#6F42C1"> R180</span><span style="color:#D73A49"> =></span><span style="color:#6F42C1"> R270</span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#6F42C1"> R270</span><span style="color:#D73A49"> =></span><span style="color:#6F42C1"> R0</span><span style="color:#24292E">   </span></span>
+<span class="line"><span style="color:#24292E">  }</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> rotate(orientation </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Orientation</span><span style="color:#E1E4E8">) =</span></span>
+<span class="line"><span style="color:#F97583">  match</span><span style="color:#E1E4E8">(orientation) {</span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#B392F0"> R0</span><span style="color:#F97583">   =></span><span style="color:#B392F0"> R90</span><span style="color:#E1E4E8">  </span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#B392F0"> R90</span><span style="color:#F97583">  =></span><span style="color:#B392F0"> R180</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#B392F0"> R180</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> R270</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#B392F0"> R270</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> R0</span><span style="color:#E1E4E8">   </span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span></code></pre>
+</p>
+</blockquote>
+<h3 id="pieces">Pieces</h3>
+<p>A <em>piece</em> represents a tetromino located at a given position and in a particular orientation on the board. 
+It is convenient to represent it using a record, since it has multiple properties:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">type</span><span style="color:#D73A49"> alias</span><span style="color:#6F42C1"> Piece</span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#24292E">  { tetromino </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Tetromino</span></span>
+<span class="line"><span style="color:#24292E">  , orientation </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Orientation</span></span>
+<span class="line"><span style="color:#24292E">  , pos_x </span><span style="color:#D73A49">:</span><span style="color:#24292E"> int32</span></span>
+<span class="line"><span style="color:#24292E">  , pos_y </span><span style="color:#D73A49">:</span><span style="color:#24292E"> int32</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">type</span><span style="color:#F97583"> alias</span><span style="color:#B392F0"> Piece</span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#E1E4E8">  { tetromino </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Tetromino</span></span>
+<span class="line"><span style="color:#E1E4E8">  , orientation </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Orientation</span></span>
+<span class="line"><span style="color:#E1E4E8">  , pos_x </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> int32</span></span>
+<span class="line"><span style="color:#E1E4E8">  , pos_y </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> int32</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span></code></pre>
+<blockquote>
+<h5 id="explainer_2">Explainer</h5>
+<p>A <em>record</em> in Coal is formed by a sequence of comma-separated fields enclosed in curly braces. Each field has a name, called its <em>label</em>, and a value:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">{ shape </span><span style="color:#D73A49">=</span><span style="color:#032F62"> "octagon"</span></span>
+<span class="line"><span style="color:#24292E">, edges </span><span style="color:#D73A49">=</span><span style="color:#005CC5"> 8</span></span>
+<span class="line"><span style="color:#24292E">}</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">{ shape </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "octagon"</span></span>
+<span class="line"><span style="color:#E1E4E8">, edges </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 8</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>The type of a record is described using a similar syntax, but specifies a type for each field instead of a value:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">{ shape </span><span style="color:#D73A49">:</span><span style="color:#24292E"> string</span></span>
+<span class="line"><span style="color:#24292E">, edges </span><span style="color:#D73A49">:</span><span style="color:#24292E"> int32</span></span>
+<span class="line"><span style="color:#24292E">}</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">{ shape </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> string</span></span>
+<span class="line"><span style="color:#E1E4E8">, edges </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> int32</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>We also give this type a name using a <em>type alias</em>. This makes it possible to refer to it simply as <code>Piece</code> instead of repeating the whole thing. 
+See the language manual for a more detailed overview of <a href="https://coal-lang.org/language-manual/#records">records</a>, and <a href="https://coal-lang.org/language-manual/#type-aliases">type aliases</a>.</p>
+</blockquote>
+<h4 id="active-piece">Active piece</h4>
+<p>There is one special piece in the game, namely the one that is currently controlled by the player. We refer to this as the <em>active</em> piece.
+The following default piece is used as a template when updating the active piece:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">let</span><span style="color:#24292E"> default_piece </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Piece</span><span style="color:#24292E"> = </span></span>
+<span class="line"><span style="color:#24292E">  { tetromino </span><span style="color:#D73A49">=</span><span style="color:#6F42C1"> ShapeI</span></span>
+<span class="line"><span style="color:#24292E">  , orientation </span><span style="color:#D73A49">=</span><span style="color:#6F42C1"> R0</span></span>
+<span class="line"><span style="color:#24292E">  , pos_x </span><span style="color:#D73A49">=</span><span style="color:#005CC5"> 3</span></span>
+<span class="line"><span style="color:#24292E">  , pos_y </span><span style="color:#D73A49">=</span><span style="color:#005CC5"> 0</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> default_piece </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Piece</span><span style="color:#E1E4E8"> = </span></span>
+<span class="line"><span style="color:#E1E4E8">  { tetromino </span><span style="color:#F97583">=</span><span style="color:#B392F0"> ShapeI</span></span>
+<span class="line"><span style="color:#E1E4E8">  , orientation </span><span style="color:#F97583">=</span><span style="color:#B392F0"> R0</span></span>
+<span class="line"><span style="color:#E1E4E8">  , pos_x </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 3</span></span>
+<span class="line"><span style="color:#E1E4E8">  , pos_y </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span></code></pre>
+<p>Since the <code>Tetromino</code> type on its own doesn't contain any information about the geometry of the tetromino it represents, we need a mapping from pieces to the cells they occupy. We define that mapping in <a href="#tetromino-cells">Tetromino cells</a>.</p>
+<h3 id="the-board">The board</h3>
+<p>The <em>board</em> is where the game takes place. It is a 10 × 20 grid, whose elements we will refer to as <em>cells</em>. Each cell is either empty or occupied.</p>
+<p><img src="../../assets/tutorials/img/board.png" alt="A 10 by 20 board grid with some of its cells occupied" style="width: 220px;" /></p>
+<p>In the code, we keep this as simple as possible. We represent a cell as a pair <code>(int32, int32)</code> holding its <code>x</code> and <code>y</code> coordinates. The board is then simply a set of cells — those that are currently occupied:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">type</span><span style="color:#D73A49"> alias</span><span style="color:#6F42C1"> Board</span><span style="color:#24292E"> = </span><span style="color:#6F42C1">Set</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">)</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">type</span><span style="color:#F97583"> alias</span><span style="color:#B392F0"> Board</span><span style="color:#E1E4E8"> = </span><span style="color:#B392F0">Set</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">></span></span></code></pre>
+<p>The active piece is not part of the <code>Board</code>; it is merged into the board when it lands.</p>
+<p>When the game starts, the board is empty:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">let</span><span style="color:#24292E"> empty_board </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#6F42C1">  Containers</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Set</span><span style="color:#D73A49">.</span><span style="color:#24292E">empty</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> empty_board </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#B392F0">  Containers</span><span style="color:#F97583">.</span><span style="color:#B392F0">Set</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">empty</span></span></code></pre>
+<blockquote>
+<h5 id="explainer_3">Explainer</h5>
+<p><code>Set</code> is an immutable balanced tree, part of the <a href="https://codeberg.org/laserpants/coal-containers"><code>coal-containers</code></a> package. Note that the <code>Set</code> module is imported qualified:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">import</span><span style="color:#D73A49"> namespace</span><span style="color:#6F42C1"> Containers</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Set</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">import</span><span style="color:#F97583"> namespace</span><span style="color:#B392F0"> Containers</span><span style="color:#F97583">.</span><span style="color:#B392F0">Set</span></span></code></pre>
+<p>That is why we need to write <code>Containers.Set.empty</code> here, as opposed to just <code>empty</code>.</p>
+</blockquote>
+<h3 id="gamestate">GameState</h3>
+<p>The <em>game state</em> is a record containing everything the game needs to keep track of while it is running. This is:</p>
+<ul>
+<li>The <code>Board</code>.</li>
+<li>The currently active <code>Piece</code>.</li>
+<li>A <code>Stream&lt;Piece&gt;</code> that supplies the pieces the game draws from.</li>
+</ul>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">type</span><span style="color:#D73A49"> alias</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#24292E">  { board </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span></span>
+<span class="line"><span style="color:#24292E">  , active_piece </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Piece</span></span>
+<span class="line"><span style="color:#24292E">  , piece_supply </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Stream</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Piece</span><span style="color:#D73A49">></span></span>
+<span class="line"><span style="color:#24292E">  }</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">type</span><span style="color:#F97583"> alias</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#E1E4E8">  { board </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span></span>
+<span class="line"><span style="color:#E1E4E8">  , active_piece </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Piece</span></span>
+<span class="line"><span style="color:#E1E4E8">  , piece_supply </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Stream</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Piece</span><span style="color:#F97583">></span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span></code></pre>
+<blockquote>
+<h5 id="explainer_4">Explainer</h5>
+<p>A <code>Stream&lt;a&gt;</code> is <em>codata</em>: unlike a list, which is finite, a stream is a potentially infinite sequence produced lazily, one element at a time. You consume it with <code>head</code> (the next element) and <code>tail</code> (the rest), both from <code>Codata.Stream</code>; <code>repeat(x)</code> yields <code>x</code> forever. This is how the game models an endless supply of pieces without writing an infinite loop.</p>
+</blockquote>
+<p>We also define a default game state to use as a starting point:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">let</span><span style="color:#24292E"> default_game_state =</span></span>
+<span class="line"><span style="color:#24292E">  { board </span><span style="color:#D73A49">=</span><span style="color:#24292E"> empty_board</span></span>
+<span class="line"><span style="color:#24292E">  , active_piece </span><span style="color:#D73A49">=</span><span style="color:#24292E"> default_piece</span></span>
+<span class="line"><span style="color:#24292E">  , piece_supply </span><span style="color:#D73A49">=</span><span style="color:#24292E"> repeat(default_piece)</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> default_game_state =</span></span>
+<span class="line"><span style="color:#E1E4E8">  { board </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> empty_board</span></span>
+<span class="line"><span style="color:#E1E4E8">  , active_piece </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> default_piece</span></span>
+<span class="line"><span style="color:#E1E4E8">  , piece_supply </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> repeat(default_piece)</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span></code></pre>
+<p>Here <code>repeat(default_piece)</code> is a placeholder supply that yields the same piece forever. It is replaced with a real, randomly generated supply when the game starts, in <code>main</code>.</p>
+<p>Next, let's see how the <code>piece_supply</code> field of the game state is built. It is the one part of the state that is generated rather than derived from the player's actions.</p>
+<h3 id="piece-supply">Piece supply</h3>
+<p>When a falling piece reaches the bottom of the board or lands on another block, it locks into place. A new piece then spawns at the top of the board.
+To keep generating new pieces throughout the game, we need two random streams:</p>
+<ul>
+<li>
+<p>One for the tetrominoes:</p>
+<p><img src="../../assets/tutorials/img/piece-stream.png" alt="A stream of random tetrominoes" style="width: 850px;" /></p>
+</li>
+<li>
+<p>And one for the orientations:</p>
+<p><img src="../../assets/tutorials/img/orientation-stream.png" alt="A stream of random orientations" style="width: 850px;" /></p>
+</li>
+</ul>
+<p>For these, we are going to use the <a href="https://codeberg.org/laserpants/coal-random"><code>coal-random</code></a> package and the <code>pick</code> function, which returns a stream of random elements drawn from a non-empty list of elements.</p>
+<ul>
+<li>
+<p><code>Stream&lt;Tetromino&gt;</code>:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">pick(seed, </span><span style="color:#005CC5">Cons</span><span style="color:#24292E">(</span><span style="color:#6F42C1">ShapeI</span><span style="color:#24292E">, [</span><span style="color:#6F42C1">ShapeO</span><span style="color:#24292E">, </span><span style="color:#6F42C1">ShapeT</span><span style="color:#24292E">, </span><span style="color:#6F42C1">ShapeS</span><span style="color:#24292E">, </span><span style="color:#6F42C1">ShapeZ</span><span style="color:#24292E">, </span><span style="color:#6F42C1">ShapeJ</span><span style="color:#24292E">, </span><span style="color:#6F42C1">ShapeL</span><span style="color:#24292E">])),</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">pick(seed, </span><span style="color:#79B8FF">Cons</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">ShapeI</span><span style="color:#E1E4E8">, [</span><span style="color:#B392F0">ShapeO</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">ShapeT</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">ShapeS</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">ShapeZ</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">ShapeJ</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">ShapeL</span><span style="color:#E1E4E8">])),</span></span></code></pre>
+</li>
+<li>
+<p><code>Stream&lt;Orientation&gt;</code>:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">pick(seed, </span><span style="color:#005CC5">Cons</span><span style="color:#24292E">(</span><span style="color:#6F42C1">R0</span><span style="color:#24292E">, [</span><span style="color:#6F42C1">R90</span><span style="color:#24292E">, </span><span style="color:#6F42C1">R180</span><span style="color:#24292E">, </span><span style="color:#6F42C1">R270</span><span style="color:#24292E">]))</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">pick(seed, </span><span style="color:#79B8FF">Cons</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">R0</span><span style="color:#E1E4E8">, [</span><span style="color:#B392F0">R90</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">R180</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">R270</span><span style="color:#E1E4E8">]))</span></span></code></pre>
+</li>
+</ul>
+<blockquote>
+<h5 id="explainer_5">Explainer</h5>
+<p>The <code>NonEmptyList</code> data type used here is part of the <a href="https://codeberg.org/laserpants/coal-containers"><code>coal-containers</code></a> package. 
+A stream cannot be empty, so to generate one from a list, that list needs to have at least <em>one</em> element. 
+Under the hood, a <code>NonEmptyList</code> is just an ordinary list coupled with an extra element:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">type</span><span style="color:#6F42C1"> NonEmptyList</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#24292E"> = </span><span style="color:#005CC5">Cons</span><span style="color:#24292E">(a, </span><span style="color:#6F42C1">List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#24292E">)</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> NonEmptyList</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> = </span><span style="color:#79B8FF">Cons</span><span style="color:#E1E4E8">(a, </span><span style="color:#B392F0">List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#E1E4E8">)</span></span></code></pre>
+</blockquote>
+<p>The first argument to <code>pick</code> is an opaque <em>seed</em> responsible for initializing the pseudorandom number generator.
+Since <code>pick</code> is a pure function, the same seed always produces the same sequence of numbers.
+To make each game unique we can generate a fresh seed derived from the system clock.
+That way the player experiences some actual randomness.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">random_seed </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> unit</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Seed</span><span style="color:#D73A49">></span><span style="color:#24292E"> </span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">random_seed </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> unit</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Seed</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> </span></span></code></pre>
+<p>The function <code>map2_stream</code> takes a <code>Stream&lt;a&gt;</code> and a <code>Stream&lt;b&gt;</code> and fuses them into a <code>Stream&lt;c&gt;</code>.
+Its first argument is a function <code>a -&gt; b -&gt; c</code> that describes how each <code>a, b</code> element-pair is combined. 
+<code>map2_stream</code> is exactly what we need in order to combine tetrominoes and orientations into a <code>Stream&lt;Piece&gt;</code>:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> piece_supply(seed) =</span></span>
+<span class="line"><span style="color:#24292E">  map2_stream(</span></span>
+<span class="line"><span style="color:#D73A49">    fn</span><span style="color:#24292E">(tetromino, orientation) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#24292E">      default_piece{ tetromino </span><span style="color:#D73A49">=</span><span style="color:#24292E"> tetromino, orientation </span><span style="color:#D73A49">=</span><span style="color:#24292E"> orientation }, </span></span>
+<span class="line"><span style="color:#24292E">    pick(seed, </span><span style="color:#005CC5">Cons</span><span style="color:#24292E">(</span><span style="color:#6F42C1">ShapeI</span><span style="color:#24292E">, [</span><span style="color:#6F42C1">ShapeO</span><span style="color:#24292E">, </span><span style="color:#6F42C1">ShapeT</span><span style="color:#24292E">, </span><span style="color:#6F42C1">ShapeS</span><span style="color:#24292E">, </span><span style="color:#6F42C1">ShapeZ</span><span style="color:#24292E">, </span><span style="color:#6F42C1">ShapeJ</span><span style="color:#24292E">, </span><span style="color:#6F42C1">ShapeL</span><span style="color:#24292E">])),</span></span>
+<span class="line"><span style="color:#24292E">    pick(seed, </span><span style="color:#005CC5">Cons</span><span style="color:#24292E">(</span><span style="color:#6F42C1">R0</span><span style="color:#24292E">, [</span><span style="color:#6F42C1">R90</span><span style="color:#24292E">, </span><span style="color:#6F42C1">R180</span><span style="color:#24292E">, </span><span style="color:#6F42C1">R270</span><span style="color:#24292E">]))</span></span>
+<span class="line"><span style="color:#24292E">  )</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> piece_supply(seed) =</span></span>
+<span class="line"><span style="color:#E1E4E8">  map2_stream(</span></span>
+<span class="line"><span style="color:#F97583">    fn</span><span style="color:#E1E4E8">(tetromino, orientation) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#E1E4E8">      default_piece{ tetromino </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> tetromino, orientation </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> orientation }, </span></span>
+<span class="line"><span style="color:#E1E4E8">    pick(seed, </span><span style="color:#79B8FF">Cons</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">ShapeI</span><span style="color:#E1E4E8">, [</span><span style="color:#B392F0">ShapeO</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">ShapeT</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">ShapeS</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">ShapeZ</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">ShapeJ</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">ShapeL</span><span style="color:#E1E4E8">])),</span></span>
+<span class="line"><span style="color:#E1E4E8">    pick(seed, </span><span style="color:#79B8FF">Cons</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">R0</span><span style="color:#E1E4E8">, [</span><span style="color:#B392F0">R90</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">R180</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">R270</span><span style="color:#E1E4E8">]))</span></span>
+<span class="line"><span style="color:#E1E4E8">  )</span></span></code></pre>
+<blockquote>
+<h5 id="explainer_6">Explainer</h5>
+<p>The expression <code>default_piece{ tetromino = tetromino, orientation = orientation }</code> is a partial update that 
+makes a copy of the <code>default_piece</code> record, replacing only the <code>tetromino</code> and <code>orientation</code> fields.</p>
+<h5 id="note">Note</h5>
+<p>Both <code>pick</code> calls receive the same <code>seed</code>. Because <code>pick</code> is deterministic, the two streams are derived from the same pseudorandom sequence, so the tetromino and orientation streams are not fully independent. If that matters, derive a second seed for one of them.</p>
+</blockquote>
+<h2 id="mechanics">Mechanics</h2>
+<h3 id="updating-the-board">Updating the board</h3>
+<p>Many of the functions used to update the game operate on <code>GameState</code> values.
+They all take a <code>GameState</code>, sometimes together with other arguments, and return a new <code>GameState</code> reflecting the action we want to perform. 
+Most of these updates involve changing the <code>Board</code>.
+When a piece lands, for example, we need to add its cells to the board. 
+We may also need to clear one or more completed rows and shift the rows above the cleared rows down.
+To get an idea of how this works, here is the function that removes one specific row from the board:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> board_remove_row(y </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">, board </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span><span style="color:#24292E">) =</span></span>
+<span class="line"><span style="color:#6F42C1">  List</span><span style="color:#D73A49">.</span><span style="color:#24292E">reduce_left(</span></span>
+<span class="line"><span style="color:#D73A49">    fn</span><span style="color:#24292E">(acc, x) </span><span style="color:#D73A49">=></span><span style="color:#6F42C1"> Containers</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Set</span><span style="color:#D73A49">.</span><span style="color:#24292E">delete((x, y), acc),</span></span>
+<span class="line"><span style="color:#24292E">    board,</span></span>
+<span class="line"><span style="color:#24292E">    range(</span><span style="color:#005CC5">0</span><span style="color:#24292E">, </span><span style="color:#005CC5">10</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#24292E">  )</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> board_remove_row(y </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">, board </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span><span style="color:#E1E4E8">) =</span></span>
+<span class="line"><span style="color:#B392F0">  List</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">reduce_left(</span></span>
+<span class="line"><span style="color:#F97583">    fn</span><span style="color:#E1E4E8">(acc, x) </span><span style="color:#F97583">=></span><span style="color:#B392F0"> Containers</span><span style="color:#F97583">.</span><span style="color:#B392F0">Set</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">delete((x, y), acc),</span></span>
+<span class="line"><span style="color:#E1E4E8">    board,</span></span>
+<span class="line"><span style="color:#E1E4E8">    range(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  )</span></span></code></pre>
+<p>We also need functions to check which cells are occupied and to query the board in other ways.
+The board API defines these along with the functions for updating the board (including <code>board_remove_row</code>, which we have already seen in full). 
+To keep things short, we'll show only the <em>types</em> of these functions, leaving out their implementations. 
+Take a look at the source code if you're interested in the details.</p>
+<blockquote>
+<h5 id="reminder">Reminder</h5>
+<p>A function with multiple arguments, like <code>f(x : int32, y : int32) : bool</code>, is <em>curried</em>, so its type is written with arrows: <code>int32 -&gt; int32 -&gt; bool</code>. 
+A function that takes a single pair treats that pair as one type, as in <code>(int32, Board) -&gt; Board</code>.</p>
+</blockquote>
+<h4 id="looking-up-and-adding-cells">Looking up and adding cells</h4>
+<p>These functions work with individual cells. 
+Pretty much everything else is built on top of them:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> is_board_member(cell </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">), board </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> bool</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> board_insert(cell </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">), board </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> board_insert_cells(cells </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">)</span><span style="color:#D73A49">></span><span style="color:#24292E">, board </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> board_cell_is_set(cell </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">), game_state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> bool</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> is_board_member(cell </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">), board </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> bool</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> board_insert(cell </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">), board </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> board_insert_cells(cells </span><span style="color:#F97583">:</span><span style="color:#B392F0"> List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">></span><span style="color:#E1E4E8">, board </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> board_cell_is_set(cell </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">), game_state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> bool</span></span></code></pre>
+<ul>
+<li><code>is_board_member</code> has type <code>(int32, int32) -&gt; Board -&gt; bool</code>. It takes a cell (a pair of coordinates) and the board, and returns whether the cell is currently occupied.</li>
+<li><code>board_insert</code> has type <code>(int32, int32) -&gt; Board -&gt; Board</code>. It takes a cell and the current board, and returns a board with the cell added.</li>
+<li><code>board_insert_cells</code> has type <code>List&lt;(int32, int32)&gt; -&gt; Board -&gt; Board</code>. It adds all cells in the list to the board. This is useful when a piece locks into place, since it occupies four cells.</li>
+<li><code>board_cell_is_set</code> has type <code>(int32, int32) -&gt; GameState -&gt; bool</code>. It checks whether a cell is occupied in the board contained in a <code>GameState</code>. This is a convenience for collision-checking functions, which can pass the <code>GameState</code> directly instead of first extracting <code>state.board</code>.</li>
+</ul>
+<p>Recall that a cell is just a pair <code>(int32, int32)</code> and that the <code>Board</code> is a <code>Set</code> of those pairs. 
+So <code>is_board_member</code> and <code>board_insert</code> are really just thin wrappers around the matching <code>Set</code> operations.</p>
+<h4 id="counting-removing-and-shifting-rows">Counting, removing, and shifting rows</h4>
+<p>Clearing a completed line means inspecting and rearranging whole rows, so we need a few row helpers. A row is identified by its <code>y</code>-coordinate, and the columns run from 0 to 9. (Note that <code>range(0, 10)</code> is how we write those ten columns: the second argument to <code>range</code> is a <em>count</em>, not an upper bound, so <code>range(0, 10)</code> is the list <code>[0, 1, …, 9]</code>.)</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> board_count_in_row(y </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">, board </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> board_shift_row(y </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">, board </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> board_shift_rows_above(cleared_y </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">, board </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> board_count_in_row(y </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">, board </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> board_shift_row(y </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">, board </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> board_shift_rows_above(cleared_y </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">, board </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span></span></code></pre>
+<ul>
+<li><code>board_count_in_row</code> has type <code>int32 -&gt; Board -&gt; int32</code>. It counts how many cells are filled in row <code>y</code> — somewhere between 0 and 10. Once that count hits 10, the row is full and should be cleared.</li>
+<li><code>board_shift_row</code> has type <code>int32 -&gt; Board -&gt; Board</code>. It moves every filled cell in row <code>y</code> down one, into row <code>y + 1</code>, which closes that gap.</li>
+<li><code>board_shift_rows_above</code> has type <code>int32 -&gt; Board -&gt; Board</code>. It shifts every row above <code>cleared_y</code> down by one, so the whole stack resting on the cleared line falls into place.</li>
+</ul>
+<blockquote>
+<h5 id="note_1">Note</h5>
+<p>This works only because <code>reduce_left</code> folds the list <strong>right-to-left</strong>: the range <code>[0, …, cleared_y - 1]</code> is therefore consumed from <code>cleared_y - 1</code> down to <code>0</code>. Processing the rows in the other direction would shift the same cells repeatedly and collapse the stack.</p>
+</blockquote>
+<h4 id="clearing-completed-lines">Clearing completed lines</h4>
+<p>The row helpers come together in a small clearing algorithm:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> board_clear_step(pair </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#6F42C1">Board</span><span style="color:#24292E">)) </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#6F42C1">Board</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> board_clear_full_rows(board </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> board_clear_step(pair </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">Board</span><span style="color:#E1E4E8">)) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">Board</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> board_clear_full_rows(board </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span></span></code></pre>
+<ul>
+<li><code>board_clear_step</code> has type <code>(int32, Board) -&gt; (int32, Board)</code>. It does <em>one</em> step of the scan. You hand it a row index <code>y</code> paired with a board, and it either finds row <code>y</code> full — in which case it removes that row and shifts the rows above it down — or, if the row isn't full, just moves on to <code>y - 1</code>. It carries the board and the row index around together, because that pair is all the state the scan needs from one step to the next.</li>
+<li><code>board_clear_full_rows</code> has type <code>Board -&gt; Board</code>. It runs <code>board_clear_step</code> over and over, starting at the bottom row (index 19) and working its way up, until it has checked the whole board, then gives you back the result.</li>
+</ul>
+<blockquote>
+<h5 id="explainer_7">Explainer</h5>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">let</span><span style="color:#24292E"> (_, result_board) =</span></span>
+<span class="line"><span style="color:#24292E">  iterate(</span><span style="color:#005CC5">50</span><span style="color:#24292E">, board_clear_step, (</span><span style="color:#005CC5">19</span><span style="color:#24292E">, board)) </span></span>
+<span class="line"><span style="color:#D73A49">in</span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#24292E">  result_board</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> (_, result_board) =</span></span>
+<span class="line"><span style="color:#E1E4E8">  iterate(</span><span style="color:#79B8FF">50</span><span style="color:#E1E4E8">, board_clear_step, (</span><span style="color:#79B8FF">19</span><span style="color:#E1E4E8">, board)) </span></span>
+<span class="line"><span style="color:#F97583">in</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#E1E4E8">  result_board</span></span></code></pre>
+<p>Since Coal has no general recursion, repetition is achieved here using the <code>iterate</code> combinator from <code>Coal.Combinators</code>, which applies a function a fixed number of times. 
+We just pick a bound that is big enough to cover every row of the board.</p>
+<p>The bound is 50 rather than 20 because a row that gets cleared stays at the same index (so it can be re-examined) and the scan also needs one step per row to walk to the top. The bound for <code>drop_to_bottom</code> (30) only has to exceed the board height of 20.</p>
+</blockquote>
+<h4 id="translating-the-board">Translating the board</h4>
+<p>Last but not least, we need a way to turn the board into a plain list, since that is what the renderer expects:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> board_to_list(board </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Board</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">)</span><span style="color:#D73A49">></span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#6F42C1">  Containers</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Set</span><span style="color:#D73A49">.</span><span style="color:#24292E">to_list(board)</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> board_to_list(board </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Board</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#B392F0">  Containers</span><span style="color:#F97583">.</span><span style="color:#B392F0">Set</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">to_list(board)</span></span></code></pre>
+<h3 id="cells">Cells</h3>
+<p>Cells are like the atoms in the universe of this game. They are also commonly referred to as <em>blocks</em> or <em>minos</em> in Tetris terminology.
+The functions here operate at the cell level to manipulate or peek at the cells of a piece.
+These will be essential later for collision checks, which determine whether the active piece would overlap with anything on the board, and for rendering, which needs to know which cells to draw.</p>
+<h4 id="tetromino-cells">Tetromino cells</h4>
+<p>As previously mentioned, the <code>Tetromino</code> type on its own doesn't say anything about the actual geometry of the shape it represents. It is just an identity.
+To move and land the currently active piece, the game needs a way to figure out the cells it occupies from its shape, orientation, and position.
+The function <code>tetromino_cells</code> does most of this for us — it takes a <code>Tetromino</code> and an <code>Orientation</code> and returns a <code>Set&lt;(int32, int32)&gt;</code> of cells.
+For example, for <code>ShapeL</code> and <code>R90</code> it contains the following cells (shown as a list for readability; a <code>Set</code> itself is unordered):</p>
+<div class="highlight"><pre><span></span><code>[ (3, 0), (1, 1), (2, 1), (3, 1) ]
+</code></pre></div>
+<p><img src="../../assets/tutorials/img/cells.png" alt="The four cells occupied by the L tetromino in orientation R90" style="width: 300px;" /></p>
+<blockquote>
+<h5 id="explainer_8">Explainer</h5>
+<p>In the source, <code>tetromino_cells</code> is written as <code>Containers.Set.from_list .| match(tetromino) { … }</code>. <code>.|</code> is the <em>forward application</em> operator, the mirror image of the <code>|.</code> used later: <code>x .| f</code> means <code>f(x)</code>, which lets a value head a pipeline of transformations.</p>
+</blockquote>
+<h4 id="shifting-cells">Shifting cells</h4>
+<p>To get the actual cells the piece occupies on the board, we then offset these coordinates by its <code>x</code> and <code>y</code> position.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> translate_cell(d_x </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">, d_y </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">, (cell_x, cell_y) </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">)) </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> translate_cells(d_x </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">, d_y </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">, cells </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">)</span><span style="color:#D73A49">></span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">)</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> translate_cell(d_x </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">, d_y </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">, (cell_x, cell_y) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">)) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> translate_cells(d_x </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">, d_y </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">, cells </span><span style="color:#F97583">:</span><span style="color:#B392F0"> List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">></span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">></span></span></code></pre>
+<p>These functions handle the coordinate arithmetic.</p>
+<ul>
+<li><code>translate_cell</code> has type <code>int32 -&gt; int32 -&gt; (int32, int32) -&gt; (int32, int32)</code>. It takes a horizontal step <code>d_x</code>, a vertical step <code>d_y</code>, and a cell, and returns the cell shifted by that amount: <code>(cell_x + d_x, cell_y + d_y)</code>.</li>
+<li><code>translate_cells</code> has type <code>int32 -&gt; int32 -&gt; List&lt;(int32, int32)&gt; -&gt; List&lt;(int32, int32)&gt;</code>. This function performs the same translation on all cells in the given list.</li>
+</ul>
+<blockquote>
+<h5 id="explainer_9">Explainer</h5>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> translate_cells(d_x </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">, d_y </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">, cells </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">)</span><span style="color:#D73A49">></span><span style="color:#24292E">) =</span></span>
+<span class="line"><span style="color:#6F42C1">  List</span><span style="color:#D73A49">.</span><span style="color:#24292E">map(translate_cell(d_x, d_y), cells)</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> translate_cells(d_x </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">, d_y </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">, cells </span><span style="color:#F97583">:</span><span style="color:#B392F0"> List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">></span><span style="color:#E1E4E8">) =</span></span>
+<span class="line"><span style="color:#B392F0">  List</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">map(translate_cell(d_x, d_y), cells)</span></span></code></pre>
+<p>The expression <code>translate_cell(d_x, d_y)</code> is a partially applied function. It produces a function that takes a cell and translates it, which is exactly what <code>List.map</code> expects.</p>
+</blockquote>
+<h4 id="turning-a-piece-into-cells">Turning a piece into cells</h4>
+<p>The last function brings the two together:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> active_piece_cells(game_state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">)</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> active_piece_cells(game_state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">></span></span></code></pre>
+<ul>
+<li><code>active_piece_cells</code> has type <code>GameState -&gt; List&lt;(int32, int32)&gt;</code>. It pulls the active piece out of the game state, looks up the cells of its shape with <code>tetromino_cells</code>, and shifts each one by the piece's position. The result is the list of board coordinates the piece currently covers. Since the shape comes back as a <code>Set</code>, it's first converted to a list so that the renderer and the collision checks can walk over it.</li>
+</ul>
+<h3 id="collisions">Collisions</h3>
+<p>Collision detection is the process of determining whether two objects overlap or occupy the same space.
+We need this to determine whether a piece can move or rotate without overlapping existing blocks or moving outside the playfield.
+The following functions inspect the game state to perform these collision checks and return a <code>bool</code>.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> cell_collides((x, y) </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">), game_state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> bool</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> cells_collide(cells </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">)</span><span style="color:#D73A49">></span><span style="color:#24292E">, game_state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> bool</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> cell_collides((x, y) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">), game_state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> bool</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> cells_collide(cells </span><span style="color:#F97583">:</span><span style="color:#B392F0"> List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">></span><span style="color:#E1E4E8">, game_state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> bool</span></span></code></pre>
+<ul>
+<li><code>cell_collides</code> has type <code>(int32, int32) -&gt; GameState -&gt; bool</code>. It takes a cell and a game state, and returns whether the cell is an invalid position — either because it lies outside the playfield or because it is already occupied by a block.</li>
+<li><code>cells_collide</code> has type <code>List&lt;(int32, int32)&gt; -&gt; GameState -&gt; bool</code>. It checks a list of cells and returns <code>true</code> if any of them collides, using <code>List.any</code> with <code>cell_collides</code>. This is the function used by the movement code, since a piece occupies four cells.</li>
+</ul>
+<blockquote>
+<h5 id="explainer_10">Explainer</h5>
+<p><code>cells_collide</code> is <code>List.any</code> over the piece's cells, <code>translate_cells</code> is <code>List.map</code>, and <code>board_remove_row</code> is a <code>reduce_left</code>. Much of what looks like an algorithm here is a single library combinator applied to a list.</p>
+</blockquote>
+<p>The bounds test spells out the playfield we described earlier: a cell's x-coordinate runs from 0 to 9 and its y-coordinate from 0 to 19, so <code>x &lt; 0</code>, <code>x &gt;= 10</code>, and <code>y &gt;= 20</code> all count as collisions. There's no <code>y &lt; 0</code> check, though — the top edge isn't a wall, so a piece is free to poke out above the board.</p>
+<h3 id="movements">Movements</h3>
+<p>The next thing to tackle is moving the piece around. 
+Without movement the game wouldn’t be very interesting.
+The first two functions don't move anything — they only check if a move is possible. They both rely on the collision checks from the previous section.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> can_move(d_x </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">, d_y</span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">, state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> bool</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> can_rotate(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> bool</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> can_move(d_x </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">, d_y</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">, state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> bool</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> can_rotate(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> bool</span></span></code></pre>
+<ul>
+<li><code>can_move</code> takes the cells occupied by the active piece, translates them by <code>d_x</code> steps horizontally and <code>d_y</code> steps vertically, and passes the result to <code>cells_collide</code> to test for collisions. It returns <code>true</code> if the move is possible.</li>
+<li><code>can_rotate</code> has type <code>GameState -&gt; bool</code>. Instead of translating the current cells, it uses <code>tetromino_cells</code> to calculate the cells occupied by the piece in its next orientation, then translates them to the piece's current position. It passes these cells to <code>cells_collide</code> and returns <code>true</code> if the rotated piece fits without a collision.</li>
+</ul>
+<h4 id="making-the-move">Making the move</h4>
+<p>To actually move the piece, there are two functions similar to those we have already seen:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> move_active_piece(d_x </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">, d_y </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">, state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> rotate_active_piece(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> move_active_piece(d_x </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">, d_y </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">, state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> rotate_active_piece(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span></span></code></pre>
+<ul>
+<li><code>move_active_piece</code> has type <code>int32 -&gt; int32 -&gt; GameState -&gt; GameState</code>. It returns a new game state whose active piece has been nudged by <code>(d_x, d_y)</code>. </li>
+<li><code>rotate_active_piece</code> has type <code>GameState -&gt; GameState</code> and returns an updated state with the active piece's orientation advanced one step by <code>rotate</code>.</li>
+</ul>
+<h4 id="guarded-moves">Guarded moves</h4>
+<p>Finally, we define the functions that the event handlers call — one for each direction of movement, plus rotation:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> move_left(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> move_right(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> move_down(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> rotate_active(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> move_left(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> move_right(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> move_down(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> rotate_active(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span></span></code></pre>
+<ul>
+<li>These all have type <code>GameState -&gt; GameState</code> and rely on the <code>can_move</code> and <code>can_rotate</code> utilities to determine whether the active piece can move or rotate. If the move is valid, they return a new <code>GameState</code> with the piece in its new position or orientation. Otherwise, the state remains unchanged.</li>
+</ul>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> move_left(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) =</span></span>
+<span class="line"><span style="color:#D73A49">  if</span><span style="color:#24292E"> (can_move(</span><span style="color:#005CC5">-1</span><span style="color:#24292E">, </span><span style="color:#005CC5">0</span><span style="color:#24292E">, state)) </span><span style="color:#D73A49">then</span><span style="color:#24292E"> move_active_piece(</span><span style="color:#005CC5">-1</span><span style="color:#24292E">, </span><span style="color:#005CC5">0</span><span style="color:#24292E">, state) </span><span style="color:#D73A49">else</span><span style="color:#24292E"> state</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> move_left(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) =</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (can_move(</span><span style="color:#79B8FF">-1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, state)) </span><span style="color:#F97583">then</span><span style="color:#E1E4E8"> move_active_piece(</span><span style="color:#79B8FF">-1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, state) </span><span style="color:#F97583">else</span><span style="color:#E1E4E8"> state</span></span></code></pre>
+<blockquote>
+<h5 id="note_2">Note</h5>
+<p><code>move_left</code>, <code>move_right</code>, and <code>rotate_active</code> are wired directly to their keys in <code>handle_event</code>. The down key is the exception: it is mapped to <code>tick</code> rather than to <code>move_down</code>. The difference shows up at the bottom of the stack — <code>move_down</code> would simply do nothing once the piece can no longer fall, whereas <code>tick</code> <em>lands</em> the piece, so a single press of the down key can lock it in place.</p>
+</blockquote>
+<h3 id="piece-locking-and-drops">Piece locking and drops</h3>
+<p>Eventually, the active piece has to land. The functions under this section handle the landing process — they lock the piece into the board, clear any completed rows, and select the next piece from the supply.
+We’ll also look at two drop functions that move the active piece straight down as far as it can go, and at <code>tick</code>, which moves it down one row on each timer tick.</p>
+<h4 id="locking-and-spawning">Locking and spawning</h4>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> lock_active_piece(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> spawn_next_piece(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> lock_active_piece(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> spawn_next_piece(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span></span></code></pre>
+<ul>
+<li><code>lock_active_piece</code> has type <code>GameState -&gt; GameState</code>. It works out the cells the active piece currently covers with <code>active_piece_cells</code>, adds them all to the board with <code>board_insert_cells</code>, and returns a new state with that updated board. It leaves the active piece itself where it is.</li>
+<li><code>spawn_next_piece</code> has type <code>GameState -&gt; GameState</code>. It takes the next piece off the front of <code>piece_supply</code> and makes it the new active piece, returning the state with the supply advanced by one (its <code>tail</code>). This is the one place the piece supply gets consumed.</li>
+</ul>
+<h4 id="landing">Landing</h4>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> on_piece_landed(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> on_piece_landed(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span></span></code></pre>
+<ul>
+<li><code>on_piece_landed</code> has type <code>GameState -&gt; GameState</code>. This is the whole landing sequence in one function: lock the piece, clear any completed rows from the board (<code>board_clear_full_rows</code>), and then spawn the next piece. The last step comes with a safety check — if the freshly spawned piece collides with the board straight away, the stack has reached the top, so it keeps the cleared board and discards the new piece. No further pieces are spawned after that, so play effectively stops (the loop itself keeps running, though — see <a href="#next-steps">Next steps</a>).</li>
+</ul>
+<p>That final <em>if</em> is the "topped out" test. A new piece always appears near the top, so if it can't fit there without overlapping, the player has run out of room.</p>
+<h4 id="dropping-the-piece">Dropping the piece</h4>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> drop_to_bottom(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> hard_drop(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> drop_to_bottom(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> hard_drop(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span></span></code></pre>
+<ul>
+<li><code>drop_to_bottom</code> has type <code>GameState -&gt; GameState</code> and nudges the piece down one row at a time until it can't move any further. It reuses the <code>iterate</code> function we saw for clearing rows: "move down if you can", applied a fixed number of times (30, comfortably more than the board is tall).</li>
+<li><code>hard_drop</code> has type <code>GameState -&gt; GameState</code>. It's the complete action: drop the piece to the bottom, then land it with <code>on_piece_landed</code>. This is the one the space bar triggers.</li>
+</ul>
+<h4 id="gravity">Gravity</h4>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> tick(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> tick(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span></span></code></pre>
+<ul>
+<li><code>tick</code> has type <code>GameState -&gt; GameState</code>. It is called on every timer tick to move the active piece down one row. If the piece cannot move down, <code>tick</code> instead calls <code>on_piece_landed</code> to land the piece.</li>
+</ul>
+<h2 id="events">Events</h2>
+<p>We now have the machinery to update the game state. The functions we have already covered handle everything that happens during the game.
+What we're left with now is the game loop that drives the application.
+We will use the <a href="https://codeberg.org/laserpants/coal-event-source"><code>coal-event-source</code></a> library and its event loop system to receive user input and handle other events. Specifically, the loop will need to:</p>
+<ul>
+<li>Trigger a tick event at regular intervals to update the board. Each tick will move the active piece one position down (simulating gravity).<ul>
+<li>To make the game more challenging, this interval should decrease over time. For now, however, we will use a constant interval.</li>
+</ul>
+</li>
+<li>Listen for key press events:<ul>
+<li>The <strong>left</strong> and <strong>right</strong> arrow keys move the piece in the respective direction.</li>
+<li>The <strong>up</strong> arrow key rotates the piece.</li>
+<li>The <strong>down</strong> arrow key manually moves the piece down.</li>
+<li>The <strong>space</strong> key initiates a <em>hard drop</em>.</li>
+<li>The <strong>escape</strong> key exits the game.</li>
+</ul>
+</li>
+<li>Render the UI each time the game state changes.</li>
+</ul>
+<p>Based on this list, we define a <code>GameEvent</code> type that enumerates the different events that the game needs to pay attention to during gameplay:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">type</span><span style="color:#6F42C1"> GameEvent</span></span>
+<span class="line"><span style="color:#24292E">  = </span><span style="color:#6F42C1">KeyLeft</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> KeyRight</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> KeyDown</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> KeyUp</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> KeySpace</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> KeyEsc</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> KeyOther</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> Tick</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> GameEvent</span></span>
+<span class="line"><span style="color:#E1E4E8">  = </span><span style="color:#B392F0">KeyLeft</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> KeyRight</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> KeyDown</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> KeyUp</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> KeySpace</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> KeyEsc</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> KeyOther</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> Tick</span></span></code></pre>
+<p>We need a function that takes a raw key code and translates it to a <code>GameEvent</code>.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> parse_kbd_event </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> GameEvent</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#005CC5"> 68</span><span style="color:#D73A49"> =></span><span style="color:#6F42C1"> KeyLeft</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#005CC5"> 67</span><span style="color:#D73A49"> =></span><span style="color:#6F42C1"> KeyRight</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#005CC5"> 66</span><span style="color:#D73A49"> =></span><span style="color:#6F42C1"> KeyDown</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#005CC5"> 65</span><span style="color:#D73A49"> =></span><span style="color:#6F42C1"> KeyUp</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#005CC5"> 32</span><span style="color:#D73A49"> =></span><span style="color:#6F42C1"> KeySpace</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#005CC5"> 27</span><span style="color:#D73A49"> =></span><span style="color:#6F42C1"> KeyEsc</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#24292E"> _  </span><span style="color:#D73A49">=></span><span style="color:#6F42C1"> KeyOther</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> parse_kbd_event </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> GameEvent</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#79B8FF"> 68</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> KeyLeft</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#79B8FF"> 67</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> KeyRight</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#79B8FF"> 66</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> KeyDown</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#79B8FF"> 65</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> KeyUp</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#79B8FF"> 32</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> KeySpace</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#79B8FF"> 27</span><span style="color:#F97583"> =></span><span style="color:#B392F0"> KeyEsc</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#E1E4E8"> _  </span><span style="color:#F97583">=></span><span style="color:#B392F0"> KeyOther</span></span></code></pre>
+<blockquote>
+<h5 id="explainer_11">Explainer</h5>
+<p>The numbers are the bytes the terminal sends. Printable keys arrive as their ASCII code (<code>32</code> is the space bar), and <code>27</code> is the Escape key. The arrow keys arrive as the three-byte ANSI escape sequences <code>ESC [ A</code>, <code>ESC [ B</code>, <code>ESC [ C</code>, and <code>ESC [ D</code>; the runtime keeps only the final byte, which is why the arrow keys show up as <code>65</code>–<code>68</code> (the codes for the letters <code>A</code>–<code>D</code>). Everything else — including end-of-input, reported as <code>-1</code> — falls through to <code>KeyOther</code>.</p>
+</blockquote>
+<p>If we wanted to make it possible to, for example, pause the game by pressing any of the available keys, then it is easy to extend this function, along with the <code>GameEvent</code> type. </p>
+<blockquote>
+<h5 id="reminder_1">Reminder</h5>
+<p>Keep in mind that Coal is total. Pattern matching <a href="https://coal-lang.org/language-manual/#totality-requirement">must therefore be exhaustive</a>. That is why we need the extra wildcard pattern in the last clause.</p>
+</blockquote>
+<p>That is the complete event vocabulary. Next we will see how these events are handled, and how the loop that delivers them is assembled.</p>
+<h2 id="event-handling">Event handling</h2>
+<h3 id="handlers">Handlers</h3>
+<p>With these bits in place, the game loop itself becomes really simple. 
+At its core is an event handler — a function that is called whenever a <code>GameEvent</code> occurs and updates the game state accordingly. 
+The actual game logic is managed by the functions we have already defined.</p>
+<p>We wrap each result in either a <code>Continue</code> or <code>Stop</code> constructor. They belong to the <code>StepResult&lt;e, s&gt;</code> type:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">type</span><span style="color:#6F42C1"> StepResult</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">e, s</span><span style="color:#D73A49">></span></span>
+<span class="line"><span style="color:#24292E">  = </span><span style="color:#6F42C1">Continue</span><span style="color:#24292E">(s)</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> Stop</span><span style="color:#24292E">(s)</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> AddSource</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Source</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">e</span><span style="color:#D73A49">></span><span style="color:#24292E">, </span><span style="color:#6F42C1">Handler</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">e, s</span><span style="color:#D73A49">></span><span style="color:#24292E">, s)</span></span>
+<span class="line"><span style="color:#D73A49">  |</span><span style="color:#6F42C1"> RemoveSource</span><span style="color:#24292E">(</span><span style="color:#005CC5">nat</span><span style="color:#24292E">, s)</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> StepResult</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">e, s</span><span style="color:#F97583">></span></span>
+<span class="line"><span style="color:#E1E4E8">  = </span><span style="color:#B392F0">Continue</span><span style="color:#E1E4E8">(s)</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> Stop</span><span style="color:#E1E4E8">(s)</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> AddSource</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Source</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">e</span><span style="color:#F97583">></span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">Handler</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">e, s</span><span style="color:#F97583">></span><span style="color:#E1E4E8">, s)</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#B392F0"> RemoveSource</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">nat</span><span style="color:#E1E4E8">, s)</span></span></code></pre>
+<p>The event loop library requires the handler to return a value of this type to inform the loop what to do after processing the event. 
+Apart from this, handling an event mostly comes down to updating the game state using the right <code>GameState -&gt; GameState</code> function.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> handle_event(event </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameEvent</span><span style="color:#24292E">, state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> StepResult</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Event</span><span style="color:#24292E">, </span><span style="color:#6F42C1">GameState</span><span style="color:#D73A49">></span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#D73A49">  match</span><span style="color:#24292E">(event) {</span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#6F42C1"> KeyLeft</span><span style="color:#D73A49"> =></span></span>
+<span class="line"><span style="color:#6F42C1">        Continue</span><span style="color:#24292E">(move_left(state))</span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#6F42C1"> KeyRight</span><span style="color:#D73A49"> =></span></span>
+<span class="line"><span style="color:#6F42C1">        Continue</span><span style="color:#24292E">(move_right(state))</span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#6F42C1"> KeyDown</span><span style="color:#D73A49"> =></span></span>
+<span class="line"><span style="color:#6F42C1">        Continue</span><span style="color:#24292E">(tick(state))</span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#6F42C1"> KeyUp</span><span style="color:#D73A49"> =></span></span>
+<span class="line"><span style="color:#6F42C1">        Continue</span><span style="color:#24292E">(rotate_active(state))</span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#6F42C1"> KeySpace</span><span style="color:#D73A49"> =></span></span>
+<span class="line"><span style="color:#6F42C1">        Continue</span><span style="color:#24292E">(hard_drop(state))</span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#6F42C1"> Tick</span><span style="color:#D73A49"> =></span></span>
+<span class="line"><span style="color:#6F42C1">        Continue</span><span style="color:#24292E">(tick(state))</span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#6F42C1"> KeyEsc</span><span style="color:#D73A49"> =></span></span>
+<span class="line"><span style="color:#6F42C1">        Stop</span><span style="color:#24292E">(state)</span></span>
+<span class="line"><span style="color:#D73A49">    |</span><span style="color:#6F42C1"> KeyOther</span><span style="color:#D73A49"> =></span></span>
+<span class="line"><span style="color:#6F42C1">        Continue</span><span style="color:#24292E">(state)  </span><span style="color:#6A737D">// Do nothing</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> handle_event(event </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameEvent</span><span style="color:#E1E4E8">, state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> StepResult</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Event</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">GameState</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#F97583">  match</span><span style="color:#E1E4E8">(event) {</span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#B392F0"> KeyLeft</span><span style="color:#F97583"> =></span></span>
+<span class="line"><span style="color:#B392F0">        Continue</span><span style="color:#E1E4E8">(move_left(state))</span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#B392F0"> KeyRight</span><span style="color:#F97583"> =></span></span>
+<span class="line"><span style="color:#B392F0">        Continue</span><span style="color:#E1E4E8">(move_right(state))</span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#B392F0"> KeyDown</span><span style="color:#F97583"> =></span></span>
+<span class="line"><span style="color:#B392F0">        Continue</span><span style="color:#E1E4E8">(tick(state))</span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#B392F0"> KeyUp</span><span style="color:#F97583"> =></span></span>
+<span class="line"><span style="color:#B392F0">        Continue</span><span style="color:#E1E4E8">(rotate_active(state))</span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#B392F0"> KeySpace</span><span style="color:#F97583"> =></span></span>
+<span class="line"><span style="color:#B392F0">        Continue</span><span style="color:#E1E4E8">(hard_drop(state))</span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#B392F0"> Tick</span><span style="color:#F97583"> =></span></span>
+<span class="line"><span style="color:#B392F0">        Continue</span><span style="color:#E1E4E8">(tick(state))</span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#B392F0"> KeyEsc</span><span style="color:#F97583"> =></span></span>
+<span class="line"><span style="color:#B392F0">        Stop</span><span style="color:#E1E4E8">(state)</span></span>
+<span class="line"><span style="color:#F97583">    |</span><span style="color:#B392F0"> KeyOther</span><span style="color:#F97583"> =></span></span>
+<span class="line"><span style="color:#B392F0">        Continue</span><span style="color:#E1E4E8">(state)  </span><span style="color:#6A737D">// Do nothing</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span></code></pre>
+<p>There is one thing missing, though: <code>GameEvent</code> is <em>our</em> vocabulary, whereas <code>coal-event-source</code> delivers its own built-in events — <code>KeyEvent(int32)</code>, <code>TickEvent</code>, and <code>TimeoutEvent</code>. The handlers registered with the loop receive those raw events and translate them into a <code>GameEvent</code> before forwarding them to <code>handle_event</code>. (This is also why <code>handle_event</code> returns <code>StepResult&lt;Event, GameState&gt;</code>: the <code>e</code> in <code>StepResult&lt;e, s&gt;</code> stays the library's <code>Event</code> type.)</p>
+<h4 id="tick-events">Tick events</h4>
+<p>For tick events we use this “raw” handler:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">tick_event_handler </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">StepResult</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Event</span><span style="color:#24292E">, </span><span style="color:#6F42C1">GameState</span><span style="color:#D73A49">>></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">tick_event_handler </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">StepResult</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Event</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">GameState</span><span style="color:#F97583">>></span></span></code></pre>
+<p>There is no payload to process. We just call <code>handle_event</code> with a <code>Tick</code> along with the state:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> tick_event_handler(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">StepResult</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Event</span><span style="color:#24292E">, </span><span style="color:#6F42C1">GameState</span><span style="color:#D73A49">>></span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#24292E">  return(handle_event(</span><span style="color:#6F42C1">Tick</span><span style="color:#24292E">, state))</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> tick_event_handler(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">StepResult</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Event</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">GameState</span><span style="color:#F97583">>></span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#E1E4E8">  return(handle_event(</span><span style="color:#B392F0">Tick</span><span style="color:#E1E4E8">, state))</span></span></code></pre>
+<blockquote>
+<h5 id="explainer_12">Explainer</h5>
+<p><code>IO&lt;a&gt;</code> is the type of an effectful computation that produces an <code>a</code>. <code>return(x)</code> wraps a pure value, and <code>and_then(io, fn(x) =&gt; …)</code> sequences one effect into the next. Handlers are typed <code>… -&gt; IO&lt;StepResult&lt;…&gt;&gt;</code> because reading a key or waiting on a timer touches the outside world, while the state transition itself stays pure.</p>
+</blockquote>
+<h4 id="keyboard-events">Keyboard events</h4>
+<p>Keyboard events are not that different, except that we now receive a raw <code>int32</code> key code:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">keyboard_event_handler </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#D73A49"> -></span><span style="color:#005CC5"> int32</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">StepResult</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Event</span><span style="color:#24292E">, </span><span style="color:#6F42C1">GameState</span><span style="color:#D73A49">>></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">keyboard_event_handler </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#F97583"> -></span><span style="color:#79B8FF"> int32</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">StepResult</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Event</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">GameState</span><span style="color:#F97583">>></span></span></code></pre>
+<p>This is where the <code>parse_kbd_event</code> helper we defined earlier comes in handy; it creates a <code>GameEvent</code> from the key code:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> keyboard_event_handler(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">, key_code </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> int32</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">StepResult</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Event</span><span style="color:#24292E">, </span><span style="color:#6F42C1">GameState</span><span style="color:#D73A49">>></span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#24292E">  return(handle_event(parse_kbd_event(key_code), state))</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> keyboard_event_handler(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">, key_code </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> int32</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">StepResult</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Event</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">GameState</span><span style="color:#F97583">>></span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#E1E4E8">  return(handle_event(parse_kbd_event(key_code), state))</span></span></code></pre>
+<h3 id="creating-and-running-the-loop">Creating and running the loop</h3>
+<p>The event loop itself is represented by a record with two fields: a list of sources and a list of sinks.
+A <em>source</em> produces events that the event loop processes, such as mouse or keyboard input. 
+A <em>sink</em> receives the results of processing those events.</p>
+<p>In this application, the terminal UI is the only sink.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">type</span><span style="color:#D73A49"> alias</span><span style="color:#6F42C1"> EventLoop</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">e, s</span><span style="color:#D73A49">></span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#24292E">  { sources </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Source</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">e</span><span style="color:#D73A49">></span><span style="color:#24292E">, </span><span style="color:#6F42C1">Handler</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">e, s</span><span style="color:#D73A49">></span><span style="color:#24292E">)</span><span style="color:#D73A49">></span></span>
+<span class="line"><span style="color:#24292E">  , sinks </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Sink</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">s</span><span style="color:#D73A49">>></span></span>
+<span class="line"><span style="color:#24292E">  }</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">type</span><span style="color:#F97583"> alias</span><span style="color:#B392F0"> EventLoop</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">e, s</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#E1E4E8">  { sources </span><span style="color:#F97583">:</span><span style="color:#B392F0"> List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Source</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">e</span><span style="color:#F97583">></span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">Handler</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">e, s</span><span style="color:#F97583">></span><span style="color:#E1E4E8">)</span><span style="color:#F97583">></span></span>
+<span class="line"><span style="color:#E1E4E8">  , sinks </span><span style="color:#F97583">:</span><span style="color:#B392F0"> List</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Sink</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">s</span><span style="color:#F97583">>></span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span></code></pre>
+<p>Initially, the <code>EventLoop</code> record will be empty:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">{ sources </span><span style="color:#D73A49">=</span><span style="color:#24292E"> [], sinks </span><span style="color:#D73A49">=</span><span style="color:#24292E"> [] }</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">{ sources </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [], sinks </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [] }</span></span></code></pre>
+<p>The <code>EventLoop</code> module exposes two levels of API for populating a loop. The low-level <code>register_*</code> functions (<code>register_source</code>, <code>register_sink</code>, <code>register_tick_handler</code>, <code>register_keyboard_handler</code>, …) each take the loop and return it in <code>IO</code>. On top of those sit the pipeline helpers used below (<code>on_tick_event</code>, <code>on_keyboard_event</code>, <code>on_state_change</code>), which are just those <code>register_*</code> functions partially applied so they can be chained with <code>|.</code>.
+The populated record is then handed to <code>run_event_loop</code>, or to <code>run_event_loop_with_terminal</code> when terminal input is involved:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">run_event_loop </span><span style="color:#D73A49">:</span><span style="color:#24292E"> s </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> EventLoop</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">e, s</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">s</span><span style="color:#D73A49">></span></span>
+<span class="line"><span style="color:#24292E">run_event_loop_with_terminal </span><span style="color:#D73A49">:</span><span style="color:#24292E"> s </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> EventLoop</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">e, s</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">s</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">run_event_loop </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> s </span><span style="color:#F97583">-></span><span style="color:#B392F0"> EventLoop</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">e, s</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">s</span><span style="color:#F97583">></span></span>
+<span class="line"><span style="color:#E1E4E8">run_event_loop_with_terminal </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> s </span><span style="color:#F97583">-></span><span style="color:#B392F0"> EventLoop</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">e, s</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">s</span><span style="color:#F97583">></span></span></code></pre>
+<p>Interactive loops that include keyboard or mouse events need the <code>_with_terminal</code> variant, which calls <code>init_terminal</code> (switching stdin into raw mode) before delegating to <code>run_event_loop</code>.</p>
+<p>For example, the loop below registers a tick handler (first tick immediately, then every 300 ms) and a keyboard handler on top of an empty <code>new_event_loop</code>, then runs it with the terminal enabled:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">and_run_event_loop_with_terminal</span></span>
+<span class="line"><span style="color:#24292E">  ( game_state</span></span>
+<span class="line"><span style="color:#24292E">  , and_then</span></span>
+<span class="line"><span style="color:#24292E">      ( register_tick_handler(</span><span style="color:#005CC5">0</span><span style="color:#24292E">, </span><span style="color:#005CC5">300</span><span style="color:#24292E">, tick_event_handler)</span></span>
+<span class="line"><span style="color:#24292E">      , register_keyboard_handler(keyboard_event_handler, new_event_loop)</span></span>
+<span class="line"><span style="color:#24292E">      )</span></span>
+<span class="line"><span style="color:#24292E">  )</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">and_run_event_loop_with_terminal</span></span>
+<span class="line"><span style="color:#E1E4E8">  ( game_state</span></span>
+<span class="line"><span style="color:#E1E4E8">  , and_then</span></span>
+<span class="line"><span style="color:#E1E4E8">      ( register_tick_handler(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">300</span><span style="color:#E1E4E8">, tick_event_handler)</span></span>
+<span class="line"><span style="color:#E1E4E8">      , register_keyboard_handler(keyboard_event_handler, new_event_loop)</span></span>
+<span class="line"><span style="color:#E1E4E8">      )</span></span>
+<span class="line"><span style="color:#E1E4E8">  )</span></span></code></pre>
+<p>There is a more readable way to convey this, however.
+The <em>reverse function application</em> operator is a built-in operator in Coal that works just like normal function application, but with the arguments swapped:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">(</span><span style="color:#D73A49">|.</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#24292E"> a </span><span style="color:#D73A49">-></span><span style="color:#24292E"> (a </span><span style="color:#D73A49">-></span><span style="color:#24292E"> b) </span><span style="color:#D73A49">-></span><span style="color:#24292E"> b</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">(</span><span style="color:#F97583">|.</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> (a </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> b) </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> b</span></span></code></pre>
+<p>The event loop API lends itself naturally to composing function calls using this operator, forming a neat pipeline:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">init_event_loop</span><span style="color:#005CC5">()</span></span>
+<span class="line"><span style="color:#D73A49">  |.</span><span style="color:#24292E">on_tick_event(</span><span style="color:#005CC5">0</span><span style="color:#24292E">, </span><span style="color:#005CC5">300</span><span style="color:#24292E">, tick_event_handler)</span></span>
+<span class="line"><span style="color:#D73A49">  |.</span><span style="color:#24292E">on_keyboard_event(keyboard_event_handler)</span></span>
+<span class="line"><span style="color:#D73A49">  |.</span><span style="color:#24292E">and_run_event_loop_with_terminal(game_state)</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">init_event_loop</span><span style="color:#79B8FF">()</span></span>
+<span class="line"><span style="color:#F97583">  |.</span><span style="color:#E1E4E8">on_tick_event(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">300</span><span style="color:#E1E4E8">, tick_event_handler)</span></span>
+<span class="line"><span style="color:#F97583">  |.</span><span style="color:#E1E4E8">on_keyboard_event(keyboard_event_handler)</span></span>
+<span class="line"><span style="color:#F97583">  |.</span><span style="color:#E1E4E8">and_run_event_loop_with_terminal(game_state)</span></span></code></pre>
+<h2 id="putting-it-all-together">Putting it all together</h2>
+<h3 id="rendering">Rendering</h3>
+<p>The loop also needs to refresh the UI every time the game state changes.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> view(state </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> GameState</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (</span><span style="color:#6F42C1">List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">)</span><span style="color:#D73A49">></span><span style="color:#24292E">, </span><span style="color:#6F42C1">List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">)</span><span style="color:#D73A49">></span><span style="color:#24292E">) =</span></span>
+<span class="line"><span style="color:#24292E">  (board_to_list(state</span><span style="color:#D73A49">.</span><span style="color:#24292E">board), active_piece_cells(state))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">let</span><span style="color:#24292E"> board_sink </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> Sink</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">GameState</span><span style="color:#D73A49">></span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#D73A49">  fn</span><span style="color:#24292E">(state) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> render_view(view(state))</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> view(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#B392F0">List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">></span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">></span><span style="color:#E1E4E8">) =</span></span>
+<span class="line"><span style="color:#E1E4E8">  (board_to_list(state</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">board), active_piece_cells(state))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> board_sink </span><span style="color:#F97583">:</span><span style="color:#B392F0"> Sink</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">GameState</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#F97583">  fn</span><span style="color:#E1E4E8">(state) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> render_view(view(state))</span></span></code></pre>
+<blockquote>
+<h5 id="explainer_13">Explainer</h5>
+<p>A <code>Sink&lt;s&gt;</code> is just <code>s -&gt; IO&lt;unit&gt;</code>: a function the loop calls with the updated state after every event. Sinks are how the view is bound declaratively — the loop never needs to know what a sink does, only that it can be run with the current state.</p>
+</blockquote>
+<p>The only complicated part of this is the actual rendering function:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> render_view((board_cells, active_cells) </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (</span><span style="color:#6F42C1">List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">)</span><span style="color:#D73A49">></span><span style="color:#24292E">, </span><span style="color:#6F42C1">List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">(</span><span style="color:#005CC5">int32</span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#24292E">)</span><span style="color:#D73A49">></span><span style="color:#24292E">)) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">unit</span><span style="color:#D73A49">></span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#24292E">  return(</span></span>
+<span class="line"><span style="color:#24292E">    #{</span><span style="color:#6F42C1">coal_render_board</span><span style="color:#D73A49"> :</span><span style="color:#6F42C1"> List</span><span style="color:#24292E">&#x3C;(</span><span style="color:#6F42C1">int32</span><span style="color:#24292E">, </span><span style="color:#6F42C1">int32</span><span style="color:#24292E">)> </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> List</span><span style="color:#24292E">&#x3C;(</span><span style="color:#6F42C1">int32</span><span style="color:#24292E">, </span><span style="color:#6F42C1">int32</span><span style="color:#24292E">)> </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> unit</span><span style="color:#24292E">}(board_cells, active_cells)(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(_) </span><span style="color:#D73A49">=></span><span style="color:#005CC5"> ()</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#24292E">  )</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> render_view((board_cells, active_cells) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#B392F0">List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">></span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">List</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">></span><span style="color:#E1E4E8">)) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">unit</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#E1E4E8">  return(</span></span>
+<span class="line"><span style="color:#E1E4E8">    #{</span><span style="color:#B392F0">coal_render_board</span><span style="color:#F97583"> :</span><span style="color:#B392F0"> List</span><span style="color:#E1E4E8">&#x3C;(</span><span style="color:#B392F0">int32</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">int32</span><span style="color:#E1E4E8">)> </span><span style="color:#F97583">-></span><span style="color:#B392F0"> List</span><span style="color:#E1E4E8">&#x3C;(</span><span style="color:#B392F0">int32</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">int32</span><span style="color:#E1E4E8">)> </span><span style="color:#F97583">-></span><span style="color:#B392F0"> unit</span><span style="color:#E1E4E8">}(board_cells, active_cells)(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(_) </span><span style="color:#F97583">=></span><span style="color:#79B8FF"> ()</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  )</span></span></code></pre>
+<p>This is a call to a C function. Coal's foreign function interface (FFI) allows Coal code to interact with C code. 
+An FFI function call has the following form:</p>
+<div class="highlight"><pre><span></span><code>#{c_function : type}(args...)(continuation)
+</code></pre></div>
+<p>The function <code>coal_render_board</code> is defined in <code>runtime.c</code>.</p>
+<blockquote>
+<h5 id="explainer_14">Explainer</h5>
+<p>The trailing <code>(fn(_) =&gt; ())</code> is the <em>continuation</em> the C function calls with its result; <code>coal_render_board</code> returns nothing, so we ignore the argument. Coal's FFI is unboxed — <code>int32</code> values cross the boundary as inline pointer casts rather than heap-allocated objects (see the comments at the top of <code>runtime.c</code>).</p>
+</blockquote>
+<h3 id="application-entry-point">Application entry point</h3>
+<p>To connect everything together, <code>main</code>:</p>
+<ol>
+<li>Generates a seed using <code>random_seed</code> from the <code>coal-random</code> library.</li>
+<li>Creates the <code>Piece</code> supply and initial <code>GameState</code>.</li>
+<li>Initializes the event loop.</li>
+<li>Registers the event handlers.</li>
+<li>Enters the event loop.</li>
+</ol>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> main</span><span style="color:#005CC5">()</span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#24292E">  random_seed</span><span style="color:#005CC5">()</span><span style="color:#D73A49"> |.</span><span style="color:#24292E">and_then(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(seed) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#D73A49">    let</span></span>
+<span class="line"><span style="color:#24292E">      game_state =</span></span>
+<span class="line"><span style="color:#6A737D">        // Make sure we get the first pseudorandom piece from the stream</span></span>
+<span class="line"><span style="color:#24292E">        spawn_next_piece(default_game_state{ piece_supply </span><span style="color:#D73A49">=</span><span style="color:#24292E"> piece_supply(seed) })</span></span>
+<span class="line"><span style="color:#D73A49">    in</span></span>
+<span class="line"><span style="color:#24292E">    init_event_loop</span><span style="color:#005CC5">()</span></span>
+<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E">on_tick_event(</span><span style="color:#005CC5">0</span><span style="color:#24292E">, </span><span style="color:#005CC5">300</span><span style="color:#24292E">, tick_event_handler)</span></span>
+<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E">on_keyboard_event(keyboard_event_handler)</span></span>
+<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E">on_state_change(board_sink)</span></span>
+<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E">and_run_event_loop_with_terminal(game_state)</span></span>
+<span class="line"><span style="color:#24292E">  )</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> main</span><span style="color:#79B8FF">()</span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#E1E4E8">  random_seed</span><span style="color:#79B8FF">()</span><span style="color:#F97583"> |.</span><span style="color:#E1E4E8">and_then(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(seed) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#F97583">    let</span></span>
+<span class="line"><span style="color:#E1E4E8">      game_state =</span></span>
+<span class="line"><span style="color:#6A737D">        // Make sure we get the first pseudorandom piece from the stream</span></span>
+<span class="line"><span style="color:#E1E4E8">        spawn_next_piece(default_game_state{ piece_supply </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> piece_supply(seed) })</span></span>
+<span class="line"><span style="color:#F97583">    in</span></span>
+<span class="line"><span style="color:#E1E4E8">    init_event_loop</span><span style="color:#79B8FF">()</span></span>
+<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8">on_tick_event(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">300</span><span style="color:#E1E4E8">, tick_event_handler)</span></span>
+<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8">on_keyboard_event(keyboard_event_handler)</span></span>
+<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8">on_state_change(board_sink)</span></span>
+<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8">and_run_event_loop_with_terminal(game_state)</span></span>
+<span class="line"><span style="color:#E1E4E8">  )</span></span></code></pre>
+<h2 id="compiling-and-running-the-game">Compiling and running the game</h2>
+<p>To compile and run the project:</p>
+<ol>
+<li>
+<p>Clone the repo (if you haven't already done so):</p>
+<div class="highlight"><pre><span></span><code>git clone https://codeberg.org/laserpants/coal-examples.git
+</code></pre></div>
+</li>
+<li>
+<p>Navigate to the <code>/game</code> directory:</p>
+<div class="highlight"><pre><span></span><code>cd coal-examples/game
+</code></pre></div>
+</li>
+<li>
+<p>Install the dependencies, and build the project:</p>
+<div class="highlight"><pre><span></span><code>coal install
+coal build
+</code></pre></div>
+</li>
+<li>
+<p>And finally run:</p>
+<div class="highlight"><pre><span></span><code>./game
+</code></pre></div>
+</li>
+</ol>
+<p>The whole program lives in <code>src/Main.coal</code>, with <code>runtime.c</code> providing the rendering primitive; everything else comes from the standard library and the three Coal packages we pulled in.</p>
+<h2 id="next-steps">Next steps</h2>
+<p>There are a few different things we could do next:</p>
+<ul>
+<li><strong>Handle “game over” state:</strong> Currently, the game doesn't end definitively. When the stack reaches the top it just keeps running without any message shown to the player.</li>
+<li><strong>Increase speed:</strong> The timer interval should decrease over time to make the game more challenging.</li>
+<li><strong>Graphics:</strong> A browser or desktop-based UI would be an interesting project on its own.</li>
+</ul>
+<h2 id="feedback-ideas-and-suggestions">Feedback, ideas and suggestions</h2>
+<p>Feel free to leave a PR or <a href="https://codeberg.org/laserpants/coal-examples/issues">create an issue</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":[],"redirect":null,"search":"../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c04ba553.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
