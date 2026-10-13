@@ -594,10 +594,6 @@ fun parse_kbd_event : int32 -> GameEvent
   | _  => KeyOther
 ```
 
-> ##### Explainer
->
-> The numbers are the bytes the terminal sends. Printable keys arrive as their ASCII code (`32` is the space bar), and `27` is the Escape key. The arrow keys arrive as the three-byte ANSI escape sequences `ESC [ A`, `ESC [ B`, `ESC [ C`, and `ESC [ D`; the runtime keeps only the final byte, which is why the arrow keys show up as `65`–`68` (the codes for the letters `A`–`D`). Everything else — including end-of-input, reported as `-1` — falls through to `KeyOther`.
-
 If we wanted to make it possible to, for example, pause the game by pressing any of the available keys, then it is easy to extend this function, along with the `GameEvent` type. 
 
 > ##### Reminder
