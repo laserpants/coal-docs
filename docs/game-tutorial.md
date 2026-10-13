@@ -581,18 +581,21 @@ type GameEvent
   | Tick
 ```
 
-We need a function that takes a raw key code and translates it to a `GameEvent`.
+We need a function that takes a `Key` — the decoded representation of a key press delivered by the library — and translates it to a `GameEvent`.
 
 ```coal
-fun parse_kbd_event : int32 -> GameEvent
-  | 68 => KeyLeft
-  | 67 => KeyRight
-  | 66 => KeyDown
-  | 65 => KeyUp
-  | 32 => KeySpace
-  | 27 => KeyEsc
-  | _  => KeyOther
+fun parse_kbd_event : Key -> GameEvent
+  | Left     => KeyLeft
+  | Right    => KeyRight
+  | Down     => KeyDown
+  | Up       => KeyUp
+  | Char(32) => KeySpace
+  | Esc      => KeyEsc
+  | _        => KeyOther
 ```
+
+`Key` comes from the `Keyboard` module of `coal-event-source` (imported with `import Keyboard(Key)`). It is a sum type whose constructors describe what was actually pressed: `Char(int32)` for a character key, `Up`/`Down`/`Left`/`Right` for the arrow keys, the navigation keys (`Home`, `End`, `PageUp`, `PageDown`, `Insert`, `Delete`), the control keys (`Enter`, `Tab`, `Backspace`, `Esc`), `Function(n)`, `Unknown(List<int32>)`, and `Eof`.
+The library decodes the terminal escape sequences for us. The space bar is the character key `Char(32)`, and the wildcard clause maps every other key to `KeyOther`.
 
 If we wanted to make it possible to, for example, pause the game by pressing any of the available keys, then it is easy to extend this function, along with the `GameEvent` type. 
 
@@ -645,7 +648,7 @@ fun handle_event(event : GameEvent, state : GameState) : StepResult<Event, GameS
   }
 ```
 
-There is one thing missing, though: `GameEvent` is *our* vocabulary, whereas `coal-event-source` delivers its own built-in events — `KeyEvent(int32)`, `TickEvent`, and `TimeoutEvent`. The handlers registered with the loop receive those raw events and translate them into a `GameEvent` before forwarding them to `handle_event`. (This is also why `handle_event` returns `StepResult<Event, GameState>`: the `e` in `StepResult<e, s>` stays the library's `Event` type.)
+There is one thing missing, though: `GameEvent` is *our* vocabulary, whereas `coal-event-source` delivers its own built-in events — `KeyEvent(Key, int32)`, `TickEvent`, and `TimeoutEvent`. Here the first field of `KeyEvent` is the decoded `Key` and the second a modifier mask. The handlers registered with the loop receive those library events and translate them into a `GameEvent` before forwarding them to `handle_event`. (This is also why `handle_event` returns `StepResult<Event, GameState>`: the `e` in `StepResult<e, s>` stays the library's `Event` type.)
 
 #### Tick events
 
@@ -668,18 +671,20 @@ fun tick_event_handler(state : GameState) : IO<StepResult<Event, GameState>> =
 
 #### Keyboard events
 
-Keyboard events are not that different, except that we now receive a raw `int32` key code:
+Keyboard events are not that different, except that the payload is now a decoded `Key` rather than a raw key code, along with an `int32` modifier mask:
 
 ```coal
-keyboard_event_handler : GameState -> int32 -> IO<StepResult<Event, GameState>>
+keyboard_event_handler : GameState -> Key -> int32 -> IO<StepResult<Event, GameState>>
 ```
 
-This is where the `parse_kbd_event` helper we defined earlier comes in handy; it creates a `GameEvent` from the key code:
+This is where the `parse_kbd_event` helper we defined earlier comes in handy; it creates a `GameEvent` from the `Key`:
 
 ```coal
-fun keyboard_event_handler(state : GameState, key_code : int32) : IO<StepResult<Event, GameState>> =
-  return(handle_event(parse_kbd_event(key_code), state))
+fun keyboard_event_handler(state : GameState, key : Key, mask : int32) : IO<StepResult<Event, GameState>> =
+  return(handle_event(parse_kbd_event(key), state))
 ```
+
+(The modifier mask is unused in this version, but it is what would let a future version bind shortcuts such as Ctrl or Shift combinations.)
 
 ### Creating and running the loop
 
