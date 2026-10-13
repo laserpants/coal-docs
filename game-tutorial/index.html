@@ -1584,8 +1584,6 @@ Its first argument is a function <code>a -&gt; b -&gt; c</code> that describes h
 <h5 id="explainer_6">Explainer</h5>
 <p>The expression <code>default_piece{ tetromino = tetromino, orientation = orientation }</code> is a partial update that 
 makes a copy of the <code>default_piece</code> record, replacing only the <code>tetromino</code> and <code>orientation</code> fields.</p>
-<h5 id="note">Note</h5>
-<p>Both <code>pick</code> calls receive the same <code>seed</code>. Because <code>pick</code> is deterministic, the two streams are derived from the same pseudorandom sequence, so the tetromino and orientation streams are not fully independent. If that matters, derive a second seed for one of them.</p>
 </blockquote>
 <h2 id="mechanics">Mechanics</h2>
 <h3 id="updating-the-board">Updating the board</h3>
@@ -1646,7 +1644,7 @@ So <code>is_board_member</code> and <code>board_insert</code> are really just th
 <li><code>board_shift_rows_above</code> has type <code>int32 -&gt; Board -&gt; Board</code>. It shifts every row above <code>cleared_y</code> down by one, so the whole stack resting on the cleared line falls into place.</li>
 </ul>
 <blockquote>
-<h5 id="note_1">Note</h5>
+<h5 id="note">Note</h5>
 <p>This works only because <code>reduce_left</code> folds the list <strong>right-to-left</strong>: the range <code>[0, …, cleared_y - 1]</code> is therefore consumed from <code>cleared_y - 1</code> down to <code>0</code>. Processing the rows in the other direction would shift the same cells repeatedly and collapse the stack.</p>
 </blockquote>
 <h4 id="clearing-completed-lines">Clearing completed lines</h4>
@@ -1767,7 +1765,7 @@ The first two functions don't move anything — they only check if a move is pos
 <span class="line"><span style="color:#D73A49">  if</span><span style="color:#24292E"> (can_move(</span><span style="color:#005CC5">-1</span><span style="color:#24292E">, </span><span style="color:#005CC5">0</span><span style="color:#24292E">, state)) </span><span style="color:#D73A49">then</span><span style="color:#24292E"> move_active_piece(</span><span style="color:#005CC5">-1</span><span style="color:#24292E">, </span><span style="color:#005CC5">0</span><span style="color:#24292E">, state) </span><span style="color:#D73A49">else</span><span style="color:#24292E"> state</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> move_left(state </span><span style="color:#F97583">:</span><span style="color:#B392F0"> GameState</span><span style="color:#E1E4E8">) =</span></span>
 <span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (can_move(</span><span style="color:#79B8FF">-1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, state)) </span><span style="color:#F97583">then</span><span style="color:#E1E4E8"> move_active_piece(</span><span style="color:#79B8FF">-1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, state) </span><span style="color:#F97583">else</span><span style="color:#E1E4E8"> state</span></span></code></pre>
 <blockquote>
-<h5 id="note_2">Note</h5>
+<h5 id="note_1">Note</h5>
 <p><code>move_left</code>, <code>move_right</code>, and <code>rotate_active</code> are wired directly to their keys in <code>handle_event</code>. The down key is the exception: it is mapped to <code>tick</code> rather than to <code>move_down</code>. The difference shows up at the bottom of the stack — <code>move_down</code> would simply do nothing once the piece can no longer fall, whereas <code>tick</code> <em>lands</em> the piece, so a single press of the down key can lock it in place.</p>
 </blockquote>
 <h3 id="piece-locking-and-drops">Piece locking and drops</h3>
