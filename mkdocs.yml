@@ -28,7 +28,7 @@ nav:
       - Monads: examples/monads.md
       - Data structures: examples/data-structures.md
   - Packages: packages.md
-  - Background:
+  - Articles and tutorials:
       - Data and codata: data-and-codata.md
   - License: license.md
 markdown_extensions:

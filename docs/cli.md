@@ -644,7 +644,7 @@ Each dependency entry has the following structure:
 - `"1.2.3"` — Exact version 1.2.3
 - `">=1.2.0"` — At least 1.2.0
 - `">=1.2.0 <2.0.0"` — At least 1.2.0 and below 2.0.0 (AND)
-- `">=1.0.0 || >=2.0.0"` — At least 1.0.0 or at least 2.0.0 (OR)
+- `">=1.2.0 <2.0.0 || >=3.0.0"` — At least 1.2.0 and below 2.0.0, or at least 3.0.0 (OR)
 
 #### Examples
 
@@ -862,7 +862,9 @@ Coal supports semantic versioning (SemVer) constraints for specifying dependency
 | `"1.2.3"` | Exact version | `1.2.3` only |
 | `">=1.2.0"` | At least 1.2.0 | `1.2.0`, `1.2.1`, `2.0.0` |
 | `">=1.2.0 <2.0.0"` | At least 1.2.0 and below 2.0.0 (AND) | `1.2.0`, `1.9.9` (not `2.0.0`) |
-| `">=1.0.0 || >=2.0.0"` | At least 1.0.0 or at least 2.0.0 (OR) | `1.0.0`, `2.0.0`, `3.0.0` |
+| `">=1.2.0 <2.0.0 || >=3.0.0"` | At least 1.2.0 and below 2.0.0, or at least 3.0.0 (OR) | `1.2.0`, `1.9.9`, `3.0.0` (not `2.0.0`, `2.5.0`) |
+
+Use `||` when the acceptable versions are **not** a single contiguous range — for example, `">=1.2.0 <2.0.0 || >=3.0.0"` accepts the 1.2.x–1.x line and everything from 3.0.0 upwards, while skipping the whole 2.x line. Each side of `||` may itself be an AND group, and `||` binds more loosely than the space-separated AND.
 
 Supported syntax: `*`; exact versions; comparisons (`>=`, `>`, `<=`, `<`); space-separated conjunctions (AND); `||` disjunctions (OR). Caret (`^`) and tilde (`~`) constraints are **not** supported.
 
