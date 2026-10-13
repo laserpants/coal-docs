@@ -281,10 +281,6 @@ fun piece_supply(seed) =
 > The expression `default_piece{ tetromino = tetromino, orientation = orientation }` is a partial update that 
 > makes a copy of the `default_piece` record, replacing only the `tetromino` and `orientation` fields.
 
-> ##### Note
->
-> Both `pick` calls receive the same `seed`. Because `pick` is deterministic, the two streams are derived from the same pseudorandom sequence, so the tetromino and orientation streams are not fully independent. If that matters, derive a second seed for one of them.
-
 ## Mechanics
 
 ### Updating the board
