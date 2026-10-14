@@ -101,7 +101,7 @@
     },
     "builtins": {
       "patterns": [
-        { "name": "support.type.builtin.coal", "match": "\\b(?:bool|char|float|double|int32|int64|bignum|string|unit|nat|void)\\b" },
+        { "name": "support.type.builtin.coal", "match": "\\b(?:bool|char|float|double|int32|int64|integer|string|unit|nat|void)\\b" },
         { "name": "constant.language.boolean.coal", "match": "\\b(?:true|false)\\b" },
         { "name": "constant.language.unit.coal", "match": "\\(\\)" },
         { "name": "support.type.constructor.coal", "match": "\\b(?:Some|None|Ok|Err|Zero|Succ|Cons|Nil)\\b" }
@@ -332,7 +332,7 @@
     "type-annotation": {
       "patterns": [
         { "name": "keyword.operator.arrow.coal", "match": "->" },
-        { "name": "support.type.builtin.coal", "match": "\\b(?:bool|char|float|double|int32|int64|bignum|string|unit|nat|void)\\b" },
+        { "name": "support.type.builtin.coal", "match": "\\b(?:bool|char|float|double|int32|int64|integer|string|unit|nat|void)\\b" },
         { "name": "entity.name.type.coal", "match": "\\b[A-Z][A-Za-z0-9_]*\\b" },
         { "name": "variable.other.type-parameter.coal", "match": "\\b[a-z][A-Za-z0-9_]*\\b" }
       ]
