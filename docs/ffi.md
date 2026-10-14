@@ -2,12 +2,12 @@
 
 ## Rationale
 
-Some applications need to interact with native libraries or system APIs accessible through C. Examples include database drivers, networking libraries, and low-level I/O.
+Some applications need to interact with native libraries or system APIs accessible through C. Examples include database drivers, networking libraries, and low-level I/O bindings.
 In Coal, this is achieved through the C (foreign) function interface.
 
 !!! info 
 
-    A *foreign function interface* (FFI) allows a program written in one programming language to call routines or use services written in another one.
+    A *Foreign Function Interface* (FFI) allows a program written in one programming language to call routines or use services written in another one.
 
 The syntax to specify a C function call is:
 
@@ -15,9 +15,9 @@ The syntax to specify a C function call is:
 #{<c_function_name : t>}(<arg_0>, <arg_1>, ..., <arg_n>)(<continuation>)
 ```
 
-This expression consists of three components:
+This expression has three subcomponents:
 
-1. The first part is the C function to call. Note that the type annotation is mandatory.
+1. The first part is the C function to call. Note that, unlike other expressions in Coal, the type annotation is mandatory here.
 
     ```
     #{c_function_name : t}
@@ -35,11 +35,15 @@ This expression consists of three components:
     (<continuation>)
     ```
 
+### Matching the C signature
+
+A C function call is not an ordinary Coal expression. It is a low-level construct 
+that bridges Coal's type system and runtime representation with the C function's ABI. 
 The compiler checks the type annotation against the Coal arguments and continuation, but it
-cannot verify that the annotation matches the actual C function signature. The annotation is
-not merely descriptive: its arity must match the number of arguments, and its result type
-determines the C return type. The programmer is responsible for ensuring that the declaration
-in Coal agrees with the C implementation.
+cannot verify that the annotation matches the actual C function signature. 
+The type declaration’s arity must match the number of arguments, and its argument 
+and result types determine the C function signature.
+The programmer is responsible for ensuring that the declaration in Coal agrees with the C implementation.
 
 ## Type conversions at the C boundary
 
@@ -139,10 +143,11 @@ int32_t my_add(void *a, void *b)
 }
 ```
 
-`intptr_t` is the standard integer type guaranteed to be large enough to hold a
-pointer; the cast recovers the untagged immediate stored in the argument. The
-example assumes that the Coal annotation and the C implementation agree — the
-compiler does not check this.
+`intptr_t`, defined in `<stdint.h>`, is an integer type that can represent a 
+converted pointer value on implementations that provide it. Here, the cast 
+recovers the integer encoded in the untagged immediate. This relies on Coal's 
+runtime representation and is not a general way to convert arbitrary pointers 
+into integers.
 
 When compiling your program, pass each C file as an `--extra-c` command line argument. For example:
 
