@@ -29,17 +29,19 @@ This expression consists of three components:
     (<arg_0>, <arg_1>, ..., <arg_n>)
     ```
 
-3. The last component is the *continuation*. After the C function returns, Coal passes its result to this expression. 
+3. The last component is the *continuation*. After the C function returns, the generated code passes its result to this expression. 
 
     ```
     (<continuation>)
     ```
 
-An important point is that the compiler cannot check the type annotation against the C
-function's real signature. The annotation is checked against the argument and continuation
-types, but the programmer is responsible for keeping it in sync with the C code.
+The compiler checks the type annotation against the Coal arguments and continuation, but it
+cannot verify that the annotation matches the actual C function signature. The annotation is
+not merely descriptive: its arity must match the number of arguments, and its result type
+determines the C return type. The programmer is responsible for ensuring that the declaration
+in Coal agrees with the C implementation.
 
-### Type conversions at the C boundary
+## Type conversions at the C boundary
 
 The conversions are **not symmetric**, and the annotation `t` in `#{name : t}`
 must be the full function type. It determines the ABI. The code generator uses the
@@ -75,14 +77,15 @@ are heap-boxed, so the argument really is a pointer. Values of other types
 (records, functions, data constructors) are passed as opaque pointers to their
 runtime representation.
 
-**Results are returned unboxed.** The C function returns the *raw* C value
-and the code generator boxes it itself before passing it to the continuation.
-The declared C return type must be:
+**C function return values.** The C function returns the C value corresponding
+to the annotated result type, and the generated code boxes primitive results
+where necessary before passing them to the continuation. The declared C return
+type must be:
 
 | Coal result type | C return type |
 | ---------------- | ------------- |
 | `bool`           | `bool` (`_Bool`) |
-| `char`           | `uint32_t` / `int32_t` (Unicode code point) |
+| `char`           | `uint32_t` (Unicode code point) |
 | `int32`          | `int32_t` |
 | `int64`          | `int64_t` |
 | `float`          | `float` (unboxed) |
@@ -91,13 +94,25 @@ The declared C return type must be:
 | `string`         | `rt_string_t *` (never `char *`) |
 | `unit`           | `void *` (usually `NULL`) |
 
+For primitives the value is returned raw and boxed by the generated code.
 Returning a boxed `float`/`double` (an `rt_value_t` heap pointer) is wrong: the
 generator declares the function with its raw floating-point return type and
 reads the result straight out of the machine register, so the callee must return
-the unboxed value. For `integer` and `string` the boxed representation *is* the
-object pointer, so the function returns the `rt_bignum_t *` / `rt_string_t *`
-produced by the runtime (for example `rt_bignum_new(...)`, `rt_string_new(...)`),
-not a GMP `mpz_t *` and not a bare `char *`.
+the unboxed value. For `integer` and `string`, by contrast, the returned pointer
+*is* the boxed representation (the box is the identity), so the function returns
+the `rt_bignum_t *` / `rt_string_t *` produced by the runtime (for example
+`rt_bignum_new(...)`, `rt_string_new(...)`), not a GMP `mpz_t *` and not a bare
+`char *`.
+
+**Ownership and mutation.** Coal values are managed by the runtime's garbage
+collector. Do not `free` a value passed to C, and do not build a value to return
+with `malloc`: return an object created by the runtime (for example
+`rt_string_new`, `rt_bignum_new`). Treat arguments as borrowed for the duration
+of the call. The pointers returned by `rt_string_data` and `rt_bignum_value`
+point into the runtime object, so they are valid only while that object is
+alive; do not retain one past the call unless you keep a reference to the
+object. Coal values are immutable, so do not modify the bytes of a string or the
+contents of a bignum through those pointers.
 
 The continuation is applied to the boxed result through the runtime's uniform
 application, and the code generator unboxes it to the continuation's result
@@ -116,11 +131,18 @@ matches
 
 int32_t my_add(void *a, void *b)
 {
+    /* int32 arguments are untagged immediates: the pointer's numeric value is
+       the integer itself, so it is recovered with an intptr_t cast. */
     int32_t x = (int32_t)(intptr_t) a;
     int32_t y = (int32_t)(intptr_t) b;
     return x + y;
 }
 ```
+
+`intptr_t` is the standard integer type guaranteed to be large enough to hold a
+pointer; the cast recovers the untagged immediate stored in the argument. The
+example assumes that the Coal annotation and the C implementation agree — the
+compiler does not check this.
 
 When compiling your program, pass each C file as an `--extra-c` command line argument. For example:
 
@@ -128,12 +150,12 @@ When compiling your program, pass each C file as an `--extra-c` command line arg
 coal Main.coal --extra-c my_c_lib.c -o dist
 ```
 
-For project-based builds, specify the `c_sources` field in your project's `coal.json` configuration.
+For project-based builds, specify the `c_sources` field in your project's `coal.json` configuration:
 
 
 ```json
     "c_sources": [
-        "runtime.c"
+        "my_c_lib.c"
     ]
 ```
 
