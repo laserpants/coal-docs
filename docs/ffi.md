@@ -1,35 +1,38 @@
 # C function interface
 
-Some applications and libraries perform tasks that interact with native system libraries or low-level APIs, such as network or database access, or disk I/O.
-In these situations, it often becomes necessary to interface directly with code written in C.
-In Coal, this is achieved through the C function interface.
+## Rationale
 
-> A *foreign function fnterface* (FFI) allows a program written in one programming language to call routines or use services written in another one.
+Some applications need to interact with native libraries or system APIs accessible through C. Examples include database drivers, networking libraries, and low-level I/O.
+In Coal, this is achieved through the C (foreign) function interface.
 
-In Coal, a C function call has the following form:
+!!! info 
+
+    A *foreign function interface* (FFI) allows a program written in one programming language to call routines or use services written in another one.
+
+The syntax to specify a C function call is:
 
 ```
-  #{<c_function_name : t>}(<arg_0>, <arg_1>, ..., <arg_n>)(<continuation>)
+#{<c_function_name : t>}(<arg_0>, <arg_1>, ..., <arg_n>)(<continuation>)
 ```
 
 This expression consists of three components:
 
-- The first part is the C function to call. Note that the type annotation is mandatory.
+1. The first part is the C function to call. Note that the type annotation is mandatory.
 
     ```
     #{c_function_name : t}
     ```
 
-- The second part is a list of arguments to pass to the C function:
+2. The second part is a list of arguments to pass to the C function.
 
     ```
     (<arg_0>, <arg_1>, ..., <arg_n>)
     ```
 
-- The last component is the *continuation*. The C function calls this expression with its result. 
+3. The last component is the *continuation*. After the C function returns, Coal passes its result to this expression. 
 
     ```
-      (<continuation>)
+    (<continuation>)
     ```
 
 An important point is that the compiler cannot check the type annotation against the C
@@ -43,7 +46,7 @@ must be the full function type. It determines the ABI. The code generator uses t
 runtime's uniform boxed representation, `rt_value_t` (a `void *`).
 
 **Arguments are boxed.** Each argument is boxed into one `rt_value_t`, and the
-foreign function is declared as taking one `void *` per argument. A function
+C function is declared as taking one `void *` per argument. A function
 annotated `int32 -> double` therefore has the C prototype
 
 ```c
@@ -72,7 +75,7 @@ are heap-boxed, so the argument really is a pointer. Values of other types
 (records, functions, data constructors) are passed as opaque pointers to their
 runtime representation.
 
-**Results are returned unboxed.** The foreign function returns the *raw* C value
+**Results are returned unboxed.** The C function returns the *raw* C value
 and the code generator boxes it itself before passing it to the continuation.
 The declared C return type must be:
 
