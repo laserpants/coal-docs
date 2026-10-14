@@ -1,48 +1,123 @@
 # C function interface
 
-When developing applications or libraries that perform network access, disk I/O, or other tasks that interact with low-level system APIs, it is often necessary to interface with code written in C.
-This can be achieved in Coal through the C function interface:
+Some applications and libraries perform tasks that interact with native system libraries or low-level APIs, such as network or database access, or disk I/O.
+In these situations, it often becomes necessary to interface directly with code written in C.
+In Coal, this is achieved through the C function interface.
+
+> A *foreign function fnterface* (FFI) allows a program written in one programming language to call routines or use services written in another one.
+
+In Coal, a C function call has the following form:
 
 ```
   #{<c_function_name : t>}(<arg_0>, <arg_1>, ..., <arg_n>)(<continuation>)
 ```
 
-This expression consists of three components. The first 
+This expression consists of three components:
 
+- The first part is the C function to call. Note that the type annotation is mandatory.
+
+    ```
+    #{c_function_name : t}
+    ```
+
+- The second part is a list of arguments to pass to the C function:
+
+    ```
+    (<arg_0>, <arg_1>, ..., <arg_n>)
+    ```
+
+- The last component is the *continuation*. The C function calls this expression with its result. 
+
+    ```
+      (<continuation>)
+    ```
+
+An important point is that the compiler cannot check the type annotation against the C
+function's real signature. The annotation is checked against the argument and continuation
+types, but the programmer is responsible for keeping it in sync with the C code.
+
+### Type conversions at the C boundary
+
+The conversions are **not symmetric**, and the annotation `t` in `#{name : t}`
+must be the full function type. It determines the ABI. The code generator uses the
+runtime's uniform boxed representation, `rt_value_t` (a `void *`).
+
+**Arguments are boxed.** Each argument is boxed into one `rt_value_t`, and the
+foreign function is declared as taking one `void *` per argument. A function
+annotated `int32 -> double` therefore has the C prototype
+
+```c
+double f(void *arg0);
 ```
-#{c_function_name : t}
+
+Inside the C function the value is recovered by unboxing it:
+
+| Coal argument type | Boxed representation passed as `void *` | Recover in C |
+| ------------------ | --------------------------------------- | ------------ |
+| `bool`             | untagged immediate (`0` / `1`)          | `rt_bool_unbox(a)` -> `bool` |
+| `char`             | untagged immediate (Unicode code point) | `rt_char_unbox(a)` -> `uint32_t` |
+| `int32`            | untagged immediate                      | `rt_int32_unbox(a)` -> `int32_t` |
+| `int64`            | untagged immediate                      | `rt_int64_unbox(a)` -> `int64_t` |
+| `float`            | heap pointer to an `rt_float_t`         | `rt_float_unbox(a)` -> `float` |
+| `double`           | heap pointer to an `rt_double_t`        | `rt_double_unbox(a)` -> `double` |
+| `integer`          | heap pointer to an `rt_bignum_t`        | `rt_bignum_value(rt_bignum_unbox(a))` -> `mpz_ptr` |
+| `string`           | heap pointer to an `rt_string_t`        | `rt_string_data(rt_string_unbox(a))` -> `char *` (UTF-8, NUL-terminated) |
+| `unit`             | `NULL`                                  | ignore |
+
+"Untagged immediate" means the pointer's numeric value *is* the value:
+`rt_int32_box`, `rt_int64_box`, `rt_bool_box`, and `rt_char_box` are plain
+integer-to-pointer casts that allocate nothing, so an `int32` argument can also
+be recovered as `(int32_t)(intptr_t)a`. `float` and `double` are different: they
+are heap-boxed, so the argument really is a pointer. Values of other types
+(records, functions, data constructors) are passed as opaque pointers to their
+runtime representation.
+
+**Results are returned unboxed.** The foreign function returns the *raw* C value
+and the code generator boxes it itself before passing it to the continuation.
+The declared C return type must be:
+
+| Coal result type | C return type |
+| ---------------- | ------------- |
+| `bool`           | `bool` (`_Bool`) |
+| `char`           | `uint32_t` / `int32_t` (Unicode code point) |
+| `int32`          | `int32_t` |
+| `int64`          | `int64_t` |
+| `float`          | `float` (unboxed) |
+| `double`         | `double` (unboxed) |
+| `integer`        | `rt_bignum_t *` (never `mpz_t *`) |
+| `string`         | `rt_string_t *` (never `char *`) |
+| `unit`           | `void *` (usually `NULL`) |
+
+Returning a boxed `float`/`double` (an `rt_value_t` heap pointer) is wrong: the
+generator declares the function with its raw floating-point return type and
+reads the result straight out of the machine register, so the callee must return
+the unboxed value. For `integer` and `string` the boxed representation *is* the
+object pointer, so the function returns the `rt_bignum_t *` / `rt_string_t *`
+produced by the runtime (for example `rt_bignum_new(...)`, `rt_string_new(...)`),
+not a GMP `mpz_t *` and not a bare `char *`.
+
+The continuation is applied to the boxed result through the runtime's uniform
+application, and the code generator unboxes it to the continuation's result
+type, which is also the type of the whole `#{...}(...)(...)` expression.
+
+For example, this Coal call
+
+```coal
+#{my_add : int32 -> int32 -> int32}(x, y)(fn(r) => r)
 ```
 
-Function calls of this type cannot be type-checked by the compiler.
-The programmer is responsible for making sure that the types
-attention is needed to make sure that 
+matches
 
-The compiler automatically performs the following type conversions when moving between native code and C:
+```c
+#include <stdint.h>
 
-| Coal primitive     | C type                  | Remarks                  |
-| ------------------ | ----------------------- | ------------------------ |
-| `bool`             | `bool`                  |                          |
-| `char`             | `int32_t`               | A unicode code point     |
-| `float`            | `float`                 |                          |
-| `double`           | `double`                |                          |
-| `int32`            | `int32_t`               |                          |
-| `int64`            | `int64_t`               |                          |
-| `integer`          | `mpz_t*`                |                          |
-| `string`           | `char*`                 | UTF-8 encoded            |
-
-The second part is a list of arguments to pass to the C function:
-
+int32_t my_add(void *a, void *b)
+{
+    int32_t x = (int32_t)(intptr_t) a;
+    int32_t y = (int32_t)(intptr_t) b;
+    return x + y;
+}
 ```
-(<arg_0>, <arg_1>, ..., <arg_n>)
-```
-
-
-(<continuation>)
-
-The last 
-
-
-
 
 When compiling your program, pass each C file as an `--extra-c` command line argument. For example:
 
@@ -50,4 +125,12 @@ When compiling your program, pass each C file as an `--extra-c` command line arg
 coal Main.coal --extra-c my_c_lib.c -o dist
 ```
 
+For project-based builds, specify the `c_sources` field in your project's `coal.json` configuration.
+
+
+```json
+    "c_sources": [
+        "runtime.c"
+    ]
+```
 

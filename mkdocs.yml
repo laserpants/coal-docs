@@ -22,6 +22,7 @@ nav:
   - Language manual: language-manual.md
   - CLI reference: cli.md
   - Standard library: /standard-library/
+  - C function interface: ffi.md
   - Examples:
       - Quicksort: examples/quicksort.md
       - Basic I/O: examples/basic-io.md
