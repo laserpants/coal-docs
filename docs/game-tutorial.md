@@ -551,7 +551,7 @@ fun tick(state : GameState) : GameState
 
 - `tick` has type `GameState -> GameState`. It is called on every timer tick to move the active piece down one row. If the piece cannot move down, `tick` instead calls `on_piece_landed` to land the piece.
 
-## Events
+## Main loop
 
 We now have the machinery to update the game state. The functions we have already covered handle everything that happens during the game.
 What we're left with now is the game loop that drives the application.
