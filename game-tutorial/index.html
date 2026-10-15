@@ -805,10 +805,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#events" class="md-nav__link">
+  <a href="#main-loop" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Events
+        Main loop
       </span>
     </span>
   </a>
@@ -1203,10 +1203,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#events" class="md-nav__link">
+  <a href="#main-loop" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Events
+        Main loop
       </span>
     </span>
   </a>
@@ -1798,7 +1798,7 @@ We’ll also look at two drop functions that move the active piece straight down
 <ul>
 <li><code>tick</code> has type <code>GameState -&gt; GameState</code>. It is called on every timer tick to move the active piece down one row. If the piece cannot move down, <code>tick</code> instead calls <code>on_piece_landed</code> to land the piece.</li>
 </ul>
-<h2 id="events">Events</h2>
+<h2 id="main-loop">Main loop</h2>
 <p>We now have the machinery to update the game state. The functions we have already covered handle everything that happens during the game.
 What we're left with now is the game loop that drives the application.
 We will use the <a href="https://codeberg.org/laserpants/coal-event-source"><code>coal-event-source</code></a> library and its event loop system to receive user input and handle other events. Specifically, the loop will need to:</p>
