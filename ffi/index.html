@@ -11,6 +11,10 @@
         <link rel="canonical" href="https://coal-lang.org/ffi/">
       
       
+        <link rel="prev" href="/standard-library/">
+      
+      
+        <link rel="next" href="../examples/quicksort/">
       
       
         
@@ -337,6 +341,179 @@
       
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  C function interface
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  C function interface
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rationale
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rationale">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c-function-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        C function type
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-conversions-at-the-c-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Type conversions at the C boundary
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Type conversions at the C boundary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Arguments
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Return values
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ownership-and-mutation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ownership and mutation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Example
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compiling-c-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Compiling C code
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
   
   
     
@@ -348,10 +525,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -369,8 +546,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_6">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_7">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -536,10 +713,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
         
           
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
             
   
   
@@ -557,8 +734,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_8">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_9">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -672,6 +849,11 @@
                       
                     
                     
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
                   
                   <div class="md-sidebar__inner">
                     
@@ -683,6 +865,114 @@
   
     
   
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Rationale
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rationale">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c-function-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        C function type
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-conversions-at-the-c-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Type conversions at the C boundary
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Type conversions at the C boundary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Arguments
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Return values
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ownership-and-mutation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ownership and mutation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Example
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compiling-c-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Compiling C code
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -698,75 +988,192 @@
                   
 
 <h1 id="c-function-interface">C function interface</h1>
-<p>When developing applications or libraries that perform network access, disk I/O, or other tasks that interact with low-level system APIs, it is often necessary to interface with code written in C.
-This can be achieved in Coal through the C function interface:</p>
-<div class="highlight"><pre><span></span><code>  #{&lt;c_function_name : t&gt;}(&lt;arg_0&gt;, &lt;arg_1&gt;, ..., &lt;arg_n&gt;)(&lt;continuation&gt;)
+<h2 id="rationale">Rationale</h2>
+<p>Programs may need to interact with native libraries or system APIs accessible via code written in C. 
+Examples include database drivers, networking libraries, and low-level I/O bindings. 
+A <em>Foreign Function Interface</em> (FFI) allows a program written in one programming language to call functions written in another. 
+In Coal, this is achieved through the C function interface.</p>
+<p>Note that a C function call is not an ordinary Coal expression. It is a low-level construct that bridges the language's own type system and runtime representation with the C function's ABI. </p>
+<div class="admonition warning">
+<p class="admonition-title">Important!</p>
+<p>This language feature is primarily intended for library authors. When exposing a C function to Coal, the programmer is responsible for ensuring that each declaration agrees with the corresponding C function. Application code should generally use existing Coal libraries rather than declare C functions directly.</p>
+</div>
+<p>The syntax to specify a C function call is:</p>
+<div class="highlight"><pre><span></span><code>#{&lt;c_function_name : t&gt;}(&lt;arg_0&gt;, &lt;arg_1&gt;, ..., &lt;arg_n&gt;)(&lt;continuation&gt;)
 </code></pre></div>
-<p>This expression consists of three components. The first </p>
+<p>This expression has three parts:</p>
+<ol>
+<li>
+<p>The first part is the C function to call. Note that, unlike other expressions in Coal, the type annotation is mandatory here.</p>
 <div class="highlight"><pre><span></span><code>#{c_function_name : t}
 </code></pre></div>
-<p>Function calls of this type cannot be type-checked by the compiler.
-The programmer is responsible for making sure that the types
-attention is needed to make sure that </p>
-<p>The compiler automatically performs the following type conversions when moving between native code and C:</p>
+</li>
+<li>
+<p>The second part is a list of arguments to pass to the C function.</p>
+<div class="highlight"><pre><span></span><code>(&lt;arg_0&gt;, &lt;arg_1&gt;, ..., &lt;arg_n&gt;)
+</code></pre></div>
+</li>
+<li>
+<p>The last component is the <em>continuation</em>. After the C function returns, the generated code passes its result to this expression. </p>
+<div class="highlight"><pre><span></span><code>(&lt;continuation&gt;)
+</code></pre></div>
+</li>
+</ol>
+<h3 id="c-function-type">C function type</h3>
+<p>The type declaration's arity must match the number of arguments, and its argument and result types <strong>determine</strong> the C function signature. 
+The compiler checks the type annotation against the Coal arguments and continuation, but it cannot verify that the annotation matches the actual C function signature. </p>
+<h2 id="type-conversions-at-the-c-boundary">Type conversions at the C boundary</h2>
+<p>The type annotation <code>t</code> in <code>#{name : t}</code> must be the full function type. It determines the ABI: how arguments are passed and how the result is returned.</p>
+<p>Coal uses a uniform boxed representation, <code>rt_value_t</code> (<code>void *</code>), for values passed to C. However, <strong>arguments and return values are handled differently</strong>.</p>
+<h3 id="arguments">Arguments</h3>
+<p>Each argument is passed as a single <code>void *</code>. The C function must recover the value using the appropriate runtime function.</p>
+<p>For example, a function annotated <code>int32 -&gt; double</code> has the C prototype:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">double</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">arg0</span><span class="p">);</span>
+</code></pre></div>
+<p>The argument representations and corresponding unboxing functions are listed below.</p>
 <table>
 <thead>
 <tr>
-<th>Coal primitive</th>
-<th>C type</th>
-<th>Remarks</th>
+<th>Coal type</th>
+<th>Representation</th>
+<th>Recover in C</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>bool</code></td>
-<td><code>bool</code></td>
-<td></td>
+<td>Untagged immediate (<code>0</code> / <code>1</code>)</td>
+<td><code>rt_bool_unbox(a)</code> → <code>bool</code></td>
 </tr>
 <tr>
 <td><code>char</code></td>
-<td><code>int32_t</code></td>
-<td>A unicode code point</td>
+<td>Untagged immediate (Unicode code point)</td>
+<td><code>rt_char_unbox(a)</code> → <code>uint32_t</code></td>
+</tr>
+<tr>
+<td><code>int32</code></td>
+<td>Untagged immediate</td>
+<td><code>rt_int32_unbox(a)</code> → <code>int32_t</code></td>
+</tr>
+<tr>
+<td><code>int64</code></td>
+<td>Untagged immediate</td>
+<td><code>rt_int64_unbox(a)</code> → <code>int64_t</code></td>
 </tr>
 <tr>
 <td><code>float</code></td>
-<td><code>float</code></td>
-<td></td>
+<td>Heap pointer to <code>rt_float_t</code></td>
+<td><code>rt_float_unbox(a)</code> → <code>float</code></td>
 </tr>
 <tr>
 <td><code>double</code></td>
-<td><code>double</code></td>
-<td></td>
+<td>Heap pointer to <code>rt_double_t</code></td>
+<td><code>rt_double_unbox(a)</code> → <code>double</code></td>
+</tr>
+<tr>
+<td><code>integer</code></td>
+<td>Heap pointer to <code>rt_bignum_t</code></td>
+<td><code>rt_bignum_value(rt_bignum_unbox(a))</code> → <code>mpz_ptr</code></td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td>Heap pointer to <code>rt_string_t</code></td>
+<td><code>rt_string_data(rt_string_unbox(a))</code> → <code>char *</code></td>
+</tr>
+<tr>
+<td><code>unit</code></td>
+<td><code>NULL</code></td>
+<td>Ignore</td>
+</tr>
+</tbody>
+</table>
+<p>An <em>untagged immediate</em> encodes the value directly in the pointer's numeric value. The runtime's <code>rt_int32_box</code>, <code>rt_int64_box</code>, <code>rt_bool_box</code>, and <code>rt_char_box</code> functions use integer-to-pointer casts without allocating memory. For example, an <code>int32</code> argument can be recovered with <code>(int32_t)(intptr_t)a</code>.</p>
+<p>By contrast, <code>float</code> and <code>double</code> are heap-allocated boxes, so their arguments are actual pointers to runtime objects. Values of other types, such as records, functions, and data constructors, are passed as opaque pointers to their runtime representations.</p>
+<h3 id="return-values">Return values</h3>
+<p>The C function returns a value corresponding to the annotated result type. The generated code boxes primitive results where necessary before passing them to the continuation.</p>
+<table>
+<thead>
+<tr>
+<th>Coal result type</th>
+<th>C return type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bool</code></td>
+<td><code>_Bool</code></td>
+</tr>
+<tr>
+<td><code>char</code></td>
+<td><code>uint32_t</code> (Unicode code point)</td>
 </tr>
 <tr>
 <td><code>int32</code></td>
 <td><code>int32_t</code></td>
-<td></td>
 </tr>
 <tr>
 <td><code>int64</code></td>
 <td><code>int64_t</code></td>
-<td></td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td><code>float</code></td>
+</tr>
+<tr>
+<td><code>double</code></td>
+<td><code>double</code></td>
 </tr>
 <tr>
 <td><code>integer</code></td>
-<td><code>mpz_t*</code></td>
-<td></td>
+<td><code>rt_bignum_t *</code></td>
 </tr>
 <tr>
 <td><code>string</code></td>
-<td><code>char*</code></td>
-<td>UTF-8 encoded</td>
+<td><code>rt_string_t *</code></td>
+</tr>
+<tr>
+<td><code>unit</code></td>
+<td><code>void *</code> (usually <code>NULL</code>)</td>
 </tr>
 </tbody>
 </table>
-<p>The second part is a list of arguments to pass to the C function:</p>
-<div class="highlight"><pre><span></span><code>(&lt;arg_0&gt;, &lt;arg_1&gt;, ..., &lt;arg_n&gt;)
+<p>Primitive values must be returned unboxed. In particular, a C function returning <code>float</code> or <code>double</code> must return the actual floating-point value, not a pointer to a boxed value.</p>
+<p>For <code>integer</code> and <code>string</code>, the returned pointer is already the representation expected by Coal. Return an <code>rt_bignum_t *</code> or <code>rt_string_t *</code> created by the runtime, for example with <code>rt_bignum_new(...)</code> or <code>rt_string_new(...)</code>. Do not return an <code>mpz_t *</code> or a bare <code>char *</code> in their place.</p>
+<p>The continuation is applied to the result after it has been converted to the representation expected by Coal. The continuation's result type is also the type of the entire <code>#{...}(...)(...)</code> expression.</p>
+<h3 id="ownership-and-mutation">Ownership and mutation</h3>
+<p>Coal values are managed by the runtime's garbage collector. Follow these rules when working with them in C:</p>
+<ul>
+<li><strong>Do not free Coal values.</strong> Do not call <code>free</code> on a value passed to C.</li>
+<li><strong>Use runtime allocation functions.</strong> Return Coal objects created by the runtime, such as <code>rt_string_new</code> and <code>rt_bignum_new</code>, rather than manually allocating their representations with <code>malloc</code>.</li>
+<li><strong>Treat arguments as borrowed.</strong> Do not retain pointers to runtime objects or their internal data beyond the lifetime guaranteed by the runtime. </li>
+<li><strong>Do not mutate Coal values.</strong> Coal values are immutable. Do not modify string bytes or bignum contents through pointers returned by <code>rt_string_data</code> or <code>rt_bignum_value</code>.</li>
+</ul>
+<p>The pointers returned by <code>rt_string_data</code> and <code>rt_bignum_value</code> refer to data held by runtime objects. Their validity depends on the lifetime of those objects.</p>
+<h2 id="example">Example</h2>
+<p>This Coal expression calls a C function that adds two integers:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">#{</span><span style="color:#6F42C1">my_add</span><span style="color:#D73A49"> :</span><span style="color:#6F42C1"> int32</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> int32</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> int32</span><span style="color:#24292E">}(x, y)(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(r) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> r)</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">#{</span><span style="color:#B392F0">my_add</span><span style="color:#F97583"> :</span><span style="color:#B392F0"> int32</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> int32</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> int32</span><span style="color:#E1E4E8">}(x, y)(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(r) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> r)</span></span></code></pre>
+<p>The corresponding C function is:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+
+<span class="kt">int32_t</span><span class="w"> </span><span class="nf">my_add</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int32_t</span><span class="p">)(</span><span class="kt">intptr_t</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int32_t</span><span class="p">)(</span><span class="kt">intptr_t</span><span class="p">)</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>(<continuation>)</p>
-<p>The last </p>
-<p>When compiling your program, pass each C file as an <code>--extra-c</code> command line argument. For example:</p>
-<div class="highlight"><pre><span></span><code>coal Main.coal --extra-c my_c_lib.c -o dist
+<p>The <code>int32</code> arguments are untagged immediates, so their integer values are recovered using <code>intptr_t</code> casts. Defined in <code>&lt;stdint.h&gt;</code>, <code>intptr_t</code> is an optional integer type capable of representing converted pointer values. This technique relies on Coal's runtime representation; it is not a general way to convert arbitrary pointers into integers.</p>
+<p>The compiler cannot verify that the annotation matches the actual C function signature. The programmer is responsible for ensuring that they agree.</p>
+<h2 id="compiling-c-code">Compiling C code</h2>
+<p>Pass each C source file to the compiler using <code>--extra-c</code>. For example:</p>
+<div class="highlight"><pre><span></span><code>coal<span class="w"> </span>Main.coal<span class="w"> </span>--extra-c<span class="w"> </span>my_c_lib.c<span class="w"> </span>-o<span class="w"> </span>dist
+</code></pre></div>
+<p>For project-based builds, specify the C source files in the <code>c_sources</code> field of <code>coal.json</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"c_sources"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">"my_c_lib.c"</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre></div>
 
 
