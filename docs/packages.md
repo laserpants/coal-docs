@@ -216,3 +216,17 @@ Commonly used floating-point math functions and constants.
 coal add https://git@codeberg.org/laserpants/coal-math.git
 ```
 
+---
+
+## coal-sqlite
+
+Repository: [codeberg.org/laserpants/coal-sqlite](https://codeberg.org/laserpants/coal-sqlite)
+
+A minimal SQLite3 library with a high-level API for automatic resource cleanup and low-level functions for explicit control over database connections and prepared statements.
+
+#### Installation
+
+```bash
+coal add https://git@codeberg.org/laserpants/coal-sqlite.git
+```
+
