@@ -986,6 +986,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#remove_file" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>remove_file</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#readln" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -1037,8 +1048,9 @@
 <p>Functions for input/output operations.</p>
 <p>This module provides primitive I/O actions that interact with the
 external environment, such as printing to standard output, reading
-from standard input, and reading/writing files. All I/O operations
-are wrapped in the <code>IO</code> type to maintain purity in the language.</p>
+from standard input, and reading/writing/removing files. All I/O
+operations are wrapped in the <code>IO</code> type to maintain purity in the
+language.</p>
 <hr />
 <h3 id="println_string"><code>println_string</code></h3>
 <p>Print a string followed by a newline.</p>
@@ -1192,6 +1204,10 @@ runtime back to Coal code.</p>
 <td>Insufficient memory for the operation</td>
 </tr>
 <tr>
+<td><code>PermissionDenied</code></td>
+<td>The operation was not permitted</td>
+</tr>
+<tr>
 <td><code>UnknownError</code></td>
 <td>An unrecognised error occurred</td>
 </tr>
@@ -1210,6 +1226,12 @@ and return the result wrapped in <code>IO</code>. On success the result is
 <p>Open the file at the given path and write the given string data
 to it. Returns <code>None</code> on success, or <code>Some(FileIOError)</code> on failure.</p>
 <pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">write_file </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> string</span><span style="color:#D73A49"> -></span><span style="color:#005CC5"> string</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Option</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">FileIOError</span><span style="color:#D73A49">>></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">write_file </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#F97583"> -></span><span style="color:#79B8FF"> string</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Option</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">FileIOError</span><span style="color:#F97583">>></span></span></code></pre>
+<hr />
+<h3 id="remove_file"><code>remove_file</code></h3>
+<p>Remove a file.</p>
+<p>Delete the file at the given path. Returns <code>None</code> on success, or
+<code>Some(FileIOError)</code> on failure.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">remove_file </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> string</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">Option</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">FileIOError</span><span style="color:#D73A49">>></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">remove_file </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">Option</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">FileIOError</span><span style="color:#F97583">>></span></span></code></pre>
 <hr />
 <h3 id="readln"><code>readln</code></h3>
 <p>Read a line of text from standard input.</p>
