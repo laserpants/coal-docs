@@ -84,7 +84,7 @@ The C function returns a value corresponding to the annotated result type. The g
 
 | Coal result type | C return type |
 |---|---|
-| `bool` | `bool` (`_Bool`) |
+| `bool` | `_Bool` |
 | `char` | `uint32_t` (Unicode code point) |
 | `int32` | `int32_t` |
 | `int64` | `int64_t` |
