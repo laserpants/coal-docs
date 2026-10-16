@@ -4,8 +4,9 @@ Functions for input/output operations.
 
 This module provides primitive I/O actions that interact with the
 external environment, such as printing to standard output, reading
-from standard input, and reading/writing files. All I/O operations
-are wrapped in the `IO` type to maintain purity in the language.
+from standard input, and reading/writing/removing files. All I/O
+operations are wrapped in the `IO` type to maintain purity in the
+language.
 
 ---
 
@@ -284,13 +285,14 @@ runtime back to Coal code.
 
 Errors that can occur during file I/O operations.
 
-| Constructor    | Description                         |
-|----------------|-------------------------------------|
-| `FileNotFound` | The specified file does not exist   |
-| `InvalidInput` | The input provided was invalid      |
-| `IOError`      | A generic I/O error occurred        |
-| `OutOfMemory`  | Insufficient memory for the operation |
-| `UnknownError` | An unrecognised error occurred      |
+| Constructor        | Description                           |
+|--------------------|---------------------------------------|
+| `FileNotFound`     | The specified file does not exist     |
+| `InvalidInput`     | The input provided was invalid        |
+| `IOError`          | A generic I/O error occurred          |
+| `OutOfMemory`      | Insufficient memory for the operation |
+| `PermissionDenied` | The operation was not permitted       |
+| `UnknownError`     | An unrecognised error occurred        |
 
 ---
 
@@ -317,6 +319,19 @@ to it. Returns `None` on success, or `Some(FileIOError)` on failure.
 
 ```coal
 write_file : string -> string -> IO<Option<FileIOError>>
+```
+
+---
+
+### `remove_file`
+
+Remove a file.
+
+Delete the file at the given path. Returns `None` on success, or
+`Some(FileIOError)` on failure.
+
+```coal
+remove_file : string -> IO<Option<FileIOError>>
 ```
 
 ---
