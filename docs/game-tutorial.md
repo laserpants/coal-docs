@@ -395,10 +395,10 @@ These will be essential later for collision checks, which determine whether the 
 As previously mentioned, the `Tetromino` type on its own doesn't say anything about the actual geometry of the shape it represents. It is just an identity.
 To move and land the currently active piece, the game needs a way to figure out the cells it occupies from its shape, orientation, and position.
 The function `tetromino_cells` does most of this for us — it takes a `Tetromino` and an `Orientation` and returns a `Set<(int32, int32)>` of cells.
-For example, for `ShapeL` and `R90` it contains the following cells (shown as a list for readability; a `Set` itself is unordered):
+For example, for `ShapeL` and `R90` it contains the following cells:
 
 ```text
-[ (3, 0), (1, 1), (2, 1), (3, 1) ]
+(3, 0), (1, 1), (2, 1), (3, 1)
 ```
 
 <img src="../assets/tutorials/img/cells.png" alt="The four cells occupied by the L tetromino in orientation R90" style="width: 300px;" />
