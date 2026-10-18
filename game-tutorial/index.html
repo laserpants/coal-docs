@@ -1671,7 +1671,7 @@ So <code>is_board_member</code> and <code>board_insert</code> are really just th
 </ul>
 <blockquote>
 <h5 id="note">Note</h5>
-<p>This works only because <code>reduce_left</code> folds the list <strong>right-to-left</strong>: the range <code>[0, …, cleared_y - 1]</code> is therefore consumed from <code>cleared_y - 1</code> down to <code>0</code>. Processing the rows in the other direction would shift the same cells repeatedly and collapse the stack.</p>
+<p><code>board_shift_rows_above</code> folds the range with <code>reduce</code>, which is a <strong>right fold</strong>: the range <code>[0, …, cleared_y - 1]</code> is therefore consumed from <code>cleared_y - 1</code> down to <code>0</code>. Processing the rows in the other direction would shift the same cells repeatedly and collapse the stack. The other row helpers use <code>reduce_left</code>, which folds left-to-right, but their per-column work is order-independent, so only this one has to use <code>reduce</code>.</p>
 </blockquote>
 <h4 id="clearing-completed-lines">Clearing completed lines</h4>
 <p>The row helpers come together in a small clearing algorithm:</p>
