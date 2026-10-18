@@ -347,7 +347,7 @@ fun board_shift_rows_above(cleared_y : int32, board : Board) : Board
 
 > ##### Note
 >
-> This works only because `reduce_left` folds the list **right-to-left**: the range `[0, …, cleared_y - 1]` is therefore consumed from `cleared_y - 1` down to `0`. Processing the rows in the other direction would shift the same cells repeatedly and collapse the stack.
+> `board_shift_rows_above` folds the range with `reduce`, which is a **right fold**: the range `[0, …, cleared_y - 1]` is therefore consumed from `cleared_y - 1` down to `0`. Processing the rows in the other direction would shift the same cells repeatedly and collapse the stack. The other row helpers use `reduce_left`, which folds left-to-right, but their per-column work is order-independent, so only this one has to use `reduce`.
 
 #### Clearing completed lines
 
