@@ -386,7 +386,7 @@ fun board_to_list(board : Board) : List<(int32, int32)> =
 
 ### Cells
 
-Cells are like the atoms in the universe of this game. They are also commonly referred to as *blocks* or *minos* in Tetris terminology.
+Cells are like the atoms in the tetroid universe. They are also commonly referred to as *blocks* or *minos* in Tetris terminology.
 The functions here operate at the cell level to manipulate or peek at the cells of a piece.
 These will be essential later for collision checks, which determine whether the active piece would overlap with anything on the board, and for rendering, which needs to know which cells to draw.
 
