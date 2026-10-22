@@ -1944,7 +1944,7 @@ Importing a [type](#data-types) follows the same pattern. After the name of the 
 type Answer = Yes | No | Maybe
 ```
 
-To import this type and its constructors, we use the following statement:
+To import this type and one or more of its constructors, we use the following statement:
 
 ```coal
 import Utilities(Answer(Yes, No))
@@ -1952,7 +1952,7 @@ import Utilities(Answer(Yes, No))
 
 Following the type name is an optional list of data constructors. These constructors will be imported along with the type.
 
-If the constructor list is omitted, all public data constructors of the type are imported:
+If the constructor list is omitted, all **exported** data constructors of the type are imported:
 
 ```coal
 import Utilities(Answer)   // Brings in Answer and its constructors
