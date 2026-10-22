@@ -1952,7 +1952,7 @@ import Utilities(Answer(Yes, No))
 
 Following the type name is an optional list of data constructors enclosed in parentheses. These constructors will be imported along with the type.
 
-If the constructor list is omitted, all **exported** data constructors of the type are imported:
+If the constructor list is omitted, **all exported** data constructors of the type are imported:
 
 ```coal
 import Utilities(Answer)   // Brings in Answer and its constructors
