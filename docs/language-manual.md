@@ -1938,7 +1938,7 @@ Note that only definitions that are exported by the source module can be importe
 
 #### Type imports
 
-Importing a [type](#data-types) follows the same pattern. After the name of the type is an optional list of data constructors enclosed in parentheses. For example, let’s say our project includes a module `Utilities`, and that this module defines the following type:
+Importing a [type](#data-types) follows the same pattern. For example, let’s say our project includes a module `Utilities`, and that this module defines the following type:
 
 ```coal
 type Answer = Yes | No | Maybe
@@ -1950,7 +1950,7 @@ To import this type and one or more of its constructors, we use the following st
 import Utilities(Answer(Yes, No))
 ```
 
-Following the type name is an optional list of data constructors. These constructors will be imported along with the type.
+Following the type name is an optional list of data constructors enclosed in parentheses. These constructors will be imported along with the type.
 
 If the constructor list is omitted, all **exported** data constructors of the type are imported:
 
