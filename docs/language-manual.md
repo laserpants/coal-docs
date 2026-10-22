@@ -1958,7 +1958,7 @@ If the constructor list is omitted, all **exported** data constructors of the ty
 import Utilities(Answer)   // Brings in Answer and its constructors
 ```
 
-To import only the type, without any of its constructors, use an empty pair of parentheses:
+To import only the type without any of its constructors, use an empty pair of parentheses:
 
 ```coal
 import Utilities(Answer())   // Brings in the type alone
@@ -2012,7 +2012,30 @@ module Utils.Math.Trigonometry(sin, cos, tan) {
   // ...
 ```
 
-If this list is left out, everything in the module is exported.
+If this list is left out, everything in the module is exported:
+
+```coal
+module Utils.Math.Trigonometry {
+  // ...
+```
+
+#### Type exports
+
+Type exports follow the same syntax as type imports. The type name is followed by an optional list of data constructors, enclosed in parentheses:
+
+```coal
+module Utils(Answer(Yes, No))
+```
+
+If the list is omitted, **all** data constructors of the type are exported.
+
+To export only the type without any of its constructors, use an empty pair of parentheses:
+
+```coal
+module Utils(Answer())
+```
+
+This makes the type *opaque*: code outside the defining module can refer to the type, but cannot inspect its internals or construct values using its data constructors directly.
 
 ## Pattern matching
 
