@@ -344,7 +344,7 @@ Coal supports the standard boolean logic operators.
 
 |               | Description            |                                       |                                                          
 | ------------- | ---------------------- | ------------------------------------- |                                                                      
-| `.`           | Record field access    | See **[Field access](#field-access)** |                                                               
+| `.`           | Record field access    | See **[Field access](#field-access)** and **[Field sections](#field-sections)** |                                                               
 
 #### Algebraic structures
 
@@ -1474,6 +1474,34 @@ The contents of a record field can be obtained using the field-access operator, 
 let language = { name = "Java", paradigm = "OOP" }
   in language.name
 ```
+
+#### Field sections
+
+The field-access operator can also be used on its own, by writing an underscore (`_`) in place of the record. The result is a function that performs the access:
+
+```coal
+let shoe_size_of = _.shoe_size   // i.e., fn(person) => person.shoe_size
+```
+
+An expression of this form is called a *field section*. It is the selector `.shoe_size` with its record operand left out, so it denotes a function from record to field:
+
+```coal
+_.shoe_size : { shoe_size : t | r } -> t
+```
+
+Because the type is polymorphic in the remaining fields `r` (see **[Open and closed records](#open-and-closed-records)**), the same section can be applied to any record that has a `shoe_size` field. This is convenient whenever a field access is to be passed as an argument to another function:
+
+```coal
+let users =
+  [ { username = "bob", shoe_size = 5 }
+  , { username = "alice", shoe_size = 7 }
+  ]
+
+let total_shoe_size = users |.map(_.shoe_size) |.reduce(fn(a, b) => a + b, 0)
+// total_shoe_size == 12
+```
+
+Like any other function, a section is a first-class value: it can be bound to a name, stored in a record or a list, and returned from a function. The body of the section extends over the whole chain of operations following the field, so `_.address.city` is shorthand for `fn(person) => person.address.city`.
 
 #### Extending records
 
