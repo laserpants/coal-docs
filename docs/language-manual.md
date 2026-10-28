@@ -3070,6 +3070,87 @@ readln          : unit -> IO<string>
 random          : unit -> IO<double>
 ```
 
+### Deferment
+
+An `IO<a>` expression produces an action that, when run, produces a value of type `a`. 
+An action’s effects are delayed until it runs, and creating the action doesn’t run it. 
+This is called *deferment*. Deferment is not the same as laziness. 
+Coal evaluates expressions eagerly, as explained under **[Coal is strict](#coal-is-strict)** below.
+
+```coal
+fun main() =
+  let unused = IO.println_string("never printed") in  // built, never run
+  IO.println_string("printed")                        // run by the program entry point
+```
+
+The binding expression in this example creates an action that prints a message, but this action never runs. 
+The action in the body of the `let`-binding is run by the program entry point.
+
+#### Running an action
+
+The program entry point runs the action returned by `main`. 
+Other actions run only if they are explicitly run or included in an action that eventually runs.
+
+An action can therefore be stored, passed to a function, returned, run multiple times, or never run at all.
+
+#### Properties of actions
+
+- **Explicit sequencing.** `do`-notation and `bind` specify the order in which actions run.
+- **First-class actions.** An action is a value that can be passed around like other values. It can be run more than once or not at all.
+- **Separation of description and execution.** Code can construct an action without running the effects described by it.
+- **No memoization.** Running an action again runs its computation again; the result of an earlier run is not cached.
+
+#### How actions are built
+
+The built-in `IO` module provides the following operations:
+
+```coal
+fun __defer(f : unit -> v) : IO<v>   // build an action from a suspended computation
+fun __eval_io(action : IO<v>) : v    // run one, yielding its result
+fun return(v : v) : IO<v>            // an action that produces v and does nothing else
+```
+
+Internally, an `IO<a>` value is represented as a suspended computation of type `unit -> a`.
+`__defer` wraps a thunk in an action, and `__eval_io` runs the suspended computation. 
+`unsafe_perform` is an alias for `__eval_io`.
+
+#### Coal is strict
+
+Deferment delays the execution of an action, not the evaluation of expressions used to construct it. Coal evaluates expressions eagerly, so a function body runs when the function is called.
+
+This distinction matters when an `IO`-returning function calls a C function. Consider the following implementation:
+
+```coal
+// The file is read as soon as read_config(path) is evaluated.
+fun read_config(path : string) : IO<string> =
+  #{coal_read_file : string -> string}(path)(fn(s) => return(s))
+```
+
+The C function call reads the file before `return` wraps its result in an action. The file read is therefore not deferred.
+
+To defer the read, put the C function call inside a thunk:
+
+```coal
+// The file is read when the action is run.
+fun read_config(path : string) : IO<string> =
+  __defer(fn(_) => #{coal_read_file : string -> string}(path)(fn(s) => s))
+```
+
+Now evaluating `read_config(path)` constructs an action without reading the file. The read happens when the action is run.
+
+This applies to C function calls generally: they are ordinary expressions, and evaluating them executes the call. In particular, `return` wraps a value that has already been evaluated; it does not defer the expression that produced it.
+
+For this reason, a function returning `IO<a>` is not automatically effect-free merely because of its return type. Its implementation must ensure that effects intended to be deferred occur inside the suspended computation.
+
+#### The contract
+
+- Constructing an action does not execute the effects described by that action.
+- Running an action executes its computation. Running it again executes the computation again; actions do not cache results.
+- Binding an action to an unused variable does not run it. For example, `let _ = action` does not execute `action`.
+- If a C caller ignores a callback's return value, it cannot automatically run an `IO` action returned by that callback. The callback should return an ordinary value; if an action must be run, it must be evaluated explicitly.
+
+The function `unsafe_perform` runs an action immediately, at the point where it is called. This bypasses the normal sequencing model and can break referential transparency: evaluating an expression may perform an effect immediately, rather than merely constructing an action. Use it only when the effect cannot be expressed through ordinary action composition.
+
 ### Monads and pipelining
 
 Monads describe how to sequence computations that produce a value along with some contextual information or effect. A *monadic* function is one of the form:
