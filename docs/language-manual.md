@@ -3149,11 +3149,7 @@ For this reason, a function returning `IO<a>` is not automatically effect-free m
 - Binding an action to an unused variable does not run it. For example, `let _ = action` does not execute `action`.
 - If a C caller ignores a callback's return value, it cannot automatically run an `IO` action returned by that callback. The callback should return an ordinary value; if an action must be run, it must be evaluated explicitly.
 
-#### `unsafe_perform`
-
-`unsafe_perform` runs an action immediately, at the point where it is called.
-
-This bypasses the normal sequencing model and can break referential transparency: evaluating an expression may perform an effect immediately, rather than merely constructing an action. Use it only when the effect cannot be expressed through ordinary action composition.
+The function `unsafe_perform` runs an action immediately, at the point where it is called. This bypasses the normal sequencing model and can break referential transparency: evaluating an expression may perform an effect immediately, rather than merely constructing an action. Use it only when the effect cannot be expressed through ordinary action composition.
 
 ### Monads and pipelining
 
