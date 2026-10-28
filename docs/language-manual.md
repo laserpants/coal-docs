@@ -3083,26 +3083,22 @@ fun main() =
   IO.println_string("printed")                        // run by the program entry point
 ```
 
-The expression in the body of the let-binding creates an action that prints a message, but this action never runs. 
-The second action is returned by `main` and run by the program entry point.
-
-Monadic `do`-notation and `bind` compose actions into one larger action. 
-They specify the order in which effects occur when that action is run. 
-They do not, by themselves, execute those effects.
+The binding expression in this example creates an action that prints a message, but this action never runs. 
+The action in the body of the let-binding is run by the program entry point.
 
 #### Running an action
 
 The program entry point runs the action returned by `main`. 
-Other actions run only when they are explicitly evaluated or composed into another action that is eventually run.
+Other actions run only if they are explicitly run or included in an action that eventually runs.
 
 An action can therefore be stored, passed to a function, returned, run multiple times, or never run at all.
 
-#### Properties 
+#### Properties of actions
 
-- **Purity.** A function whose result type is `IO<a>` is a pure function: calling it performs no effect, and it always builds the same description. Effects live in the actions, and the type tells you where they are.
-- **Ordering.** Effects happen in the order the actions are *run*, which `do`/`bind` states explicitly — not in the order expressions happen to be evaluated.
-- **Actions are first-class.** An action can be passed, stored, returned, run twice, or never run. An action that is never run has no effect at all.
-- **No surprises.** If you didn’t run it, it didn’t happen.
+- **Explicit sequencing.** `do`-notation and `bind` specify the order in which actions run.
+- **First-class actions.** An action is a value that can be passed around like other values. It can be run more than once or not at all.
+- **Separation of description and execution.** Code can construct an action without running the effects described by it.
+- **No memoization.** Running an action again runs its computation again; the result of an earlier run is not cached.
 
 #### How actions are built
 
@@ -3114,43 +3110,50 @@ fun __eval_io(action : IO<v>) : v    // run one, yielding its result
 fun return(v : v) : IO<v>            // an action that produces v and does nothing else
 ```
 
-An `IO<a>` value is represented as a suspended computation of type `unit -> a`. 
+Internally, an `IO<a>` value is represented as a suspended computation of type `unit -> a`.
 `__defer` wraps a thunk in an action, and `__eval_io` runs the suspended computation. 
 `unsafe_perform` is an alias for `__eval_io`.
 
 #### Coal is strict
 
-`IO` defers *effects*, not evaluation. Coal evaluates expressions eagerly, so the body of a function runs when the function is called. 
-An effect written directly in the body of an `IO`-returning function therefore happens when the function is called, not when the action is run. To defer it, put it inside the thunk:
+Deferment delays the execution of an action, not the evaluation of expressions used to construct it. Coal evaluates expressions eagerly, so a function body runs when the function is called.
+
+This distinction matters when an `IO`-returning function calls a C function. Consider the following implementation:
 
 ```coal
 // The file is read as soon as read_config(path) is evaluated.
 fun read_config(path : string) : IO<string> =
   #{coal_read_file : string -> string}(path)(fn(s) => return(s))
+```
 
+The C function call reads the file before `return` wraps its result in an action. The file read is therefore not deferred.
+
+To defer the read, put the C function call inside a thunk:
+
+```coal
 // The file is read when the action is run.
 fun read_config(path : string) : IO<string> =
   __defer(fn(_) => #{coal_read_file : string -> string}(path)(fn(s) => s))
 ```
 
-C function calls are ordinary expressions, so this applies to every foreign-backed action. 
-In particular, `return` wraps an already-computed value: used around a call, it defers the value but not the call.
+Now evaluating `read_config(path)` constructs an action without reading the file. The read happens when the action is run.
+
+This applies to C function calls generally: they are ordinary expressions, and evaluating them executes the call. In particular, `return` wraps a value that has already been evaluated; it does not defer the expression that produced it.
+
+For this reason, a function returning `IO<a>` is not automatically effect-free merely because of its return type. Its implementation must ensure that effects intended to be deferred occur inside the suspended computation.
 
 #### The contract
 
-- Building an action performs no effect.
-- Running the same action twice performs its effect twice. Actions are descriptions, not caches — there is no memoization.
-- `let _ = action` does nothing.
-- A foreign callback cannot run an action for you, since C ignores what the callback returns: callbacks should be pure-valued, and should force an action explicitly if they need one.
+- Constructing an action does not execute the effects described by that action.
+- Running an action executes its computation. Running it again executes the computation again; actions do not cache results.
+- Binding an action to an unused variable does not run it. For example, `let _ = action` does not execute `action`.
+- If a C caller ignores a callback's return value, it cannot automatically run an `IO` action returned by that callback. The callback should return an ordinary value; if an action must be run, it must be evaluated explicitly.
 
 #### `unsafe_perform`
 
-The function `unsafe_perform` runs an action immediately, where it appears. 
-This is an escape hatch, not the normal, principled way to sequence effects.
-Reserve this for cases where sequencing is not expressible, since it breaks referential transparency.
+`unsafe_perform` runs an action immediately, at the point where it is called.
 
-<!-- a diagnostic trace inside pure code, process-wide initialisation, or forcing the actions passed into a foreign loop that must run to completion within a single action — and always say why in a comment. 
--->
+This bypasses the normal sequencing model and can break referential transparency: evaluating an expression may perform an effect immediately, rather than merely constructing an action. Use it only when the effect cannot be expressed through ordinary action composition.
 
 ### Monads and pipelining
 
