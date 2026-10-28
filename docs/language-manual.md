@@ -3084,7 +3084,7 @@ fun main() =
 ```
 
 The binding expression in this example creates an action that prints a message, but this action never runs. 
-The action in the body of the let-binding is run by the program entry point.
+The action in the body of the `let`-binding is run by the program entry point.
 
 #### Running an action
 
