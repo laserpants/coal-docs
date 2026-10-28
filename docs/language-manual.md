@@ -3072,10 +3072,10 @@ random          : unit -> IO<double>
 
 ### Deferment
 
-An `IO<a>` expression is a **description of an effect that produces an `a` value** — not the actual value. 
-Building a description performs nothing; the effect happens only when the description is *run*. 
+An `IO<a>` expression is a **description of an effect** that produces an `a` value — not the actual value. 
+Building a description doesn’t perform anything; the effect happens only when the description is *run*. 
 This is what *deferment* means here: the effect is deferred until something asks for it. 
-(A synonym you may see is *suspended*; note that deferred `IO` is not the same as laziness — see "Coal is strict" below.)
+Note that deferred `IO` is not the same as laziness — see "Coal is strict" below.
 
 ```coal
 fun main() =
@@ -3110,7 +3110,8 @@ fun return(v : v) : IO<v>            // an action that produces v and does nothi
 
 #### Coal is strict
 
-`IO` defers *effects*, not evaluation. Coal evaluates expressions eagerly, so the body of a function runs when the function is called. An effect written directly in the body of an `IO`-returning function therefore happens when the function is *called*, not when the action is *run*. To defer it, put it inside the thunk:
+`IO` defers *effects*, not evaluation. Coal evaluates expressions eagerly, so the body of a function runs when the function is called. 
+An effect written directly in the body of an `IO`-returning function therefore happens when the function is called, not when the action is run. To defer it, put it inside the thunk:
 
 ```coal
 // The file is read as soon as read_config(path) is evaluated.
