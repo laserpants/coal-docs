@@ -868,6 +868,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#deferment" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Deferment
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#monads-and-pipelining" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -1884,6 +1895,17 @@
   
     <nav class="md-nav" aria-label="IO">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deferment" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Deferment
+      </span>
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#monads-and-pipelining" class="md-nav__link">
@@ -4596,6 +4618,65 @@ For this situation, we need a different solution.</p>
 <span class="line"><span style="color:#E1E4E8">readln          </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> unit</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#F97583">></span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#E1E4E8">random          </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> unit</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">double</span><span style="color:#F97583">></span></span></code></pre>
+<h3 id="deferment">Deferment</h3>
+<p>An <code>IO&lt;a&gt;</code> expression produces an action that, when run, produces a value of type <code>a</code>. 
+An action’s effects are delayed until it runs, and creating the action doesn’t run it. 
+This is called <em>deferment</em>. Deferment is not the same as laziness. 
+Coal evaluates expressions eagerly, as explained under <strong><a href="#coal-is-strict">Coal is strict</a></strong> below.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> main</span><span style="color:#005CC5">()</span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#D73A49">  let</span><span style="color:#24292E"> unused = </span><span style="color:#6F42C1">IO</span><span style="color:#D73A49">.</span><span style="color:#24292E">println_string(</span><span style="color:#032F62">"never printed"</span><span style="color:#24292E">) </span><span style="color:#D73A49">in</span><span style="color:#6A737D">  // built, never run</span></span>
+<span class="line"><span style="color:#6F42C1">  IO</span><span style="color:#D73A49">.</span><span style="color:#24292E">println_string(</span><span style="color:#032F62">"printed"</span><span style="color:#24292E">)                        </span><span style="color:#6A737D">// run by the program entry point</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> main</span><span style="color:#79B8FF">()</span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#F97583">  let</span><span style="color:#E1E4E8"> unused = </span><span style="color:#B392F0">IO</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">println_string(</span><span style="color:#9ECBFF">"never printed"</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">in</span><span style="color:#6A737D">  // built, never run</span></span>
+<span class="line"><span style="color:#B392F0">  IO</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">println_string(</span><span style="color:#9ECBFF">"printed"</span><span style="color:#E1E4E8">)                        </span><span style="color:#6A737D">// run by the program entry point</span></span></code></pre>
+<p>The binding expression in this example creates an action that prints a message, but this action never runs. 
+The action in the body of the <code>let</code>-binding is run by the program entry point.</p>
+<h4 id="running-an-action">Running an action</h4>
+<p>The program entry point runs the action returned by <code>main</code>. 
+Other actions run only if they are explicitly run or included in an action that eventually runs.</p>
+<p>An action can therefore be stored, passed to a function, returned, run multiple times, or never run at all.</p>
+<h4 id="properties-of-actions">Properties of actions</h4>
+<ul>
+<li><strong>Explicit sequencing.</strong> <code>do</code>-notation and <code>bind</code> specify the order in which actions run.</li>
+<li><strong>First-class actions.</strong> An action is a value that can be passed around like other values. It can be run more than once or not at all.</li>
+<li><strong>Separation of description and execution.</strong> Code can construct an action without running the effects described by it.</li>
+<li><strong>No memoization.</strong> Running an action again runs its computation again; the result of an earlier run is not cached.</li>
+</ul>
+<h4 id="how-actions-are-built">How actions are built</h4>
+<p>The built-in <code>IO</code> module provides the following operations:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> __defer(f </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> unit</span><span style="color:#D73A49"> -></span><span style="color:#24292E"> v) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">v</span><span style="color:#D73A49">></span><span style="color:#6A737D">   // build an action from a suspended computation</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> __eval_io(action </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">v</span><span style="color:#D73A49">></span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#24292E"> v    </span><span style="color:#6A737D">// run one, yielding its result</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> return(v </span><span style="color:#D73A49">:</span><span style="color:#24292E"> v) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">v</span><span style="color:#D73A49">></span><span style="color:#6A737D">            // an action that produces v and does nothing else</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> __defer(f </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> unit</span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> v) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">v</span><span style="color:#F97583">></span><span style="color:#6A737D">   // build an action from a suspended computation</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> __eval_io(action </span><span style="color:#F97583">:</span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">v</span><span style="color:#F97583">></span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> v    </span><span style="color:#6A737D">// run one, yielding its result</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> return(v </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> v) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">v</span><span style="color:#F97583">></span><span style="color:#6A737D">            // an action that produces v and does nothing else</span></span></code></pre>
+<p>Internally, an <code>IO&lt;a&gt;</code> value is represented as a suspended computation of type <code>unit -&gt; a</code>.
+<code>__defer</code> wraps a thunk in an action, and <code>__eval_io</code> runs the suspended computation. 
+<code>unsafe_perform</code> is an alias for <code>__eval_io</code>.</p>
+<h4 id="coal-is-strict">Coal is strict</h4>
+<p>Deferment delays the execution of an action, not the evaluation of expressions used to construct it. Coal evaluates expressions eagerly, so a function body runs when the function is called.</p>
+<p>This distinction matters when an <code>IO</code>-returning function calls a C function. Consider the following implementation:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#6A737D">// The file is read as soon as read_config(path) is evaluated.</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> read_config(path </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> string</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">string</span><span style="color:#D73A49">></span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#24292E">  #{</span><span style="color:#6F42C1">coal_read_file</span><span style="color:#D73A49"> :</span><span style="color:#6F42C1"> string</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> string</span><span style="color:#24292E">}(path)(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(s) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> return(s))</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#6A737D">// The file is read as soon as read_config(path) is evaluated.</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> read_config(path </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#E1E4E8">  #{</span><span style="color:#B392F0">coal_read_file</span><span style="color:#F97583"> :</span><span style="color:#B392F0"> string</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> string</span><span style="color:#E1E4E8">}(path)(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(s) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> return(s))</span></span></code></pre>
+<p>The C function call reads the file before <code>return</code> wraps its result in an action. The file read is therefore not deferred.</p>
+<p>To defer the read, put the C function call inside a thunk:</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#6A737D">// The file is read when the action is run.</span></span>
+<span class="line"><span style="color:#D73A49">fun</span><span style="color:#24292E"> read_config(path </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> string</span><span style="color:#24292E">) </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">string</span><span style="color:#D73A49">></span><span style="color:#24292E"> =</span></span>
+<span class="line"><span style="color:#24292E">  __defer(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(_) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> #{</span><span style="color:#6F42C1">coal_read_file</span><span style="color:#D73A49"> :</span><span style="color:#6F42C1"> string</span><span style="color:#D73A49"> -></span><span style="color:#6F42C1"> string</span><span style="color:#24292E">}(path)(</span><span style="color:#D73A49">fn</span><span style="color:#24292E">(s) </span><span style="color:#D73A49">=></span><span style="color:#24292E"> s))</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#6A737D">// The file is read when the action is run.</span></span>
+<span class="line"><span style="color:#F97583">fun</span><span style="color:#E1E4E8"> read_config(path </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> =</span></span>
+<span class="line"><span style="color:#E1E4E8">  __defer(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(_) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> #{</span><span style="color:#B392F0">coal_read_file</span><span style="color:#F97583"> :</span><span style="color:#B392F0"> string</span><span style="color:#F97583"> -></span><span style="color:#B392F0"> string</span><span style="color:#E1E4E8">}(path)(</span><span style="color:#F97583">fn</span><span style="color:#E1E4E8">(s) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> s))</span></span></code></pre>
+<p>Now evaluating <code>read_config(path)</code> constructs an action without reading the file. The read happens when the action is run.</p>
+<p>This applies to C function calls generally: they are ordinary expressions, and evaluating them executes the call. In particular, <code>return</code> wraps a value that has already been evaluated; it does not defer the expression that produced it.</p>
+<p>For this reason, a function returning <code>IO&lt;a&gt;</code> is not automatically effect-free merely because of its return type. Its implementation must ensure that effects intended to be deferred occur inside the suspended computation.</p>
+<h4 id="the-contract">The contract</h4>
+<ul>
+<li>Constructing an action does not execute the effects described by that action.</li>
+<li>Running an action executes its computation. Running it again executes the computation again; actions do not cache results.</li>
+<li>Binding an action to an unused variable does not run it. For example, <code>let _ = action</code> does not execute <code>action</code>.</li>
+<li>If a C caller ignores a callback's return value, it cannot automatically run an <code>IO</code> action returned by that callback. The callback should return an ordinary value; if an action must be run, it must be evaluated explicitly.</li>
+</ul>
+<p>The function <code>unsafe_perform</code> runs an action immediately, at the point where it is called. This bypasses the normal sequencing model and can break referential transparency: evaluating an expression may perform an effect immediately, rather than merely constructing an action. Use it only when the effect cannot be expressed through ordinary action composition.</p>
 <h3 id="monads-and-pipelining">Monads and pipelining</h3>
 <p>Monads describe how to sequence computations that produce a value along with some contextual information or effect. A <em>monadic</em> function is one of the form:</p>
 <pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">a </span><span style="color:#D73A49">-></span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">b</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">a </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">b</span><span style="color:#F97583">></span></span></code></pre>

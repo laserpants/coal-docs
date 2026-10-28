@@ -722,6 +722,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#__defer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>__defer</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#println_string" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -942,6 +953,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#unsafe_perform" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>unsafe_perform</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#fileioresult" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -1051,6 +1073,15 @@ external environment, such as printing to standard output, reading
 from standard input, and reading/writing/removing files. All I/O
 operations are wrapped in the <code>IO</code> type to maintain purity in the
 language.</p>
+<hr />
+<h3 id="__defer"><code>__defer</code></h3>
+<p>Suspend a computation as an IO action.</p>
+<p>Internal primitive that wraps a thunk as an <code>IO</code> action. The thunk is not
+run until the action is forced with <code>__eval_io</code>; every IO action in this
+module is built with it. This is the introduction form for the <code>IO</code> type.</p>
+<p>Defined before its uses below: a forward reference would leave the
+definition's inferred type unresolved.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">__defer </span><span style="color:#D73A49">:</span><span style="color:#24292E"> (</span><span style="color:#005CC5">unit</span><span style="color:#D73A49"> -></span><span style="color:#24292E"> v) </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">v</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">__defer </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">unit</span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> v) </span><span style="color:#F97583">-></span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">v</span><span style="color:#F97583">></span></span></code></pre>
 <hr />
 <h3 id="println_string"><code>println_string</code></h3>
 <p>Print a string followed by a newline.</p>
@@ -1168,6 +1199,18 @@ wrapped value of type <code>v</code>. This is the eliminator for the <code>IO</c
 <p>Wrap the given value in an IO action that, when evaluated, produces
 that value. This is the introduction form for the <code>IO</code> type.</p>
 <pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">return </span><span style="color:#D73A49">:</span><span style="color:#24292E"> v </span><span style="color:#D73A49">-></span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">v</span><span style="color:#D73A49">></span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">return </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> v </span><span style="color:#F97583">-></span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">v</span><span style="color:#F97583">></span></span></code></pre>
+<hr />
+<h3 id="unsafe_perform"><code>unsafe_perform</code></h3>
+<p>Run an IO action immediately, in the current evaluation context.</p>
+<p>This is the escape hatch for forcing an action where monadic sequencing
+is not available: for example a debug trace inside a pure function, or a
+<code>let _ = ...</code> binding that is used purely for its side effect.</p>
+<p>It is <code>unsafePerformIO</code>. It breaks referential transparency, so it must
+only ever be used for diagnostics, never for program logic, and it must
+carry a comment saying why proper sequencing is not possible. Prefer
+<code>do</code>-notation, <code>bind</code> or <code>and_then</code> whenever the enclosing computation is
+already in <code>IO</code>.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">unsafe_perform </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> IO</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#24292E"> a</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">unsafe_perform </span><span style="color:#F97583">:</span><span style="color:#B392F0"> IO</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> a</span></span></code></pre>
 <hr />
 <h3 id="fileioresult"><code>FileIOResult</code></h3>
 <p><span class="badge badge-primary">type</span></p>
