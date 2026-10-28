@@ -3070,6 +3070,71 @@ readln          : unit -> IO<string>
 random          : unit -> IO<double>
 ```
 
+### Deferment
+
+An `IO<a>` expression is a **description of an effect that produces an `a` value** — not the actual value. 
+Building a description performs nothing; the effect happens only when the description is *run*. 
+This is what *deferment* means here: the effect is deferred until something asks for it. 
+(A synonym you may see is *suspended*; note that deferred `IO` is not the same as laziness — see "Coal is strict" below.)
+
+```coal
+fun main() =
+  do {
+    let unused = IO.println_string("never printed");  // built, never run
+    IO.println_string("printed");                     // run by the program entry point
+  }
+```
+
+`do`-notation and `bind` *sequence* actions: they build a new action that runs the earlier ones first. They do not run anything themselves.
+
+#### Running an action
+
+Exactly one action is run automatically — the one `main` returns, when the program starts. Every other action runs because it was sequenced into that one. `unsafe_perform(action)` runs an action immediately, where it appears; it is an escape hatch (below), not the normal, principled way to sequence effects.
+
+#### Why IO is deferred
+
+- **Purity.** A function whose result type is `IO<a>` is a pure function: calling it performs no effect, and it always builds the same description. Effects live in the actions, and the type tells you where they are.
+- **Ordering.** Effects happen in the order the actions are *run*, which `do`/`bind` states explicitly — not in the order expressions happen to be evaluated.
+- **Actions are first-class.** An action can be passed, stored, returned, run twice, or never run. An action that is never run has no effect at all.
+- **No surprises.** If you didn’t run it, it didn’t happen.
+
+#### How actions are built
+
+```coal
+fun __defer(f : unit -> v) : IO<v>   // build an action from a suspended computation
+fun __eval_io(action : IO<v>) : v    // run one, yielding its result
+fun return(v : v) : IO<v>            // an action that produces v and does nothing else
+```
+
+`IO<a>` is represented as a suspended computation of type `unit -> a`, so `__defer` wraps a thunk and `__eval_io` runs it. `unsafe_perform` is `__eval_io`.
+
+#### Coal is strict
+
+`IO` defers *effects*, not evaluation. Coal evaluates expressions eagerly, so the body of a function runs when the function is called. An effect written directly in the body of an `IO`-returning function therefore happens when the function is *called*, not when the action is *run*. To defer it, put it inside the thunk:
+
+```coal
+// The file is read as soon as read_config(path) is evaluated.
+fun read_config(path : string) : IO<string> =
+  #{coal_read_file : string -> string}(path)(fn(s) => return(s))
+
+// The file is read when the action is run.
+fun read_config(path : string) : IO<string> =
+  __defer(fn(_) => #{coal_read_file : string -> string}(path)(fn(s) => s))
+```
+
+Foreign calls are ordinary expressions, so this applies to every foreign-backed action. In particular, `return` wraps an already-computed value: used around a call, it defers the value but not the call.
+
+#### The contract
+
+- Building an action performs no effect.
+- Running the same action twice performs its effect twice. Actions are descriptions, not caches — there is no memoisation.
+- `let _ = action` does nothing.
+- A foreign callback cannot run an action for you, since C ignores what the callback returns: callbacks should be pure-valued, and should force an action explicitly if they need one.
+
+#### `unsafe_perform`
+
+`unsafe_perform` runs an action immediately, where it appears. It breaks referential transparency, so reserve it for cases where sequencing is not expressible — a diagnostic trace inside pure code, process-wide initialisation, or forcing the actions passed into a foreign loop that must run to completion within a single action — and always say why in a comment.
+
 ### Monads and pipelining
 
 Monads describe how to sequence computations that produce a value along with some contextual information or effect. A *monadic* function is one of the form:
