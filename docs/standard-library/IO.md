@@ -10,6 +10,23 @@ language.
 
 ---
 
+### `__defer`
+
+Suspend a computation as an IO action.
+
+Internal primitive that wraps a thunk as an `IO` action. The thunk is not
+run until the action is forced with `__eval_io`; every IO action in this
+module is built with it. This is the introduction form for the `IO` type.
+
+Defined before its uses below: a forward reference would leave the
+definition's inferred type unresolved.
+
+```coal
+__defer : (unit -> v) -> IO<v>
+```
+
+---
+
 ### `println_string`
 
 Print a string followed by a newline.
@@ -263,6 +280,26 @@ that value. This is the introduction form for the `IO` type.
 
 ```coal
 return : v -> IO<v>
+```
+
+---
+
+### `unsafe_perform`
+
+Run an IO action immediately, in the current evaluation context.
+
+This is the escape hatch for forcing an action where monadic sequencing
+is not available: for example a debug trace inside a pure function, or a
+`let _ = ...` binding that is used purely for its side effect.
+
+It is `unsafePerformIO`. It breaks referential transparency, so it must
+only ever be used for diagnostics, never for program logic, and it must
+carry a comment saying why proper sequencing is not possible. Prefer
+`do`-notation, `bind` or `and_then` whenever the enclosing computation is
+already in `IO`.
+
+```coal
+unsafe_perform : IO<a> -> a
 ```
 
 ---
