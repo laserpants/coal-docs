@@ -3072,10 +3072,10 @@ random          : unit -> IO<double>
 
 ### Deferment
 
-An `IO<a>` expression is a **description of an effect** that produces an `a` value — not the actual value. 
-Building a description doesn’t perform anything; the effect happens only when the description is *run*. 
-This is what *deferment* means here: the effect is deferred until something asks for it. 
-Note that deferred `IO` is not the same as laziness — see "Coal is strict" below.
+An `IO<a>` expression produces an action that, when run, produces a value of type `a`. Creating the action does not run it; its effects are delayed until the action is run.
+This is called *deferment*.
+
+Deferment is not the same as laziness. Coal evaluates expressions eagerly, as explained under **[Coal is strict](#coal-is-strict)** below.
 
 ```coal
 fun main() =
@@ -3089,9 +3089,10 @@ fun main() =
 
 #### Running an action
 
-Exactly one action is run automatically — the one `main` returns, when the program starts. Every other action runs because it was sequenced into that one. `unsafe_perform(action)` runs an action immediately, where it appears; it is an escape hatch (below), not the normal, principled way to sequence effects.
+The only action that runs automatically is the one `main` returns, which happens when the program starts. 
+Every other action runs because it was sequenced into `main`. 
 
-#### Why IO is deferred
+#### Properties 
 
 - **Purity.** A function whose result type is `IO<a>` is a pure function: calling it performs no effect, and it always builds the same description. Effects live in the actions, and the type tells you where they are.
 - **Ordering.** Effects happen in the order the actions are *run*, which `do`/`bind` states explicitly — not in the order expressions happen to be evaluated.
@@ -3123,18 +3124,24 @@ fun read_config(path : string) : IO<string> =
   __defer(fn(_) => #{coal_read_file : string -> string}(path)(fn(s) => s))
 ```
 
-Foreign calls are ordinary expressions, so this applies to every foreign-backed action. In particular, `return` wraps an already-computed value: used around a call, it defers the value but not the call.
+C function calls are ordinary expressions, so this applies to every foreign-backed action. 
+In particular, `return` wraps an already-computed value: used around a call, it defers the value but not the call.
 
 #### The contract
 
 - Building an action performs no effect.
-- Running the same action twice performs its effect twice. Actions are descriptions, not caches — there is no memoisation.
+- Running the same action twice performs its effect twice. Actions are descriptions, not caches — there is no memoization.
 - `let _ = action` does nothing.
 - A foreign callback cannot run an action for you, since C ignores what the callback returns: callbacks should be pure-valued, and should force an action explicitly if they need one.
 
 #### `unsafe_perform`
 
-`unsafe_perform` runs an action immediately, where it appears. It breaks referential transparency, so reserve it for cases where sequencing is not expressible — a diagnostic trace inside pure code, process-wide initialisation, or forcing the actions passed into a foreign loop that must run to completion within a single action — and always say why in a comment.
+The function `unsafe_perform` runs an action immediately, where it appears. 
+This is an escape hatch, not the normal, principled way to sequence effects.
+Reserve this for cases where sequencing is not expressible, since it breaks referential transparency.
+
+<!-- a diagnostic trace inside pure code, process-wide initialisation, or forcing the actions passed into a foreign loop that must run to completion within a single action — and always say why in a comment. 
+-->
 
 ### Monads and pipelining
 
