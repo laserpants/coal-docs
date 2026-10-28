@@ -3072,25 +3072,30 @@ random          : unit -> IO<double>
 
 ### Deferment
 
-An `IO<a>` expression produces an action that, when run, produces a value of type `a`. Creating the action does not run it; its effects are delayed until the action is run.
-This is called *deferment*.
-
-Deferment is not the same as laziness. Coal evaluates expressions eagerly, as explained under **[Coal is strict](#coal-is-strict)** below.
+An `IO<a>` expression produces an action that, when run, produces a value of type `a`. 
+An action’s effects are delayed until it runs, and creating the action doesn’t run it. 
+This is called *deferment*. Deferment is not the same as laziness. 
+Coal evaluates expressions eagerly, as explained under **[Coal is strict](#coal-is-strict)** below.
 
 ```coal
 fun main() =
-  do {
-    let unused = IO.println_string("never printed");  // built, never run
-    IO.println_string("printed");                     // run by the program entry point
-  }
+  let unused = IO.println_string("never printed") in  // built, never run
+  IO.println_string("printed")                        // run by the program entry point
 ```
 
-`do`-notation and `bind` *sequence* actions: they build a new action that runs the earlier ones first. They do not run anything themselves.
+The expression in the body of the let-binding creates an action that prints a message, but this action never runs. 
+The second action is returned by `main` and run by the program entry point.
+
+Monadic `do`-notation and `bind` compose actions into one larger action. 
+They specify the order in which effects occur when that action is run. 
+They do not, by themselves, execute those effects.
 
 #### Running an action
 
-The only action that runs automatically is the one `main` returns, which happens when the program starts. 
-Every other action runs because it was sequenced into `main`. 
+The program entry point runs the action returned by `main`. 
+Other actions run only when they are explicitly evaluated or composed into another action that is eventually run.
+
+An action can therefore be stored, passed to a function, returned, run multiple times, or never run at all.
 
 #### Properties 
 
@@ -3101,13 +3106,17 @@ Every other action runs because it was sequenced into `main`.
 
 #### How actions are built
 
+The built-in `IO` module provides the following operations:
+
 ```coal
 fun __defer(f : unit -> v) : IO<v>   // build an action from a suspended computation
 fun __eval_io(action : IO<v>) : v    // run one, yielding its result
 fun return(v : v) : IO<v>            // an action that produces v and does nothing else
 ```
 
-`IO<a>` is represented as a suspended computation of type `unit -> a`, so `__defer` wraps a thunk and `__eval_io` runs it. `unsafe_perform` is `__eval_io`.
+An `IO<a>` value is represented as a suspended computation of type `unit -> a`. 
+`__defer` wraps a thunk in an action, and `__eval_io` runs the suspended computation. 
+`unsafe_perform` is an alias for `__eval_io`.
 
 #### Coal is strict
 
