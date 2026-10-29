@@ -18,9 +18,6 @@ Internal primitive that wraps a thunk as an `IO` action. The thunk is not
 run until the action is forced with `__eval_io`; every IO action in this
 module is built with it. This is the introduction form for the `IO` type.
 
-Defined before its uses below: a forward reference would leave the
-definition's inferred type unresolved.
-
 ```coal
 __defer : (unit -> v) -> IO<v>
 ```
