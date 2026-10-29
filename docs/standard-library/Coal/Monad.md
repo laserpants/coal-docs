@@ -39,20 +39,20 @@ and_then : (a -> m<b>) -> m<a> -> m<b> with (Monad<m>)
 
 ---
 
-### `and_eval`
+### `and_always`
 
-`and_eval` is `then_do` with its arguments flipped: the second action is
+`and_always` is `then_do` with its arguments flipped: the second action is
 evaluated first, and the first is returned.
 
 ```coal
-and_eval : m<b> -> m<a> -> m<a> with (Monad<m>)
+and_always : m<b> -> m<a> -> m<a> with (Monad<m>)
 ```
 
 ---
 
 ### `and_return`
 
-`and_return` is `and_eval` composed with `pure`: it runs the given monadic
+`and_return` is `and_always` composed with `pure`: it runs the given monadic
 action, discarding its result, and returns the given pure value.
 
 ```coal

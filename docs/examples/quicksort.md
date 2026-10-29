@@ -61,7 +61,7 @@ module Main {
 
   import Qsort(sort)
   import IO(return)
-  import Coal.Monad(and_eval)
+  import Coal.Monad(and_always)
   
   import namespace IO
 
@@ -70,7 +70,7 @@ module Main {
       | [] =>
           return()
       | m :: @next =>
-          IO.println_int32(m) |. and_eval(next)
+          IO.println_int32(m) |. and_always(next)
     }
 
   fun main() = 
