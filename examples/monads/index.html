@@ -983,7 +983,7 @@
 <span class="line"></span>
 <span class="line"><span style="color:#D73A49">  import</span><span style="color:#D73A49"> namespace</span><span style="color:#6F42C1"> IO</span></span>
 <span class="line"><span style="color:#D73A49">  import</span><span style="color:#D73A49"> namespace</span><span style="color:#6F42C1"> List</span></span>
-<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Monad</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Monad</span><span style="color:#24292E">, and_then, and_eval)</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Monad</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Monad</span><span style="color:#24292E">, and_then, and_always)</span></span>
 <span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Functor</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Functor</span><span style="color:#24292E">)</span></span>
 <span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Applicative</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Applicative</span><span style="color:#24292E">)</span></span>
 <span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Monoid</span><span style="color:#24292E">(</span><span style="color:#6F42C1">Monoid</span><span style="color:#24292E">)</span></span>
@@ -1032,16 +1032,16 @@
 <span class="line"></span>
 <span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> test_writer</span><span style="color:#005CC5">()</span><span style="color:#D73A49"> :</span><span style="color:#6F42C1"> Writer</span><span style="color:#D73A49">&#x3C;</span><span style="color:#6F42C1">List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">string</span><span style="color:#D73A49">></span><span style="color:#24292E">, </span><span style="color:#005CC5">int32</span><span style="color:#D73A49">></span><span style="color:#24292E"> =</span></span>
 <span class="line"><span style="color:#24292E">    tell([</span><span style="color:#032F62">"one"</span><span style="color:#24292E">])</span></span>
-<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E"> and_eval(tell([</span><span style="color:#032F62">"two"</span><span style="color:#24292E">]))</span></span>
-<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E"> and_eval(tell([</span><span style="color:#032F62">"three"</span><span style="color:#24292E">]))</span></span>
-<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E"> and_eval(pure(</span><span style="color:#005CC5">100</span><span style="color:#24292E">))</span></span>
+<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E"> and_always(tell([</span><span style="color:#032F62">"two"</span><span style="color:#24292E">]))</span></span>
+<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E"> and_always(tell([</span><span style="color:#032F62">"three"</span><span style="color:#24292E">]))</span></span>
+<span class="line"><span style="color:#D73A49">      |.</span><span style="color:#24292E"> and_always(pure(</span><span style="color:#005CC5">100</span><span style="color:#24292E">))</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> print_msgs(msgs </span><span style="color:#D73A49">:</span><span style="color:#6F42C1"> List</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">string</span><span style="color:#D73A49">></span><span style="color:#24292E">) =</span></span>
 <span class="line"><span style="color:#D73A49">    fold</span><span style="color:#24292E">(msgs) {</span></span>
 <span class="line"><span style="color:#D73A49">      |</span><span style="color:#24292E"> [] </span><span style="color:#D73A49">=></span><span style="color:#24292E"> </span></span>
 <span class="line"><span style="color:#24292E">          return()</span></span>
 <span class="line"><span style="color:#D73A49">      |</span><span style="color:#24292E"> m </span><span style="color:#D73A49">::</span><span style="color:#24292E"> @next </span><span style="color:#D73A49">=></span></span>
-<span class="line"><span style="color:#6F42C1">          IO</span><span style="color:#D73A49">.</span><span style="color:#24292E">println_string(m) </span><span style="color:#D73A49">|.</span><span style="color:#24292E"> and_eval(next)</span></span>
+<span class="line"><span style="color:#6F42C1">          IO</span><span style="color:#D73A49">.</span><span style="color:#24292E">println_string(m) </span><span style="color:#D73A49">|.</span><span style="color:#24292E"> and_always(next)</span></span>
 <span class="line"><span style="color:#24292E">    }</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> main</span><span style="color:#005CC5">()</span><span style="color:#24292E"> =</span></span>
@@ -1053,7 +1053,7 @@
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">  import</span><span style="color:#F97583"> namespace</span><span style="color:#B392F0"> IO</span></span>
 <span class="line"><span style="color:#F97583">  import</span><span style="color:#F97583"> namespace</span><span style="color:#B392F0"> List</span></span>
-<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Monad</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Monad</span><span style="color:#E1E4E8">, and_then, and_eval)</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Monad</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Monad</span><span style="color:#E1E4E8">, and_then, and_always)</span></span>
 <span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Functor</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Functor</span><span style="color:#E1E4E8">)</span></span>
 <span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Applicative</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Applicative</span><span style="color:#E1E4E8">)</span></span>
 <span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Monoid</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Monoid</span><span style="color:#E1E4E8">)</span></span>
@@ -1102,16 +1102,16 @@
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> test_writer</span><span style="color:#79B8FF">()</span><span style="color:#F97583"> :</span><span style="color:#B392F0"> Writer</span><span style="color:#F97583">&#x3C;</span><span style="color:#B392F0">List</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#F97583">></span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">int32</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> =</span></span>
 <span class="line"><span style="color:#E1E4E8">    tell([</span><span style="color:#9ECBFF">"one"</span><span style="color:#E1E4E8">])</span></span>
-<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8"> and_eval(tell([</span><span style="color:#9ECBFF">"two"</span><span style="color:#E1E4E8">]))</span></span>
-<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8"> and_eval(tell([</span><span style="color:#9ECBFF">"three"</span><span style="color:#E1E4E8">]))</span></span>
-<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8"> and_eval(pure(</span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8"> and_always(tell([</span><span style="color:#9ECBFF">"two"</span><span style="color:#E1E4E8">]))</span></span>
+<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8"> and_always(tell([</span><span style="color:#9ECBFF">"three"</span><span style="color:#E1E4E8">]))</span></span>
+<span class="line"><span style="color:#F97583">      |.</span><span style="color:#E1E4E8"> and_always(pure(</span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">))</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> print_msgs(msgs </span><span style="color:#F97583">:</span><span style="color:#B392F0"> List</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#F97583">></span><span style="color:#E1E4E8">) =</span></span>
 <span class="line"><span style="color:#F97583">    fold</span><span style="color:#E1E4E8">(msgs) {</span></span>
 <span class="line"><span style="color:#F97583">      |</span><span style="color:#E1E4E8"> [] </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> </span></span>
 <span class="line"><span style="color:#E1E4E8">          return()</span></span>
 <span class="line"><span style="color:#F97583">      |</span><span style="color:#E1E4E8"> m </span><span style="color:#F97583">::</span><span style="color:#E1E4E8"> @next </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#B392F0">          IO</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">println_string(m) </span><span style="color:#F97583">|.</span><span style="color:#E1E4E8"> and_eval(next)</span></span>
+<span class="line"><span style="color:#B392F0">          IO</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">println_string(m) </span><span style="color:#F97583">|.</span><span style="color:#E1E4E8"> and_always(next)</span></span>
 <span class="line"><span style="color:#E1E4E8">    }</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> main</span><span style="color:#79B8FF">()</span><span style="color:#E1E4E8"> =</span></span>

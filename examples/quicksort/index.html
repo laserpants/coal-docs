@@ -832,7 +832,7 @@
 <span class="line"></span>
 <span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Qsort</span><span style="color:#24292E">(sort)</span></span>
 <span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> IO</span><span style="color:#24292E">(return)</span></span>
-<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Monad</span><span style="color:#24292E">(and_eval)</span></span>
+<span class="line"><span style="color:#D73A49">  import</span><span style="color:#6F42C1"> Coal</span><span style="color:#D73A49">.</span><span style="color:#6F42C1">Monad</span><span style="color:#24292E">(and_always)</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#D73A49">  import</span><span style="color:#D73A49"> namespace</span><span style="color:#6F42C1"> IO</span></span>
 <span class="line"></span>
@@ -841,7 +841,7 @@
 <span class="line"><span style="color:#D73A49">      |</span><span style="color:#24292E"> [] </span><span style="color:#D73A49">=></span></span>
 <span class="line"><span style="color:#24292E">          return()</span></span>
 <span class="line"><span style="color:#D73A49">      |</span><span style="color:#24292E"> m </span><span style="color:#D73A49">::</span><span style="color:#24292E"> @next </span><span style="color:#D73A49">=></span></span>
-<span class="line"><span style="color:#6F42C1">          IO</span><span style="color:#D73A49">.</span><span style="color:#24292E">println_int32(m) </span><span style="color:#D73A49">|.</span><span style="color:#24292E"> and_eval(next)</span></span>
+<span class="line"><span style="color:#6F42C1">          IO</span><span style="color:#D73A49">.</span><span style="color:#24292E">println_int32(m) </span><span style="color:#D73A49">|.</span><span style="color:#24292E"> and_always(next)</span></span>
 <span class="line"><span style="color:#24292E">    }</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#D73A49">  fun</span><span style="color:#24292E"> main</span><span style="color:#005CC5">()</span><span style="color:#24292E"> = </span></span>
@@ -853,7 +853,7 @@
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Qsort</span><span style="color:#E1E4E8">(sort)</span></span>
 <span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> IO</span><span style="color:#E1E4E8">(return)</span></span>
-<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Monad</span><span style="color:#E1E4E8">(and_eval)</span></span>
+<span class="line"><span style="color:#F97583">  import</span><span style="color:#B392F0"> Coal</span><span style="color:#F97583">.</span><span style="color:#B392F0">Monad</span><span style="color:#E1E4E8">(and_always)</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">  import</span><span style="color:#F97583"> namespace</span><span style="color:#B392F0"> IO</span></span>
 <span class="line"></span>
@@ -862,7 +862,7 @@
 <span class="line"><span style="color:#F97583">      |</span><span style="color:#E1E4E8"> [] </span><span style="color:#F97583">=></span></span>
 <span class="line"><span style="color:#E1E4E8">          return()</span></span>
 <span class="line"><span style="color:#F97583">      |</span><span style="color:#E1E4E8"> m </span><span style="color:#F97583">::</span><span style="color:#E1E4E8"> @next </span><span style="color:#F97583">=></span></span>
-<span class="line"><span style="color:#B392F0">          IO</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">println_int32(m) </span><span style="color:#F97583">|.</span><span style="color:#E1E4E8"> and_eval(next)</span></span>
+<span class="line"><span style="color:#B392F0">          IO</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">println_int32(m) </span><span style="color:#F97583">|.</span><span style="color:#E1E4E8"> and_always(next)</span></span>
 <span class="line"><span style="color:#E1E4E8">    }</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">  fun</span><span style="color:#E1E4E8"> main</span><span style="color:#79B8FF">()</span><span style="color:#E1E4E8"> = </span></span>
