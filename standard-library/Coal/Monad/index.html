@@ -787,6 +787,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#only_when" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>only_when</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unless" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>unless</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -840,6 +862,17 @@ action, discarding its result, and returns the given pure value.</p>
 <code>m&lt;m&lt;a&gt;&gt;</code> into <code>m&lt;a&gt;</code>. It is equivalent to <code>bind</code> with the identity
 function.</p>
 <pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">join </span><span style="color:#D73A49">:</span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">>></span><span style="color:#D73A49"> -></span><span style="color:#24292E"> m</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">a</span><span style="color:#D73A49">></span><span style="color:#D73A49"> with</span><span style="color:#24292E"> (</span><span style="color:#6F42C1">Monad</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">m</span><span style="color:#D73A49">></span><span style="color:#24292E">)</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">join </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">>></span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> m</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">a</span><span style="color:#F97583">></span><span style="color:#F97583"> with</span><span style="color:#E1E4E8"> (</span><span style="color:#B392F0">Monad</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">m</span><span style="color:#F97583">></span><span style="color:#E1E4E8">)</span></span></code></pre>
+<hr />
+<h3 id="only_when"><code>only_when</code></h3>
+<p><code>only_when</code> conditionally executes an applicative action: it returns the given
+action when the predicate is <code>true</code>, and an action that produces <code>()</code> (and
+so has no effect) otherwise.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">only_when </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> bool</span><span style="color:#D73A49"> -></span><span style="color:#24292E"> f</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">unit</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#24292E"> f</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">unit</span><span style="color:#D73A49">></span><span style="color:#D73A49"> with</span><span style="color:#24292E"> (</span><span style="color:#6F42C1">Applicative</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">f</span><span style="color:#D73A49">></span><span style="color:#24292E">)</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">only_when </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> bool</span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> f</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">unit</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> f</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">unit</span><span style="color:#F97583">></span><span style="color:#F97583"> with</span><span style="color:#E1E4E8"> (</span><span style="color:#B392F0">Applicative</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">f</span><span style="color:#F97583">></span><span style="color:#E1E4E8">)</span></span></code></pre>
+<hr />
+<h3 id="unless"><code>unless</code></h3>
+<p><code>unless</code> is the negation of <code>only_when</code>: it runs the given applicative
+action only when the predicate is <code>false</code>, and does nothing otherwise.</p>
+<pre class="language-coal"><code class="language-coal language-coal-light"><span class="line"><span style="color:#24292E">unless </span><span style="color:#D73A49">:</span><span style="color:#005CC5"> bool</span><span style="color:#D73A49"> -></span><span style="color:#24292E"> f</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">unit</span><span style="color:#D73A49">></span><span style="color:#D73A49"> -></span><span style="color:#24292E"> f</span><span style="color:#D73A49">&#x3C;</span><span style="color:#005CC5">unit</span><span style="color:#D73A49">></span><span style="color:#D73A49"> with</span><span style="color:#24292E"> (</span><span style="color:#6F42C1">Applicative</span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E">f</span><span style="color:#D73A49">></span><span style="color:#24292E">)</span></span></code><code class="language-coal language-coal-dark"><span class="line"><span style="color:#E1E4E8">unless </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> bool</span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> f</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">unit</span><span style="color:#F97583">></span><span style="color:#F97583"> -></span><span style="color:#E1E4E8"> f</span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF">unit</span><span style="color:#F97583">></span><span style="color:#F97583"> with</span><span style="color:#E1E4E8"> (</span><span style="color:#B392F0">Applicative</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">f</span><span style="color:#F97583">></span><span style="color:#E1E4E8">)</span></span></code></pre>
 
 
 
