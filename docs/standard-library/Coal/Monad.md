@@ -70,3 +70,26 @@ function.
 ```coal
 join : m<m<a>> -> m<a> with (Monad<m>)
 ```
+
+---
+
+### `only_when`
+
+`only_when` conditionally executes an applicative action: it returns the given
+action when the predicate is `true`, and an action that produces `()` (and
+so has no effect) otherwise.
+
+```coal
+only_when : bool -> f<unit> -> f<unit> with (Applicative<f>)
+```
+
+---
+
+### `unless`
+
+`unless` is the negation of `only_when`: it runs the given applicative
+action only when the predicate is `false`, and does nothing otherwise.
+
+```coal
+unless : bool -> f<unit> -> f<unit> with (Applicative<f>)
+```

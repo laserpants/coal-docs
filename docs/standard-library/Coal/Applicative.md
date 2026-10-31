@@ -25,3 +25,14 @@ wrapped values.
 ```coal
 map2 : (p -> q -> r) -> f<p> -> f<q> -> f<r> with (Applicative<f>, Functor<f>)
 ```
+
+---
+
+### `traverse_list`
+
+`traverse_list` applies an applicative-producing function to every element
+of a list and combines the results into a single wrapped list.
+
+```coal
+traverse_list : (a -> f<b>) -> List<a> -> f<List<b>> with (Applicative<f>)
+```

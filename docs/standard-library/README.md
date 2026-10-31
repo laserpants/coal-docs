@@ -7,6 +7,7 @@ This documentation is automatically generated from the source code.
 - [`Coal.Combinators`](Coal/Combinators.md)
 - [`Coal.Functor`](Coal/Functor.md)
 - [`Coal.Monad`](Coal/Monad.md)
+- [`Coal.Monad.Free`](Coal/Monad/Free.md)
 - [`Coal.Monoid`](Coal/Monoid.md)
 - [`Codata.Machine`](Codata/Machine.md)
 - [`Codata.Stream`](Codata/Stream.md)
