@@ -3218,6 +3218,17 @@ Within a `do` block:
 
 - Statements are separated by semicolons
 - The `<-` operator binds the result of a monadic computation to a variable
+- A statement of the form `name = expr;` introduces a pure `let` binding, making `name` available to the statements that follow it
 - The final expression in the block determines the overall result
 
-This is syntactic sugar for the `and_then` chains shown earlier. Each `<-` binding corresponds to a call to `and_then`, extracting the value from the monadic context and making it available to subsequent statements.
+The `=` form is convenient for naming intermediate values without invoking the monad:
+
+```coal
+do {
+  s <- readln();
+  greeting = "Hello, " +++ s +++ "!";
+  println_string(greeting);
+}
+```
+
+This is syntactic sugar for the `and_then` chains shown earlier. Each `<-` binding corresponds to a call to `and_then`, extracting the value from the monadic context and making it available to subsequent statements. A `name = expr;` statement, by contrast, desugars to an ordinary `let`-binding (`let name = expr in ...`) inside the continuation, so it performs no monadic sequencing of its own.
