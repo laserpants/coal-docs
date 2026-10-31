@@ -3202,7 +3202,7 @@ This pipeline first prints a prompt, then reads a line of input, and finally pri
 
 ### Do-notation
 
-Monads and the bind-operator allude to a way of structuring programs similar to imperative programming. Taking this a step further, `do`-notation was introduced in Haskell to allow a more readable syntax.
+Monads and the bind-operator allude to a way of structuring programs similar to imperative programming. Taking this a step further, `do`-notation was first introduced in Haskell to allow a more readable syntax.
 
 Coal supports `do`-notation for sequencing monadic operations. The same example from above can be written more concisely as:
 
