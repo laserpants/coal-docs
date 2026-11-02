@@ -1309,15 +1309,17 @@ fun head(list : List<a>) : Option<a> =
 The `Result` type represents computations that may either succeed or fail. It is similar to `Either` in Haskell: 
 
 ```coal
-type Result<r, e>
+type Result<e, r>
   = Ok(r)
   | Err(e)
 ```
 
-A value of type `Result<r, e>` is one of:
+A value of type `Result<e, r>` is one of:
 
 - `Ok(r)`, indicating a successful outcome carrying a result value of type `r`, or
 - `Err(e)`, indicating a failure carrying an error value of type `e`. 
+
+The error type is the first parameter, mirroring the `Either e a` type in Haskell. Keeping the error type fixed in the first position means that `Result<e>` is a type constructor of kind `* -> *`, just like `Option`. This allows `Result` to provide `Functor`, `Applicative`, and `Monad` instances that map over (or bind) the success value while leaving the error type unchanged.
 
 #### Example
 
@@ -1352,7 +1354,7 @@ module Main {
 The type of `read_file` is:
 
 ```coal
-read_file : string -> IO<Result<string, FileIOError>>
+read_file : string -> IO<Result<FileIOError, string>>
 ```
 
 ### Tuples
@@ -3062,7 +3064,7 @@ print_float     : float -> IO<unit>
 println_double  : double -> IO<unit>
 print_double    : double -> IO<unit>
 
-read_file       : string -> IO<Result<string, FileError>>
+read_file       : string -> IO<Result<FileError, string>>
 write_file      : string -> string -> IO<unit>
 
 readln          : unit -> IO<string>

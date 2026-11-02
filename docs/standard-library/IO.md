@@ -339,7 +339,7 @@ and return the result wrapped in `IO`. On success the result is
 `Ok(string)`; on failure it is `Err(FileIOError)`.
 
 ```coal
-read_file : string -> IO<Result<string, FileIOError>>
+read_file : string -> IO<Result<FileIOError, string>>
 ```
 
 ---
