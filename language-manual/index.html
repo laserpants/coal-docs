@@ -3026,7 +3026,6 @@ Therefore, if the input list is empty, then we have nothing to look at. <code>Op
 <li><code>Ok(r)</code>, indicating a successful outcome carrying a result value of type <code>r</code>, or</li>
 <li><code>Err(e)</code>, indicating a failure carrying an error value of type <code>e</code>. </li>
 </ul>
-<p>The error type is the first parameter, mirroring the <code>Either e a</code> type in Haskell. Keeping the error type fixed in the first position means that <code>Result&lt;e&gt;</code> is a type constructor of kind <code>* -&gt; *</code>, just like <code>Option</code>. This allows <code>Result</code> to provide <code>Functor</code>, <code>Applicative</code>, and <code>Monad</code> instances that map over (or bind) the success value while leaving the error type unchanged.</p>
 <h4 id="example">Example</h4>
 <p>This example shows how <code>Result</code> is used in the return type of <code>read_file</code> from 
 the <code>IO</code>-package to handle errors when reading a file from the file system.</p>
